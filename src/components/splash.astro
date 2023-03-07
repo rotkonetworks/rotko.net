@@ -1,7 +1,7 @@
 ---
 import { Picture } from "@astrojs/image/components";
 import { Icon } from "astro-icon";
-import astronautImage from "~/assets/astronaut.png";
+import rotkoboyImage from "~/assets/rotkoboy.webp";
 import HeroImage from "~/components/hero-image.astro";
 import Starfield from "~/components/starfield.astro";
 import GitHubCorner from "./github-corner.astro";
@@ -24,9 +24,9 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
       <div
         class="gradient-text text-center font-extrabold tracking-tighter text-8xl"
       >
-        Build fast
-        <br /> websites,
-        <br /> faster.
+        Infrastructure
+        <br /> faster,
+        <br /> more.
       </div>
     </h2>
     <div
@@ -35,11 +35,11 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
     >
       <Picture
         class="object-cover w-full h-full"
-        src={astronautImage}
+        src={rotkoboyImage}
         widths={widths}
         sizes={sizes}
         loading="eager"
-        alt="A floating astronaut in a space suit"
+        alt="A floating rotkoboy in a engineer suit"
       />
     </div>
   </div>
