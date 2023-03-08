@@ -1,5 +1,6 @@
 ---
 import ContentSection from "~/components/content-section.astro";
+import ContactForm from "~/components/contact-form.astro";
 ---
 
 <ContentSection title="Contact" id="contact">
@@ -11,15 +12,20 @@ import ContentSection from "~/components/content-section.astro";
     >. We're here to help!
   </Fragment>
   <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-    <div class="rounded-lg bg-white p-6 shadow-lg">
+    <div class="rounded-lg bg-blue-200 p-6 shadow-lg lg:p-12">
       <h3 class="mb-2 font-bold text-lg">Tallinn Office</h3>
-      <ul class="mb-2 list-inside list-disc">
-        <li class="mb-2 text-gray-600">Rotko Networks OU</li>
-        <li class="mb-2 text-gray-600">
-          Address: Akadeemia tee 21-4, 12618 Tallinn, Estonia
-        </li>
-        <li class="text-gray-600">Email: tommi@rotko.net</li>
+      <!-- hide points in li -->
+      <ul class="mb-2 list-none text-gray-800">
+        <li class="mb-2">Rotko Networks OU</li>
+        <li>Akadeemia tee 21-4</li>
+        <li>Tallinn, 12618</li>
+        <li>Estonia</li>
       </ul>
+    </div>
+    <div>
+      <div class="rounded-lg bg-blue-200 p-6 shadow-lg">
+        <ContactForm />
+      </div>
     </div>
   </div>
 </ContentSection>
