@@ -5,16 +5,15 @@ import ContactForm from "~/components/contact-form.astro";
 
 <ContentSection title="Contact" id="contact">
   <Fragment slot="lead">
-    At <span class="text-primary">Rotko Networks</span>, we're committed to
-    providing the best possible support for all your Web3 needs. If you have any
-    questions, comments, or concerns, please don't hesitate <span
-      class="text-primary">to reach out to us</span
-    >. We're here to help!
+    At <span class="text-primary">Rotko Networks</span>, we're dedicated to
+    delivering top-notch support for all your web hosting needs.
+    Whether you have questions, comments, or concerns, please don't hesitate <span
+    class="text-primary">to reach out to us</span
+    >. Our team of experts is here to help you every step of the way!
   </Fragment>
   <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
     <div class="rounded-lg bg-blue-200 p-6 shadow-lg lg:p-12">
-      <h3 class="mb-2 font-bold text-lg">Tallinn Office</h3>
-      <!-- hide points in li -->
+      <h3 class="mb-2 font-bold text-lg">Tallinn Headquarters</h3>
       <ul class="mb-2 list-none text-gray-800">
         <li class="mb-2">Rotko Networks OU</li>
         <li>Akadeemia tee 21-4</li>
@@ -22,10 +21,19 @@ import ContactForm from "~/components/contact-form.astro";
         <li>Estonia</li>
       </ul>
     </div>
-    <div>
+    <div class="rounded-lg bg-blue-200 p-6 shadow-lg lg:p-12">
+      <h3 class="mb-2 font-bold text-lg">London Office</h3>
+      <ul class="mb-2 list-none text-gray-800">
+        <li class="mb-2">Rotko Networks Ltd</li>
+        <li>PO Box 6945</li>
+        <li>Unit 120820</li>
+        <li>London, W1A 6US</li>
+      </ul>
+    </div>
+  </div>
+  <div class="w-full mt-8 md:max-w-2xl mx-auto">
       <div class="rounded-lg bg-blue-200 p-6 shadow-lg">
         <ContactForm />
       </div>
     </div>
-  </div>
 </ContentSection>
