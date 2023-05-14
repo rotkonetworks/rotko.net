@@ -1,20 +1,40 @@
 ---
 import { Icon } from "astro-icon";
 import ContentSection from "~/components/content-section.astro";
+import { Picture } from "@astrojs/image/components";
+import serverSkotti from "~/assets/server-skotti.webp";
+const widths = [450, 800];
+const sizes = "(min-width: 640px) 42vw, 67vw";
 ---
-
 <ContentSection title="Validator as a service" id="intro">
   <Icon slot="eyebrow" name="logomark" class="h-32" />
-  <Fragment slot="lead">
-    We provide you with effortless and instant validator deployment for the
-    blockchain of your choice with a simple user interface including service
-    control and monitoring. Updates are configured to be automatic, done in a
-    seamless fashion without downtime as long as the blockchain offers session
-    key swapping. True
-    <span class="text-primary">decentralization</span> requires <span
-      class="text-primary">powerful tools</span
-    > that anyone is able to use.
-  </Fragment>
+ <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+    <div
+      id="serverskotti"
+      class="order-2 md:order-1 w-2/3 max-w-3xl self-start sm:w-10/12 sm:self-auto sm:justify-self-start"
+    >
+      <Picture
+        class="h-full w-full object-cover"
+        src={serverSkotti}
+        widths={widths}
+        sizes={sizes}
+        loading="eager"
+        alt="A floating Skotti with our hardware"
+      />
+    </div>
+    <div class="order-1 md:order-2">
+      <p class="max-w-xl text-center md:text-right font-extrabold text-xl md:text-2xl">
+        <Fragment slot="lead">
+          Experience a revolution in validator deployment, tailored to the blockchain of your preference.
+          Our intuitive interface fuses service control and monitoring, fostering a seamless environment
+          for optimal validator management. Through automatic updates and session key swapping capabilities,
+          we minimize downtime and preserve the integrity of the decentralized network. Discover a world
+          where cutting-edge <span class="text-primary">technology</span> meets unparalleled
+          <span class="text-primary">usability</span>, empowering everyone to partake in the decentralized future.
+        </Fragment>
+      </p>
+    </div>
+  </div>
   <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
     <a
       href="https://rotko.net/docs"
