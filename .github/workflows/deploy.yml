@@ -16,37 +16,34 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
+      - name: Get latest mdBook release
+        id: get-mdbook
+        run: |
+          curl --silent "https://api.github.com/repos/rust-lang/mdBook/releases/latest" |
+          jq -r .tag_name > mdbook-version
+          echo "mdbook_version=$(cat mdbook-version)" >> $GITHUB_ENV
 
-      - name: Cache Rust target directory
-        uses: actions/cache@v2
-        with:
-          path: target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-
+      - name: Download mdBook
+        run: |
+          curl -sSLo mdbook.tar.gz "https://github.com/rust-lang/mdBook/releases/download/${{ env.mdbook_version }}/mdbook-${{ env.mdbook_version }}-x86_64-unknown-linux-gnu.tar.gz"
+          tar xf mdbook.tar.gz
+          chmod +x mdbook
 
       - name: Build mdBook
         run: |
-          cargo install mdbook
-          mdbook build docs
+          ./mdbook build docs
+
+      - name: Get latest Node.js release
+        id: get-node
+        run: |
+          curl --silent "https://api.github.com/repos/nodejs/node/releases/latest" |
+          jq -r .tag_name > node-version
+          echo "node_version=$(cat node-version)" >> $GITHUB_ENV
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
-
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.yarn
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          node-version: '${{ env.node_version }}'
 
       - name: Install and build Astro project
         run: |
@@ -57,10 +54,6 @@ jobs:
         run: |
           mkdir -p dist/docs
           mv docs/book/* dist/docs/
-
-      - name: Check dist directory content
-        run: |
-          ls -R dist
 
   deploy:
     needs: build
