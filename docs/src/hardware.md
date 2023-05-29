@@ -63,10 +63,11 @@ processing, resulting in more efficient and responsive system performance. Our m
 demonstrated impressive low-latency performance in our extensive testing.
 
 ##### Test results
-
+```
 |----------+----------------+-------------+-------------+-------------------|
 |  Memory  | Copy | 22.24 GiBs | 14.32 GiBs |        ✅ Pass (155.3 %)      |
 |----------+----------------+-------------+-------------+-------------------|
+```
 
 These results speak volumes about the high-quality performance offered by our chosen
 memory modules. Their low latency will ensure that data is processed rapidly and efficiently,
@@ -92,12 +93,13 @@ infrastructure. Their presence will enable faster data access, reduce latency, a
 ensure a seamless experience in our network operations.
 
 ##### Test results
-
+```
 |----------+----------------+-------------+-------------+-------------------|
 | Disk     | Seq Write      | 2.56 GiBs   | 450.00 MiBs | ✅ Pass (582.0 %) |
 |----------+----------------+-------------+-------------+-------------------|
 | Disk     | Rnd Write      | 1.05 GiBs   | 200.00 MiBs | ✅ Pass (535.3 %) |
 +----------+----------------+-------------+-------------+-------------------+
+```
 
 IOPS 745388.087064
 99.99th Percentile Read Latency: 310 ns
