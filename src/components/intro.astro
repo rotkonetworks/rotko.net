@@ -11,15 +11,15 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
     <div
       id="serverskotti"
-      class="order-2 md:order-1 w-2/3 max-w-3xl self-start sm:w-10/12 sm:self-auto sm:justify-self-start"
+      class="order-2 md:order-1 w-full md:w-2/3 max-w-3xl self-center"
     >
       <Picture
-        class="h-full w-full object-cover"
+        class="inset-0 h-full w-full object-cover"
         src={serverSkotti}
         widths={widths}
         sizes={sizes}
         loading="eager"
-        alt="A floating Skotti with our hardware"
+        alt="Skotti with our hardware"
       />
     </div>
     <div class="order-1 md:order-2">
@@ -41,14 +41,14 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
       class="flex items-center justify-center gap-3 border-2 border-current px-6 py-4"
     >
       <Icon pack="mdi" name="telescope" class="h-8" />
-      <span>Explore our infra</span>
+      <span>Explore infra docs</span>
     </a>
     <a
-      href="https://deploy.rotko.net/"
-      class="flex items-center justify-center gap-3 border-2 border-blue-500 px-6 py-4 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition-colors duration-300"
+      href="#"
+      class="flex items-center justify-center gap-3 border-2 border-current px-6 py-4 cursor-not-allowed bg-gray-300 text-gray-500"
     >
-      <svg class="h-8 fill-current"></svg>
-      <span class="text-lg font-bold">Deploy your node</span>
+      <Icon pack="mdi" name="publish" class="h-8" />
+      <span>Deploy your node</span>
     </a>
   </div>
 </ContentSection>

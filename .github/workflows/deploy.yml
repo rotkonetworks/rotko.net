@@ -13,42 +13,42 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: 
+      image: archlinux:latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Get latest mdBook release
-        id: get-mdbook
+      - name: Install Dependencies
         run: |
-          curl --silent "https://api.github.com/repos/rust-lang/mdBook/releases/latest" |
-          jq -r .tag_name > mdbook-version
-          echo "mdbook_version=$(cat mdbook-version)" >> $GITHUB_ENV
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm rustup nodejs npm jq curl git tar gzip
 
-      - name: Download mdBook
+      - name: Setup Rust
         run: |
-          curl -sSLo mdbook.tar.gz "https://github.com/rust-lang/mdBook/releases/download/${{ env.mdbook_version }}/mdbook-${{ env.mdbook_version }}-x86_64-unknown-linux-gnu.tar.gz"
-          tar xf mdbook.tar.gz
-          chmod +x mdbook
+          rustup install stable
+          rustup default stable
+
+      - name: Download and setup mdBook
+        run: |
+          LATEST_RELEASE=$(curl -s https://api.github.com/repos/rust-lang/mdBook/releases/latest | jq -r ".tag_name")
+          curl -LO "https://github.com/rust-lang/mdBook/releases/download/${LATEST_RELEASE}/mdbook-${LATEST_RELEASE}-x86_64-unknown-linux-gnu.tar.gz"
+          tar xzf mdbook-${LATEST_RELEASE}-x86_64-unknown-linux-gnu.tar.gz -C /usr/local/bin
 
       - name: Build mdBook
         run: |
-          ./mdbook build docs
-
-      - name: Get latest Node.js release
-        id: get-node
-        run: |
-          curl --silent "https://api.github.com/repos/nodejs/node/releases/latest" |
-          jq -r .tag_name > node-version
-          echo "node_version=$(cat node-version)" >> $GITHUB_ENV
+          mdbook build docs
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '${{ env.node_version }}'
+        run: |
+          LATEST_NODE=$(curl -s https://api.github.com/repos/nodejs/node/releases/latest | jq -r ".tag_name")
+          curl -LO "https://nodejs.org/dist/${LATEST_NODE}/node-${LATEST_NODE}-linux-x64.tar.gz"
+          tar xzf node-${LATEST_NODE}-linux-x64.tar.gz
+          export PATH=$PATH:$(pwd)/node-${LATEST_NODE}-linux-x64/bin
 
       - name: Install and build Astro project
         run: |
-          yarn install
-          yarn build
+          npm install
+          npm run build
 
       - name: Move mdBook to Astro docs folder
         run: |
