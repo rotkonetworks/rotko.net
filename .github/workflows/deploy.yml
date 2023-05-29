@@ -22,6 +22,14 @@ jobs:
           profile: minimal
           toolchain: stable
 
+      - name: Cache Rust target directory
+        uses: actions/cache@v2
+        with:
+          path: target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
       - name: Build mdBook
         run: |
           cargo install mdbook
@@ -32,6 +40,14 @@ jobs:
         with:
           node-version: '16'
 
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
       - name: Install and build Astro project
         run: |
           yarn install
@@ -39,7 +55,7 @@ jobs:
 
       - name: Move mdBook to Astro docs folder
         run: |
-          mkdir dist/docs
+          mkdir -p dist/docs
           mv docs/book/* dist/docs/
 
   deploy:
@@ -53,5 +69,6 @@ jobs:
         id: deployment
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.GH_PAT }}
           publish_dir: ./dist
+
