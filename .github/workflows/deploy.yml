@@ -55,13 +55,33 @@ jobs:
           mkdir -p dist/docs
           mv docs/book/* dist/docs/
 
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: website
+          path: dist/
+
   deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+      needs: build
+      runs-on: ubuntu-latest
+      environment:
+        name: github-pages
+        url: ${{ steps.deployment.outputs.page_url }}
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - name: Download artifacts
+          uses: actions/download-artifact@v2
+          with:
+            name: website
+            path: dist/
+
+        - name: Deploy to GitHub Pages
+          id: deployment
+          uses: actions/deploy-pages@v1
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            target-branch: 'gh-pages'
+            keep-history: true
+            path: dist/
