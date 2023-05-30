@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
@@ -11,12 +11,13 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     container: 
       image: archlinux:latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
       - name: Install Dependencies
         run: |
@@ -54,34 +55,9 @@ jobs:
         run: |
           mkdir -p dist/docs
           mv docs/book/* dist/docs/
-
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v2
+          
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: website
-          path: dist/
-
-  deploy:
-      needs: build
-      runs-on: ubuntu-latest
-      environment:
-        name: github-pages
-        url: ${{ steps.deployment.outputs.page_url }}
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3
-
-        - name: Download artifacts
-          uses: actions/download-artifact@v2
-          with:
-            name: website
-            path: dist/
-
-        - name: Deploy to GitHub Pages
-          id: deployment
-          uses: actions/deploy-pages@v1
-          with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            target-branch: 'gh-pages'
-            keep-history: true
-            path: dist/
+          github_token: ${{ secrets.GH_PAT }}
+          publish_dir: ./dist
