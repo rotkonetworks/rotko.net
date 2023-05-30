@@ -1,0 +1,377 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>rotko infra</title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">3.</strong> Networking</a></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">4.</strong> Software</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">rotko infra</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="rotko-networks-infrastructure"><a class="header" href="#rotko-networks-infrastructure">Rotko Networks Infrastructure</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>Rotko Networks is committed to being a part of the Polkadot Infrastructure Program.
+Our goal is to provide highly reliable and efficient infrastructure that empowers the development
+and deployment of decentralized applications within the Polkadot ecosystem. Our infrastructure combines
+robust hardware and software components to deliver optimal performance.</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="hardware"><a class="header" href="#hardware">Hardware</a></h2>
+<h3 id="bootnode"><a class="header" href="#bootnode">Bootnode</a></h3>
+<h4 id="cpu"><a class="header" href="#cpu">CPU</a></h4>
+<p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x">AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5</a></p>
+<p>The Ryzen 9 7950X has a 16-core, 32-thread architecture, which excels at multi-threading processes,
+a crucial requirement for blockchain operations. This CPU supports PCI Express® 5.0 and DDR5 memory,
+both delivering exceptional data transfer and data retrieval speeds, key for efficient blockchain transactions.</p>
+<p>With its large 64MB L3 cache, rapid data access is facilitated, a boon for swift
+data manipulations typical in blockchain operations.
+Moreover, this CPU has shown excellent performance in cryptographic operations,
+scoring 1.59 GiBs in BLAKE2-256 and 822.88 KiBs in SR25519-Verify, surpassing Polkadot's
+current requirements by 158.2% and 123.6%, respectively. These high scores demonstrate its superior
+capacity to handle the essential cryptographic operations of blockchain technology.</p>
+<p>Additionally, this CPU offers flexibility with its overclocking feature, enabling us to scale its performance
+during peak transaction periods. Compatibility with a variety of operating systems offers the freedom to select
+an OS that best aligns with our blockchain infrastructure needs.</p>
+<h5 id="cpu-cooler"><a class="header" href="#cpu-cooler">CPU Cooler</a></h5>
+<p><a href="https://www.aliexpress.com/i/4001296934524.html">TDP95W for 1U server 27mm height 1UA27</a></p>
+<p>High-quality construction, individual wireless induction connection for each fan, and
+the ability to support up to 95 Watts of heat dissipation, offers optimal cooling
+efficiency for our AMD® Ryzen Processor.</p>
+<h4 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h4>
+<p><a href="https://www.amazon.com/dp/B0BXRFHDQT">AsRock Rack B650D4U-2L2T/BCM Micro-ATX Server Motherboard for AMD Ryzen 7000 Series Processors (LGA 1718) B650E PCIe 5.0 Dual 10G LAN</a></p>
+<p>This motherboard is a masterpiece of engineering and design, a testament to AsRock's ability to merge
+the high-performance aspects of the consumer world with the robustness and dependability of
+server-grade hardware. The Rack B650D4U-2L2T is a Micro-ATX motherboard that fully supports DDR5
+ECC UDIMM memories, a feature that provides increased data integrity and system reliability -
+essential elements in server environments.</p>
+<p>Its dual 10G LAN functionality makes it an excellent choice for environments with high network traffic.
+This not only ensures swift and efficient data transfer but also minimizes latency, providing a smooth,
+unbroken service for end users.</p>
+<p>The motherboard comes with full PCIe 5.0 support, which is crucial for tackling demanding tasks
+and ensuring optimal performance. It features an M.2 slot, a x16 slot, and a x4 slot, which provides
+the flexibility to cater to various expansion needs. With the ability to support up to 7 M.2 slots,
+the Rack B650D4U-2L2T is well-suited for high-performance NVMe storage, significantly boosting data
+access and transfer speeds.</p>
+<p>In essence, the AsRock Rack B650D4U-2L2T is an optimal choice that promises a perfect blend of speed,
+reliability, and scalability, capable of serving the demanding needs of modern server applications.</p>
+<h4 id="memory"><a class="header" href="#memory">Memory</a></h4>
+<p><a href="https://www.amazon.com/Server-Memory-Module-4800MHz-MTC20C2085S1EC48BA1R">4x Server Memory Module|MICRON|DDR5|32GB|UDIMM/ECC|4800MHz|CL 40|1.1V|MTC20C2085S1EC48BA1R</a></p>
+<p>Our server setup employs four modules of 32GB DDR5 server memory. These memory modules ensure
+substantial bandwidth, which is paramount in maintaining smooth and efficient server operations.
+Furthermore, these memory modules come equipped with ECC (Error-Correcting Code) technology,
+an invaluable feature that ensures the accuracy and integrity of data, a critical aspect in
+preserving the trustworthiness of our transactions and operations.</p>
+<p>In high-performance computing, latency is as crucial as speed. Lower latency leads to faster data
+processing, resulting in more efficient and responsive system performance. Our memory modules have
+demonstrated impressive low-latency performance in our extensive testing.</p>
+<h5 id="test-results"><a class="header" href="#test-results">Test results</a></h5>
+<pre><code>|----------+----------------+-------------+-------------+-------------------|
+|  Memory  | Copy | 22.24 GiBs | 14.32 GiBs |        ✅ Pass (155.3 %)      |
+|----------+----------------+-------------+-------------+-------------------|
+</code></pre>
+<p>These results speak volumes about the high-quality performance offered by our chosen
+memory modules. Their low latency will ensure that data is processed rapidly and efficiently,
+contributing to the overall performance and responsiveness of our server.</p>
+<h4 id="ssd-expansion-cards"><a class="header" href="#ssd-expansion-cards">SSD Expansion Cards</a></h4>
+<p><a href="">NVMe SSD Expansion Card NVMe PCIe RAID Adapter 4 Ports NVME SSD To PCI-E 4.0 X16 Expansion Card</a></p>
+<p>Our selection of this SSD expansion card is an integral part of our data management strategy.
+The card facilitates the incorporation of state-of-the-art NVMe SSDs, which are renowned for
+their superlative speed and efficiency in storage and data retrieval. By enabling faster
+access to stored data, this card aids in optimizing overall system performance,
+significantly enhancing our server's responsiveness.</p>
+<h4 id="storage"><a class="header" href="#storage">Storage</a></h4>
+<p><a href="https://www.amazon.co.jp/Hanye-%E3%80%90PS5%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%E3%81%BF%E3%80%91-PCIe-Gen4x4-DRAM%E6%90%AD%E8%BC%89/dp/B0B58JXNXG">7x 2TB nvme 7000mb/s</a></p>
+<p>As part of our robust storage solution, we have chosen to implement six 2TB NVMe SSDs.
+Collectively, these drives contribute a sizable 14TB of storage space, facilitating
+expansive data collection and management. Known for their rapid read/write speeds,
+these SSDs play a crucial role in maintaining an efficient and high-performing network
+infrastructure. Their presence will enable faster data access, reduce latency, and
+ensure a seamless experience in our network operations.</p>
+<h5 id="test-results-1"><a class="header" href="#test-results-1">Test results</a></h5>
+<pre><code>|----------+----------------+-------------+-------------+-------------------|
+| Disk     | Seq Write      | 2.56 GiBs   | 450.00 MiBs | ✅ Pass (582.0 %) |
+|----------+----------------+-------------+-------------+-------------------|
+| Disk     | Rnd Write      | 1.05 GiBs   | 200.00 MiBs | ✅ Pass (535.3 %) |
++----------+----------------+-------------+-------------+-------------------+
+</code></pre>
+<p>IOPS 745388.087064
+99.99th Percentile Read Latency: 310 ns</p>
+<h5 id="backup-storage"><a class="header" href="#backup-storage">Backup storage</a></h5>
+<p>Our motherboard has 4x SATA3 slots for harddisks. We could partition small L2ARC cache section
+out of nvme disk and setup 4x16TB harddisks for backups for 800e price range providing us 
+RAIDZ1 48TB backup space for weekly archive backups.</p>
+<h4 id="chassis"><a class="header" href="#chassis">Chassis</a></h4>
+<p>For chassis we first tried fitting the build into 650mm 1U:s but it turned out to be 
+challenging to fit Micro-ATX with ricers to PCI-E x16 and PCI-E x4 so going
+for 2U fit our needs better.</p>
+<h4 id="power-supply-unit"><a class="header" href="#power-supply-unit">Power Supply Unit</a></h4>
+<p><a href="">T.F.SKYWINDINTL 1U MINI Flex ATX Power Supply Unit 400W Modular PSU</a></p>
+<p>Power supply unit is the T.F.SKYWINDINTL 1U MINI Flex ATX 400W PSU.
+This efficient unit comes equipped with a built-in cooling fan and a comprehensive
+range of protective measures, including overcurrent, overvoltage, and
+short-circuit protection. These features augment the stability and dependability
+of our server system. </p>
+<p>The AMD Ryzen 9 7950X, with its Thermal Design Power (TDP) of 170W and peak power
+consumption of 230W for the AM5 socket, requires a resilient and reliable power
+supply unit. Given that the PSU is ideally operated at approximately 50% of its
+maximum capacity during full load for optimum efficiency and durability, the
+T.F.SKYWINDINTL 1U MINI Flex ATX PSU is an apt choice. Rated at 350W, this PSU
+will operate within its most effective efficiency zone while sufficiently catering
+to the power demands of the processor.</p>
+<h4 id="kvm"><a class="header" href="#kvm">KVM</a></h4>
+<p><a href="https://www.aliexpress.com/item/1005003262886521.html">BliKVM CM4 &quot;KVM over IP&quot; Raspberry Pi CM4 HDMI CSI PiKVM v3</a></p>
+<p>A modern, highly secure, and programmable KVM solution running on Arch Linux,
+which provides exceptional control over your server, akin to physical access.
+With an easy build process, it boasts minimal video latency (about 100 ms) and
+a lightweight Web UI accessible from any browser. It emulates mass storage drives
+and allows ATX power management, secure data transmission with SSL, and local
+Raspberry Pi health monitoring. You can also manage GPIO and USB relays via its web interface.
+The PiKVM OS is production-ready, supports a read-only filesystem to prevent memory card damage,
+offers extensible authorization methods, and enables automation with macros.</p>
+<h5 id="features-of-pikvm"><a class="header" href="#features-of-pikvm">Features of PiKVM:</a></h5>
+<ul>
+<li><strong>Fully-featured and modern IP-KVM:</strong> PiKVM is up-to-date with the latest KVM technologies.</li>
+<li><strong>Easy to build:</strong> PiKVM offers ready-to-use OS images and a friendly build environment.</li>
+<li><strong>Low video latency:</strong> With approximately 100 milliseconds of video latency, it provides
+one of the smallest delays of all existing solutions.</li>
+<li><strong>Lightweight Web UI and VNC:</strong> The user interface is accessible through any browser,
+with no proprietary clients required. VNC is also supported.</li>
+<li><strong>Mass Storage Drive Emulation:</strong> On Raspberry Pi 4 and ZeroW, PiKVM can emulate a virtual
+CD-ROM or Flash Drive. A live image can be uploaded to boot the attached server.</li>
+<li><strong>ATX power management:</strong> PiKVM supports simple circuits for controlling the power
+button of the attached server.</li>
+<li><strong>Security:</strong> PiKVM is designed with strong security, using SSL to protect traffic.</li>
+<li><strong>Local monitoring:</strong> PiKVM monitors the health of the Raspberry Pi board and provides
+warnings for potential issues.</li>
+<li><strong>GPIO management:</strong> Control GPIO and USB relays via the web interface.</li>
+<li><strong>Production-ready:</strong> PiKVM OS is based on Arch Linux ARM and can be customized for any needs.</li>
+<li><strong>Read-only filesystem:</strong> The OS runs in read-only mode to prevent damage to the memory
+card due to a sudden power outage.</li>
+<li><strong>Extensible authorization methods:</strong> PiKVM supports integration into existing
+authentication infrastructure.</li>
+<li><strong>Macro scripts:</strong> Repetitive actions can be automated with keyboard &amp; mouse action macros.</li>
+<li><strong>Open &amp; free:</strong> PiKVM is open-source software, released under the GPLv3.</li>
+</ul>
+<h5 id="links"><a class="header" href="#links">Links</a></h5>
+<p><a href="https://docs.pikvm.org/">PiKVM docs</a>
+<a href="https://github.com/pikvm/pikvm">PiKVM github</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="router"><a class="header" href="#router">Router</a></h3>
+<p><a href="https://mikrotik.com/product/ccr2004_16g_2splus">MikroTik Cloud Core Router CCR2004-16G-2S+</a></p>
+<p>The CCR2004 router, part of the illustrious MikroTik series, brings several
+compelling advantages to the table, ensuring optimal low latency networking
+and high throughput suitable for our needs.</p>
+<ul>
+<li>
+<p><strong>Decent Performance:</strong> The router leverages the power of the Annapurna
+Labs Alpine v2 CPU, which has 4x 64-bit ARMv8-A Cortex-A57 cores. This results
+in robust single-core performance, a critical factor when managing operations
+that hinge heavily on per-connection processing.</p>
+</li>
+<li>
+<p><strong>Expansive Bandwidth:</strong> The CCR2004 router is well-equipped with 18 wired
+ports, incorporating 16x Gigabit Ethernet ports and two 10G SFP+ cages,
+providing abundant bandwidth capacity. This specification enables the router
+to efficiently manage high data traffic, thus delivering enhanced throughput.</p>
+</li>
+<li>
+<p><strong>Zero Bottlenecks:</strong> The unique design of the CCR2004 router ensures no data
+flow bottlenecks. Each group of 8 Gigabit Ethernet ports is connected to a
+distinct Marvell Amethyst family switch-chip, each having a separate 10 Gbps
+full-duplex line to the CPU. This structure ensures all ports can operate at
+full wire speed, as long as the CPU can handle the processing, ensuring low
+latency and high throughput.</p>
+</li>
+<li>
+<p><strong>Incredible Single-Core Performance per Watt:</strong> The CCR2004 router offers
+the best single-core performance per watt across all CCR devices. This efficient
+operation results in higher processing power per unit of energy consumed,
+handling a more substantial load, thereby offering low latency and high throughput.</p>
+</li>
+<li>
+<p><strong>Reliability and Durability:</strong> Encased in a classic white 1U rackmount,
+the CCR2004 incorporates built-in dual redundant power supplies. This
+redundancy ensures that even if one power supply falters, the other
+continues operations, promising uninterrupted service.</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="software"><a class="header" href="#software">Software</a></h1>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
