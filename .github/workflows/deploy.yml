@@ -60,7 +60,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      #  url: ${{ steps.deployment.outputs.page_url }}
+      url: https://rotko.net/
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
@@ -68,3 +69,6 @@ jobs:
         with:
           personal_token: ${{ secrets.GH_PAT }}
           publish_dir: ./dist
+
+      - name: Print outputs
+        run: echo "The outputs are ${{ toJson(steps.deployment.outputs) }}"
