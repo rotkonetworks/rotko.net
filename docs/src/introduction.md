@@ -1,6 +1,4 @@
-# Infrastructure automation
-
-## Introduction
+# Introduction
 At Rotko Networks, our commitment to powering the development
 and deployment of decentralized applications within the Web3 ecosystem is
 unwavering. In achieving this, we are dedicated to providing an infrastructure

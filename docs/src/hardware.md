@@ -1,8 +1,8 @@
-## Hardware
+# Hardware
 
-### Bootnode
+## Bootnode
 
-#### CPU
+### CPU
 [AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5](https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x)
 
 The Ryzen 9 7950X has a 16-core, 32-thread architecture with extremely high
@@ -34,23 +34,23 @@ SR25519-Verify tests, thereby surpassing Polkadot's current requirements by
 158.2% and 123.6%, respectively.25519-Verify, surpassing Polkadot's demanding 
 requirements by 158.2% and 123.6%, respectively.
 
-##### CPU Cooler
-
+### CPU Cooler
 [COOLSERVER R64 AM5 Server CPU Cooler](https://aliexpress.com/item/1005004850411911.html)
+
 The COOLSERVER R64 AM5 Server CPU Cooler, with its 4 high-quality heatpipes and
 150W TDP, is perfectly equipped to handle the thermal output of our Ryzen 9
 7950X, even under intensive blockchain workloads. Its robust double ball
 bearing design ensures longevity and reliability in our 24/7 server operations,
 while the 4-pin PWM fan offers energy-efficient, adaptive cooling.
 
-###### Temporary 1U cooler
+#### Temp cooler
 [TDP95W for 1U server 27mm height 1UA27](https://www.aliexpress.com/i/4001296934524.html)
 
 High-quality construction, individual wireless induction connection for each
 fan, and the ability to support up to 95 Watts of heat dissipation. This is
 currently temporary solution until 2U TDP150W cooler arrives.
 
-#### Motherboard
+### Motherboard
 [AsRock Rack B650D4U-2L2T/BCM(LGA 1718) Dual 10G LAN](https://www.amazon.com/dp/B0BXRFHDQT)
 
 This motherboard is a masterpiece of engineering and design, a testament to
@@ -76,7 +76,7 @@ In essence, the AsRock Rack B650D4U-2L2T is an optimal choice that promises a
 perfect blend of speed, reliability, and scalability, capable of serving the
 demanding needs of modern server applications.
 
-#### Memory
+### Memory
 [4x Server Memory Module|MICRON|DDR5|32GB|UDIMM/ECC|4800MHz|CL 40|1.1V|MTC20C2085S1EC48BA1R](https://www.amazon.com/Server-Memory-Module-4800MHz-MTC20C2085S1EC48BA1R)
 
 Our server setup employs four modules of 32GB DDR5 server memory. These memory
@@ -91,7 +91,7 @@ leads to faster data processing, resulting in more efficient and responsive
 system performance. Our memory modules have demonstrated impressive low-latency
 performance in our extensive testing.
 
-##### Test results
+#### Test results
 ```
 |----------+----------------+-------------+-------------+-------------------|
 |  Memory  | Copy | 22.24 GiBs | 14.32 GiBs |        ✅ Pass (155.3 %)      |
@@ -103,7 +103,7 @@ chosen memory modules. Their low latency will ensure that data is processed
 rapidly and efficiently, contributing to the overall performance and
 responsiveness of our server.
 
-#### SSD Expansion Cards
+### SSD Expansion Cards
 [NVMe SSD Expansion Card NVMe PCIe RAID Adapter 4 Ports NVME SSD To PCI-E 4.0 X16 Expansion Card]()
 
 Our selection of this SSD expansion card is an integral part of our data
@@ -113,7 +113,7 @@ storage and data retrieval. By enabling faster access to stored data, this card
 aids in optimizing overall system performance, significantly enhancing our
 server's responsiveness.
 
-#### Storage
+### Storage
 [6x 2TB Hanye ME70 NVMe PCI-E4.0 7200mb/s](https://www.amazon.co.jp/Hanye-%E3%80%90PS5%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%E3%81%BF%E3%80%91-PCIe-Gen4x4-DRAM%E6%90%AD%E8%BC%89/dp/B0B58JXNXG)
 
 Our system utilizes six 2TB High Performance ME70 M.2 NVMe SSDs, offering a
@@ -124,7 +124,7 @@ LDPC (Low Density Parity Check), and DRAM cache for improved response times and
 data integrity - making them an essential asset in our high-demand network
 operations.
 
-##### Test results with 3 cards
+#### Test results with 3 cards
 ```
 |----------+----------------+-------------+-------------+-------------------|
 | Disk     | Seq Write      | 2.56 GiBs   | 450.00 MiBs | ✅ Pass (582.0 %) |
@@ -136,14 +136,14 @@ operations.
 IOPS 745388.087064
 99.99th Percentile Read Latency: 310 ns
 
-##### Backup storage
+#### Backup storage
 
 Our motherboard has 4x SATA3 slots for hard disks. We could partition
 small L2ARC cache section out of nvme disk and setup 4x16TB hard disks for
 backups for 800e price range providing us RAIDZ1 48TB backup space for weekly
 archive backups.
 
-#### Chassis
+### Chassis
 
 We are still in process of finding correct parts to fit this build into 1U chassis,
 but for a first build we decided to go for 550mm 2U chassis due to the
@@ -151,7 +151,7 @@ challenge of fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 so going
 for 2U fit our needs better. These slots are really required to provide
 low latency NVME storage for RPC nodes.
 
-#### Power Supply Unit
+### Power Supply Unit
 [T.F.SKYWINDINTL 1U MINI Flex ATX Power Supply Unit 400W Modular PSU]()
 
 Power supply unit is the T.F.SKYWINDINTL 1U MINI Flex ATX 400W PSU. This
@@ -168,7 +168,7 @@ the T.F.SKYWINDINTL 1U MINI Flex ATX PSU is an apt choice. Rated at 350W, this
 PSU will operate within its most effective efficiency zone while sufficiently
 catering to the power demands of the processor.
 
-#### KVM
+### KVM
 [BliKVM CM4 "KVM over IP" Raspberry Pi CM4 HDMI CSI PiKVM v3](https://www.aliexpress.com/item/1005003262886521.html)
 
 A modern, highly secure, and programmable KVM solution running on Arch Linux,
@@ -181,7 +181,7 @@ via its web interface. The PiKVM OS is production-ready, supports a read-only
 filesystem to prevent memory card damage, offers extensible authorization
 methods, and enables automation with macros.
 
-##### Features of PiKVM:
+#### Features of PiKVM:
 
 - **Fully-featured and modern IP-KVM:** PiKVM is up-to-date with the latest KVM technologies.
 - **Easy to build:** PiKVM offers ready-to-use OS images and a friendly build environment.
@@ -205,6 +205,6 @@ authentication infrastructure.
 - **Macro scripts:** Repetitive actions can be automated with keyboard & mouse action macros.
 - **Open & free:** PiKVM is open-source software, released under the GPLv3.
 
-##### Links
+#### Links
 [PiKVM docs](https://docs.pikvm.org/)
 [PiKVM github](https://github.com/pikvm/pikvm)
