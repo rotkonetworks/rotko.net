@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">3.</strong> Networking</a></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">4.</strong> Software</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">3.</strong> Networking</a></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">4.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="software-setup.html"><strong aria-hidden="true">4.1.</strong> Proxmox setup</a></li><li class="chapter-item expanded "><a href="software-maintenance.html"><strong aria-hidden="true">4.2.</strong> Mainentance</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -391,7 +391,50 @@ redundancy ensures that even if one power supply falters, the other
 continues operations, promising uninterrupted service.</p>
 </li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="software"><a class="header" href="#software">Software</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="software-infrastructure"><a class="header" href="#software-infrastructure">Software Infrastructure</a></h1>
+<p>Our infrastructure leverages several powerful
+technologies and platforms to provide a robust and efficient environment for
+our operations.</p>
+<h2 id="debian"><a class="header" href="#debian">Debian</a></h2>
+<p>Our servers run on Debian, a highly stable and reliable Linux-based operating
+system. Debian provides a strong foundation for our operations, with its wide
+array of packages, excellent package management system, and strong community
+support. Its stability and robustness make it an excellent choice for our
+server environments.</p>
+<h2 id="proxmox-virtual-environment"><a class="header" href="#proxmox-virtual-environment">Proxmox Virtual Environment</a></h2>
+<p>We utilize Proxmox, an open-source server virtualization management solution.
+Proxmox allows us to manage virtual machines, containers, storage, virtualized
+networks, and HA clustering from a single, integrated platform. This is crucial
+in ensuring we have maximum control and efficiency in managing our various
+server processes. We utilize linux 6.1 lts pve kernel.</p>
+<h2 id="lxc-linux-containers"><a class="header" href="#lxc-linux-containers">LXC (Linux Containers)</a></h2>
+<p>We leverage LXC (Linux Containers) to run multiple isolated Linux systems
+(containers) on a single host. This containerization technology provides us
+with lightweight, secure, and performant alternatives to full machine
+virtualization.</p>
+<h2 id="zfs"><a class="header" href="#zfs">ZFS</a></h2>
+<p>ZFS, the Zettabyte File System, is an advanced filesystem and logical volume
+manager. It was designed to overcome many of the major issues found in previous
+designs and is used for storing data in our Proxmox environment. It provides
+robust data protection, supporting high storage capacities and efficient data
+compression, and allows us to create snapshots and clones of our filesystem.</p>
+<h2 id="ansible"><a class="header" href="#ansible">Ansible</a></h2>
+<p>We use Ansible for automation of our system configuration and management tasks.
+Ansible enables us to define and deploy consistent configurations across
+multiple servers, and automate routine maintenance tasks, thus increasing
+efficiency and reducing the risk of errors.</p>
+<h2 id="mikrotik-routeros"><a class="header" href="#mikrotik-routeros">MikroTik RouterOS</a></h2>
+<p>Our network infrastructure relies on MikroTik RouterOS, a robust network
+operating system. This system offers a variety of features such as routing,
+firewall, bandwidth management, wireless access point, backhaul link, hotspot
+gateway, VPN server, and more. This helps us ensure secure, efficient, and
+reliable network operations.</p>
+<p>All these technologies are intertwined, working together to support our
+operations. They are chosen not just for their individual capabilities, but
+also for their compatibility and interoperability, creating an integrated,
+efficient, and reliable software infrastructure.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="proxmox-setup"><a class="header" href="#proxmox-setup">Proxmox setup</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mainentance"><a class="header" href="#mainentance">Mainentance</a></h1>
 
                     </main>
 
