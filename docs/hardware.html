@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html" class="active"><strong aria-hidden="true">2.</strong> Hardware</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">3.</strong> Networking</a></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">4.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="software-setup.html"><strong aria-hidden="true">4.1.</strong> Proxmox setup</a></li><li class="chapter-item expanded "><a href="software-maintenance.html"><strong aria-hidden="true">4.2.</strong> Mainentance</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html" class="active"><strong aria-hidden="true">2.</strong> Hardware</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">3.</strong> Networking</a></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">4.</strong> Software</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -144,9 +144,9 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="hardware"><a class="header" href="#hardware">Hardware</a></h2>
-<h3 id="bootnode"><a class="header" href="#bootnode">Bootnode</a></h3>
-<h4 id="cpu"><a class="header" href="#cpu">CPU</a></h4>
+                        <h1 id="hardware"><a class="header" href="#hardware">Hardware</a></h1>
+<h2 id="bootnode"><a class="header" href="#bootnode">Bootnode</a></h2>
+<h3 id="cpu"><a class="header" href="#cpu">CPU</a></h3>
 <p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x">AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5</a></p>
 <p>The Ryzen 9 7950X has a 16-core, 32-thread architecture with extremely high
 core clock speeds, a crucial requirement for blockchain operations. This CPU
@@ -173,19 +173,19 @@ cryptographic operations, achieving 1.59 GiBs in BLAKE2-256 and 822.88 KiBs in
 SR25519-Verify tests, thereby surpassing Polkadot's current requirements by
 158.2% and 123.6%, respectively.25519-Verify, surpassing Polkadot's demanding 
 requirements by 158.2% and 123.6%, respectively.</p>
-<h5 id="cpu-cooler"><a class="header" href="#cpu-cooler">CPU Cooler</a></h5>
-<p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 AM5 Server CPU Cooler</a>
-The COOLSERVER R64 AM5 Server CPU Cooler, with its 4 high-quality heatpipes and
+<h3 id="cpu-cooler"><a class="header" href="#cpu-cooler">CPU Cooler</a></h3>
+<p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 AM5 Server CPU Cooler</a></p>
+<p>The COOLSERVER R64 AM5 Server CPU Cooler, with its 4 high-quality heatpipes and
 150W TDP, is perfectly equipped to handle the thermal output of our Ryzen 9
 7950X, even under intensive blockchain workloads. Its robust double ball
 bearing design ensures longevity and reliability in our 24/7 server operations,
 while the 4-pin PWM fan offers energy-efficient, adaptive cooling.</p>
-<h6 id="temporary-1u-cooler"><a class="header" href="#temporary-1u-cooler">Temporary 1U cooler</a></h6>
+<h4 id="temp-cooler"><a class="header" href="#temp-cooler">Temp cooler</a></h4>
 <p><a href="https://www.aliexpress.com/i/4001296934524.html">TDP95W for 1U server 27mm height 1UA27</a></p>
 <p>High-quality construction, individual wireless induction connection for each
 fan, and the ability to support up to 95 Watts of heat dissipation. This is
 currently temporary solution until 2U TDP150W cooler arrives.</p>
-<h4 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h4>
+<h3 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h3>
 <p><a href="https://www.amazon.com/dp/B0BXRFHDQT">AsRock Rack B650D4U-2L2T/BCM(LGA 1718) Dual 10G LAN</a></p>
 <p>This motherboard is a masterpiece of engineering and design, a testament to
 AsRock's ability to merge the high-performance aspects of the consumer world
@@ -206,7 +206,7 @@ boosting data access and transfer speeds.</p>
 <p>In essence, the AsRock Rack B650D4U-2L2T is an optimal choice that promises a
 perfect blend of speed, reliability, and scalability, capable of serving the
 demanding needs of modern server applications.</p>
-<h4 id="memory"><a class="header" href="#memory">Memory</a></h4>
+<h3 id="memory"><a class="header" href="#memory">Memory</a></h3>
 <p><a href="https://www.amazon.com/Server-Memory-Module-4800MHz-MTC20C2085S1EC48BA1R">4x Server Memory Module|MICRON|DDR5|32GB|UDIMM/ECC|4800MHz|CL 40|1.1V|MTC20C2085S1EC48BA1R</a></p>
 <p>Our server setup employs four modules of 32GB DDR5 server memory. These memory
 modules ensure substantial bandwidth, which is paramount in maintaining smooth
@@ -218,7 +218,7 @@ preserving the trustworthiness of our transactions and operations.</p>
 leads to faster data processing, resulting in more efficient and responsive
 system performance. Our memory modules have demonstrated impressive low-latency
 performance in our extensive testing.</p>
-<h5 id="test-results"><a class="header" href="#test-results">Test results</a></h5>
+<h4 id="test-results"><a class="header" href="#test-results">Test results</a></h4>
 <pre><code>|----------+----------------+-------------+-------------+-------------------|
 |  Memory  | Copy | 22.24 GiBs | 14.32 GiBs |        ✅ Pass (155.3 %)      |
 |----------+----------------+-------------+-------------+-------------------|
@@ -227,7 +227,7 @@ performance in our extensive testing.</p>
 chosen memory modules. Their low latency will ensure that data is processed
 rapidly and efficiently, contributing to the overall performance and
 responsiveness of our server.</p>
-<h4 id="ssd-expansion-cards"><a class="header" href="#ssd-expansion-cards">SSD Expansion Cards</a></h4>
+<h3 id="ssd-expansion-cards"><a class="header" href="#ssd-expansion-cards">SSD Expansion Cards</a></h3>
 <p><a href="">NVMe SSD Expansion Card NVMe PCIe RAID Adapter 4 Ports NVME SSD To PCI-E 4.0 X16 Expansion Card</a></p>
 <p>Our selection of this SSD expansion card is an integral part of our data
 management strategy. The card facilitates the incorporation of state-of-the-art
@@ -235,7 +235,7 @@ NVMe SSDs, which are renowned for their superlative speed and efficiency in
 storage and data retrieval. By enabling faster access to stored data, this card
 aids in optimizing overall system performance, significantly enhancing our
 server's responsiveness.</p>
-<h4 id="storage"><a class="header" href="#storage">Storage</a></h4>
+<h3 id="storage"><a class="header" href="#storage">Storage</a></h3>
 <p><a href="https://www.amazon.co.jp/Hanye-%E3%80%90PS5%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%E3%81%BF%E3%80%91-PCIe-Gen4x4-DRAM%E6%90%AD%E8%BC%89/dp/B0B58JXNXG">6x 2TB Hanye ME70 NVMe PCI-E4.0 7200mb/s</a></p>
 <p>Our system utilizes six 2TB High Performance ME70 M.2 NVMe SSDs, offering a
 total of 12TB high-speed storage, tailored for professionals needing quick data
@@ -244,7 +244,7 @@ read speeds of 7200 MB/s, combined with a powerful error correction algorithm,
 LDPC (Low Density Parity Check), and DRAM cache for improved response times and
 data integrity - making them an essential asset in our high-demand network
 operations.</p>
-<h5 id="test-results-with-3-cards"><a class="header" href="#test-results-with-3-cards">Test results with 3 cards</a></h5>
+<h4 id="test-results-with-3-cards"><a class="header" href="#test-results-with-3-cards">Test results with 3 cards</a></h4>
 <pre><code>|----------+----------------+-------------+-------------+-------------------|
 | Disk     | Seq Write      | 2.56 GiBs   | 450.00 MiBs | ✅ Pass (582.0 %) |
 |----------+----------------+-------------+-------------+-------------------|
@@ -253,18 +253,18 @@ operations.</p>
 </code></pre>
 <p>IOPS 745388.087064
 99.99th Percentile Read Latency: 310 ns</p>
-<h5 id="backup-storage"><a class="header" href="#backup-storage">Backup storage</a></h5>
+<h4 id="backup-storage"><a class="header" href="#backup-storage">Backup storage</a></h4>
 <p>Our motherboard has 4x SATA3 slots for hard disks. We could partition
 small L2ARC cache section out of nvme disk and setup 4x16TB hard disks for
 backups for 800e price range providing us RAIDZ1 48TB backup space for weekly
 archive backups.</p>
-<h4 id="chassis"><a class="header" href="#chassis">Chassis</a></h4>
+<h3 id="chassis"><a class="header" href="#chassis">Chassis</a></h3>
 <p>We are still in process of finding correct parts to fit this build into 1U chassis,
 but for a first build we decided to go for 550mm 2U chassis due to the
 challenge of fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 so going
 for 2U fit our needs better. These slots are really required to provide
 low latency NVME storage for RPC nodes.</p>
-<h4 id="power-supply-unit"><a class="header" href="#power-supply-unit">Power Supply Unit</a></h4>
+<h3 id="power-supply-unit"><a class="header" href="#power-supply-unit">Power Supply Unit</a></h3>
 <p><a href="">T.F.SKYWINDINTL 1U MINI Flex ATX Power Supply Unit 400W Modular PSU</a></p>
 <p>Power supply unit is the T.F.SKYWINDINTL 1U MINI Flex ATX 400W PSU. This
 efficient unit comes equipped with a built-in cooling fan and a comprehensive
@@ -278,7 +278,7 @@ of its maximum capacity during full load for optimum efficiency and durability,
 the T.F.SKYWINDINTL 1U MINI Flex ATX PSU is an apt choice. Rated at 350W, this
 PSU will operate within its most effective efficiency zone while sufficiently
 catering to the power demands of the processor.</p>
-<h4 id="kvm"><a class="header" href="#kvm">KVM</a></h4>
+<h3 id="kvm"><a class="header" href="#kvm">KVM</a></h3>
 <p><a href="https://www.aliexpress.com/item/1005003262886521.html">BliKVM CM4 &quot;KVM over IP&quot; Raspberry Pi CM4 HDMI CSI PiKVM v3</a></p>
 <p>A modern, highly secure, and programmable KVM solution running on Arch Linux,
 which provides exceptional control over your server, akin to physical access.
@@ -289,7 +289,7 @@ local Raspberry Pi health monitoring. You can also manage GPIO and USB relays
 via its web interface. The PiKVM OS is production-ready, supports a read-only
 filesystem to prevent memory card damage, offers extensible authorization
 methods, and enables automation with macros.</p>
-<h5 id="features-of-pikvm"><a class="header" href="#features-of-pikvm">Features of PiKVM:</a></h5>
+<h4 id="features-of-pikvm"><a class="header" href="#features-of-pikvm">Features of PiKVM:</a></h4>
 <ul>
 <li><strong>Fully-featured and modern IP-KVM:</strong> PiKVM is up-to-date with the latest KVM technologies.</li>
 <li><strong>Easy to build:</strong> PiKVM offers ready-to-use OS images and a friendly build environment.</li>
@@ -313,7 +313,7 @@ authentication infrastructure.</li>
 <li><strong>Macro scripts:</strong> Repetitive actions can be automated with keyboard &amp; mouse action macros.</li>
 <li><strong>Open &amp; free:</strong> PiKVM is open-source software, released under the GPLv3.</li>
 </ul>
-<h5 id="links"><a class="header" href="#links">Links</a></h5>
+<h4 id="links"><a class="header" href="#links">Links</a></h4>
 <p><a href="https://docs.pikvm.org/">PiKVM docs</a>
 <a href="https://github.com/pikvm/pikvm">PiKVM github</a></p>
 
