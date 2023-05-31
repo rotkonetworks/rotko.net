@@ -300,31 +300,19 @@ continues operations, promising uninterrupted service.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="bkk03"><a class="header" href="#bkk03">BKK03</a></h2>
 <h3 id="cpu"><a class="header" href="#cpu">CPU</a></h3>
 <p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x">AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5</a></p>
-<p>The Ryzen 9 7950X has a 16-core, 32-thread architecture with extremely high
-core clock speeds, a crucial requirement for blockchain operations. This CPU
-supports PCI Express® 5.0 and DDR5 memory, both delivering exceptional data
-transfer and data retrieval speeds, key for efficient blockchain transactions.</p>
-<p>With its large 64MB L3 cache, rapid data access is facilitated, a boon for
-swift data manipulations typical in blockchain operations. Moreover, this CPU
-has shown excellent performance in cryptographic operations, scoring 1.59 GiBs
-in BLAKE2-256 and 822.88 KiBs in SRThe Ryzen 9 7950X is a high-performance CPU
-characterized by its 16-core, 32-thread architecture and exceptional core clock
-speeds. In the realm of blockchain operations, these high core clock speeds
-prove more advantageous than a higher number of cores or threads. This is
-because many blockchain applications are not optimized for multi-core
-processing. High core speeds are fundamental for efficient blockchain syncing,
-whereas multiple cores are only needed for running multiple networks and
-providing RPC service.</p>
-<p>This CPU also supports the advanced PCI Express® 5.0 and DDR5 memory, both of
-which contribute to exceptional data transfer and retrieval speeds, a key
-factor in efficient blockchain transactions and low latency service.</p>
-<p>In addition, the Ryzen 9 7950X comes equipped with a large 64MB L3 cache. This
-allows for rapid data access, a boon for swift data manipulations typical in
-blockchain operations. This CPU has also demonstrated impressive performance in
-cryptographic operations, achieving 1.59 GiBs in BLAKE2-256 and 822.88 KiBs in
-SR25519-Verify tests, thereby surpassing Polkadot's current requirements by
-158.2% and 123.6%, respectively.25519-Verify, surpassing Polkadot's demanding 
-requirements by 158.2% and 123.6%, respectively.</p>
+<p>At the core of our server operations sits the impressive AMD Ryzen 9 7950X.
+With a 16-core, it's tailored to manage multiple tasks with ease - enabling
+multiple networks to be run simultaneously. The high core clock speeds are
+paramount in blockchain applications, enabling efficient sync of chains and
+reliable endpoint service.</p>
+<p>Supporting cutting-edge PCI Express® 5.0 and DDR5 memory technologies, this CPU
+ensures rapid data transfer and retrieval - essential for efficient and low
+latency blockchain transactions. Its large 64MB L3 cache further enhances
+performance by allowing quick access to frequently used data.</p>
+<p>The Ryzen 9 7950X excels in cryptographic operations, crucial for blockchain
+processing. Benchmarking at 1.59 GiBs in BLAKE2-256 and 822.88 KiBs in
+SR25519-Verify, it comfortably outperforms Polkadot's stringent requirements,
+reinforcing its suitability for our blockchain-centric operations.</p>
 <h3 id="cpu-cooler"><a class="header" href="#cpu-cooler">CPU Cooler</a></h3>
 <p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 AM5 Server CPU Cooler</a></p>
 <p>The COOLSERVER R64 AM5 Server CPU Cooler, with its 4 high-quality heatpipes and
@@ -411,12 +399,16 @@ small L2ARC cache section out of nvme disk and setup 4x16TB hard disks for
 backups for 800e price range providing us RAIDZ1 48TB backup space for weekly
 archive backups.</p>
 <h3 id="chassis"><a class="header" href="#chassis">Chassis</a></h3>
-<p>https://www.pcgallery.co.th/product/tgc-24550-3-0/
-We are still in process of finding correct parts to fit this build into 1U chassis,
+<p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550 2U</a></p>
+<p>We are still in process of finding correct parts to fit this build into 1U chassis,
 but for a first build we decided to go for 550mm 2U chassis due to the
 challenge of fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 so going
 for 2U fit our needs better. These slots are really required to provide
 low latency NVME storage for RPC nodes.</p>
+<p>TGC-24550-3.0 chassis, a 2U rackmount model providing ample space and
+versatility. It has an efficient airflow design, with a middle fan wall of
+four 80mm fans. This setup ensures steady airflow across essential components,
+effectively mitigating thermal issues under heavy loads.</p>
 <h3 id="power-supply-unit"><a class="header" href="#power-supply-unit">Power Supply Unit</a></h3>
 <p><a href="">T.F.SKYWINDINTL 1U MINI Flex ATX Power Supply Unit 400W Modular PSU</a></p>
 <p>Power supply unit is the T.F.SKYWINDINTL 1U MINI Flex ATX 400W PSU. This
@@ -427,10 +419,9 @@ dependability of our server system. </p>
 <p>The AMD Ryzen 9 7950X, with its Thermal Design Power (TDP) of 170W and peak
 power consumption of 230W for the AM5 socket, requires a resilient and reliable
 power supply unit. Given that the PSU is ideally operated at approximately 50%
-of its maximum capacity during full load for optimum efficiency and durability,
-the T.F.SKYWINDINTL 1U MINI Flex ATX PSU is an apt choice. Rated at 350W, this
-PSU will operate within its most effective efficiency zone while sufficiently
-catering to the power demands of the processor.</p>
+of its maximum capacity during full load for optimum efficiency and durability.
+Rated at 350W, this PSU will operate within its most effective efficiency zone
+while sufficiently catering to the power demands of the processor.</p>
 <h3 id="kvm"><a class="header" href="#kvm">KVM</a></h3>
 <p><a href="https://www.aliexpress.com/item/1005003262886521.html">BliKVM CM4 &quot;KVM over IP&quot; Raspberry Pi CM4 HDMI CSI PiKVM v3</a></p>
 <p>A modern, highly secure, and programmable KVM solution running on Arch Linux,
