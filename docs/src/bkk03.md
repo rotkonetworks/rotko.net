@@ -143,12 +143,18 @@ archive backups.
 
 ### Chassis
 
-https://www.pcgallery.co.th/product/tgc-24550-3-0/
+[TGC-24550 2U](https://www.pcgallery.co.th/product/tgc-24550-3-0/)
+
 We are still in process of finding correct parts to fit this build into 1U chassis,
 but for a first build we decided to go for 550mm 2U chassis due to the
 challenge of fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 so going
 for 2U fit our needs better. These slots are really required to provide
 low latency NVME storage for RPC nodes.
+
+TGC-24550-3.0 chassis, a 2U rackmount model providing ample space and
+versatility. It has an efficient airflow design, with a middle fan wall of
+four 80mm fans. This setup ensures steady airflow across essential components,
+effectively mitigating thermal issues under heavy loads.
 
 ### Power Supply Unit
 [T.F.SKYWINDINTL 1U MINI Flex ATX Power Supply Unit 400W Modular PSU]()
@@ -162,10 +168,9 @@ dependability of our server system.
 The AMD Ryzen 9 7950X, with its Thermal Design Power (TDP) of 170W and peak
 power consumption of 230W for the AM5 socket, requires a resilient and reliable
 power supply unit. Given that the PSU is ideally operated at approximately 50%
-of its maximum capacity during full load for optimum efficiency and durability,
-the T.F.SKYWINDINTL 1U MINI Flex ATX PSU is an apt choice. Rated at 350W, this
-PSU will operate within its most effective efficiency zone while sufficiently
-catering to the power demands of the processor.
+of its maximum capacity during full load for optimum efficiency and durability.
+Rated at 350W, this PSU will operate within its most effective efficiency zone
+while sufficiently catering to the power demands of the processor.
 
 ### KVM
 [BliKVM CM4 "KVM over IP" Raspberry Pi CM4 HDMI CSI PiKVM v3](https://www.aliexpress.com/item/1005003262886521.html)
