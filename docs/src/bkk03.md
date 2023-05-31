@@ -3,34 +3,21 @@
 ### CPU
 [AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5](https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x)
 
-The Ryzen 9 7950X has a 16-core, 32-thread architecture with extremely high
-core clock speeds, a crucial requirement for blockchain operations. This CPU
-supports PCI Express® 5.0 and DDR5 memory, both delivering exceptional data
-transfer and data retrieval speeds, key for efficient blockchain transactions.
+At the core of our server operations sits the impressive AMD Ryzen 9 7950X.
+With a 16-core, it's tailored to manage multiple tasks with ease - enabling
+multiple networks to be run simultaneously. The high core clock speeds are
+paramount in blockchain applications, enabling efficient sync of chains and
+reliable endpoint service.
 
-With its large 64MB L3 cache, rapid data access is facilitated, a boon for
-swift data manipulations typical in blockchain operations. Moreover, this CPU
-has shown excellent performance in cryptographic operations, scoring 1.59 GiBs
-in BLAKE2-256 and 822.88 KiBs in SRThe Ryzen 9 7950X is a high-performance CPU
-characterized by its 16-core, 32-thread architecture and exceptional core clock
-speeds. In the realm of blockchain operations, these high core clock speeds
-prove more advantageous than a higher number of cores or threads. This is
-because many blockchain applications are not optimized for multi-core
-processing. High core speeds are fundamental for efficient blockchain syncing,
-whereas multiple cores are only needed for running multiple networks and
-providing RPC service.
+Supporting cutting-edge PCI Express® 5.0 and DDR5 memory technologies, this CPU
+ensures rapid data transfer and retrieval - essential for efficient and low
+latency blockchain transactions. Its large 64MB L3 cache further enhances
+performance by allowing quick access to frequently used data.
 
-This CPU also supports the advanced PCI Express® 5.0 and DDR5 memory, both of
-which contribute to exceptional data transfer and retrieval speeds, a key
-factor in efficient blockchain transactions and low latency service.
-
-In addition, the Ryzen 9 7950X comes equipped with a large 64MB L3 cache. This
-allows for rapid data access, a boon for swift data manipulations typical in
-blockchain operations. This CPU has also demonstrated impressive performance in
-cryptographic operations, achieving 1.59 GiBs in BLAKE2-256 and 822.88 KiBs in
-SR25519-Verify tests, thereby surpassing Polkadot's current requirements by
-158.2% and 123.6%, respectively.25519-Verify, surpassing Polkadot's demanding 
-requirements by 158.2% and 123.6%, respectively.
+The Ryzen 9 7950X excels in cryptographic operations, crucial for blockchain
+processing. Benchmarking at 1.59 GiBs in BLAKE2-256 and 822.88 KiBs in
+SR25519-Verify, it comfortably outperforms Polkadot's stringent requirements,
+reinforcing its suitability for our blockchain-centric operations.
 
 ### CPU Cooler
 [COOLSERVER R64 AM5 Server CPU Cooler](https://aliexpress.com/item/1005004850411911.html)
