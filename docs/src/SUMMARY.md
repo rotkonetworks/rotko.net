@@ -6,3 +6,5 @@
   - [Networking](./networking.md)
   - [BKK03](./bkk03.md)
 - [Software](./software.md)
+  - [Validator As A Service](./VAAS.md)
+- [Team](./team.md)
