@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk03.html" class="active"><strong aria-hidden="true">2.3.</strong> BKK03</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk03.html" class="active"><strong aria-hidden="true">2.3.</strong> BKK03</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -146,6 +146,8 @@
                     <main>
                         <h2 id="bkk03"><a class="header" href="#bkk03">BKK03</a></h2>
 <h3 id="cpu"><a class="header" href="#cpu">CPU</a></h3>
+<img src="images/bkk03/amdryzen9-2.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
+<img src="images/bkk03/amdryzen9.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
 <p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x">AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5</a></p>
 <p>At the core of our server operations sits the impressive AMD Ryzen 9 7950X.
 With a 16-core, it's tailored to manage multiple tasks with ease - enabling
@@ -167,12 +169,14 @@ reinforcing its suitability for our blockchain-centric operations.</p>
 7950X, even under intensive blockchain workloads. Its robust double ball
 bearing design ensures longevity and reliability in our 24/7 server operations,
 while the 4-pin PWM fan offers energy-efficient, adaptive cooling.</p>
-<h4 id="temp-cooler"><a class="header" href="#temp-cooler">Temp cooler</a></h4>
+<h4 id="temporary-cooler"><a class="header" href="#temporary-cooler">Temporary cooler</a></h4>
 <p><a href="https://www.aliexpress.com/i/4001296934524.html">TDP95W for 1U server 27mm height 1UA27</a></p>
 <p>High-quality construction, individual wireless induction connection for each
 fan, and the ability to support up to 95 Watts of heat dissipation. This is
 currently temporary solution until 2U TDP150W cooler arrives.</p>
 <h3 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h3>
+<img src="images/bkk03/asrockrack.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
+<img src="images/bkk03/asrockrack-2.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
 <p><a href="https://www.amazon.com/dp/B0BXRFHDQT">AsRock Rack B650D4U-2L2T/BCM(LGA 1718) Dual 10G LAN</a></p>
 <p>This motherboard is a masterpiece of engineering and design, a testament to
 AsRock's ability to merge the high-performance aspects of the consumer world
@@ -247,11 +251,11 @@ backups for 800e price range providing us RAIDZ1 48TB backup space for weekly
 archive backups.</p>
 <h3 id="chassis"><a class="header" href="#chassis">Chassis</a></h3>
 <p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550 2U</a></p>
-<p>We are still in process of finding correct parts to fit this build into 1U chassis,
-but for a first build we decided to go for 550mm 2U chassis due to the
-challenge of fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 so going
-for 2U fit our needs better. These slots are really required to provide
-low latency NVME storage for RPC nodes.</p>
+<p>We are still in process of designing correct parts for a 1U chassis build, so
+for the first build we decided to go for 550mm 2U chassis. The challenge of
+fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 as well as 170W TDP
+cooling solution into 1U is not that trivial. These slots are really required
+to provide low latency NVME storage for RPC nodes.</p>
 <p>TGC-24550-3.0 chassis, a 2U rackmount model providing ample space and
 versatility. It has an efficient airflow design, with a middle fan wall of
 four 80mm fans. This setup ensures steady airflow across essential components,

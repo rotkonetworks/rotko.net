@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.3.</strong> BKK03</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.3.</strong> BKK03</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -252,6 +252,7 @@ operational environment. </p>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="networking"><a class="header" href="#networking">Networking</a></h1>
 <h2 id="bandwidth"><a class="header" href="#bandwidth">Bandwidth</a></h2>
+<img src="images/networking/bandwidth.webp" alt="Scaling bandwidth" style="width: 100%; margin-top: 2em; object-fit: cover;">
 <p>Dedicated bandwidth connection, providing up to 200Mbps for international
 direct land-line and under-sea connections. This service extends all the way to
 Singapore, ensuring latency below 30ms. This speed is critical for RPC endpoint
@@ -259,6 +260,7 @@ provider operations, where timely data transfer is a crucial success factor.
 The provision to scale up our bandwidth capabilities offers us the flexibility
 to match our growing needs without compromising on the quality of service.</p>
 <h2 id="router"><a class="header" href="#router">Router</a></h2>
+<img src="images/networking/mikrotik.webp" alt="Mikrotik Cloud Core Router" style="width: 100%; margin-top: 2em; object-fit: cover;">
 <p><a href="https://mikrotik.com/product/ccr2004_16g_2splus">MikroTik Cloud Core Router CCR2004-16G-2S+</a></p>
 <p>The CCR2004 router, part of the illustrious MikroTik series, brings several
 compelling advantages to the table, ensuring optimal low latency networking
@@ -299,6 +301,8 @@ continues operations, promising uninterrupted service.</p>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="bkk03"><a class="header" href="#bkk03">BKK03</a></h2>
 <h3 id="cpu"><a class="header" href="#cpu">CPU</a></h3>
+<img src="images/bkk03/amdryzen9-2.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
+<img src="images/bkk03/amdryzen9.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
 <p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x">AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5</a></p>
 <p>At the core of our server operations sits the impressive AMD Ryzen 9 7950X.
 With a 16-core, it's tailored to manage multiple tasks with ease - enabling
@@ -320,12 +324,14 @@ reinforcing its suitability for our blockchain-centric operations.</p>
 7950X, even under intensive blockchain workloads. Its robust double ball
 bearing design ensures longevity and reliability in our 24/7 server operations,
 while the 4-pin PWM fan offers energy-efficient, adaptive cooling.</p>
-<h4 id="temp-cooler"><a class="header" href="#temp-cooler">Temp cooler</a></h4>
+<h4 id="temporary-cooler"><a class="header" href="#temporary-cooler">Temporary cooler</a></h4>
 <p><a href="https://www.aliexpress.com/i/4001296934524.html">TDP95W for 1U server 27mm height 1UA27</a></p>
 <p>High-quality construction, individual wireless induction connection for each
 fan, and the ability to support up to 95 Watts of heat dissipation. This is
 currently temporary solution until 2U TDP150W cooler arrives.</p>
 <h3 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h3>
+<img src="images/bkk03/asrockrack.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
+<img src="images/bkk03/asrockrack-2.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
 <p><a href="https://www.amazon.com/dp/B0BXRFHDQT">AsRock Rack B650D4U-2L2T/BCM(LGA 1718) Dual 10G LAN</a></p>
 <p>This motherboard is a masterpiece of engineering and design, a testament to
 AsRock's ability to merge the high-performance aspects of the consumer world
@@ -400,11 +406,11 @@ backups for 800e price range providing us RAIDZ1 48TB backup space for weekly
 archive backups.</p>
 <h3 id="chassis"><a class="header" href="#chassis">Chassis</a></h3>
 <p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550 2U</a></p>
-<p>We are still in process of finding correct parts to fit this build into 1U chassis,
-but for a first build we decided to go for 550mm 2U chassis due to the
-challenge of fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 so going
-for 2U fit our needs better. These slots are really required to provide
-low latency NVME storage for RPC nodes.</p>
+<p>We are still in process of designing correct parts for a 1U chassis build, so
+for the first build we decided to go for 550mm 2U chassis. The challenge of
+fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 as well as 170W TDP
+cooling solution into 1U is not that trivial. These slots are really required
+to provide low latency NVME storage for RPC nodes.</p>
 <p>TGC-24550-3.0 chassis, a 2U rackmount model providing ample space and
 versatility. It has an efficient airflow design, with a middle fan wall of
 four 80mm fans. This setup ensures steady airflow across essential components,
@@ -502,6 +508,138 @@ reliable network operations.</p>
 operations. They are chosen not just for their individual capabilities, but
 also for their compatibility and interoperability, creating an integrated,
 efficient, and reliable software infrastructure.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="filesystem"><a class="header" href="#filesystem">Filesystem</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ansible-1"><a class="header" href="#ansible-1">Ansible</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="virtualization"><a class="header" href="#virtualization">Virtualization</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="validator-as-a-service"><a class="header" href="#validator-as-a-service">Validator as a Service</a></h2>
+<h3 id="secure-key-management"><a class="header" href="#secure-key-management">Secure key management</a></h3>
+<p>Validator as a Service presents a complex problem space. It's akin to
+attempting to serve users easily deployable validators while navigating the
+treacherous waters of not having access to the users' hot wallet keys. The
+Polkadot/substrate ecosystem offers a bit of a reprieve here, introducing <a href="https://wiki.polkadot.network/docs/learn-cryptography">three
+different keypairs</a> - stash, controller, and session keys - for validating.</p>
+<p>In essence, this design allows validators to execute their roles without
+exposing their actual wallet keys to the internet. Instead, the controller
+wallet equips the Polkadot client with permissions to generate session keys.
+These keys are exclusively tailored for carrying out tasks necessary for
+validating the blockchain. And the beauty of this design lies in its fluidity,
+allowing keys to be rotated by making a simple authorship_rotateKeys RPC call.</p>
+<p>A potential solution to this security conundrum is the deployment of a Trusted
+Execution Environment (TEE) or a secure enclave, which comes equipped with
+automated integrity tests. In case attestation fails, we can rotate the keys, and the
+validation process halts  the attestation fails. Now, this scenario sounds
+like a decent solution to the problem, but the implementation could be like
+trying to thread a moving needle.</p>
+<p>A promising avenue is the use of Trusted Execution Environments (TEEs) or
+secure enclaves that isolate sensitive data and process it securely. However,
+they're not immune to threats, with side-channel attacks being particularly
+worrisome in a decentralized network where trust is distributed.</p>
+<p>Decentralized Trusted Execution Environment (integriTEE) networks, though promising,
+amplify potential attack surfaces due to their large number of nodes, each
+serving as a potential vulnerability point. The diverse security standards
+across participants, resource limitations, and lack of uniform monitoring can
+lead to exploitable weak spots and slower response times in case of security
+breaches. Hardware vulnerabilities, like those seen in <a href="https://sgx.fail/">Intel's SGX</a>, present
+additional risks, as ensuring patched hardware across all nodes is challenging.
+Furthermore, mitigation strategies, such as microcode updates (MCUs), are more
+complex to coordinate across a myriad of participants. The presence of
+potentially malicious actors within the decentralized system further
+complicates this landscape, necessitating robust, comprehensive security
+strategies to ensure network integrity.</p>
+<p>Ultimately, navigating towards a secure Validator as a Service requires a
+comprehensive security approach, acknowledging the unique challenges of a
+decentralized network, and constant vigilance against potential
+vulnerabilities.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="team"><a class="header" href="#team">Team</a></h1>
+<div style="display: flex; margin-bottom: 4em;">
+<div style="display: flex; flex-direction: column; flex: 0 0 20%;">
+<img src="images/team/tommi.webp" alt="Tommi" style="width: 100%; margin-top: 1em; object-fit: cover;">
+<center><h3 id="tommi"><a class="header" href="#tommi">Tommi</a></h3></center>
+</div> 
+<div style="margin-left: 1em;">
+<p>
+Tommi is a symbol of the generation that mastered the qwerty keyboard even
+before grasping the intricacies of handwriting. With over 20 years of
+experience in building hardware, software, and managing servers during the
+early stages of the internet, he demonstrates an exceptional commitment to
+the digital world.
+<p>Tommi's journey with Bitcoin started as early as 2008. He ran the first
+version of Bitcoin on a Pentium D950 computer, only to lose the digital keys
+within a few months. This experience gave him a first-hand insight into the
+workings of the novel digital currency.</p>
+<p>However, it wasn't until 2013, when Snowden's revelations and the growing
+influence of anonymous online marketplaces came to light, that Tommi fully
+grasped the importance of Bitcoin's proposition. The internet, once thought
+of as a user-driven landscape, had allowed a mere ten companies to gain
+majority control, leading to concerns about mass surveillance.</p>
+<p>This eye-opening realization led to the creation of Rotko Network. This
+initiative is based on the principle of creating an internet that is shaped
+by its users, rather than dominated by a few profit-driven corporations. With
+the dedication of a software enthusiast and the heart of a freedom-fighter,
+standing at the helm of this mission. He is dedicated to end the data
+slavery and reshaping the internet into a space that truly belongs to its
+users.
+wq!</p>
+</p>
+</div>
+</div>
+<!-- <div style="display: flex; margin-bottom: 4em;"> <div style="display: flex; -->
+<!-- flex-direction: column; flex: 0 0 20%;"> <img src="images/team/dan.webp" -->
+<!-- alt="Dan" style="width: 100%; margin-top: 1em; object-fit: cover;"> -->
+<!-- <center><h3 id="dan"><a class="header" href="#dan">Dan</a></h3></center> </div> <div style="margin-left: 1em;"> <p> Meet -->
+<!-- Dan, a bona fide wizard of programming who cut his teeth coding back in the -->
+<!-- 90s, drawing inspiration from the music demoscene. With more than two decades -->
+<!-- under his belt, he's a seasoned veteran who understands the ins and outs of the -->
+<!-- game. -->
+<!---->
+<!-- Just like many of us old-timers, he has a deep appreciation for functional -->
+<!-- programming and a penchant for clarity in code, with Rust being his go-to -->
+<!-- tool. He's got this knack for building software that runs as close to the -->
+<!-- metal as possible, extracting every bit of performance he can get.  -->
+<!---->
+<!-- One of his remarkable feats is constructing intricate drum machines entirely -->
+<!-- from scratch, a testament to his understanding of complex systems and -->
+<!-- algorithmic creativity. He’s not just a coder; he’s a craftsman. </p> </div> -->
+<!-- </div> -->
+<!---->
+<!-- <div style="display: flex; margin-bottom: 4em;"> <div style="display: flex; -->
+<!-- flex-direction: column; flex: 0 0 20%;"> <img src="images/team/mikko.webp" -->
+<!-- alt="Mikko" style="width: 100%; margin-top: 1em; object-fit: cover;"> -->
+<!-- <center><h3 id="mikko"><a class="header" href="#mikko">Mikko</a></h3></center> </div> <div style="margin-left: 1em;"> <p> With -->
+<!-- over 40 years of diverse and significant technical experience, Mikko is the -->
+<!-- ideal advisor for creating Internet and networking infrastructure at Rotko -->
+<!-- Networks. His expertise spans across all technical layers, from layer 1 -->
+<!-- hardware programming to layer 7 application interfaces, making him an essential -->
+<!-- asset, especially considering the CEO's top-to-bottom learning path. -->
+<!---->
+<!-- His technical journey began in the mid-1980s at Nokia Mobile Phones, where he -->
+<!-- hand-wrote UI with NEC's Assembly without a compiler, demonstrating a profound -->
+<!-- understanding of low-level programming. His most notable achievement at Nokia -->
+<!-- was the invention of the menu buttons on the display, a pioneering feature that -->
+<!-- has become ubiquitous in mobile user interfaces. -->
+<!---->
+<!-- One of the most noteworthy roles was serving as the IT Manager at the -->
+<!-- University of Turku, where he was responsible for managing and upgrading the -->
+<!-- entire IT infrastructure, including modern Data Center and network services. He -->
+<!-- implemented crucial projects like Datacenter upgrades, WLAN enhancements, -->
+<!-- network topology redesigns, and developed vital services such as private cloud -->
+<!-- storage and learning platforms. -->
+<!---->
+<!-- His profound knowledge of technologies like Novell NetWare, AD, MS Exchange, -->
+<!-- backup and storage systems, IIS, ISA Firewall, DNS, and DHCP, coupled with his -->
+<!-- broad understanding of both low-level and high-level systems, makes him a -->
+<!-- tremendous asset for Rotko Networks. His broad and deep technical expertise -->
+<!-- ensures he will provide significant guidance in building a robust and efficient -->
+<!-- Internet and networking infrastructure. </p> </div> </div> -->
+<style>
+  h1 {text-align: center;}
+  h3 {
+      text-align: center;
+      font-size: 1.2em;
+      padding: 5px;
+      margin: 10px;
+  }
+</style>
 
                     </main>
 
