@@ -6,5 +6,8 @@
   - [Networking](./networking.md)
   - [BKK03](./bkk03.md)
 - [Software](./software.md)
+  - [Filesystem](./filesystem.md)
+  - [Ansible](./ansible.md)
+  - [Virtualization](./virtualization.md)
   - [Validator As A Service](./VAAS.md)
 - [Team](./team.md)

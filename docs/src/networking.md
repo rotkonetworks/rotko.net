@@ -1,6 +1,8 @@
 # Networking
 
 ## Bandwidth
+<img src="images/networking/bandwidth.webp" alt="Scaling bandwidth" style="width: 100%; margin-top: 2em; object-fit: cover;">
+
 Dedicated bandwidth connection, providing up to 200Mbps for international
 direct land-line and under-sea connections. This service extends all the way to
 Singapore, ensuring latency below 30ms. This speed is critical for RPC endpoint
@@ -8,7 +10,10 @@ provider operations, where timely data transfer is a crucial success factor.
 The provision to scale up our bandwidth capabilities offers us the flexibility
 to match our growing needs without compromising on the quality of service.
 
+
 ## Router
+<img src="images/networking/mikrotik.webp" alt="Mikrotik Cloud Core Router" style="width: 100%; margin-top: 2em; object-fit: cover;">
+
 [MikroTik Cloud Core Router CCR2004-16G-2S+](https://mikrotik.com/product/ccr2004_16g_2splus)
 
 The CCR2004 router, part of the illustrious MikroTik series, brings several

@@ -1,6 +1,10 @@
 ## BKK03
 
 ### CPU
+
+<img src="images/bkk03/amdryzen9-2.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
+<img src="images/bkk03/amdryzen9.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
+
 [AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5](https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x)
 
 At the core of our server operations sits the impressive AMD Ryzen 9 7950X.
@@ -28,7 +32,7 @@ The COOLSERVER R64 AM5 Server CPU Cooler, with its 4 high-quality heatpipes and
 bearing design ensures longevity and reliability in our 24/7 server operations,
 while the 4-pin PWM fan offers energy-efficient, adaptive cooling.
 
-#### Temp cooler
+#### Temporary cooler
 [TDP95W for 1U server 27mm height 1UA27](https://www.aliexpress.com/i/4001296934524.html)
 
 High-quality construction, individual wireless induction connection for each
@@ -36,6 +40,9 @@ fan, and the ability to support up to 95 Watts of heat dissipation. This is
 currently temporary solution until 2U TDP150W cooler arrives.
 
 ### Motherboard
+<img src="images/bkk03/asrockrack.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
+<img src="images/bkk03/asrockrack-2.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
+
 [AsRock Rack B650D4U-2L2T/BCM(LGA 1718) Dual 10G LAN](https://www.amazon.com/dp/B0BXRFHDQT)
 
 This motherboard is a masterpiece of engineering and design, a testament to
@@ -132,11 +139,11 @@ archive backups.
 
 [TGC-24550 2U](https://www.pcgallery.co.th/product/tgc-24550-3-0/)
 
-We are still in process of finding correct parts to fit this build into 1U chassis,
-but for a first build we decided to go for 550mm 2U chassis due to the
-challenge of fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 so going
-for 2U fit our needs better. These slots are really required to provide
-low latency NVME storage for RPC nodes.
+We are still in process of designing correct parts for a 1U chassis build, so
+for the first build we decided to go for 550mm 2U chassis. The challenge of
+fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 as well as 170W TDP
+cooling solution into 1U is not that trivial. These slots are really required
+to provide low latency NVME storage for RPC nodes.
 
 TGC-24550-3.0 chassis, a 2U rackmount model providing ample space and
 versatility. It has an efficient airflow design, with a middle fan wall of
