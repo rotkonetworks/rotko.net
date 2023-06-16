@@ -4,7 +4,11 @@
 - [Hardware](./hardware.md)
   - [Rack](./rack.md)
   - [Networking](./networking.md)
+  - BKK01
+  - BKK02
   - [BKK03](./bkk03.md)
+  - BKK04
+  - [Carbon offset](./carbon.md)
 - [Software](./software.md)
   - [Filesystem](./filesystem.md)
   - [Ansible](./ansible.md)
