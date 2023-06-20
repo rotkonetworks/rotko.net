@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.3.</strong> BKK03</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html" class="active"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.7.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html" class="active"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -145,6 +145,55 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="filesystem"><a class="header" href="#filesystem">Filesystem</a></h1>
+<p>The file system is perhaps the most underappreciated component in the
+blockchain synchronization process, despite being pivotal. It's puzzling how
+little attention this crucial element receives. Try seeking a single article
+discussing the ideal record sizes for blockchain databases - you'll quickly
+discover the dearth of literature on this subject. By offloading additional
+tasks to the application users, we inadvertently make chains more difficult to
+synchronize, an outcome that inadvertently centralizes those running the nodes.</p>
+<p>Upon rigorous testing of various file systems - including mdraid (ext4), LVM,
+mdraid, Btrfs, and ZFS - our findings suggest that ZFS stands out as the most
+user-friendly and well-rounded solution. While LVM and Btrfs also has its
+merits, its user interface tooling design seems to be more suitable for those
+with a high tolerance for complexity.</p>
+<h2 id="zfs"><a class="header" href="#zfs">ZFS</a></h2>
+<p>ZFS offers incredibly easy client tool to use for setting up complex filesystem
+setup with snapshots and quota management.</p>
+<p>We propose following settings in general for blockchains with variation in recordsize:</p>
+<pre><code class="language-bash"># Create the pool (replace tank and device with your pool name and device path)
+zpool create -o ashift=12 tank device /dev/nvme0to5
+
+# Set the primary cache to only metadata, as ParityDb relies on the OS page cache
+zfs set primarycache=metadata tank
+
+# Set recordsize to 16K as most values in the ParityDb are small and values over 16K are rare
+zfs set recordsize=16K tank
+
+# Enable compression as it can provide both space and performance benefits
+zfs set compression=lz4 tank
+
+# Disable access time (atime) as it can negatively impact performance
+zfs set atime=off tank
+
+# Set redundant metadata to most to protect against data corruption
+zfs set redundant_metadata=most tank
+
+# Synchronous writes (sync) should be set to standard to ensure data integrity in case of an unexpected shutdown
+zfs set sync=standard tank
+
+# Given that we are prioritizing latency, leave logbias at its default setting (latency)
+zfs set logbias=latency tank
+
+# Enable snapshots for better data protection
+# TODO: Set up daily with cron
+zfs snapshot tank@daily
+</code></pre>
+<p>The NVMe drives themselves should provide high performance and low latency for
+your ZFS pool, and a separate ZIL or L2ARC might not provide significant
+benefits and could even add unnecessary complexity or costs.</p>
+<p>Notice that if you running EVM blockchain with small blocks like Ethereum, it might 
+be best option to set your recordsize 4K instead before starting syncing.</p>
 
                     </main>
 

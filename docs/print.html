@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.3.</strong> BKK03</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.7.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -299,8 +299,78 @@ redundancy ensures that even if one power supply falters, the other
 continues operations, promising uninterrupted service.</p>
 </li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk01---validator"><a class="header" href="#bkk01---validator">BKK01 - Validator</a></h1>
+<h2 id="cpu"><a class="header" href="#cpu">CPU</a></h2>
+<p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-5-5600g">AMD RYZEN 5 5600G 6-Core 3.7 GHz (4.6 GHz Max Boost) Socket AM4 65W</a></p>
+<p>The heart of our operations, the 6-core AMD RYZEN 5 5600G, offers excellent
+performance for blockchain applications. It provides robust and reliable
+service even under demanding workloads.</p>
+<h2 id="cpu-cooler"><a class="header" href="#cpu-cooler">CPU Cooler</a></h2>
+<p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 CPU Cooler</a></p>
+<p>For managing the thermal performance of our CPU, we use the COOLSERVER R64 CPU
+Cooler. It's equipped with high-quality heatpipes and can handle the Ryzen 5
+5600G even under intensive workloads.</p>
+<h2 id="ram"><a class="header" href="#ram">RAM</a></h2>
+<p><a href="https://www.hynix.com/eng/products/drammodule.jsp">2x32GB Hynix DDR4 3200MHz</a></p>
+<p>Our setup uses 2 modules of 32GB DDR4 RAM from Hynix, providing us with ample
+bandwidth and ensuring smooth server operations.</p>
+<h2 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h2>
+<p><a href="https://www.msi.com/Motherboard/A520M-ITX-AC">MSI A520M-ITX/ac</a></p>
+<p>The MSI A520M-ITX/ac motherboard is an engineering marvel that brings together
+the performance of the consumer world with the dependability of server-grade
+hardware. This motherboard supports the AMD Ryzen series CPUs and DDR4 memory,
+promising speed, reliability, and scalability.</p>
+<h2 id="storage"><a class="header" href="#storage">Storage</a></h2>
+<p><a href="https://www.monsterdigital.com/">4x 2TB NVME Monster Storage 3D TLC SSD - R:7400Mb/s W:6,600MB/s</a></p>
+<p>For storage, we use 4 Monster Storage 3D TLC NVMe SSDs, each of 2TB capacity.
+These high-speed SSDs are known for their exceptional performance and
+efficiency in data storage and retrieval.</p>
+<h2 id="power-unit"><a class="header" href="#power-unit">Power unit</a></h2>
+<p><a href="http://www.mini-box.com/picoPSU-160-XT">160W PicoPSU with 12V 10A AC/DC adapter</a></p>
+<p>To power our setup, we use a 160W PicoPSU with a 12V 10A AC/DC adapter. This
+PSU offers excellent efficiency and durability, and is capable of handling the
+power demands of our CPU and other components.</p>
+<h2 id="chassis"><a class="header" href="#chassis">Chassis</a></h2>
+<p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550</a></p>
+<p>The entire setup is smartly fitted into a 2U ATX slot of BKK03 server,
+providing sufficient room for all components and ensuring effective cooling.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk02---validator-2"><a class="header" href="#bkk02---validator-2">BKK02 - Validator 2</a></h1>
+<h2 id="cpu-1"><a class="header" href="#cpu-1">CPU</a></h2>
+<p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-5-5600g">AMD RYZEN 5 5600G 6-Core 3.7 GHz (4.6 GHz Max Boost) Socket AM4 65W</a></p>
+<p>The heart of our operations, the 6-core AMD RYZEN 5 5600G, offers excellent
+performance for blockchain applications. It provides robust and reliable
+service even under demanding workloads.</p>
+<h2 id="cpu-cooler-1"><a class="header" href="#cpu-cooler-1">CPU Cooler</a></h2>
+<p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 CPU Cooler</a></p>
+<p>For managing the thermal performance of our CPU, we use the COOLSERVER R64 CPU
+Cooler. It's equipped with high-quality heatpipes and can handle the Ryzen 5
+5600G even under intensive workloads.</p>
+<h2 id="ram-1"><a class="header" href="#ram-1">RAM</a></h2>
+<p><a href="https://www.amazon.co.jp/-/en/v-color-Skywalker-PC4-25600-Heatsink-TO432G32D816ASPSXKN/dp/B08PPDDPFY">2x32GB Hynix DDR4 3200MHz</a></p>
+<p>Our setup uses 2 modules of 32GB DDR4 RAM from Hynix, providing us with ample
+bandwidth and ensuring smooth server operations.</p>
+<h2 id="motherboard-1"><a class="header" href="#motherboard-1">Motherboard</a></h2>
+<p><a href="https://www.msi.com/Motherboard/A520M-ITX-AC">MSI A520M-ITX/ac</a></p>
+<p>The MSI A520M-ITX/ac motherboard is an engineering marvel that brings together
+the performance of the consumer world with the dependability of server-grade
+hardware. This motherboard supports the AMD Ryzen series CPUs and DDR4 memory,
+promising speed, reliability, and scalability.</p>
+<h2 id="storage-1"><a class="header" href="#storage-1">Storage</a></h2>
+<p><a href="https://www.amazon.co.jp/-/en/dp/B0BZCVVKNY">4x 2TB NVME Monster Storage 3D TLC SSD - R:7400Mb/s W:6,600MB/s</a></p>
+<p>For storage, we use 4 Monster Storage 3D TLC NVMe SSDs, each of 2TB capacity.
+These high-speed SSDs are known for their exceptional performance and
+efficiency in data storage and retrieval. Downside is that lacks DRAM for caching.</p>
+<h2 id="power-unit-1"><a class="header" href="#power-unit-1">Power unit</a></h2>
+<p><a href="http://www.mini-box.com/picoPSU-160-XT">160W PicoPSU with 12V 10A AC/DC adapter</a></p>
+<p>To power our setup, we use a 160W PicoPSU with a 12V 10A AC/DC adapter. This
+PSU offers excellent efficiency and durability, and is capable of handling the
+power demands of our CPU and other components.</p>
+<h2 id="chassis-1"><a class="header" href="#chassis-1">Chassis</a></h2>
+<p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550</a></p>
+<p>The entire setup is smartly fitted into a 2U ATX slot of BKK03 server,
+providing sufficient room for all components and ensuring effective cooling.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="bkk03"><a class="header" href="#bkk03">BKK03</a></h2>
-<h3 id="cpu"><a class="header" href="#cpu">CPU</a></h3>
+<h3 id="cpu-2"><a class="header" href="#cpu-2">CPU</a></h3>
 <img src="images/bkk03/amdryzen9-2.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
 <img src="images/bkk03/amdryzen9.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
 <p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x">AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5</a></p>
@@ -317,7 +387,7 @@ performance by allowing quick access to frequently used data.</p>
 processing. Benchmarking at 1.59 GiBs in BLAKE2-256 and 822.88 KiBs in
 SR25519-Verify, it comfortably outperforms Polkadot's stringent requirements,
 reinforcing its suitability for our blockchain-centric operations.</p>
-<h3 id="cpu-cooler"><a class="header" href="#cpu-cooler">CPU Cooler</a></h3>
+<h3 id="cpu-cooler-2"><a class="header" href="#cpu-cooler-2">CPU Cooler</a></h3>
 <p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 AM5 Server CPU Cooler</a></p>
 <p>The COOLSERVER R64 AM5 Server CPU Cooler, with its 4 high-quality heatpipes and
 150W TDP, is perfectly equipped to handle the thermal output of our Ryzen 9
@@ -329,7 +399,7 @@ while the 4-pin PWM fan offers energy-efficient, adaptive cooling.</p>
 <p>High-quality construction, individual wireless induction connection for each
 fan, and the ability to support up to 95 Watts of heat dissipation. This is
 currently temporary solution until 2U TDP150W cooler arrives.</p>
-<h3 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h3>
+<h3 id="motherboard-2"><a class="header" href="#motherboard-2">Motherboard</a></h3>
 <img src="images/bkk03/asrockrack.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
 <img src="images/bkk03/asrockrack-2.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
 <p><a href="https://www.amazon.com/dp/B0BXRFHDQT">AsRock Rack B650D4U-2L2T/BCM(LGA 1718) Dual 10G LAN</a></p>
@@ -381,7 +451,7 @@ NVMe SSDs, which are renowned for their superlative speed and efficiency in
 storage and data retrieval. By enabling faster access to stored data, this card
 aids in optimizing overall system performance, significantly enhancing our
 server's responsiveness.</p>
-<h3 id="storage"><a class="header" href="#storage">Storage</a></h3>
+<h3 id="storage-2"><a class="header" href="#storage-2">Storage</a></h3>
 <p><a href="https://www.amazon.co.jp/Hanye-%E3%80%90PS5%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%E3%81%BF%E3%80%91-PCIe-Gen4x4-DRAM%E6%90%AD%E8%BC%89/dp/B0B58JXNXG">6x 2TB Hanye ME70 NVMe PCI-E4.0 7200mb/s</a></p>
 <p>Our system utilizes six 2TB High Performance ME70 M.2 NVMe SSDs, offering a
 total of 12TB high-speed storage, tailored for professionals needing quick data
@@ -404,7 +474,7 @@ operations.</p>
 small L2ARC cache section out of nvme disk and setup 4x16TB hard disks for
 backups for 800e price range providing us RAIDZ1 48TB backup space for weekly
 archive backups.</p>
-<h3 id="chassis"><a class="header" href="#chassis">Chassis</a></h3>
+<h3 id="chassis-2"><a class="header" href="#chassis-2">Chassis</a></h3>
 <p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550 2U</a></p>
 <p>We are still in process of designing correct parts for a 1U chassis build, so
 for the first build we decided to go for 550mm 2U chassis. The challenge of
@@ -466,6 +536,135 @@ authentication infrastructure.</li>
 <h4 id="links-1"><a class="header" href="#links-1">Links</a></h4>
 <p><a href="https://docs.pikvm.org/">PiKVM docs</a>
 <a href="https://github.com/pikvm/pikvm">PiKVM github</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk04"><a class="header" href="#bkk04">BKK04</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="energy-consumption-and-carbon-offset"><a class="header" href="#energy-consumption-and-carbon-offset">Energy Consumption and Carbon Offset</a></h1>
+<ol>
+<li>Energy Consumption</li>
+</ol>
+<p>Energy consumption is a crucial aspect of our operations, especially concerning
+our server infrastructure. This energy powers everything from the cooling
+systems that keep our servers at optimal temperatures, to the computational
+processes that enable our systems to run.</p>
+<p>We have strategically chosen to utilize low TDP processors for our server rack
+to maximize energy efficiency. Our server rack comprises 2x AMD Ryzen 5600G
+processors, 1x AMD Ryzen 5950X (170W TDP), and 1x AMD Ryzen 5950X3D (120W TDP).
+This processor selection provides an excellent performance-to-power ratio and
+fits within the power limit of our 4kWh server rack.</p>
+<p>Given these processors are running at full load 24/7, the total monthly energy
+consumption can be estimated as follows:</p>
+<p>Total Power: 2 * 65W (5600G) + 170W (5950X) + 120W (5950X3D) = 420W Conversion
+to kW: 420W / 1,000 = 0.42 kW Monthly Energy Consumption: 0.42 kW * 24
+hours/day * 30 days/month = 302.4 kWh Given Thailand's average emissions factor
+from 2021 of about 0.55 kg CO2e per kWh, this monthly energy consumption
+translates to roughly 166.32 kg CO2e, or about 0.166 metric tons (mt) of CO2e.</p>
+<p>Please note that these figures are estimates and the actual energy consumption
+and carbon emissions may vary depending on the actual server load and the
+current energy mix of the grid.</p>
+<ol start="2">
+<li>Carbon Offset</li>
+</ol>
+<p>To counterbalance the environmental impact of our energy consumption, we are
+committed to minimizing and offsetting our carbon emissions. We have chosen to
+offset our carbon emissions through a monthly subscription with TerraPass.</p>
+<p>TerraPass offers Renewable Energy Certificates (RECs) which contribute towards
+clean energy projects like wind and solar farms. By purchasing these RECs, we
+balance the carbon footprint of our monthly electricity use.</p>
+<p>TerraPass's project portfolio includes Landfill Gas Capture, Farm Power, Clean
+Energy from Wind Farms, and Abandoned Coal Mine Methane projects. The offsets
+from these projects are registered under the Climate Action Reserve (CAR) or
+Verified Carbon Standard (VCS), ensuring transparency and quality.</p>
+<p>The funds collected through our monthly subscription will be directed to these
+projects, contributing to a reduction in greenhouse gas emissions and
+supporting the generation of renewable energy.</p>
+<ol start="3">
+<li>Moving Forward Our commitment to transparency and accountability in our
+climate actions involves regular monitoring, measurement, and reporting on
+our energy usage and carbon emissions. We are dedicated to continuously
+exploring and implementing strategies to reduce our environmental impact and
+providing updates about our carbon offset initiatives to our stakeholders.</li>
+</ol>
+<p>Our aim goes beyond merely offsetting our carbon emissions. We are driven to
+build a sustainable and resilient organization that contributes positively to
+our planet and society. Our actions today set the stage for a more sustainable
+future and we are proud to be part of the solution to climate change.Energy
+Consumption and Carbon Offset</p>
+<ol>
+<li>Energy Consumption Energy consumption is a crucial aspect of our operations,
+especially concerning our server infrastructure. This energy powers
+everything from the cooling systems that keep our servers at optimal
+temperatures, to the computational processes that enable our systems to run.</li>
+</ol>
+<p>We have strategically chosen to utilize low TDP processors for our server rack
+to maximize energy efficiency. Our server rack comprises 2x AMD Ryzen 5600G
+processors, 1x AMD Ryzen 5950X (170W TDP), and 1x AMD Ryzen 5950X3D (120W TDP).
+This processor selection provides an excellent performance-to-power ratio and
+fits within the power limit of our 4kWh server rack.</p>
+<p>Given these processors are running at full load 24/7, the total monthly energy
+consumption can be estimated as follows:</p>
+<p>Total Power: 2 * 65W (5600G) + 170W (5950X) + 120W (5950X3D) = 420W Conversion
+to kW: 420W / 1,000 = 0.42 kW Monthly Energy Consumption: 0.42 kW * 24
+hours/day * 30 days/month = 302.4 kWh Given Thailand's average emissions factor
+from 2021 of about 0.55 kg CO2e per kWh, this monthly energy consumption
+translates to roughly 166.32 kg CO2e, or about 0.166 metric tons (mt) of CO2e.</p>
+<p>Please note that these figures are estimates and the actual energy consumption
+and carbon emissions may vary depending on the actual server load and the
+current energy mix of the grid.</p>
+<ol start="2">
+<li>Carbon Offset</li>
+</ol>
+<p>To counterbalance the environmental impact of our energy
+consumption, we are committed to minimizing and offsetting our carbon
+emissions. We have chosen to offset our carbon emissions through a monthly
+subscription with TerraPass.</p>
+<p>TerraPass offers Renewable Energy Certificates (RECs) which contribute towards
+clean energy projects like wind and solar farms. By purchasing these RECs, we
+balance the carbon footprint of our monthly electricity use.</p>
+<p>TerraPass's project portfolio includes Landfill Gas Capture, Farm Power, Clean
+Energy from Wind Farms, and Abandoned Coal Mine Methane projects. The offsets
+from these projects are registered under the Climate Action Reserve (CAR) or
+Verified Carbon Standard (VCS), ensuring transparency and quality.</p>
+<p>The funds collected through our monthly subscription will be directed to these
+projects, contributing to a reduction in greenhouse gas emissions and
+supporting the generation of renewable energy.</p>
+<ol start="3">
+<li>Moving Forward </li>
+</ol>
+<p>Our commitment to transparency and accountability in our climate actions
+involves regular monitoring, measurement, and reporting on our energy usage and
+carbon emissions. We are dedicated to continuously exploring and implementing
+strategies to reduce our environmental impact and providing updates about our
+carbon offset initiatives to our stakeholders.</p>
+<p>Our aim goes beyond merely offsetting our carbon emissions. We are driven to
+build a sustainable and resilient organization that contributes positively to
+our planet and society. Our actions today set the stage for a more sustainable
+future and we are proud to be part of the solution to climate change.</p>
+<ol start="4">
+<li>Carbon Offset Plan</li>
+</ol>
+<p>We understand that achieving sustainability and minimizing our environmental
+footprint involves more than just reducing our energy consumption. It also
+requires active measures to offset the carbon emissions we do produce. To this
+end, we've chosen to partner with TerraPass to implement an effective carbon
+offsetting strategy.</p>
+<p>Taking into account our estimated monthly emissions of 0.166 metric tons (mt)
+of CO2e, we've decided to go above and beyond in our commitment to
+sustainability. We have opted for TerraPass's Renewable Energy Certificates
+(RECs) monthly subscription, specifically their 1 MWh/month plan.</p>
+<p>This plan costs £12.00 per MWh per month and the funds collected are directed
+towards supporting clean energy projects like wind and solar farms. By choosing
+this plan, we are not only offsetting our emissions but also actively
+supporting the development and utilization of renewable energy.</p>
+<p>By subscribing to this plan, we are effectively offsetting more carbon
+emissions than we produce, a strategy known as 'over-offsetting'. The decision
+to 'over-offset' aligns with our commitment to being a positive force for
+environmental change and goes above and beyond our responsibility to simply
+neutralize our carbon footprint.</p>
+<p>We believe this proactive approach to carbon offsetting sends a strong message
+about our dedication to sustainability. It's not just about doing less harm,
+but about doing more good, and taking concrete steps to foster a healthier
+planet. We are not only committed to offsetting the carbon emissions from our
+operations, but also to contributing positively to the environment and the
+ongoing transition to renewable energy.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="software-infrastructure"><a class="header" href="#software-infrastructure">Software Infrastructure</a></h1>
 <p>Our infrastructure leverages several powerful
 technologies and platforms to provide a robust and efficient environment for
@@ -509,47 +708,128 @@ operations. They are chosen not just for their individual capabilities, but
 also for their compatibility and interoperability, creating an integrated,
 efficient, and reliable software infrastructure.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="filesystem"><a class="header" href="#filesystem">Filesystem</a></h1>
+<p>The file system is perhaps the most underappreciated component in the
+blockchain synchronization process, despite being pivotal. It's puzzling how
+little attention this crucial element receives. Try seeking a single article
+discussing the ideal record sizes for blockchain databases - you'll quickly
+discover the dearth of literature on this subject. By offloading additional
+tasks to the application users, we inadvertently make chains more difficult to
+synchronize, an outcome that inadvertently centralizes those running the nodes.</p>
+<p>Upon rigorous testing of various file systems - including mdraid (ext4), LVM,
+mdraid, Btrfs, and ZFS - our findings suggest that ZFS stands out as the most
+user-friendly and well-rounded solution. While LVM and Btrfs also has its
+merits, its user interface tooling design seems to be more suitable for those
+with a high tolerance for complexity.</p>
+<h2 id="zfs-1"><a class="header" href="#zfs-1">ZFS</a></h2>
+<p>ZFS offers incredibly easy client tool to use for setting up complex filesystem
+setup with snapshots and quota management.</p>
+<p>We propose following settings in general for blockchains with variation in recordsize:</p>
+<pre><code class="language-bash"># Create the pool (replace tank and device with your pool name and device path)
+zpool create -o ashift=12 tank device /dev/nvme0to5
+
+# Set the primary cache to only metadata, as ParityDb relies on the OS page cache
+zfs set primarycache=metadata tank
+
+# Set recordsize to 16K as most values in the ParityDb are small and values over 16K are rare
+zfs set recordsize=16K tank
+
+# Enable compression as it can provide both space and performance benefits
+zfs set compression=lz4 tank
+
+# Disable access time (atime) as it can negatively impact performance
+zfs set atime=off tank
+
+# Set redundant metadata to most to protect against data corruption
+zfs set redundant_metadata=most tank
+
+# Synchronous writes (sync) should be set to standard to ensure data integrity in case of an unexpected shutdown
+zfs set sync=standard tank
+
+# Given that we are prioritizing latency, leave logbias at its default setting (latency)
+zfs set logbias=latency tank
+
+# Enable snapshots for better data protection
+# TODO: Set up daily with cron
+zfs snapshot tank@daily
+</code></pre>
+<p>The NVMe drives themselves should provide high performance and low latency for
+your ZFS pool, and a separate ZIL or L2ARC might not provide significant
+benefits and could even add unnecessary complexity or costs.</p>
+<p>Notice that if you running EVM blockchain with small blocks like Ethereum, it might 
+be best option to set your recordsize 4K instead before starting syncing.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ansible-1"><a class="header" href="#ansible-1">Ansible</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="virtualization"><a class="header" href="#virtualization">Virtualization</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="validator-as-a-service"><a class="header" href="#validator-as-a-service">Validator as a Service</a></h2>
 <h3 id="secure-key-management"><a class="header" href="#secure-key-management">Secure key management</a></h3>
-<p>Validator as a Service presents a complex problem space. It's akin to
-attempting to serve users easily deployable validators while navigating the
-treacherous waters of not having access to the users' hot wallet keys. The
-Polkadot/substrate ecosystem offers a bit of a reprieve here, introducing <a href="https://wiki.polkadot.network/docs/learn-cryptography">three
-different keypairs</a> - stash, controller, and session keys - for validating.</p>
-<p>In essence, this design allows validators to execute their roles without
-exposing their actual wallet keys to the internet. Instead, the controller
-wallet equips the Polkadot client with permissions to generate session keys.
-These keys are exclusively tailored for carrying out tasks necessary for
-validating the blockchain. And the beauty of this design lies in its fluidity,
-allowing keys to be rotated by making a simple authorship_rotateKeys RPC call.</p>
-<p>A potential solution to this security conundrum is the deployment of a Trusted
-Execution Environment (TEE) or a secure enclave, which comes equipped with
-automated integrity tests. In case attestation fails, we can rotate the keys, and the
-validation process halts  the attestation fails. Now, this scenario sounds
-like a decent solution to the problem, but the implementation could be like
-trying to thread a moving needle.</p>
-<p>A promising avenue is the use of Trusted Execution Environments (TEEs) or
-secure enclaves that isolate sensitive data and process it securely. However,
-they're not immune to threats, with side-channel attacks being particularly
-worrisome in a decentralized network where trust is distributed.</p>
-<p>Decentralized Trusted Execution Environment (integriTEE) networks, though promising,
-amplify potential attack surfaces due to their large number of nodes, each
-serving as a potential vulnerability point. The diverse security standards
-across participants, resource limitations, and lack of uniform monitoring can
-lead to exploitable weak spots and slower response times in case of security
-breaches. Hardware vulnerabilities, like those seen in <a href="https://sgx.fail/">Intel's SGX</a>, present
-additional risks, as ensuring patched hardware across all nodes is challenging.
-Furthermore, mitigation strategies, such as microcode updates (MCUs), are more
-complex to coordinate across a myriad of participants. The presence of
-potentially malicious actors within the decentralized system further
-complicates this landscape, necessitating robust, comprehensive security
-strategies to ensure network integrity.</p>
-<p>Ultimately, navigating towards a secure Validator as a Service requires a
-comprehensive security approach, acknowledging the unique challenges of a
-decentralized network, and constant vigilance against potential
-vulnerabilities.</p>
+<p>Within the Polkadot/Substrate ecosystem, the solution to this complex issue has
+been the introduction of <a href="https://wiki.polkadot.network/docs/learn-cryptography">a trinity of keys different
+keypairs</a> a trinity of
+keys: stash, controller, and session keys. This innovative design permits
+validators to operate securely without exposing their actual wallet keys on the
+internet.</p>
+<p>Instead, the controller wallet provides the Polkadot client with the
+authority to generate session keys, dedicated exclusively for conducting
+blockchain validation tasks. A significant advantage of this architecture is
+its dynamic nature, enabling easy key rotation through a straightforward
+authorship_rotateKeys RPC call.</p>
+<h2 id="the-role-of-trusted-execution-environments"><a class="header" href="#the-role-of-trusted-execution-environments">The Role of Trusted Execution Environments</a></h2>
+<p>To fortify this system, one could consider implementing a Trusted Execution
+Environment (TEE) or secure enclave that can conduct automatic integrity tests.
+If attestation fails, keys can be rotated and the validation process paused,
+thereby protecting the security and integrity of the overall system. However,
+the practical implementation of such a solution comes with its own set of
+complexities and challenges.</p>
+<p>While TEEs and secure enclaves provide an attractive prospect due to their
+ability to securely isolate and process sensitive data, they are not immune to
+threats. Side-channel attacks, in particular, can pose significant risks in a
+decentralized network where trust is distributed across numerous nodes.</p>
+<h2 id="learning-from-tendermints-key-management-system"><a class="header" href="#learning-from-tendermints-key-management-system">Learning from Tendermint's Key Management System</a></h2>
+<p>The Tendermint KMS (Key Management System) is a notable example of an alternate
+approach to key management, which provides some valuable insights. Tendermint
+KMS is specifically designed for Tendermint applications like Cosmos Validators
+and offers high-availability access to validator signing keys, double-signing
+prevention, and optional hardware security module storage for validator keys.</p>
+<p>It is crucial to note that while the Tendermint KMS approach may not be
+directly applicable to the Polkadot/Substrate ecosystem due to differences in
+system design, the principles and techniques it employs can offer valuable
+lessons. For example, adopting strategies for high-availability access and
+double-signing prevention could potentially enhance Polkadot's key management
+framework.</p>
+<h2 id="yubikeys-hsm2-a-potential-game-changer"><a class="header" href="#yubikeys-hsm2-a-potential-game-changer">YubiKey's HSM2: A Potential Game Changer</a></h2>
+<p>The introduction of YubiKey's HSM2 module offers a significant leap forward in
+secure key management. As the world's smallest Hardware Security Module (HSM),
+it provides robust security solutions that traditional, larger HSMs struggle to
+deliver. It strengthens the protection of cryptographic keys, providing secure
+generation, storage, and management of digital keys. With support for PKCS#11,
+the HSM2 integrates quickly with hardware-backed security, providing a
+comprehensive open-source toolbox for cryptographic operations.</p>
+<p>By leveraging the security advantages of the YubiKey's HSM2 module and the
+strategic insights provided by systems like Tendermint KMS, we can navigate the
+complexities of secure key management in Validator as a Service. These
+approaches allow us to bolster security, provide a cost-effective solution, and
+reinforce key management in the face of the unique challenges posed by a
+decentralized network.</p>
+<h2 id="solution"><a class="header" href="#solution">Solution</a></h2>
+<p>Ideally, the controller key, which allows the assignment of session keys, would
+be stored and managed by the HSM. This is an important aspect of maintaining
+security in the Polkadot/Substrate system. Here's how it would work:</p>
+<p>Key Generation: The controller key, like other keys, would be generated within
+the secure confines of the HSM. This guarantees the randomness of the key and
+the security of the key generation process.</p>
+<p>Key Storage: Once generated, the controller key would remain inside the HSM.
+This means it cannot be extracted or accessed directly, adding an additional
+layer of security.</p>
+<p>Key Usage: Whenever the controller key needs to be used, for instance, to
+generate or assign session keys, the operation is performed within the HSM.
+This ensures that the key material never leaves the HSM, thereby maintaining
+the integrity and confidentiality of the key.</p>
+<p>Key Rotation: The HSM allows for secure key rotation. Regularly changing the
+controller key enhances the security of the system, making it more resilient to
+potential attacks.</p>
+<p>Managing the controller key within the HSM not only enhances security but also
+simplifies key management. It streamlines the process of assigning session keys
+and makes the process more secure by reducing the exposure of key material to
+potential threats.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="team"><a class="header" href="#team">Team</a></h1>
 <div style="display: flex; margin-bottom: 4em;">
 <div style="display: flex; flex-direction: column; flex: 0 0 20%;">

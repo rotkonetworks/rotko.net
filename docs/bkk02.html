@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Virtualization - Rotko Networks infrastructure</title>
+        <title>BKK02 - Rotko Networks infrastructure</title>
 
 
         <!-- Custom HTML head -->
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.7.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html" class="active"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html" class="active"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.7.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -144,17 +144,51 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="virtualization"><a class="header" href="#virtualization">Virtualization</a></h1>
+                        <h1 id="bkk02---validator-2"><a class="header" href="#bkk02---validator-2">BKK02 - Validator 2</a></h1>
+<h2 id="cpu"><a class="header" href="#cpu">CPU</a></h2>
+<p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-5-5600g">AMD RYZEN 5 5600G 6-Core 3.7 GHz (4.6 GHz Max Boost) Socket AM4 65W</a></p>
+<p>The heart of our operations, the 6-core AMD RYZEN 5 5600G, offers excellent
+performance for blockchain applications. It provides robust and reliable
+service even under demanding workloads.</p>
+<h2 id="cpu-cooler"><a class="header" href="#cpu-cooler">CPU Cooler</a></h2>
+<p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 CPU Cooler</a></p>
+<p>For managing the thermal performance of our CPU, we use the COOLSERVER R64 CPU
+Cooler. It's equipped with high-quality heatpipes and can handle the Ryzen 5
+5600G even under intensive workloads.</p>
+<h2 id="ram"><a class="header" href="#ram">RAM</a></h2>
+<p><a href="https://www.amazon.co.jp/-/en/v-color-Skywalker-PC4-25600-Heatsink-TO432G32D816ASPSXKN/dp/B08PPDDPFY">2x32GB Hynix DDR4 3200MHz</a></p>
+<p>Our setup uses 2 modules of 32GB DDR4 RAM from Hynix, providing us with ample
+bandwidth and ensuring smooth server operations.</p>
+<h2 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h2>
+<p><a href="https://www.msi.com/Motherboard/A520M-ITX-AC">MSI A520M-ITX/ac</a></p>
+<p>The MSI A520M-ITX/ac motherboard is an engineering marvel that brings together
+the performance of the consumer world with the dependability of server-grade
+hardware. This motherboard supports the AMD Ryzen series CPUs and DDR4 memory,
+promising speed, reliability, and scalability.</p>
+<h2 id="storage"><a class="header" href="#storage">Storage</a></h2>
+<p><a href="https://www.amazon.co.jp/-/en/dp/B0BZCVVKNY">4x 2TB NVME Monster Storage 3D TLC SSD - R:7400Mb/s W:6,600MB/s</a></p>
+<p>For storage, we use 4 Monster Storage 3D TLC NVMe SSDs, each of 2TB capacity.
+These high-speed SSDs are known for their exceptional performance and
+efficiency in data storage and retrieval. Downside is that lacks DRAM for caching.</p>
+<h2 id="power-unit"><a class="header" href="#power-unit">Power unit</a></h2>
+<p><a href="http://www.mini-box.com/picoPSU-160-XT">160W PicoPSU with 12V 10A AC/DC adapter</a></p>
+<p>To power our setup, we use a 160W PicoPSU with a 12V 10A AC/DC adapter. This
+PSU offers excellent efficiency and durability, and is capable of handling the
+power demands of our CPU and other components.</p>
+<h2 id="chassis"><a class="header" href="#chassis">Chassis</a></h2>
+<p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550</a></p>
+<p>The entire setup is smartly fitted into a 2U ATX slot of BKK03 server,
+providing sufficient room for all components and ensuring effective cooling.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="ansible.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="bkk01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="VAAS.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="bkk03.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -164,11 +198,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="ansible.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="bkk01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="VAAS.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="bkk03.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
