@@ -10,7 +10,7 @@ Before starting, download the following files:
 - [BMC](https://www.dropbox.com/s/gwrmaowuxn8uvi5/B650D4U_2L2T-BCM_BMC4.01.00.zip?dl=0)
 - [Broadcom 57416 LAN Flashing Firmware](https://www.dropbox.com/s/ftuwqr9renu9lo9/Broadcom%2057416%20LAN%20Flashing%20FW%20EN.zip?dl=0)
 
-## BIOS and BMC Update
+## BIOS Update
 
 ASRock Rack provides a BIOS flash utility called ASRock Rack Instant Flash,
 embedded in the Flash ROM, to make the BIOS update process simple and
@@ -26,8 +26,52 @@ straightforward.
 3. **Update BIOS**: Follow the instructions provided by the utility to update
    the BIOS.
 
-*The email did not provide specific instructions on how to update the BMC, so
-ensure to follow your motherboard's manual or the manufacturer's instructions.*
+## BMC Firmware Update
+
+In order to keep your BMC firmware up-to-date and have the latest features and
+improvements, regular updates are recommended. This guide provides step-by-step
+instructions on how to update your BMC firmware. 
+
+1. **Preparation**: Download the correct BMC firmware update file from the
+   ASRock Rack website. Ensure the firmware version is later than the one
+   currently installed on your device. Save the firmware file on your local
+   system.
+
+2. **Access BMC Maintenance Portal**: Open your web browser and navigate to the
+   BMC maintenance portal using the IP address of the BMC. Typically, the URL
+   is https://[BMC IP Address]/#maintenance/firmware_update_wizard, for
+   instance, https://192.168.33.114/#maintenance/firmware_update_wizard.
+
+3. **Login**: Use your BMC username and password to log into the portal. 
+
+4. **Firmware Update Section**: Navigate to the firmware update section.
+
+5. **Upload Firmware Image**: Click on "Select Firmware Image" and upload the
+   firmware file you downloaded earlier. The firmware files typically end with
+   `.ima`. For instance, `B650D4U_2L2T_4.01.00.ima`.
+
+6. **Preserve Configuration**: If you want to preserve all the current
+   configurations during the update, check the box "Preserve all
+   Configuration". This will maintain all the settings irrespective of the
+   individual items marked as preserve/overwrite in the table below. 
+
+7. **Start Update**: Click "Firmware Update". The system will validate the
+   image and if successful, the update process will start. The progress will be
+   shown on the screen.
+
+8. **Reboot**: Once the update is completed, the system will reboot
+   automatically. 
+
+> **WARNING**: Please note that after entering the update mode, other web
+> pages, widgets, and services will not work. All the open widgets will be
+> automatically closed. If the update is cancelled in the middle of the
+> process, the device will be reset only for BMC BOOT, and APP components of
+> Firmware.
+
+> **NOTE**: The IP address used in this guide is an example. Replace it with
+> the actual IP address of your BMC. Also, remember to use a reliable network
+> connection during the update process to prevent any interruption.
+
 
 ## Networking Firmware Update
 
