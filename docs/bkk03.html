@@ -83,16 +83,38 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html" class="active"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.7.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html" class="active"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bkk03_firmware.html"><strong aria-hidden="true">2.5.1.</strong> Firmware</a></li></ol></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.7.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
@@ -144,37 +166,24 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="bkk03"><a class="header" href="#bkk03">BKK03</a></h2>
-<h3 id="cpu"><a class="header" href="#cpu">CPU</a></h3>
-<img src="images/bkk03/amdryzen9-2.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
-<img src="images/bkk03/amdryzen9.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
-<p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x">AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5</a></p>
-<p>At the core of our server operations sits the impressive AMD Ryzen 9 7950X.
+                        <h1 id="bkk03---bootnode-2"><a class="header" href="#bkk03---bootnode-2">BKK03 - Bootnode 2</a></h1>
+<h2 id="cpu"><a class="header" href="#cpu">CPU</a></h2>
+<p><a href="https://www.amd.com/en/products/apu/amd-ryzen-9-7950x3d">AMD Ryzen™ 9 7950X3D 16-Core 32-Thread 5NM</a></p>
+<p>At the core of our server operations sits the impressive AMD Ryzen 9 7950X3D.
 With a 16-core, it's tailored to manage multiple tasks with ease - enabling
 multiple networks to be run simultaneously. The high core clock speeds are
 paramount in blockchain applications, enabling efficient sync of chains and
 reliable endpoint service.</p>
 <p>Supporting cutting-edge PCI Express® 5.0 and DDR5 memory technologies, this CPU
 ensures rapid data transfer and retrieval - essential for efficient and low
-latency blockchain transactions. Its large 64MB L3 cache further enhances
+latency blockchain transactions. Its large  128MB L3 cache further enhances
 performance by allowing quick access to frequently used data.</p>
-<p>The Ryzen 9 7950X excels in cryptographic operations, crucial for blockchain
-processing. Benchmarking at 1.59 GiBs in BLAKE2-256 and 822.88 KiBs in
-SR25519-Verify, it comfortably outperforms Polkadot's stringent requirements,
-reinforcing its suitability for our blockchain-centric operations.</p>
-<h3 id="cpu-cooler"><a class="header" href="#cpu-cooler">CPU Cooler</a></h3>
-<p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 AM5 Server CPU Cooler</a></p>
-<p>The COOLSERVER R64 AM5 Server CPU Cooler, with its 4 high-quality heatpipes and
-150W TDP, is perfectly equipped to handle the thermal output of our Ryzen 9
-7950X, even under intensive blockchain workloads. Its robust double ball
-bearing design ensures longevity and reliability in our 24/7 server operations,
-while the 4-pin PWM fan offers energy-efficient, adaptive cooling.</p>
-<h4 id="temporary-cooler"><a class="header" href="#temporary-cooler">Temporary cooler</a></h4>
-<p><a href="https://www.aliexpress.com/i/4001296934524.html">TDP95W for 1U server 27mm height 1UA27</a></p>
-<p>High-quality construction, individual wireless induction connection for each
-fan, and the ability to support up to 95 Watts of heat dissipation. This is
-currently temporary solution until 2U TDP150W cooler arrives.</p>
-<h3 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h3>
+<h2 id="cpu-cooler"><a class="header" href="#cpu-cooler">CPU Cooler</a></h2>
+<p><a href="https://aliexpress.com/item/1005004050053958.html">COOLSERVER P32 CPU Cooler</a></p>
+<p>The COOLSERVER P32 AM5 Server CPU Cooler</p>
+<p><a href="https://aliexpress.com/item/1005004904430608.html">Thermalright aluminium alloy AM5 frame</a>
+Boost cooling capability we use Thermalright AM5 frame to increase performance.</p>
+<h2 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h2>
 <img src="images/bkk03/asrockrack.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
 <img src="images/bkk03/asrockrack-2.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
 <p><a href="https://www.amazon.com/dp/B0BXRFHDQT">AsRock Rack B650D4U-2L2T/BCM(LGA 1718) Dual 10G LAN</a></p>
@@ -197,7 +206,7 @@ boosting data access and transfer speeds.</p>
 <p>In essence, the AsRock Rack B650D4U-2L2T is an optimal choice that promises a
 perfect blend of speed, reliability, and scalability, capable of serving the
 demanding needs of modern server applications.</p>
-<h3 id="memory"><a class="header" href="#memory">Memory</a></h3>
+<h2 id="memory"><a class="header" href="#memory">Memory</a></h2>
 <p><a href="https://www.amazon.com/Server-Memory-Module-4800MHz-MTC20C2085S1EC48BA1R">4x Server Memory Module|MICRON|DDR5|32GB|UDIMM/ECC|4800MHz|CL 40|1.1V|MTC20C2085S1EC48BA1R</a></p>
 <p>Our server setup employs four modules of 32GB DDR5 server memory. These memory
 modules ensure substantial bandwidth, which is paramount in maintaining smooth
@@ -209,7 +218,7 @@ preserving the trustworthiness of our transactions and operations.</p>
 leads to faster data processing, resulting in more efficient and responsive
 system performance. Our memory modules have demonstrated impressive low-latency
 performance in our extensive testing.</p>
-<h4 id="test-results"><a class="header" href="#test-results">Test results</a></h4>
+<h3 id="test-results"><a class="header" href="#test-results">Test results</a></h3>
 <pre><code>|----------+----------------+-------------+-------------+-------------------|
 |  Memory  | Copy | 22.24 GiBs | 14.32 GiBs |        ✅ Pass (155.3 %)      |
 |----------+----------------+-------------+-------------+-------------------|
@@ -218,7 +227,7 @@ performance in our extensive testing.</p>
 chosen memory modules. Their low latency will ensure that data is processed
 rapidly and efficiently, contributing to the overall performance and
 responsiveness of our server.</p>
-<h3 id="ssd-expansion-cards"><a class="header" href="#ssd-expansion-cards">SSD Expansion Cards</a></h3>
+<h2 id="ssd-expansion-cards"><a class="header" href="#ssd-expansion-cards">SSD Expansion Cards</a></h2>
 <p><a href="">NVMe SSD Expansion Card NVMe PCIe RAID Adapter 4 Ports NVME SSD To PCI-E 4.0 X16 Expansion Card</a></p>
 <p>Our selection of this SSD expansion card is an integral part of our data
 management strategy. The card facilitates the incorporation of state-of-the-art
@@ -226,8 +235,8 @@ NVMe SSDs, which are renowned for their superlative speed and efficiency in
 storage and data retrieval. By enabling faster access to stored data, this card
 aids in optimizing overall system performance, significantly enhancing our
 server's responsiveness.</p>
-<h3 id="storage"><a class="header" href="#storage">Storage</a></h3>
-<p><a href="https://www.amazon.co.jp/Hanye-%E3%80%90PS5%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%E3%81%BF%E3%80%91-PCIe-Gen4x4-DRAM%E6%90%AD%E8%BC%89/dp/B0B58JXNXG">6x 2TB Hanye ME70 NVMe PCI-E4.0 7200mb/s</a></p>
+<h2 id="storage"><a class="header" href="#storage">Storage</a></h2>
+<p><a href="https://www.amazon.co.jp/Hanye-%E3%80%90PS5%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%E3%81%BF%E3%80%91-PCIe-Gen4x4-DRAM%E6%90%AD%E8%BC%89/dp/B0B58JXNXG">5x 2TB Hanye ME70 NVMe PCI-E4.0 7200mb/s</a></p>
 <p>Our system utilizes six 2TB High Performance ME70 M.2 NVMe SSDs, offering a
 total of 12TB high-speed storage, tailored for professionals needing quick data
 access and load times. Utilizing Gen4 PCIe tech, these SSDs deliver sequential
@@ -235,7 +244,7 @@ read speeds of 7200 MB/s, combined with a powerful error correction algorithm,
 LDPC (Low Density Parity Check), and DRAM cache for improved response times and
 data integrity - making them an essential asset in our high-demand network
 operations.</p>
-<h4 id="test-results-with-3-cards"><a class="header" href="#test-results-with-3-cards">Test results with 3 cards</a></h4>
+<h3 id="test-results-with-3-cards"><a class="header" href="#test-results-with-3-cards">Test results with 3 cards</a></h3>
 <pre><code>|----------+----------------+-------------+-------------+-------------------|
 | Disk     | Seq Write      | 2.56 GiBs   | 450.00 MiBs | ✅ Pass (582.0 %) |
 |----------+----------------+-------------+-------------+-------------------|
@@ -244,73 +253,13 @@ operations.</p>
 </code></pre>
 <p>IOPS 745388.087064
 99.99th Percentile Read Latency: 310 ns</p>
-<h4 id="backup-storage"><a class="header" href="#backup-storage">Backup storage</a></h4>
-<p>Our motherboard has 4x SATA3 slots for hard disks. We could partition
-small L2ARC cache section out of nvme disk and setup 4x16TB hard disks for
-backups for 800e price range providing us RAIDZ1 48TB backup space for weekly
-archive backups.</p>
-<h3 id="chassis"><a class="header" href="#chassis">Chassis</a></h3>
-<p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550 2U</a></p>
-<p>We are still in process of designing correct parts for a 1U chassis build, so
-for the first build we decided to go for 550mm 2U chassis. The challenge of
-fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 as well as 170W TDP
-cooling solution into 1U is not that trivial. These slots are really required
-to provide low latency NVME storage for RPC nodes.</p>
-<p>TGC-24550-3.0 chassis, a 2U rackmount model providing ample space and
-versatility. It has an efficient airflow design, with a middle fan wall of
-four 80mm fans. This setup ensures steady airflow across essential components,
-effectively mitigating thermal issues under heavy loads.</p>
-<h3 id="power-supply-unit"><a class="header" href="#power-supply-unit">Power Supply Unit</a></h3>
-<p><a href="">T.F.SKYWINDINTL 1U MINI Flex ATX Power Supply Unit 400W Modular PSU</a></p>
-<p>Power supply unit is the T.F.SKYWINDINTL 1U MINI Flex ATX 400W PSU. This
-efficient unit comes equipped with a built-in cooling fan and a comprehensive
-range of protective measures, including overcurrent, overvoltage, and
-short-circuit protection. These features augment the stability and
-dependability of our server system. </p>
-<p>The AMD Ryzen 9 7950X, with its Thermal Design Power (TDP) of 170W and peak
-power consumption of 230W for the AM5 socket, requires a resilient and reliable
-power supply unit. Given that the PSU is ideally operated at approximately 50%
-of its maximum capacity during full load for optimum efficiency and durability.
-Rated at 350W, this PSU will operate within its most effective efficiency zone
-while sufficiently catering to the power demands of the processor.</p>
-<h3 id="kvm"><a class="header" href="#kvm">KVM</a></h3>
-<p><a href="https://www.aliexpress.com/item/1005003262886521.html">BliKVM CM4 &quot;KVM over IP&quot; Raspberry Pi CM4 HDMI CSI PiKVM v3</a></p>
-<p>A modern, highly secure, and programmable KVM solution running on Arch Linux,
-which provides exceptional control over your server, akin to physical access.
-With an easy build process, it boasts minimal video latency (about 100 ms) and
-a lightweight Web UI accessible from any browser. It emulates mass storage
-drives and allows ATX power management, secure data transmission with SSL, and
-local Raspberry Pi health monitoring. You can also manage GPIO and USB relays
-via its web interface. The PiKVM OS is production-ready, supports a read-only
-filesystem to prevent memory card damage, offers extensible authorization
-methods, and enables automation with macros.</p>
-<h4 id="features-of-pikvm"><a class="header" href="#features-of-pikvm">Features of PiKVM:</a></h4>
-<ul>
-<li><strong>Fully-featured and modern IP-KVM:</strong> PiKVM is up-to-date with the latest KVM technologies.</li>
-<li><strong>Easy to build:</strong> PiKVM offers ready-to-use OS images and a friendly build environment.</li>
-<li><strong>Low video latency:</strong> With approximately 100 milliseconds of video latency, it provides
-one of the smallest delays of all existing solutions.</li>
-<li><strong>Lightweight Web UI and VNC:</strong> The user interface is accessible through any browser,
-with no proprietary clients required. VNC is also supported.</li>
-<li><strong>Mass Storage Drive Emulation:</strong> On Raspberry Pi 4 and ZeroW, PiKVM can emulate a virtual
-CD-ROM or Flash Drive. A live image can be uploaded to boot the attached server.</li>
-<li><strong>ATX power management:</strong> PiKVM supports simple circuits for controlling the power
-button of the attached server.</li>
-<li><strong>Security:</strong> PiKVM is designed with strong security, using SSL to protect traffic.</li>
-<li><strong>Local monitoring:</strong> PiKVM monitors the health of the Raspberry Pi board and provides
-warnings for potential issues.</li>
-<li><strong>GPIO management:</strong> Control GPIO and USB relays via the web interface.</li>
-<li><strong>Production-ready:</strong> PiKVM OS is based on Arch Linux ARM and can be customized for any needs.</li>
-<li><strong>Read-only filesystem:</strong> The OS runs in read-only mode to prevent damage to the memory
-card due to a sudden power outage.</li>
-<li><strong>Extensible authorization methods:</strong> PiKVM supports integration into existing
-authentication infrastructure.</li>
-<li><strong>Macro scripts:</strong> Repetitive actions can be automated with keyboard &amp; mouse action macros.</li>
-<li><strong>Open &amp; free:</strong> PiKVM is open-source software, released under the GPLv3.</li>
-</ul>
-<h4 id="links"><a class="header" href="#links">Links</a></h4>
-<p><a href="https://docs.pikvm.org/">PiKVM docs</a>
-<a href="https://github.com/pikvm/pikvm">PiKVM github</a></p>
+<h2 id="chassis"><a class="header" href="#chassis">Chassis</a></h2>
+<p><a href="https://www.pcgallery.co.th/product/tgc-h1-400/">1U Case, TGC H1-400</a></p>
+<h2 id="power-supply-unit"><a class="header" href="#power-supply-unit">Power Supply Unit</a></h2>
+<p><a href=""></a></p>
+<h2 id="kvm"><a class="header" href="#kvm">KVM</a></h2>
+<p>[Asrock Rack BCM/IPMI]</p>
+<p>AsRock Rack motherboard comes with BCM for remote control.</p>
 
                     </main>
 
@@ -320,7 +269,7 @@ authentication infrastructure.</li>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="bkk04.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="bkk03_firmware.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -334,7 +283,7 @@ authentication infrastructure.</li>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="bkk04.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="bkk03_firmware.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

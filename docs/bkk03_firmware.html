@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Firmware - Rotko Networks infrastructure</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bkk03_firmware.html" class="active"><strong aria-hidden="true">2.5.1.</strong> Firmware</a></li></ol></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.7.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rotko Networks infrastructure</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="firmware-update--for-asrock-rack-motherboard"><a class="header" href="#firmware-update--for-asrock-rack-motherboard">Firmware Update  for ASRock Rack Motherboard</a></h1>
+<p>This guide outlines the steps to update the firmware on your ASRock Rack
+motherboard. The update includes the BIOS, BMC (Baseboard Management
+Controller), and the networking firmware.</p>
+<p>Before starting, download the following files:</p>
+<ul>
+<li><a href="https://www.dropbox.com/s/01csce7jp2n18xm/B650D4U-2L2T-BCM_4.01.ROM?dl=0">BIOS L4.01</a></li>
+<li><a href="https://www.dropbox.com/s/gwrmaowuxn8uvi5/B650D4U_2L2T-BCM_BMC4.01.00.zip?dl=0">BMC</a></li>
+<li><a href="https://www.dropbox.com/s/ftuwqr9renu9lo9/Broadcom%2057416%20LAN%20Flashing%20FW%20EN.zip?dl=0">Broadcom 57416 LAN Flashing Firmware</a></li>
+</ul>
+<h2 id="bios-update"><a class="header" href="#bios-update">BIOS Update</a></h2>
+<p>ASRock Rack provides a BIOS flash utility called ASRock Rack Instant Flash,
+embedded in the Flash ROM, to make the BIOS update process simple and
+straightforward.</p>
+<ol>
+<li>
+<p><strong>Preparation</strong>: Format a USB flash drive with FAT32/16/12 file system and
+save the new BIOS file to your USB flash drive.</p>
+</li>
+<li>
+<p><strong>Access ASRock Rack Instant Flash</strong>: Restart the server and press the
+<code>&lt;F6&gt;</code> key during the POST or the <code>&lt;F2&gt;</code> key to enter the BIOS setup menu.
+From there, access the ASRock Rack Instant Flash utility.</p>
+</li>
+<li>
+<p><strong>Update BIOS</strong>: Follow the instructions provided by the utility to update
+the BIOS.</p>
+</li>
+</ol>
+<h2 id="bmc-firmware-update"><a class="header" href="#bmc-firmware-update">BMC Firmware Update</a></h2>
+<p>In order to keep your BMC firmware up-to-date and have the latest features and
+improvements, regular updates are recommended. This guide provides step-by-step
+instructions on how to update your BMC firmware. </p>
+<ol>
+<li>
+<p><strong>Preparation</strong>: Download the correct BMC firmware update file from the
+ASRock Rack website. Ensure the firmware version is later than the one
+currently installed on your device. Save the firmware file on your local
+system.</p>
+</li>
+<li>
+<p><strong>Access BMC Maintenance Portal</strong>: Open your web browser and navigate to the
+BMC maintenance portal using the IP address of the BMC. Typically, the URL
+is https://[BMC IP Address]/#maintenance/firmware_update_wizard, for
+instance, https://192.168.33.114/#maintenance/firmware_update_wizard.</p>
+</li>
+<li>
+<p><strong>Login</strong>: Use your BMC username and password to log into the portal. </p>
+</li>
+<li>
+<p><strong>Firmware Update Section</strong>: Navigate to the firmware update section.</p>
+</li>
+<li>
+<p><strong>Upload Firmware Image</strong>: Click on &quot;Select Firmware Image&quot; and upload the
+firmware file you downloaded earlier. The firmware files typically end with
+<code>.ima</code>. For instance, <code>B650D4U_2L2T_4.01.00.ima</code>.</p>
+</li>
+<li>
+<p><strong>Preserve Configuration</strong>: If you want to preserve all the current
+configurations during the update, check the box &quot;Preserve all
+Configuration&quot;. This will maintain all the settings irrespective of the
+individual items marked as preserve/overwrite in the table below. </p>
+</li>
+<li>
+<p><strong>Start Update</strong>: Click &quot;Firmware Update&quot;. The system will validate the
+image and if successful, the update process will start. The progress will be
+shown on the screen.</p>
+</li>
+<li>
+<p><strong>Reboot</strong>: Once the update is completed, the system will reboot
+automatically. </p>
+</li>
+</ol>
+<blockquote>
+<p><strong>WARNING</strong>: Please note that after entering the update mode, other web
+pages, widgets, and services will not work. All the open widgets will be
+automatically closed. If the update is cancelled in the middle of the
+process, the device will be reset only for BMC BOOT, and APP components of
+Firmware.</p>
+</blockquote>
+<blockquote>
+<p><strong>NOTE</strong>: The IP address used in this guide is an example. Replace it with
+the actual IP address of your BMC. Also, remember to use a reliable network
+connection during the update process to prevent any interruption.</p>
+</blockquote>
+<h2 id="networking-firmware-update"><a class="header" href="#networking-firmware-update">Networking Firmware Update</a></h2>
+<ol>
+<li>
+<p><strong>Preparation</strong>: Format a USB flash drive and copy the
+&quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot; folder from the downloaded Broadcom 57416
+LAN Flashing Firmware onto it.</p>
+</li>
+<li>
+<p><strong>Access UEFI Shell</strong>: Insert the USB flash drive into your ASRock Rack
+server board, reboot the server, and hit F11 at the POST screen. Select
+&quot;UEFI: Built-in EFI Shell&quot;. The USB flash drive should be named <code>FS0:</code>. Type
+<code>FS0:</code> and press enter.</p>
+<p><img src="images/firmware/image0.png" alt="UEFI Shell" /></p>
+</li>
+<li>
+<p><strong>Verify Current Firmware Version</strong>: Execute <code>bnxtmt.efi</code> to display the
+current firmware version.</p>
+<p><img src="images/firmware/image1.png" alt="bnxtmt efi execution" /></p>
+</li>
+<li>
+<p><strong>Erase the Flash</strong>: Navigate to the &quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot;
+folder and execute <code>bnxtmt.efi -sysop -none -no_swap –blank</code> to erase the
+current firmware.</p>
+<p><img src="images/firmware/image3.jpg" alt="Erase Flash" /></p>
+</li>
+<li>
+<p><strong>Flash the Firmware</strong>: Execute <code>bnxtmt.efi -sysop -none -no_swap -fnvm ASRR57416-2T.PKG -log FW1.log</code> to flash the new firmware. Here,
+<code>ASRR57416-2T.PKG</code> is the firmware file.</p>
+<p><img src="images/firmware/image2.jpg" alt="Flash Firmware" /></p>
+</li>
+<li>
+<p><strong>Verify Updated Firmware Version</strong>: Run <code>bnxtmt.efi</code> again to verify the
+new firmware version.</p>
+<p><img src="images/firmware/image4.jpg" alt="bnxtmt efi execution" /></p>
+</li>
+<li>
+<p><strong>Flash LAN Ports' MAC Addresses</strong>: Execute <code>bnxtmt.efi -none –m -log MAC1.log</code>.</p>
+<p><img src="images/firmware/image5.jpg" alt="Flash MAC" /></p>
+</li>
+<li>
+<p><strong>Input MAC Addresses</strong>: Enter the MAC addresses of both LAN ports when
+prompted. <em>Write down these addresses beforehand.</em></p>
+<p><img src="images/firmware/image6.jpg" alt="Enter MAC Addresses" /></p>
+</li>
+<li>
+<p><strong>Power Cycle</strong>: Turn off the system, power cycle the PSU, and then power
+everything back on.</p>
+</li>
+</ol>
+<blockquote>
+<p>Note: The MAC addresses for your LAN ports are crucial. Write them down
+before starting the update process as they need to be added during the
+command at step 8.</p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="bkk03.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="bkk04.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="bkk03.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="bkk04.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -83,16 +83,38 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html" class="active"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.7.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html" class="active"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bkk03_firmware.html"><strong aria-hidden="true">2.5.1.</strong> Firmware</a></li></ol></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.7.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
@@ -151,8 +173,8 @@
 performance for blockchain applications. It provides robust and reliable
 service even under demanding workloads.</p>
 <h2 id="cpu-cooler"><a class="header" href="#cpu-cooler">CPU Cooler</a></h2>
-<p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 CPU Cooler</a></p>
-<p>For managing the thermal performance of our CPU, we use the COOLSERVER R64 CPU
+<p><a href="https://aliexpress.com/item/1005004050053958.html">COOLSERVER P32 CPU Cooler</a></p>
+<p>For managing the thermal performance of our CPU, we use the COOLSERVER P32 CPU
 Cooler. It's equipped with high-quality heatpipes and can handle the Ryzen 5
 5600G even under intensive workloads.</p>
 <h2 id="ram"><a class="header" href="#ram">RAM</a></h2>
@@ -160,8 +182,8 @@ Cooler. It's equipped with high-quality heatpipes and can handle the Ryzen 5
 <p>Our setup uses 2 modules of 32GB DDR4 RAM from Hynix, providing us with ample
 bandwidth and ensuring smooth server operations.</p>
 <h2 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h2>
-<p><a href="https://www.msi.com/Motherboard/A520M-ITX-AC">MSI A520M-ITX/ac</a></p>
-<p>The MSI A520M-ITX/ac motherboard is an engineering marvel that brings together
+<p><a href="https://www.msi.com/Motherboard/A550M-ITX-AC">MSI A550M-ITX/ac</a></p>
+<p>The MSI A550M-ITX/ac motherboard is an engineering marvel that brings together
 the performance of the consumer world with the dependability of server-grade
 hardware. This motherboard supports the AMD Ryzen series CPUs and DDR4 memory,
 promising speed, reliability, and scalability.</p>
@@ -171,14 +193,54 @@ promising speed, reliability, and scalability.</p>
 These high-speed SSDs are known for their exceptional performance and
 efficiency in data storage and retrieval.</p>
 <h2 id="power-unit"><a class="header" href="#power-unit">Power unit</a></h2>
-<p><a href="http://www.mini-box.com/picoPSU-160-XT">160W PicoPSU with 12V 10A AC/DC adapter</a></p>
-<p>To power our setup, we use a 160W PicoPSU with a 12V 10A AC/DC adapter. This
-PSU offers excellent efficiency and durability, and is capable of handling the
-power demands of our CPU and other components.</p>
+<p><a href="https://lazada.co.th/products/i4470266272-s18039576717.html">400W PSU</a></p>
+<p>This second-hand case comes with an integrated 400W Power Supply Unit. The PSU
+is essential for providing power to your internal components. It converts the
+power from the wall outlet into a usable form for your computer's components.
+Despite being second-hand, the PSU is in good condition and will provide a
+reliable power source for your system.</p>
 <h2 id="chassis"><a class="header" href="#chassis">Chassis</a></h2>
-<p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550</a></p>
-<p>The entire setup is smartly fitted into a 2U ATX slot of BKK03 server,
-providing sufficient room for all components and ensuring effective cooling.</p>
+<p><a href="lazada.co.th/products/i4470266272-s18039576717.html">Mini-ITX 1U chassis</a></p>
+<p>This second-hand case comes with an integrated 400W Power Supply Unit. The PSU
+is essential for providing power to your internal components. It converts the
+power from the wall outlet into a usable form for your computer's components.
+Despite being second-hand, the PSU is in good condition and will provide a
+reliable power source for your system.</p>
+<h2 id="kvm"><a class="header" href="#kvm">KVM</a></h2>
+<p><a href="https://aliexpress.com/item/1005003262886521.html">BliKVM v1 CM4 &quot;KVM over IP&quot; Raspberry Pi CM4 HDMI CSI PiKVM v3</a></p>
+<p>A modern, highly secure, and programmable KVM solution running on Arch Linux,
+which provides exceptional control over your server, akin to physical access.
+With an easy build process, it boasts minimal video latency (about 100 ms) and
+a lightweight Web UI accessible from any browser. It emulates mass storage
+drives and allows ATX power management, secure data transmission with SSL, and
+local Raspberry Pi health monitoring. You can also manage GPIO and USB relays
+via its web interface. The PiKVM OS is production-ready, supports a read-only
+filesystem to prevent memory card damage, offers extensible authorization
+methods, and enables automation with macros.</p>
+<h3 id="features-of-pikvm"><a class="header" href="#features-of-pikvm">Features of PiKVM:</a></h3>
+<ul>
+<li><strong>Fully-featured and modern IP-KVM:</strong> PiKVM is up-to-date with the latest KVM technologies.</li>
+<li><strong>Easy to build:</strong> PiKVM offers ready-to-use OS images and a friendly build environment.</li>
+<li><strong>Low video latency:</strong> With approximately 100 milliseconds of video latency, it provides
+one of the smallest delays of all existing solutions.</li>
+<li><strong>Lightweight Web UI and VNC:</strong> The user interface is accessible through any browser,
+with no proprietary clients required. VNC is also supported.</li>
+<li><strong>Mass Storage Drive Emulation:</strong> On Raspberry Pi 4 and ZeroW, PiKVM can emulate a virtual
+CD-ROM or Flash Drive. A live image can be uploaded to boot the attached server.</li>
+<li><strong>ATX power management:</strong> PiKVM supports simple circuits for controlling the power
+button of the attached server.</li>
+<li><strong>Security:</strong> PiKVM is designed with strong security, using SSL to protect traffic.</li>
+<li><strong>Local monitoring:</strong> PiKVM monitors the health of the Raspberry Pi board and provides
+warnings for potential issues.</li>
+<li><strong>GPIO management:</strong> Control GPIO and USB relays via the web interface.</li>
+<li><strong>Production-ready:</strong> PiKVM OS is based on Arch Linux ARM and can be customized for any needs.</li>
+<li><strong>Read-only filesystem:</strong> The OS runs in read-only mode to prevent damage to the memory
+card due to a sudden power outage.</li>
+<li><strong>Extensible authorization methods:</strong> PiKVM supports integration into existing
+authentication infrastructure.</li>
+<li><strong>Macro scripts:</strong> Repetitive actions can be automated with keyboard &amp; mouse action macros.</li>
+<li><strong>Open &amp; free:</strong> PiKVM is open-source software, released under the GPLv3.</li>
+</ul>
 
                     </main>
 

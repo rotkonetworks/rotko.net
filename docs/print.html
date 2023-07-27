@@ -84,16 +84,38 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.7.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bkk03_firmware.html"><strong aria-hidden="true">2.5.1.</strong> Firmware</a></li></ol></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.7.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
@@ -253,51 +275,46 @@ operational environment. </p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="networking"><a class="header" href="#networking">Networking</a></h1>
 <h2 id="bandwidth"><a class="header" href="#bandwidth">Bandwidth</a></h2>
 <img src="images/networking/bandwidth.webp" alt="Scaling bandwidth" style="width: 100%; margin-top: 2em; object-fit: cover;">
-<p>Dedicated bandwidth connection, providing up to 200Mbps for international
-direct land-line and under-sea connections. This service extends all the way to
-Singapore, ensuring latency below 30ms. This speed is critical for RPC endpoint
-provider operations, where timely data transfer is a crucial success factor.
-The provision to scale up our bandwidth capabilities offers us the flexibility
-to match our growing needs without compromising on the quality of service.</p>
+<p>We operate a dedicated bandwidth connection providing up to 200Mbps for
+international direct land-line and under-sea connections. This service extends
+all the way to Singapore, ensuring latency below 30ms. This speed is critical
+for RPC endpoint provider operations, where timely data transfer is a crucial
+success factor. The provision to scale up our bandwidth capabilities offers
+us the flexibility to match our growing needs without compromising on the
+quality of service.</p>
 <h2 id="router"><a class="header" href="#router">Router</a></h2>
 <img src="images/networking/mikrotik.webp" alt="Mikrotik Cloud Core Router" style="width: 100%; margin-top: 2em; object-fit: cover;">
 <p><a href="https://mikrotik.com/product/ccr2004_16g_2splus">MikroTik Cloud Core Router CCR2004-16G-2S+</a></p>
-<p>The CCR2004 router, part of the illustrious MikroTik series, brings several
-compelling advantages to the table, ensuring optimal low latency networking
-and high throughput suitable for our needs.</p>
+<p>We use the <a href="https://mikrotik.com/product/ccr2004_16g_2splus">MikroTik Cloud Core Router CCR2004-16G-2S+</a> for its
+optimal low latency networking and high throughput capabilities.</p>
 <ul>
-<li>
-<p><strong>Decent Performance:</strong> The router leverages the power of the Annapurna
-Labs Alpine v2 CPU, which has 4x 64-bit ARMv8-A Cortex-A57 cores. This results
-in robust single-core performance, a critical factor when managing operations
-that hinge heavily on per-connection processing.</p>
-</li>
-<li>
-<p><strong>Expansive Bandwidth:</strong> The CCR2004 router is well-equipped with 18 wired
-ports, incorporating 16x Gigabit Ethernet ports and two 10G SFP+ cages,
-providing abundant bandwidth capacity. This specification enables the router
-to efficiently manage high data traffic, thus delivering enhanced throughput.</p>
-</li>
-<li>
-<p><strong>Zero Bottlenecks:</strong> The unique design of the CCR2004 router ensures no data
-flow bottlenecks. Each group of 8 Gigabit Ethernet ports is connected to a
+<li><strong>Performance:</strong> The CCR2004 router uses the Annapurna Labs Alpine v2 CPU,
+which has 4x 64-bit ARMv8-A Cortex-A57 cores for robust single-core
+performance.</li>
+<li><strong>Bandwidth:</strong> The router has 18 wired ports, including 16x Gigabit Ethernet
+ports and two 10G SFP+ cages for high data traffic management.</li>
+<li><strong>No Bottlenecks:</strong> Each group of 8 Gigabit Ethernet ports is connected to a
 distinct Marvell Amethyst family switch-chip, each having a separate 10 Gbps
-full-duplex line to the CPU. This structure ensures all ports can operate at
-full wire speed, as long as the CPU can handle the processing, ensuring low
-latency and high throughput.</p>
-</li>
-<li>
-<p><strong>Incredible Single-Core Performance per Watt:</strong> The CCR2004 router offers
-the best single-core performance per watt across all CCR devices. This efficient
-operation results in higher processing power per unit of energy consumed,
-handling a more substantial load, thereby offering low latency and high throughput.</p>
-</li>
-<li>
-<p><strong>Reliability and Durability:</strong> Encased in a classic white 1U rackmount,
-the CCR2004 incorporates built-in dual redundant power supplies. This
-redundancy ensures that even if one power supply falters, the other
-continues operations, promising uninterrupted service.</p>
-</li>
+full-duplex line to the CPU for full wire speed operation.</li>
+<li><strong>Single-Core Performance per Watt:</strong> The CCR2004 router offers the best
+single-core performance per watt across all CCR devices.</li>
+<li><strong>Reliability and Durability:</strong> The CCR2004 router, encased in a classic
+white 1U rackmount, incorporates built-in dual redundant power supplies for
+uninterrupted service.</li>
+</ul>
+<h2 id="ipv4-configuration"><a class="header" href="#ipv4-configuration">IPv4 Configuration</a></h2>
+<p>Our subnet, based on the CIDR notation of 255.255.255.248 (/29), provides us
+with 6 usable IP addresses, from 27.131.160.105 to 27.131.160.110, out of a
+total of 8. The first address, 27.131.160.104, is the network address, and the
+last one, 27.131.160.111, is the broadcast address. They can't be used for
+hosts (like our router or nodes). </p>
+<p>We currently use the following configuration:</p>
+<ul>
+<li><strong>Network Address:</strong> 27.131.160.104</li>
+<li><strong>Gateway (ISP's router):</strong> 27.131.160.105</li>
+<li><strong>Our Router's WAN Interface:</strong> 27.131.160.106</li>
+<li><strong>Usable addresses for nodes:</strong> 27.131.160.107 to 27.131.160.110</li>
+<li><strong>Broadcast Address:</strong> 27.131.160.111</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bkk01---validator"><a class="header" href="#bkk01---validator">BKK01 - Validator</a></h1>
 <h2 id="cpu"><a class="header" href="#cpu">CPU</a></h2>
@@ -306,8 +323,8 @@ continues operations, promising uninterrupted service.</p>
 performance for blockchain applications. It provides robust and reliable
 service even under demanding workloads.</p>
 <h2 id="cpu-cooler"><a class="header" href="#cpu-cooler">CPU Cooler</a></h2>
-<p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 CPU Cooler</a></p>
-<p>For managing the thermal performance of our CPU, we use the COOLSERVER R64 CPU
+<p><a href="https://aliexpress.com/item/1005004050053958.html">COOLSERVER P32 CPU Cooler</a></p>
+<p>For managing the thermal performance of our CPU, we use the COOLSERVER P32 CPU
 Cooler. It's equipped with high-quality heatpipes and can handle the Ryzen 5
 5600G even under intensive workloads.</p>
 <h2 id="ram"><a class="header" href="#ram">RAM</a></h2>
@@ -315,8 +332,8 @@ Cooler. It's equipped with high-quality heatpipes and can handle the Ryzen 5
 <p>Our setup uses 2 modules of 32GB DDR4 RAM from Hynix, providing us with ample
 bandwidth and ensuring smooth server operations.</p>
 <h2 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h2>
-<p><a href="https://www.msi.com/Motherboard/A520M-ITX-AC">MSI A520M-ITX/ac</a></p>
-<p>The MSI A520M-ITX/ac motherboard is an engineering marvel that brings together
+<p><a href="https://www.msi.com/Motherboard/A550M-ITX-AC">MSI A550M-ITX/ac</a></p>
+<p>The MSI A550M-ITX/ac motherboard is an engineering marvel that brings together
 the performance of the consumer world with the dependability of server-grade
 hardware. This motherboard supports the AMD Ryzen series CPUs and DDR4 memory,
 promising speed, reliability, and scalability.</p>
@@ -326,180 +343,21 @@ promising speed, reliability, and scalability.</p>
 These high-speed SSDs are known for their exceptional performance and
 efficiency in data storage and retrieval.</p>
 <h2 id="power-unit"><a class="header" href="#power-unit">Power unit</a></h2>
-<p><a href="http://www.mini-box.com/picoPSU-160-XT">160W PicoPSU with 12V 10A AC/DC adapter</a></p>
-<p>To power our setup, we use a 160W PicoPSU with a 12V 10A AC/DC adapter. This
-PSU offers excellent efficiency and durability, and is capable of handling the
-power demands of our CPU and other components.</p>
+<p><a href="https://lazada.co.th/products/i4470266272-s18039576717.html">400W PSU</a></p>
+<p>This second-hand case comes with an integrated 400W Power Supply Unit. The PSU
+is essential for providing power to your internal components. It converts the
+power from the wall outlet into a usable form for your computer's components.
+Despite being second-hand, the PSU is in good condition and will provide a
+reliable power source for your system.</p>
 <h2 id="chassis"><a class="header" href="#chassis">Chassis</a></h2>
-<p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550</a></p>
-<p>The entire setup is smartly fitted into a 2U ATX slot of BKK03 server,
-providing sufficient room for all components and ensuring effective cooling.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk02---validator-2"><a class="header" href="#bkk02---validator-2">BKK02 - Validator 2</a></h1>
-<h2 id="cpu-1"><a class="header" href="#cpu-1">CPU</a></h2>
-<p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-5-5600g">AMD RYZEN 5 5600G 6-Core 3.7 GHz (4.6 GHz Max Boost) Socket AM4 65W</a></p>
-<p>The heart of our operations, the 6-core AMD RYZEN 5 5600G, offers excellent
-performance for blockchain applications. It provides robust and reliable
-service even under demanding workloads.</p>
-<h2 id="cpu-cooler-1"><a class="header" href="#cpu-cooler-1">CPU Cooler</a></h2>
-<p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 CPU Cooler</a></p>
-<p>For managing the thermal performance of our CPU, we use the COOLSERVER R64 CPU
-Cooler. It's equipped with high-quality heatpipes and can handle the Ryzen 5
-5600G even under intensive workloads.</p>
-<h2 id="ram-1"><a class="header" href="#ram-1">RAM</a></h2>
-<p><a href="https://www.amazon.co.jp/-/en/v-color-Skywalker-PC4-25600-Heatsink-TO432G32D816ASPSXKN/dp/B08PPDDPFY">2x32GB Hynix DDR4 3200MHz</a></p>
-<p>Our setup uses 2 modules of 32GB DDR4 RAM from Hynix, providing us with ample
-bandwidth and ensuring smooth server operations.</p>
-<h2 id="motherboard-1"><a class="header" href="#motherboard-1">Motherboard</a></h2>
-<p><a href="https://www.msi.com/Motherboard/A520M-ITX-AC">MSI A520M-ITX/ac</a></p>
-<p>The MSI A520M-ITX/ac motherboard is an engineering marvel that brings together
-the performance of the consumer world with the dependability of server-grade
-hardware. This motherboard supports the AMD Ryzen series CPUs and DDR4 memory,
-promising speed, reliability, and scalability.</p>
-<h2 id="storage-1"><a class="header" href="#storage-1">Storage</a></h2>
-<p><a href="https://www.amazon.co.jp/-/en/dp/B0BZCVVKNY">4x 2TB NVME Monster Storage 3D TLC SSD - R:7400Mb/s W:6,600MB/s</a></p>
-<p>For storage, we use 4 Monster Storage 3D TLC NVMe SSDs, each of 2TB capacity.
-These high-speed SSDs are known for their exceptional performance and
-efficiency in data storage and retrieval. Downside is that lacks DRAM for caching.</p>
-<h2 id="power-unit-1"><a class="header" href="#power-unit-1">Power unit</a></h2>
-<p><a href="http://www.mini-box.com/picoPSU-160-XT">160W PicoPSU with 12V 10A AC/DC adapter</a></p>
-<p>To power our setup, we use a 160W PicoPSU with a 12V 10A AC/DC adapter. This
-PSU offers excellent efficiency and durability, and is capable of handling the
-power demands of our CPU and other components.</p>
-<h2 id="chassis-1"><a class="header" href="#chassis-1">Chassis</a></h2>
-<p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550</a></p>
-<p>The entire setup is smartly fitted into a 2U ATX slot of BKK03 server,
-providing sufficient room for all components and ensuring effective cooling.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="bkk03"><a class="header" href="#bkk03">BKK03</a></h2>
-<h3 id="cpu-2"><a class="header" href="#cpu-2">CPU</a></h3>
-<img src="images/bkk03/amdryzen9-2.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
-<img src="images/bkk03/amdryzen9.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
-<p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x">AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5</a></p>
-<p>At the core of our server operations sits the impressive AMD Ryzen 9 7950X.
-With a 16-core, it's tailored to manage multiple tasks with ease - enabling
-multiple networks to be run simultaneously. The high core clock speeds are
-paramount in blockchain applications, enabling efficient sync of chains and
-reliable endpoint service.</p>
-<p>Supporting cutting-edge PCI Express® 5.0 and DDR5 memory technologies, this CPU
-ensures rapid data transfer and retrieval - essential for efficient and low
-latency blockchain transactions. Its large 64MB L3 cache further enhances
-performance by allowing quick access to frequently used data.</p>
-<p>The Ryzen 9 7950X excels in cryptographic operations, crucial for blockchain
-processing. Benchmarking at 1.59 GiBs in BLAKE2-256 and 822.88 KiBs in
-SR25519-Verify, it comfortably outperforms Polkadot's stringent requirements,
-reinforcing its suitability for our blockchain-centric operations.</p>
-<h3 id="cpu-cooler-2"><a class="header" href="#cpu-cooler-2">CPU Cooler</a></h3>
-<p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 AM5 Server CPU Cooler</a></p>
-<p>The COOLSERVER R64 AM5 Server CPU Cooler, with its 4 high-quality heatpipes and
-150W TDP, is perfectly equipped to handle the thermal output of our Ryzen 9
-7950X, even under intensive blockchain workloads. Its robust double ball
-bearing design ensures longevity and reliability in our 24/7 server operations,
-while the 4-pin PWM fan offers energy-efficient, adaptive cooling.</p>
-<h4 id="temporary-cooler"><a class="header" href="#temporary-cooler">Temporary cooler</a></h4>
-<p><a href="https://www.aliexpress.com/i/4001296934524.html">TDP95W for 1U server 27mm height 1UA27</a></p>
-<p>High-quality construction, individual wireless induction connection for each
-fan, and the ability to support up to 95 Watts of heat dissipation. This is
-currently temporary solution until 2U TDP150W cooler arrives.</p>
-<h3 id="motherboard-2"><a class="header" href="#motherboard-2">Motherboard</a></h3>
-<img src="images/bkk03/asrockrack.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
-<img src="images/bkk03/asrockrack-2.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
-<p><a href="https://www.amazon.com/dp/B0BXRFHDQT">AsRock Rack B650D4U-2L2T/BCM(LGA 1718) Dual 10G LAN</a></p>
-<p>This motherboard is a masterpiece of engineering and design, a testament to
-AsRock's ability to merge the high-performance aspects of the consumer world
-with the robustness and dependability of server-grade hardware. The Rack
-B650D4U-2L2T is a Micro-ATX motherboard that fully supports DDR5 ECC UDIMM
-memories, a feature that provides increased data integrity and system
-reliability - essential elements in server environments.</p>
-<p>Its dual 10G LAN functionality makes it an excellent choice for environments
-with high network traffic. This not only ensures swift and efficient data
-transfer but also minimizes latency, providing a smooth, unbroken service for
-end users.</p>
-<p>The motherboard comes with full PCIe 5.0 support, which is crucial for tackling
-demanding tasks and ensuring optimal performance. It features an M.2 slot, a
-x16 slot, and a x4 slot, which provides the flexibility to cater to various
-expansion needs. With the ability to support up to 7 M.2 slots, the Rack
-B650D4U-2L2T is well-suited for high-performance NVMe storage, significantly
-boosting data access and transfer speeds.</p>
-<p>In essence, the AsRock Rack B650D4U-2L2T is an optimal choice that promises a
-perfect blend of speed, reliability, and scalability, capable of serving the
-demanding needs of modern server applications.</p>
-<h3 id="memory"><a class="header" href="#memory">Memory</a></h3>
-<p><a href="https://www.amazon.com/Server-Memory-Module-4800MHz-MTC20C2085S1EC48BA1R">4x Server Memory Module|MICRON|DDR5|32GB|UDIMM/ECC|4800MHz|CL 40|1.1V|MTC20C2085S1EC48BA1R</a></p>
-<p>Our server setup employs four modules of 32GB DDR5 server memory. These memory
-modules ensure substantial bandwidth, which is paramount in maintaining smooth
-and efficient server operations. Furthermore, these memory modules come
-equipped with ECC (Error-Correcting Code) technology, an invaluable feature
-that ensures the accuracy and integrity of data, a critical aspect in
-preserving the trustworthiness of our transactions and operations.</p>
-<p>In high-performance computing, latency is as crucial as speed. Lower latency
-leads to faster data processing, resulting in more efficient and responsive
-system performance. Our memory modules have demonstrated impressive low-latency
-performance in our extensive testing.</p>
-<h4 id="test-results"><a class="header" href="#test-results">Test results</a></h4>
-<pre><code>|----------+----------------+-------------+-------------+-------------------|
-|  Memory  | Copy | 22.24 GiBs | 14.32 GiBs |        ✅ Pass (155.3 %)      |
-|----------+----------------+-------------+-------------+-------------------|
-</code></pre>
-<p>These results speak volumes about the high-quality performance offered by our
-chosen memory modules. Their low latency will ensure that data is processed
-rapidly and efficiently, contributing to the overall performance and
-responsiveness of our server.</p>
-<h3 id="ssd-expansion-cards"><a class="header" href="#ssd-expansion-cards">SSD Expansion Cards</a></h3>
-<p><a href="">NVMe SSD Expansion Card NVMe PCIe RAID Adapter 4 Ports NVME SSD To PCI-E 4.0 X16 Expansion Card</a></p>
-<p>Our selection of this SSD expansion card is an integral part of our data
-management strategy. The card facilitates the incorporation of state-of-the-art
-NVMe SSDs, which are renowned for their superlative speed and efficiency in
-storage and data retrieval. By enabling faster access to stored data, this card
-aids in optimizing overall system performance, significantly enhancing our
-server's responsiveness.</p>
-<h3 id="storage-2"><a class="header" href="#storage-2">Storage</a></h3>
-<p><a href="https://www.amazon.co.jp/Hanye-%E3%80%90PS5%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%E3%81%BF%E3%80%91-PCIe-Gen4x4-DRAM%E6%90%AD%E8%BC%89/dp/B0B58JXNXG">6x 2TB Hanye ME70 NVMe PCI-E4.0 7200mb/s</a></p>
-<p>Our system utilizes six 2TB High Performance ME70 M.2 NVMe SSDs, offering a
-total of 12TB high-speed storage, tailored for professionals needing quick data
-access and load times. Utilizing Gen4 PCIe tech, these SSDs deliver sequential
-read speeds of 7200 MB/s, combined with a powerful error correction algorithm,
-LDPC (Low Density Parity Check), and DRAM cache for improved response times and
-data integrity - making them an essential asset in our high-demand network
-operations.</p>
-<h4 id="test-results-with-3-cards"><a class="header" href="#test-results-with-3-cards">Test results with 3 cards</a></h4>
-<pre><code>|----------+----------------+-------------+-------------+-------------------|
-| Disk     | Seq Write      | 2.56 GiBs   | 450.00 MiBs | ✅ Pass (582.0 %) |
-|----------+----------------+-------------+-------------+-------------------|
-| Disk     | Rnd Write      | 1.05 GiBs   | 200.00 MiBs | ✅ Pass (535.3 %) |
-+----------+----------------+-------------+-------------+-------------------+
-</code></pre>
-<p>IOPS 745388.087064
-99.99th Percentile Read Latency: 310 ns</p>
-<h4 id="backup-storage"><a class="header" href="#backup-storage">Backup storage</a></h4>
-<p>Our motherboard has 4x SATA3 slots for hard disks. We could partition
-small L2ARC cache section out of nvme disk and setup 4x16TB hard disks for
-backups for 800e price range providing us RAIDZ1 48TB backup space for weekly
-archive backups.</p>
-<h3 id="chassis-2"><a class="header" href="#chassis-2">Chassis</a></h3>
-<p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550 2U</a></p>
-<p>We are still in process of designing correct parts for a 1U chassis build, so
-for the first build we decided to go for 550mm 2U chassis. The challenge of
-fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 as well as 170W TDP
-cooling solution into 1U is not that trivial. These slots are really required
-to provide low latency NVME storage for RPC nodes.</p>
-<p>TGC-24550-3.0 chassis, a 2U rackmount model providing ample space and
-versatility. It has an efficient airflow design, with a middle fan wall of
-four 80mm fans. This setup ensures steady airflow across essential components,
-effectively mitigating thermal issues under heavy loads.</p>
-<h3 id="power-supply-unit"><a class="header" href="#power-supply-unit">Power Supply Unit</a></h3>
-<p><a href="">T.F.SKYWINDINTL 1U MINI Flex ATX Power Supply Unit 400W Modular PSU</a></p>
-<p>Power supply unit is the T.F.SKYWINDINTL 1U MINI Flex ATX 400W PSU. This
-efficient unit comes equipped with a built-in cooling fan and a comprehensive
-range of protective measures, including overcurrent, overvoltage, and
-short-circuit protection. These features augment the stability and
-dependability of our server system. </p>
-<p>The AMD Ryzen 9 7950X, with its Thermal Design Power (TDP) of 170W and peak
-power consumption of 230W for the AM5 socket, requires a resilient and reliable
-power supply unit. Given that the PSU is ideally operated at approximately 50%
-of its maximum capacity during full load for optimum efficiency and durability.
-Rated at 350W, this PSU will operate within its most effective efficiency zone
-while sufficiently catering to the power demands of the processor.</p>
-<h3 id="kvm"><a class="header" href="#kvm">KVM</a></h3>
-<p><a href="https://www.aliexpress.com/item/1005003262886521.html">BliKVM CM4 &quot;KVM over IP&quot; Raspberry Pi CM4 HDMI CSI PiKVM v3</a></p>
+<p><a href="lazada.co.th/products/i4470266272-s18039576717.html">Mini-ITX 1U chassis</a></p>
+<p>This second-hand case comes with an integrated 400W Power Supply Unit. The PSU
+is essential for providing power to your internal components. It converts the
+power from the wall outlet into a usable form for your computer's components.
+Despite being second-hand, the PSU is in good condition and will provide a
+reliable power source for your system.</p>
+<h2 id="kvm"><a class="header" href="#kvm">KVM</a></h2>
+<p><a href="https://aliexpress.com/item/1005003262886521.html">BliKVM v1 CM4 &quot;KVM over IP&quot; Raspberry Pi CM4 HDMI CSI PiKVM v3</a></p>
 <p>A modern, highly secure, and programmable KVM solution running on Arch Linux,
 which provides exceptional control over your server, akin to physical access.
 With an easy build process, it boasts minimal video latency (about 100 ms) and
@@ -509,7 +367,7 @@ local Raspberry Pi health monitoring. You can also manage GPIO and USB relays
 via its web interface. The PiKVM OS is production-ready, supports a read-only
 filesystem to prevent memory card damage, offers extensible authorization
 methods, and enables automation with macros.</p>
-<h4 id="features-of-pikvm"><a class="header" href="#features-of-pikvm">Features of PiKVM:</a></h4>
+<h3 id="features-of-pikvm"><a class="header" href="#features-of-pikvm">Features of PiKVM:</a></h3>
 <ul>
 <li><strong>Fully-featured and modern IP-KVM:</strong> PiKVM is up-to-date with the latest KVM technologies.</li>
 <li><strong>Easy to build:</strong> PiKVM offers ready-to-use OS images and a friendly build environment.</li>
@@ -533,10 +391,432 @@ authentication infrastructure.</li>
 <li><strong>Macro scripts:</strong> Repetitive actions can be automated with keyboard &amp; mouse action macros.</li>
 <li><strong>Open &amp; free:</strong> PiKVM is open-source software, released under the GPLv3.</li>
 </ul>
-<h4 id="links-1"><a class="header" href="#links-1">Links</a></h4>
-<p><a href="https://docs.pikvm.org/">PiKVM docs</a>
-<a href="https://github.com/pikvm/pikvm">PiKVM github</a></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk04"><a class="header" href="#bkk04">BKK04</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk02---validator-2"><a class="header" href="#bkk02---validator-2">BKK02 - Validator 2</a></h1>
+<h2 id="cpu-1"><a class="header" href="#cpu-1">CPU</a></h2>
+<p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-5-5600g">AMD RYZEN 5 5600G 6-Core 3.7 GHz (4.6 GHz Max Boost) Socket AM4 65W</a></p>
+<p>The heart of our operations, the 6-core AMD RYZEN 5 5600G, offers excellent
+performance for blockchain applications. It provides robust and reliable
+service even under demanding workloads.</p>
+<h2 id="cpu-cooler-1"><a class="header" href="#cpu-cooler-1">CPU Cooler</a></h2>
+<p><a href="https://aliexpress.com/item/1005004050053958.html">COOLSERVER P32 CPU Cooler</a></p>
+<p>For managing the thermal performance of our CPU, we use the COOLSERVER P32 CPU
+Cooler. It's equipped with high-quality heatpipes and can handle the Ryzen 5
+5600G even under intensive workloads.</p>
+<h2 id="ram-1"><a class="header" href="#ram-1">RAM</a></h2>
+<p><a href="https://www.amazon.co.jp/-/en/v-color-Skywalker-PC4-25600-Heatsink-TO432G32D816ASPSXKN/dp/B08PPDDPFY">2x32GB Hynix DDR4 3200MHz</a></p>
+<p>Our setup uses 2 modules of 32GB DDR4 RAM from Hynix, providing us with ample
+bandwidth and ensuring smooth server operations.</p>
+<h2 id="motherboard-1"><a class="header" href="#motherboard-1">Motherboard</a></h2>
+<p><a href="https://www.msi.com/Motherboard/A520M-ITX-AC">MSI A520M-ITX/ac</a></p>
+<p>The MSI A520M-ITX/ac motherboard is an engineering marvel that brings together
+the performance of the consumer world with the dependability of server-grade
+hardware. This motherboard supports the AMD Ryzen series CPUs and DDR4 memory,
+promising speed, reliability, and scalability.</p>
+<h2 id="storage-1"><a class="header" href="#storage-1">Storage</a></h2>
+<p><a href="https://www.amazon.co.jp/-/en/dp/B0BZCVVKNY">4x 2TB NVME Monster Storage 3D TLC SSD - R:7400Mb/s W:6,600MB/s</a></p>
+<p>For storage, we use 4 Monster Storage 3D TLC NVMe SSDs, each of 2TB capacity.
+These high-speed SSDs are known for their exceptional performance and
+efficiency in data storage and retrieval. Downside is that lacks DRAM for caching.</p>
+<h2 id="power-unit-1"><a class="header" href="#power-unit-1">Power unit</a></h2>
+<p><a href="https://lazada.co.th/products/i4470266272-s18039576717.html">400W PSU</a></p>
+<p>This second-hand case comes with an integrated 400W Power Supply Unit. The PSU
+is essential for providing power to your internal components. It converts the
+power from the wall outlet into a usable form for your computer's components.
+Despite being second-hand, the PSU is in good condition and will provide a
+reliable power source for your system.</p>
+<h2 id="chassis-1"><a class="header" href="#chassis-1">Chassis</a></h2>
+<p><a href="lazada.co.th/products/i4470266272-s18039576717.html">Mini-ITX 1U chassis</a></p>
+<p>This second-hand case comes with an integrated 400W Power Supply Unit. The PSU
+is essential for providing power to your internal components. It converts the
+power from the wall outlet into a usable form for your computer's components.
+Despite being second-hand, the PSU is in good condition and will provide a
+reliable power source for your system.</p>
+<h2 id="kvm-1"><a class="header" href="#kvm-1">KVM</a></h2>
+<p><a href="https://aliexpress.com/item/1005003262886521.html">BliKVM v1 CM4 &quot;KVM over IP&quot; Raspberry Pi CM4 HDMI CSI PiKVM v3</a></p>
+<p>A modern, highly secure, and programmable KVM solution running on Arch Linux,
+which provides exceptional control over your server, akin to physical access.
+With an easy build process, it boasts minimal video latency (about 100 ms) and
+a lightweight Web UI accessible from any browser. It emulates mass storage
+drives and allows ATX power management, secure data transmission with SSL, and
+local Raspberry Pi health monitoring. You can also manage GPIO and USB relays
+via its web interface. The PiKVM OS is production-ready, supports a read-only
+filesystem to prevent memory card damage, offers extensible authorization
+methods, and enables automation with macros.</p>
+<h3 id="features-of-pikvm-1"><a class="header" href="#features-of-pikvm-1">Features of PiKVM:</a></h3>
+<ul>
+<li><strong>Fully-featured and modern IP-KVM:</strong> PiKVM is up-to-date with the latest KVM technologies.</li>
+<li><strong>Easy to build:</strong> PiKVM offers ready-to-use OS images and a friendly build environment.</li>
+<li><strong>Low video latency:</strong> With approximately 100 milliseconds of video latency, it provides
+one of the smallest delays of all existing solutions.</li>
+<li><strong>Lightweight Web UI and VNC:</strong> The user interface is accessible through any browser,
+with no proprietary clients required. VNC is also supported.</li>
+<li><strong>Mass Storage Drive Emulation:</strong> On Raspberry Pi 4 and ZeroW, PiKVM can emulate a virtual
+CD-ROM or Flash Drive. A live image can be uploaded to boot the attached server.</li>
+<li><strong>ATX power management:</strong> PiKVM supports simple circuits for controlling the power
+button of the attached server.</li>
+<li><strong>Security:</strong> PiKVM is designed with strong security, using SSL to protect traffic.</li>
+<li><strong>Local monitoring:</strong> PiKVM monitors the health of the Raspberry Pi board and provides
+warnings for potential issues.</li>
+<li><strong>GPIO management:</strong> Control GPIO and USB relays via the web interface.</li>
+<li><strong>Production-ready:</strong> PiKVM OS is based on Arch Linux ARM and can be customized for any needs.</li>
+<li><strong>Read-only filesystem:</strong> The OS runs in read-only mode to prevent damage to the memory
+card due to a sudden power outage.</li>
+<li><strong>Extensible authorization methods:</strong> PiKVM supports integration into existing
+authentication infrastructure.</li>
+<li><strong>Macro scripts:</strong> Repetitive actions can be automated with keyboard &amp; mouse action macros.</li>
+<li><strong>Open &amp; free:</strong> PiKVM is open-source software, released under the GPLv3.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk03---bootnode-2"><a class="header" href="#bkk03---bootnode-2">BKK03 - Bootnode 2</a></h1>
+<h2 id="cpu-2"><a class="header" href="#cpu-2">CPU</a></h2>
+<p><a href="https://www.amd.com/en/products/apu/amd-ryzen-9-7950x3d">AMD Ryzen™ 9 7950X3D 16-Core 32-Thread 5NM</a></p>
+<p>At the core of our server operations sits the impressive AMD Ryzen 9 7950X3D.
+With a 16-core, it's tailored to manage multiple tasks with ease - enabling
+multiple networks to be run simultaneously. The high core clock speeds are
+paramount in blockchain applications, enabling efficient sync of chains and
+reliable endpoint service.</p>
+<p>Supporting cutting-edge PCI Express® 5.0 and DDR5 memory technologies, this CPU
+ensures rapid data transfer and retrieval - essential for efficient and low
+latency blockchain transactions. Its large  128MB L3 cache further enhances
+performance by allowing quick access to frequently used data.</p>
+<h2 id="cpu-cooler-2"><a class="header" href="#cpu-cooler-2">CPU Cooler</a></h2>
+<p><a href="https://aliexpress.com/item/1005004050053958.html">COOLSERVER P32 CPU Cooler</a></p>
+<p>The COOLSERVER P32 AM5 Server CPU Cooler</p>
+<p><a href="https://aliexpress.com/item/1005004904430608.html">Thermalright aluminium alloy AM5 frame</a>
+Boost cooling capability we use Thermalright AM5 frame to increase performance.</p>
+<h2 id="motherboard-2"><a class="header" href="#motherboard-2">Motherboard</a></h2>
+<img src="images/bkk03/asrockrack.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
+<img src="images/bkk03/asrockrack-2.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
+<p><a href="https://www.amazon.com/dp/B0BXRFHDQT">AsRock Rack B650D4U-2L2T/BCM(LGA 1718) Dual 10G LAN</a></p>
+<p>This motherboard is a masterpiece of engineering and design, a testament to
+AsRock's ability to merge the high-performance aspects of the consumer world
+with the robustness and dependability of server-grade hardware. The Rack
+B650D4U-2L2T is a Micro-ATX motherboard that fully supports DDR5 ECC UDIMM
+memories, a feature that provides increased data integrity and system
+reliability - essential elements in server environments.</p>
+<p>Its dual 10G LAN functionality makes it an excellent choice for environments
+with high network traffic. This not only ensures swift and efficient data
+transfer but also minimizes latency, providing a smooth, unbroken service for
+end users.</p>
+<p>The motherboard comes with full PCIe 5.0 support, which is crucial for tackling
+demanding tasks and ensuring optimal performance. It features an M.2 slot, a
+x16 slot, and a x4 slot, which provides the flexibility to cater to various
+expansion needs. With the ability to support up to 7 M.2 slots, the Rack
+B650D4U-2L2T is well-suited for high-performance NVMe storage, significantly
+boosting data access and transfer speeds.</p>
+<p>In essence, the AsRock Rack B650D4U-2L2T is an optimal choice that promises a
+perfect blend of speed, reliability, and scalability, capable of serving the
+demanding needs of modern server applications.</p>
+<h2 id="memory"><a class="header" href="#memory">Memory</a></h2>
+<p><a href="https://www.amazon.com/Server-Memory-Module-4800MHz-MTC20C2085S1EC48BA1R">4x Server Memory Module|MICRON|DDR5|32GB|UDIMM/ECC|4800MHz|CL 40|1.1V|MTC20C2085S1EC48BA1R</a></p>
+<p>Our server setup employs four modules of 32GB DDR5 server memory. These memory
+modules ensure substantial bandwidth, which is paramount in maintaining smooth
+and efficient server operations. Furthermore, these memory modules come
+equipped with ECC (Error-Correcting Code) technology, an invaluable feature
+that ensures the accuracy and integrity of data, a critical aspect in
+preserving the trustworthiness of our transactions and operations.</p>
+<p>In high-performance computing, latency is as crucial as speed. Lower latency
+leads to faster data processing, resulting in more efficient and responsive
+system performance. Our memory modules have demonstrated impressive low-latency
+performance in our extensive testing.</p>
+<h3 id="test-results"><a class="header" href="#test-results">Test results</a></h3>
+<pre><code>|----------+----------------+-------------+-------------+-------------------|
+|  Memory  | Copy | 22.24 GiBs | 14.32 GiBs |        ✅ Pass (155.3 %)      |
+|----------+----------------+-------------+-------------+-------------------|
+</code></pre>
+<p>These results speak volumes about the high-quality performance offered by our
+chosen memory modules. Their low latency will ensure that data is processed
+rapidly and efficiently, contributing to the overall performance and
+responsiveness of our server.</p>
+<h2 id="ssd-expansion-cards"><a class="header" href="#ssd-expansion-cards">SSD Expansion Cards</a></h2>
+<p><a href="">NVMe SSD Expansion Card NVMe PCIe RAID Adapter 4 Ports NVME SSD To PCI-E 4.0 X16 Expansion Card</a></p>
+<p>Our selection of this SSD expansion card is an integral part of our data
+management strategy. The card facilitates the incorporation of state-of-the-art
+NVMe SSDs, which are renowned for their superlative speed and efficiency in
+storage and data retrieval. By enabling faster access to stored data, this card
+aids in optimizing overall system performance, significantly enhancing our
+server's responsiveness.</p>
+<h2 id="storage-2"><a class="header" href="#storage-2">Storage</a></h2>
+<p><a href="https://www.amazon.co.jp/Hanye-%E3%80%90PS5%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%E3%81%BF%E3%80%91-PCIe-Gen4x4-DRAM%E6%90%AD%E8%BC%89/dp/B0B58JXNXG">5x 2TB Hanye ME70 NVMe PCI-E4.0 7200mb/s</a></p>
+<p>Our system utilizes six 2TB High Performance ME70 M.2 NVMe SSDs, offering a
+total of 12TB high-speed storage, tailored for professionals needing quick data
+access and load times. Utilizing Gen4 PCIe tech, these SSDs deliver sequential
+read speeds of 7200 MB/s, combined with a powerful error correction algorithm,
+LDPC (Low Density Parity Check), and DRAM cache for improved response times and
+data integrity - making them an essential asset in our high-demand network
+operations.</p>
+<h3 id="test-results-with-3-cards"><a class="header" href="#test-results-with-3-cards">Test results with 3 cards</a></h3>
+<pre><code>|----------+----------------+-------------+-------------+-------------------|
+| Disk     | Seq Write      | 2.56 GiBs   | 450.00 MiBs | ✅ Pass (582.0 %) |
+|----------+----------------+-------------+-------------+-------------------|
+| Disk     | Rnd Write      | 1.05 GiBs   | 200.00 MiBs | ✅ Pass (535.3 %) |
++----------+----------------+-------------+-------------+-------------------+
+</code></pre>
+<p>IOPS 745388.087064
+99.99th Percentile Read Latency: 310 ns</p>
+<h2 id="chassis-2"><a class="header" href="#chassis-2">Chassis</a></h2>
+<p><a href="https://www.pcgallery.co.th/product/tgc-h1-400/">1U Case, TGC H1-400</a></p>
+<h2 id="power-supply-unit"><a class="header" href="#power-supply-unit">Power Supply Unit</a></h2>
+<p><a href=""></a></p>
+<h2 id="kvm-2"><a class="header" href="#kvm-2">KVM</a></h2>
+<p>[Asrock Rack BCM/IPMI]</p>
+<p>AsRock Rack motherboard comes with BCM for remote control.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="firmware-update--for-asrock-rack-motherboard"><a class="header" href="#firmware-update--for-asrock-rack-motherboard">Firmware Update  for ASRock Rack Motherboard</a></h1>
+<p>This guide outlines the steps to update the firmware on your ASRock Rack
+motherboard. The update includes the BIOS, BMC (Baseboard Management
+Controller), and the networking firmware.</p>
+<p>Before starting, download the following files:</p>
+<ul>
+<li><a href="https://www.dropbox.com/s/01csce7jp2n18xm/B650D4U-2L2T-BCM_4.01.ROM?dl=0">BIOS L4.01</a></li>
+<li><a href="https://www.dropbox.com/s/gwrmaowuxn8uvi5/B650D4U_2L2T-BCM_BMC4.01.00.zip?dl=0">BMC</a></li>
+<li><a href="https://www.dropbox.com/s/ftuwqr9renu9lo9/Broadcom%2057416%20LAN%20Flashing%20FW%20EN.zip?dl=0">Broadcom 57416 LAN Flashing Firmware</a></li>
+</ul>
+<h2 id="bios-update"><a class="header" href="#bios-update">BIOS Update</a></h2>
+<p>ASRock Rack provides a BIOS flash utility called ASRock Rack Instant Flash,
+embedded in the Flash ROM, to make the BIOS update process simple and
+straightforward.</p>
+<ol>
+<li>
+<p><strong>Preparation</strong>: Format a USB flash drive with FAT32/16/12 file system and
+save the new BIOS file to your USB flash drive.</p>
+</li>
+<li>
+<p><strong>Access ASRock Rack Instant Flash</strong>: Restart the server and press the
+<code>&lt;F6&gt;</code> key during the POST or the <code>&lt;F2&gt;</code> key to enter the BIOS setup menu.
+From there, access the ASRock Rack Instant Flash utility.</p>
+</li>
+<li>
+<p><strong>Update BIOS</strong>: Follow the instructions provided by the utility to update
+the BIOS.</p>
+</li>
+</ol>
+<h2 id="bmc-firmware-update"><a class="header" href="#bmc-firmware-update">BMC Firmware Update</a></h2>
+<p>In order to keep your BMC firmware up-to-date and have the latest features and
+improvements, regular updates are recommended. This guide provides step-by-step
+instructions on how to update your BMC firmware. </p>
+<ol>
+<li>
+<p><strong>Preparation</strong>: Download the correct BMC firmware update file from the
+ASRock Rack website. Ensure the firmware version is later than the one
+currently installed on your device. Save the firmware file on your local
+system.</p>
+</li>
+<li>
+<p><strong>Access BMC Maintenance Portal</strong>: Open your web browser and navigate to the
+BMC maintenance portal using the IP address of the BMC. Typically, the URL
+is https://[BMC IP Address]/#maintenance/firmware_update_wizard, for
+instance, https://192.168.33.114/#maintenance/firmware_update_wizard.</p>
+</li>
+<li>
+<p><strong>Login</strong>: Use your BMC username and password to log into the portal. </p>
+</li>
+<li>
+<p><strong>Firmware Update Section</strong>: Navigate to the firmware update section.</p>
+</li>
+<li>
+<p><strong>Upload Firmware Image</strong>: Click on &quot;Select Firmware Image&quot; and upload the
+firmware file you downloaded earlier. The firmware files typically end with
+<code>.ima</code>. For instance, <code>B650D4U_2L2T_4.01.00.ima</code>.</p>
+</li>
+<li>
+<p><strong>Preserve Configuration</strong>: If you want to preserve all the current
+configurations during the update, check the box &quot;Preserve all
+Configuration&quot;. This will maintain all the settings irrespective of the
+individual items marked as preserve/overwrite in the table below. </p>
+</li>
+<li>
+<p><strong>Start Update</strong>: Click &quot;Firmware Update&quot;. The system will validate the
+image and if successful, the update process will start. The progress will be
+shown on the screen.</p>
+</li>
+<li>
+<p><strong>Reboot</strong>: Once the update is completed, the system will reboot
+automatically. </p>
+</li>
+</ol>
+<blockquote>
+<p><strong>WARNING</strong>: Please note that after entering the update mode, other web
+pages, widgets, and services will not work. All the open widgets will be
+automatically closed. If the update is cancelled in the middle of the
+process, the device will be reset only for BMC BOOT, and APP components of
+Firmware.</p>
+</blockquote>
+<blockquote>
+<p><strong>NOTE</strong>: The IP address used in this guide is an example. Replace it with
+the actual IP address of your BMC. Also, remember to use a reliable network
+connection during the update process to prevent any interruption.</p>
+</blockquote>
+<h2 id="networking-firmware-update"><a class="header" href="#networking-firmware-update">Networking Firmware Update</a></h2>
+<ol>
+<li>
+<p><strong>Preparation</strong>: Format a USB flash drive and copy the
+&quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot; folder from the downloaded Broadcom 57416
+LAN Flashing Firmware onto it.</p>
+</li>
+<li>
+<p><strong>Access UEFI Shell</strong>: Insert the USB flash drive into your ASRock Rack
+server board, reboot the server, and hit F11 at the POST screen. Select
+&quot;UEFI: Built-in EFI Shell&quot;. The USB flash drive should be named <code>FS0:</code>. Type
+<code>FS0:</code> and press enter.</p>
+<p><img src="images/firmware/image0.png" alt="UEFI Shell" /></p>
+</li>
+<li>
+<p><strong>Verify Current Firmware Version</strong>: Execute <code>bnxtmt.efi</code> to display the
+current firmware version.</p>
+<p><img src="images/firmware/image1.png" alt="bnxtmt efi execution" /></p>
+</li>
+<li>
+<p><strong>Erase the Flash</strong>: Navigate to the &quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot;
+folder and execute <code>bnxtmt.efi -sysop -none -no_swap –blank</code> to erase the
+current firmware.</p>
+<p><img src="images/firmware/image3.jpg" alt="Erase Flash" /></p>
+</li>
+<li>
+<p><strong>Flash the Firmware</strong>: Execute <code>bnxtmt.efi -sysop -none -no_swap -fnvm ASRR57416-2T.PKG -log FW1.log</code> to flash the new firmware. Here,
+<code>ASRR57416-2T.PKG</code> is the firmware file.</p>
+<p><img src="images/firmware/image2.jpg" alt="Flash Firmware" /></p>
+</li>
+<li>
+<p><strong>Verify Updated Firmware Version</strong>: Run <code>bnxtmt.efi</code> again to verify the
+new firmware version.</p>
+<p><img src="images/firmware/image4.jpg" alt="bnxtmt efi execution" /></p>
+</li>
+<li>
+<p><strong>Flash LAN Ports' MAC Addresses</strong>: Execute <code>bnxtmt.efi -none –m -log MAC1.log</code>.</p>
+<p><img src="images/firmware/image5.jpg" alt="Flash MAC" /></p>
+</li>
+<li>
+<p><strong>Input MAC Addresses</strong>: Enter the MAC addresses of both LAN ports when
+prompted. <em>Write down these addresses beforehand.</em></p>
+<p><img src="images/firmware/image6.jpg" alt="Enter MAC Addresses" /></p>
+</li>
+<li>
+<p><strong>Power Cycle</strong>: Turn off the system, power cycle the PSU, and then power
+everything back on.</p>
+</li>
+</ol>
+<blockquote>
+<p>Note: The MAC addresses for your LAN ports are crucial. Write them down
+before starting the update process as they need to be added during the
+command at step 8.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk04---bootnode-1"><a class="header" href="#bkk04---bootnode-1">BKK04 - Bootnode 1</a></h1>
+<h2 id="cpu-3"><a class="header" href="#cpu-3">CPU</a></h2>
+<img src="images/bkk04/amdryzen9-2.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
+<img src="images/bkk04/amdryzen9.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
+<p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x">AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5</a></p>
+<p>At the core of our server operations sits the impressive AMD Ryzen 9 7950X.
+With a 16-core, it's tailored to manage multiple tasks with ease - enabling
+multiple networks to be run simultaneously. The high core clock speeds are
+paramount in blockchain applications, enabling efficient sync of chains and
+reliable endpoint service.</p>
+<p>Supporting cutting-edge PCI Express® 5.0 and DDR5 memory technologies, this CPU
+ensures rapid data transfer and retrieval - essential for efficient and low
+latency blockchain transactions. Its large 64MB L3 cache further enhances
+performance by allowing quick access to frequently used data.</p>
+<p>The Ryzen 9 7950X excels in cryptographic operations, crucial for blockchain
+processing. Benchmarking at 1.59 GiBs in BLAKE2-256 and 822.88 KiBs in
+SR25519-Verify, it comfortably outperforms Polkadot's stringent requirements,
+reinforcing its suitability for our blockchain-centric operations.</p>
+<h3 id="cpu-cooler-3"><a class="header" href="#cpu-cooler-3">CPU Cooler</a></h3>
+<p><a href="https://aliexpress.com/item/1005004850411911.html">COOLSERVER R64 AM5 Server CPU Cooler</a></p>
+<p>The COOLSERVER R64 AM5 Server CPU Cooler, with its 4 high-quality heatpipes and
+150W TDP, is perfectly equipped to handle the thermal output of our Ryzen 9
+7950X, even under intensive blockchain workloads. Its robust double ball
+bearing design ensures longevity and reliability in our 24/7 server operations,
+while the 4-pin PWM fan offers energy-efficient, adaptive cooling.</p>
+<p><a href="https://aliexpress.com/item/1005004904430608.html">Thermalright aluminium alloy AM5 frame</a>
+Boost cooling capability we use Thermalright AM5 frame to increase performance.</p>
+<h3 id="motherboard-3"><a class="header" href="#motherboard-3">Motherboard</a></h3>
+<img src="images/bkk04/asrockrack.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
+<img src="images/bkk04/asrockrack-2.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
+<p><a href="https://www.asrockrack.com/general/productdetail.asp?Model=B650D4U#Specifications">AsRock Rack B650D4U(LGA 1718)</a></p>
+<p>This motherboard is a masterpiece of engineering and design, a testament to
+AsRock's ability to merge the high-performance aspects of the consumer world
+with the robustness and dependability of server-grade hardware. The Rack
+B650D4U is a Micro-ATX motherboard that fully supports DDR5 ECC UDIMM
+memories, a feature that provides increased data integrity and system
+reliability - essential elements in server environments.</p>
+<p>The motherboard comes with full PCIe 5.0 support, which is crucial for tackling
+demanding tasks and ensuring optimal performance. It features an M.2 slot, a
+x16 slot, and a x4 slot, which provides the flexibility to cater to various
+expansion needs. With the ability to support up to 7 M.2 slots, the Rack
+B650D4U-2L2T is well-suited for high-performance NVMe storage, significantly
+boosting data access and transfer speeds.</p>
+<p>In essence, the AsRock Rack B650D4U is an optimal choice that promises a
+perfect blend of speed, reliability, and scalability, capable of serving the
+demanding needs of modern server applications.</p>
+<h3 id="memory-1"><a class="header" href="#memory-1">Memory</a></h3>
+<p><a href="https://www.amazon.com/Server-Memory-Module-4800MHz-MTC20C2085S1EC48BA1R">4x Server Memory Module|MICRON|DDR5|32GB|UDIMM/ECC|4800MHz|CL 40|1.1V|MTC20C2085S1EC48BA1R</a></p>
+<p>Our server setup employs four modules of 32GB DDR5 server memory. These memory
+modules ensure substantial bandwidth, which is paramount in maintaining smooth
+and efficient server operations. Furthermore, these memory modules come
+equipped with ECC (Error-Correcting Code) technology, an invaluable feature
+that ensures the accuracy and integrity of data, a critical aspect in
+preserving the trustworthiness of our transactions and operations.</p>
+<p>In high-performance computing, latency is as crucial as speed. Lower latency
+leads to faster data processing, resulting in more efficient and responsive
+system performance. Our memory modules have demonstrated impressive low-latency
+performance in our extensive testing.</p>
+<h4 id="test-results-1"><a class="header" href="#test-results-1">Test results</a></h4>
+<pre><code>|----------+----------------+-------------+-------------+-------------------|
+|  Memory  | Copy | 22.24 GiBs | 14.32 GiBs |        ✅ Pass (155.3 %)      |
+|----------+----------------+-------------+-------------+-------------------|
+</code></pre>
+<p>These results speak volumes about the high-quality performance offered by our
+chosen memory modules. Their low latency will ensure that data is processed
+rapidly and efficiently, contributing to the overall performance and
+responsiveness of our server.</p>
+<h3 id="ssd-expansion-cards-1"><a class="header" href="#ssd-expansion-cards-1">SSD Expansion Cards</a></h3>
+<p><a href="">NVMe SSD Expansion Card NVMe PCIe RAID Adapter 4 Ports NVME SSD To PCI-E 4.0 X16 Expansion Card</a></p>
+<p>Our selection of this SSD expansion card is an integral part of our data
+management strategy. The card facilitates the incorporation of state-of-the-art
+NVMe SSDs, which are renowned for their superlative speed and efficiency in
+storage and data retrieval. By enabling faster access to stored data, this card
+aids in optimizing overall system performance, significantly enhancing our
+server's responsiveness.</p>
+<h3 id="storage-3"><a class="header" href="#storage-3">Storage</a></h3>
+<p><a href="https://www.amazon.co.jp/-/en/SAMSUNG-PCIe-Internal-Gaming-MZ-V8P2T0B/dp/B08RK2SR23/">6x 2TB Samsung SSD Pro 980</a></p>
+<h4 id="test-results-with-6-nvme-cards"><a class="header" href="#test-results-with-6-nvme-cards">Test results with 6 nvme cards</a></h4>
+<pre><code>|----------+----------------+-------------+-------------+-------------------|
+| Disk     | Seq Write      | 2.56 GiBs   | 450.00 MiBs | ✅ Pass (582.0 %) |
+|----------+----------------+-------------+-------------+-------------------|
+| Disk     | Rnd Write      | 1.05 GiBs   | 200.00 MiBs | ✅ Pass (535.3 %) |
++----------+----------------+-------------+-------------+-------------------+
+</code></pre>
+<p>IOPS 745388.087064
+99.99th Percentile Read Latency: 310 ns</p>
+<h4 id="backup-storage"><a class="header" href="#backup-storage">Backup storage</a></h4>
+<p>Our motherboard has 4x SATA3 slots for hard disks. For chain backups we are
+using 3x 16TB disks in ZFS RAIDZ delivering us 32TB storage allowing 1 disk
+to break. We have reserved small partitions in each 6 nvme for ZLOG and L2ARC
+for improved performance for read/write operations thanks to ZFS.</p>
+<h3 id="chassis-3"><a class="header" href="#chassis-3">Chassis</a></h3>
+<p><a href="https://www.pcgallery.co.th/product/tgc-24550-3-0/">TGC-24550 2U</a></p>
+<p>We are still in process of designing correct parts for a 1U chassis build, so
+for the first build we decided to go for 550mm 2U chassis. The challenge of
+fitting Micro-ATX with ricers to PCI-E x16 and PCI-E x4 as well as 170W TDP
+cooling solution into 1U is not that trivial. These slots are really required
+to provide low latency NVME storage for RPC nodes.</p>
+<p>TGC-24550-3.0 chassis, a 2U rackmount model providing ample space and
+versatility. It has an efficient airflow design, with a middle fan wall of
+four 80mm fans. This setup ensures steady airflow across essential components,
+effectively mitigating thermal issues under heavy loads.</p>
+<h3 id="power-supply-unit-1"><a class="header" href="#power-supply-unit-1">Power Supply Unit</a></h3>
+<p><a href="">T.F.SKYWINDINTL 1U MINI Flex ATX Power Supply Unit 400W Modular PSU</a></p>
+<p>Power supply unit is the T.F.SKYWINDINTL 1U MINI Flex ATX 400W PSU. This
+efficient unit comes equipped with a built-in cooling fan and a comprehensive
+range of protective measures, including overcurrent, overvoltage, and
+short-circuit protection. These features augment the stability and
+dependability of our server system. </p>
+<p>The AMD Ryzen 9 7950X, with its Thermal Design Power (TDP) of 170W and peak
+power consumption of 230W for the AM5 socket, requires a resilient and reliable
+power supply unit. Given that the PSU is ideally operated at approximately 50%
+of its maximum capacity during full load for optimum efficiency and durability.
+Rated at 350W, this PSU will operate within its most effective efficiency zone
+while sufficiently catering to the power demands of the processor.</p>
+<h3 id="kvm-3"><a class="header" href="#kvm-3">KVM</a></h3>
+<p>[Asrock Rack BCM/IPMI]</p>
+<p>AsRock Rack motherboard comes with BCM for remote control.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="energy-consumption-and-carbon-offset"><a class="header" href="#energy-consumption-and-carbon-offset">Energy Consumption and Carbon Offset</a></h1>
 <h2 id="energy-consumption"><a class="header" href="#energy-consumption">Energy Consumption</a></h2>
 <p>Energy consumption is a crucial aspect of our operations, especially concerning
