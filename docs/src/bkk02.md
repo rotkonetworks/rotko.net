@@ -10,9 +10,9 @@ service even under demanding workloads.
 
 ## CPU Cooler
 
-[COOLSERVER R64 CPU Cooler](https://aliexpress.com/item/1005004850411911.html)
+[COOLSERVER P32 CPU Cooler](https://aliexpress.com/item/1005004050053958.html)
 
-For managing the thermal performance of our CPU, we use the COOLSERVER R64 CPU
+For managing the thermal performance of our CPU, we use the COOLSERVER P32 CPU
 Cooler. It's equipped with high-quality heatpipes and can handle the Ryzen 5
 5600G even under intensive workloads.
 
@@ -42,15 +42,61 @@ efficiency in data storage and retrieval. Downside is that lacks DRAM for cachin
 
 ## Power unit
 
-[160W PicoPSU with 12V 10A AC/DC adapter](http://www.mini-box.com/picoPSU-160-XT)
+[400W PSU](https://lazada.co.th/products/i4470266272-s18039576717.html)
 
-To power our setup, we use a 160W PicoPSU with a 12V 10A AC/DC adapter. This
-PSU offers excellent efficiency and durability, and is capable of handling the
-power demands of our CPU and other components.
+This second-hand case comes with an integrated 400W Power Supply Unit. The PSU
+is essential for providing power to your internal components. It converts the
+power from the wall outlet into a usable form for your computer's components.
+Despite being second-hand, the PSU is in good condition and will provide a
+reliable power source for your system.
+
 
 ## Chassis
 
-[TGC-24550](https://www.pcgallery.co.th/product/tgc-24550-3-0/)
+[Mini-ITX 1U chassis](lazada.co.th/products/i4470266272-s18039576717.html)
 
-The entire setup is smartly fitted into a 2U ATX slot of BKK03 server,
-providing sufficient room for all components and ensuring effective cooling.
+This second-hand case comes with an integrated 400W Power Supply Unit. The PSU
+is essential for providing power to your internal components. It converts the
+power from the wall outlet into a usable form for your computer's components.
+Despite being second-hand, the PSU is in good condition and will provide a
+reliable power source for your system.
+
+
+## KVM
+
+[BliKVM v1 CM4 "KVM over IP" Raspberry Pi CM4 HDMI CSI PiKVM v3](https://aliexpress.com/item/1005003262886521.html)
+
+A modern, highly secure, and programmable KVM solution running on Arch Linux,
+which provides exceptional control over your server, akin to physical access.
+With an easy build process, it boasts minimal video latency (about 100 ms) and
+a lightweight Web UI accessible from any browser. It emulates mass storage
+drives and allows ATX power management, secure data transmission with SSL, and
+local Raspberry Pi health monitoring. You can also manage GPIO and USB relays
+via its web interface. The PiKVM OS is production-ready, supports a read-only
+filesystem to prevent memory card damage, offers extensible authorization
+methods, and enables automation with macros.
+
+
+### Features of PiKVM:
+
+- **Fully-featured and modern IP-KVM:** PiKVM is up-to-date with the latest KVM technologies.
+- **Easy to build:** PiKVM offers ready-to-use OS images and a friendly build environment.
+- **Low video latency:** With approximately 100 milliseconds of video latency, it provides
+one of the smallest delays of all existing solutions.
+- **Lightweight Web UI and VNC:** The user interface is accessible through any browser,
+with no proprietary clients required. VNC is also supported.
+- **Mass Storage Drive Emulation:** On Raspberry Pi 4 and ZeroW, PiKVM can emulate a virtual
+CD-ROM or Flash Drive. A live image can be uploaded to boot the attached server.
+- **ATX power management:** PiKVM supports simple circuits for controlling the power
+button of the attached server.
+- **Security:** PiKVM is designed with strong security, using SSL to protect traffic.
+- **Local monitoring:** PiKVM monitors the health of the Raspberry Pi board and provides
+warnings for potential issues.
+- **GPIO management:** Control GPIO and USB relays via the web interface.
+- **Production-ready:** PiKVM OS is based on Arch Linux ARM and can be customized for any needs.
+- **Read-only filesystem:** The OS runs in read-only mode to prevent damage to the memory
+card due to a sudden power outage.
+- **Extensible authorization methods:** PiKVM supports integration into existing
+authentication infrastructure.
+- **Macro scripts:** Repetitive actions can be automated with keyboard & mouse action macros.
+- **Open & free:** PiKVM is open-source software, released under the GPLv3.
