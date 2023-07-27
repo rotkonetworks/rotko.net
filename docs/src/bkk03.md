@@ -1,6 +1,6 @@
-## BKK03
+# BKK03 - Bootnode 2
 
-### CPU
+## CPU
 
 [AMD Ryzen™ 9 7950X3D 16-Core 32-Thread 5NM](https://www.amd.com/en/products/apu/amd-ryzen-9-7950x3d)
 
@@ -15,7 +15,7 @@ ensures rapid data transfer and retrieval - essential for efficient and low
 latency blockchain transactions. Its large  128MB L3 cache further enhances
 performance by allowing quick access to frequently used data.
 
-### CPU Cooler
+## CPU Cooler
 [COOLSERVER P32 CPU Cooler](https://aliexpress.com/item/1005004050053958.html)
 
 The COOLSERVER P32 AM5 Server CPU Cooler
@@ -24,7 +24,7 @@ The COOLSERVER P32 AM5 Server CPU Cooler
 Boost cooling capability we use Thermalright AM5 frame to increase performance.
 
 
-### Motherboard
+## Motherboard
 <img src="images/bkk03/asrockrack.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
 <img src="images/bkk03/asrockrack-2.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
 
@@ -53,7 +53,7 @@ In essence, the AsRock Rack B650D4U-2L2T is an optimal choice that promises a
 perfect blend of speed, reliability, and scalability, capable of serving the
 demanding needs of modern server applications.
 
-### Memory
+## Memory
 [4x Server Memory Module|MICRON|DDR5|32GB|UDIMM/ECC|4800MHz|CL 40|1.1V|MTC20C2085S1EC48BA1R](https://www.amazon.com/Server-Memory-Module-4800MHz-MTC20C2085S1EC48BA1R)
 
 Our server setup employs four modules of 32GB DDR5 server memory. These memory
@@ -68,7 +68,7 @@ leads to faster data processing, resulting in more efficient and responsive
 system performance. Our memory modules have demonstrated impressive low-latency
 performance in our extensive testing.
 
-#### Test results
+### Test results
 ```
 |----------+----------------+-------------+-------------+-------------------|
 |  Memory  | Copy | 22.24 GiBs | 14.32 GiBs |        ✅ Pass (155.3 %)      |
@@ -80,7 +80,7 @@ chosen memory modules. Their low latency will ensure that data is processed
 rapidly and efficiently, contributing to the overall performance and
 responsiveness of our server.
 
-### SSD Expansion Cards
+## SSD Expansion Cards
 [NVMe SSD Expansion Card NVMe PCIe RAID Adapter 4 Ports NVME SSD To PCI-E 4.0 X16 Expansion Card]()
 
 Our selection of this SSD expansion card is an integral part of our data
@@ -90,7 +90,7 @@ storage and data retrieval. By enabling faster access to stored data, this card
 aids in optimizing overall system performance, significantly enhancing our
 server's responsiveness.
 
-### Storage
+## Storage
 [5x 2TB Hanye ME70 NVMe PCI-E4.0 7200mb/s](https://www.amazon.co.jp/Hanye-%E3%80%90PS5%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%E3%81%BF%E3%80%91-PCIe-Gen4x4-DRAM%E6%90%AD%E8%BC%89/dp/B0B58JXNXG)
 
 Our system utilizes six 2TB High Performance ME70 M.2 NVMe SSDs, offering a
@@ -101,7 +101,7 @@ LDPC (Low Density Parity Check), and DRAM cache for improved response times and
 data integrity - making them an essential asset in our high-demand network
 operations.
 
-#### Test results with 3 cards
+### Test results with 3 cards
 ```
 |----------+----------------+-------------+-------------+-------------------|
 | Disk     | Seq Write      | 2.56 GiBs   | 450.00 MiBs | ✅ Pass (582.0 %) |
@@ -113,14 +113,14 @@ operations.
 IOPS 745388.087064
 99.99th Percentile Read Latency: 310 ns
 
-### Chassis
+## Chassis
 
 [1U Case, TGC H1-400](https://www.pcgallery.co.th/product/tgc-h1-400/)
 
-### Power Supply Unit
+## Power Supply Unit
 []()
 
-### KVM
+## KVM
 [Asrock Rack BCM/IPMI]
 
 AsRock Rack motherboard comes with BCM for remote control.

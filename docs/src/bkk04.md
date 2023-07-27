@@ -1,4 +1,5 @@
-# BKK04
+# BKK04 - Bootnode 1
+
 ## CPU
 
 <img src="images/bkk04/amdryzen9-2.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
