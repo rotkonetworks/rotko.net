@@ -1,4 +1,23 @@
-# Firmware Update  for ASRock Rack Motherboard
+# Firmware Updates
+
+## Samsung 980Pro NVMe
+
+```bash
+wget https://semiconductor.samsung.com/resources/software-resources/Samsung_SSD_980_PRO_5B2QGXA7.iso
+apt-get -y install gzip unzip wget cpio
+mkdir /mnt/iso
+sudo mount -o loop ./Samsung_SSD_980_PRO_5B2QGXA7.iso /mnt/iso/
+mkdir /tmp/fwupdate
+cd /tmp/fwupdate
+gzip -dc /mnt/iso/initrd | cpio -idv --no-absolute-filenames
+cd root/fumagician/
+sudo ./fumagician
+```
+
+This .iso is for 980 Pro, if you have different model replace ISO with link on
+https://semiconductor.samsung.com/consumer-storage/support/tools/
+
+## ASRock Rack Motherboard
 
 This guide outlines the steps to update the firmware on your ASRock Rack
 motherboard. The update includes the BIOS, BMC (Baseboard Management
