@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bkk03_firmware.html"><strong aria-hidden="true">2.5.1.</strong> Firmware</a></li></ol></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.7.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li><li class="chapter-item expanded "><a href="VAAS.html"><strong aria-hidden="true">3.4.</strong> Validator As A Service</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">2.3.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.4.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.5.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.6.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.7.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.8.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -316,6 +316,159 @@ hosts (like our router or nodes). </p>
 <li><strong>Usable addresses for nodes:</strong> 27.131.160.107 to 27.131.160.110</li>
 <li><strong>Broadcast Address:</strong> 27.131.160.111</li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="firmware-updates"><a class="header" href="#firmware-updates">Firmware Updates</a></h1>
+<h2 id="samsung-980pro-nvme"><a class="header" href="#samsung-980pro-nvme">Samsung 980Pro NVMe</a></h2>
+<pre><code class="language-bash">wget https://semiconductor.samsung.com/resources/software-resources/Samsung_SSD_980_PRO_5B2QGXA7.iso
+apt-get -y install gzip unzip wget cpio
+mkdir /mnt/iso
+sudo mount -o loop ./Samsung_SSD_980_PRO_5B2QGXA7.iso /mnt/iso/
+mkdir /tmp/fwupdate
+cd /tmp/fwupdate
+gzip -dc /mnt/iso/initrd | cpio -idv --no-absolute-filenames
+cd root/fumagician/
+sudo ./fumagician
+</code></pre>
+<p>This .iso is for 980 Pro, if you have different model replace ISO with link on
+https://semiconductor.samsung.com/consumer-storage/support/tools/</p>
+<h2 id="asrock-rack-motherboard"><a class="header" href="#asrock-rack-motherboard">ASRock Rack Motherboard</a></h2>
+<p>This guide outlines the steps to update the firmware on your ASRock Rack
+motherboard. The update includes the BIOS, BMC (Baseboard Management
+Controller), and the networking firmware.</p>
+<p>Before starting, download the following files:</p>
+<ul>
+<li><a href="https://www.dropbox.com/s/01csce7jp2n18xm/B650D4U-2L2T-BCM_4.01.ROM?dl=0">BIOS L4.01</a></li>
+<li><a href="https://www.dropbox.com/s/gwrmaowuxn8uvi5/B650D4U_2L2T-BCM_BMC4.01.00.zip?dl=0">BMC</a></li>
+<li><a href="https://www.dropbox.com/s/ftuwqr9renu9lo9/Broadcom%2057416%20LAN%20Flashing%20FW%20EN.zip?dl=0">Broadcom 57416 LAN Flashing Firmware</a></li>
+</ul>
+<h2 id="bios-update"><a class="header" href="#bios-update">BIOS Update</a></h2>
+<p>ASRock Rack provides a BIOS flash utility called ASRock Rack Instant Flash,
+embedded in the Flash ROM, to make the BIOS update process simple and
+straightforward.</p>
+<ol>
+<li>
+<p><strong>Preparation</strong>: Format a USB flash drive with FAT32/16/12 file system and
+save the new BIOS file to your USB flash drive.</p>
+</li>
+<li>
+<p><strong>Access ASRock Rack Instant Flash</strong>: Restart the server and press the
+<code>&lt;F6&gt;</code> key during the POST or the <code>&lt;F2&gt;</code> key to enter the BIOS setup menu.
+From there, access the ASRock Rack Instant Flash utility.</p>
+</li>
+<li>
+<p><strong>Update BIOS</strong>: Follow the instructions provided by the utility to update
+the BIOS.</p>
+</li>
+</ol>
+<h2 id="bmc-firmware-update"><a class="header" href="#bmc-firmware-update">BMC Firmware Update</a></h2>
+<p>In order to keep your BMC firmware up-to-date and have the latest features and
+improvements, regular updates are recommended. This guide provides step-by-step
+instructions on how to update your BMC firmware. </p>
+<ol>
+<li>
+<p><strong>Preparation</strong>: Download the correct BMC firmware update file from the
+ASRock Rack website. Ensure the firmware version is later than the one
+currently installed on your device. Save the firmware file on your local
+system.</p>
+</li>
+<li>
+<p><strong>Access BMC Maintenance Portal</strong>: Open your web browser and navigate to the
+BMC maintenance portal using the IP address of the BMC. Typically, the URL
+is https://[BMC IP Address]/#maintenance/firmware_update_wizard, for
+instance, https://192.168.33.114/#maintenance/firmware_update_wizard.</p>
+</li>
+<li>
+<p><strong>Login</strong>: Use your BMC username and password to log into the portal. </p>
+</li>
+<li>
+<p><strong>Firmware Update Section</strong>: Navigate to the firmware update section.</p>
+</li>
+<li>
+<p><strong>Upload Firmware Image</strong>: Click on &quot;Select Firmware Image&quot; and upload the
+firmware file you downloaded earlier. The firmware files typically end with
+<code>.ima</code>. For instance, <code>B650D4U_2L2T_4.01.00.ima</code>.</p>
+</li>
+<li>
+<p><strong>Preserve Configuration</strong>: If you want to preserve all the current
+configurations during the update, check the box &quot;Preserve all
+Configuration&quot;. This will maintain all the settings irrespective of the
+individual items marked as preserve/overwrite in the table below. </p>
+</li>
+<li>
+<p><strong>Start Update</strong>: Click &quot;Firmware Update&quot;. The system will validate the
+image and if successful, the update process will start. The progress will be
+shown on the screen.</p>
+</li>
+<li>
+<p><strong>Reboot</strong>: Once the update is completed, the system will reboot
+automatically. </p>
+</li>
+</ol>
+<blockquote>
+<p><strong>WARNING</strong>: Please note that after entering the update mode, other web
+pages, widgets, and services will not work. All the open widgets will be
+automatically closed. If the update is cancelled in the middle of the
+process, the device will be reset only for BMC BOOT, and APP components of
+Firmware.</p>
+</blockquote>
+<blockquote>
+<p><strong>NOTE</strong>: The IP address used in this guide is an example. Replace it with
+the actual IP address of your BMC. Also, remember to use a reliable network
+connection during the update process to prevent any interruption.</p>
+</blockquote>
+<h2 id="networking-firmware-update"><a class="header" href="#networking-firmware-update">Networking Firmware Update</a></h2>
+<ol>
+<li>
+<p><strong>Preparation</strong>: Format a USB flash drive and copy the
+&quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot; folder from the downloaded Broadcom 57416
+LAN Flashing Firmware onto it.</p>
+</li>
+<li>
+<p><strong>Access UEFI Shell</strong>: Insert the USB flash drive into your ASRock Rack
+server board, reboot the server, and hit F11 at the POST screen. Select
+&quot;UEFI: Built-in EFI Shell&quot;. The USB flash drive should be named <code>FS0:</code>. Type
+<code>FS0:</code> and press enter.</p>
+<p><img src="images/firmware/image0.png" alt="UEFI Shell" /></p>
+</li>
+<li>
+<p><strong>Verify Current Firmware Version</strong>: Execute <code>bnxtmt.efi</code> to display the
+current firmware version.</p>
+<p><img src="images/firmware/image1.png" alt="bnxtmt efi execution" /></p>
+</li>
+<li>
+<p><strong>Erase the Flash</strong>: Navigate to the &quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot;
+folder and execute <code>bnxtmt.efi -sysop -none -no_swap –blank</code> to erase the
+current firmware.</p>
+<p><img src="images/firmware/image3.jpg" alt="Erase Flash" /></p>
+</li>
+<li>
+<p><strong>Flash the Firmware</strong>: Execute <code>bnxtmt.efi -sysop -none -no_swap -fnvm ASRR57416-2T.PKG -log FW1.log</code> to flash the new firmware. Here,
+<code>ASRR57416-2T.PKG</code> is the firmware file.</p>
+<p><img src="images/firmware/image2.jpg" alt="Flash Firmware" /></p>
+</li>
+<li>
+<p><strong>Verify Updated Firmware Version</strong>: Run <code>bnxtmt.efi</code> again to verify the
+new firmware version.</p>
+<p><img src="images/firmware/image4.jpg" alt="bnxtmt efi execution" /></p>
+</li>
+<li>
+<p><strong>Flash LAN Ports' MAC Addresses</strong>: Execute <code>bnxtmt.efi -none –m -log MAC1.log</code>.</p>
+<p><img src="images/firmware/image5.jpg" alt="Flash MAC" /></p>
+</li>
+<li>
+<p><strong>Input MAC Addresses</strong>: Enter the MAC addresses of both LAN ports when
+prompted. <em>Write down these addresses beforehand.</em></p>
+<p><img src="images/firmware/image6.jpg" alt="Enter MAC Addresses" /></p>
+</li>
+<li>
+<p><strong>Power Cycle</strong>: Turn off the system, power cycle the PSU, and then power
+everything back on.</p>
+</li>
+</ol>
+<blockquote>
+<p>Note: The MAC addresses for your LAN ports are crucial. Write them down
+before starting the update process as they need to be added during the
+command at step 8.</p>
+</blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bkk01---validator"><a class="header" href="#bkk01---validator">BKK01 - Validator</a></h1>
 <h2 id="cpu"><a class="header" href="#cpu">CPU</a></h2>
 <p><a href="https://www.amd.com/en/products/cpu/amd-ryzen-5-5600g">AMD RYZEN 5 5600G 6-Core 3.7 GHz (4.6 GHz Max Boost) Socket AM4 65W</a></p>
@@ -560,145 +713,6 @@ operations.</p>
 <h2 id="kvm-2"><a class="header" href="#kvm-2">KVM</a></h2>
 <p>[Asrock Rack BCM/IPMI]</p>
 <p>AsRock Rack motherboard comes with BCM for remote control.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="firmware-update--for-asrock-rack-motherboard"><a class="header" href="#firmware-update--for-asrock-rack-motherboard">Firmware Update  for ASRock Rack Motherboard</a></h1>
-<p>This guide outlines the steps to update the firmware on your ASRock Rack
-motherboard. The update includes the BIOS, BMC (Baseboard Management
-Controller), and the networking firmware.</p>
-<p>Before starting, download the following files:</p>
-<ul>
-<li><a href="https://www.dropbox.com/s/01csce7jp2n18xm/B650D4U-2L2T-BCM_4.01.ROM?dl=0">BIOS L4.01</a></li>
-<li><a href="https://www.dropbox.com/s/gwrmaowuxn8uvi5/B650D4U_2L2T-BCM_BMC4.01.00.zip?dl=0">BMC</a></li>
-<li><a href="https://www.dropbox.com/s/ftuwqr9renu9lo9/Broadcom%2057416%20LAN%20Flashing%20FW%20EN.zip?dl=0">Broadcom 57416 LAN Flashing Firmware</a></li>
-</ul>
-<h2 id="bios-update"><a class="header" href="#bios-update">BIOS Update</a></h2>
-<p>ASRock Rack provides a BIOS flash utility called ASRock Rack Instant Flash,
-embedded in the Flash ROM, to make the BIOS update process simple and
-straightforward.</p>
-<ol>
-<li>
-<p><strong>Preparation</strong>: Format a USB flash drive with FAT32/16/12 file system and
-save the new BIOS file to your USB flash drive.</p>
-</li>
-<li>
-<p><strong>Access ASRock Rack Instant Flash</strong>: Restart the server and press the
-<code>&lt;F6&gt;</code> key during the POST or the <code>&lt;F2&gt;</code> key to enter the BIOS setup menu.
-From there, access the ASRock Rack Instant Flash utility.</p>
-</li>
-<li>
-<p><strong>Update BIOS</strong>: Follow the instructions provided by the utility to update
-the BIOS.</p>
-</li>
-</ol>
-<h2 id="bmc-firmware-update"><a class="header" href="#bmc-firmware-update">BMC Firmware Update</a></h2>
-<p>In order to keep your BMC firmware up-to-date and have the latest features and
-improvements, regular updates are recommended. This guide provides step-by-step
-instructions on how to update your BMC firmware. </p>
-<ol>
-<li>
-<p><strong>Preparation</strong>: Download the correct BMC firmware update file from the
-ASRock Rack website. Ensure the firmware version is later than the one
-currently installed on your device. Save the firmware file on your local
-system.</p>
-</li>
-<li>
-<p><strong>Access BMC Maintenance Portal</strong>: Open your web browser and navigate to the
-BMC maintenance portal using the IP address of the BMC. Typically, the URL
-is https://[BMC IP Address]/#maintenance/firmware_update_wizard, for
-instance, https://192.168.33.114/#maintenance/firmware_update_wizard.</p>
-</li>
-<li>
-<p><strong>Login</strong>: Use your BMC username and password to log into the portal. </p>
-</li>
-<li>
-<p><strong>Firmware Update Section</strong>: Navigate to the firmware update section.</p>
-</li>
-<li>
-<p><strong>Upload Firmware Image</strong>: Click on &quot;Select Firmware Image&quot; and upload the
-firmware file you downloaded earlier. The firmware files typically end with
-<code>.ima</code>. For instance, <code>B650D4U_2L2T_4.01.00.ima</code>.</p>
-</li>
-<li>
-<p><strong>Preserve Configuration</strong>: If you want to preserve all the current
-configurations during the update, check the box &quot;Preserve all
-Configuration&quot;. This will maintain all the settings irrespective of the
-individual items marked as preserve/overwrite in the table below. </p>
-</li>
-<li>
-<p><strong>Start Update</strong>: Click &quot;Firmware Update&quot;. The system will validate the
-image and if successful, the update process will start. The progress will be
-shown on the screen.</p>
-</li>
-<li>
-<p><strong>Reboot</strong>: Once the update is completed, the system will reboot
-automatically. </p>
-</li>
-</ol>
-<blockquote>
-<p><strong>WARNING</strong>: Please note that after entering the update mode, other web
-pages, widgets, and services will not work. All the open widgets will be
-automatically closed. If the update is cancelled in the middle of the
-process, the device will be reset only for BMC BOOT, and APP components of
-Firmware.</p>
-</blockquote>
-<blockquote>
-<p><strong>NOTE</strong>: The IP address used in this guide is an example. Replace it with
-the actual IP address of your BMC. Also, remember to use a reliable network
-connection during the update process to prevent any interruption.</p>
-</blockquote>
-<h2 id="networking-firmware-update"><a class="header" href="#networking-firmware-update">Networking Firmware Update</a></h2>
-<ol>
-<li>
-<p><strong>Preparation</strong>: Format a USB flash drive and copy the
-&quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot; folder from the downloaded Broadcom 57416
-LAN Flashing Firmware onto it.</p>
-</li>
-<li>
-<p><strong>Access UEFI Shell</strong>: Insert the USB flash drive into your ASRock Rack
-server board, reboot the server, and hit F11 at the POST screen. Select
-&quot;UEFI: Built-in EFI Shell&quot;. The USB flash drive should be named <code>FS0:</code>. Type
-<code>FS0:</code> and press enter.</p>
-<p><img src="images/firmware/image0.png" alt="UEFI Shell" /></p>
-</li>
-<li>
-<p><strong>Verify Current Firmware Version</strong>: Execute <code>bnxtmt.efi</code> to display the
-current firmware version.</p>
-<p><img src="images/firmware/image1.png" alt="bnxtmt efi execution" /></p>
-</li>
-<li>
-<p><strong>Erase the Flash</strong>: Navigate to the &quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot;
-folder and execute <code>bnxtmt.efi -sysop -none -no_swap –blank</code> to erase the
-current firmware.</p>
-<p><img src="images/firmware/image3.jpg" alt="Erase Flash" /></p>
-</li>
-<li>
-<p><strong>Flash the Firmware</strong>: Execute <code>bnxtmt.efi -sysop -none -no_swap -fnvm ASRR57416-2T.PKG -log FW1.log</code> to flash the new firmware. Here,
-<code>ASRR57416-2T.PKG</code> is the firmware file.</p>
-<p><img src="images/firmware/image2.jpg" alt="Flash Firmware" /></p>
-</li>
-<li>
-<p><strong>Verify Updated Firmware Version</strong>: Run <code>bnxtmt.efi</code> again to verify the
-new firmware version.</p>
-<p><img src="images/firmware/image4.jpg" alt="bnxtmt efi execution" /></p>
-</li>
-<li>
-<p><strong>Flash LAN Ports' MAC Addresses</strong>: Execute <code>bnxtmt.efi -none –m -log MAC1.log</code>.</p>
-<p><img src="images/firmware/image5.jpg" alt="Flash MAC" /></p>
-</li>
-<li>
-<p><strong>Input MAC Addresses</strong>: Enter the MAC addresses of both LAN ports when
-prompted. <em>Write down these addresses beforehand.</em></p>
-<p><img src="images/firmware/image6.jpg" alt="Enter MAC Addresses" /></p>
-</li>
-<li>
-<p><strong>Power Cycle</strong>: Turn off the system, power cycle the PSU, and then power
-everything back on.</p>
-</li>
-</ol>
-<blockquote>
-<p>Note: The MAC addresses for your LAN ports are crucial. Write them down
-before starting the update process as they need to be added during the
-command at step 8.</p>
-</blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bkk04---bootnode-1"><a class="header" href="#bkk04---bootnode-1">BKK04 - Bootnode 1</a></h1>
 <h2 id="cpu-3"><a class="header" href="#cpu-3">CPU</a></h2>
 <img src="images/bkk04/amdryzen9-2.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
@@ -1046,77 +1060,6 @@ raid for our NVMe:s.</p>
 be best option to set your recordsize 4K instead before starting syncing.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ansible-1"><a class="header" href="#ansible-1">Ansible</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="virtualization"><a class="header" href="#virtualization">Virtualization</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="validator-as-a-service"><a class="header" href="#validator-as-a-service">Validator as a Service</a></h2>
-<h3 id="secure-key-management"><a class="header" href="#secure-key-management">Secure key management</a></h3>
-<p>Within the Polkadot/Substrate ecosystem, the solution to this complex issue has
-been the introduction of <a href="https://wiki.polkadot.network/docs/learn-cryptography">a trinity of keys different
-keypairs</a> a trinity of
-keys: stash, controller, and session keys. This innovative design permits
-validators to operate securely without exposing their actual wallet keys on the
-internet.</p>
-<p>Instead, the controller wallet provides the Polkadot client with the
-authority to generate session keys, dedicated exclusively for conducting
-blockchain validation tasks. A significant advantage of this architecture is
-its dynamic nature, enabling easy key rotation through a straightforward
-authorship_rotateKeys RPC call.</p>
-<h2 id="the-role-of-trusted-execution-environments"><a class="header" href="#the-role-of-trusted-execution-environments">The Role of Trusted Execution Environments</a></h2>
-<p>To fortify this system, one could consider implementing a Trusted Execution
-Environment (TEE) or secure enclave that can conduct automatic integrity tests.
-If attestation fails, keys can be rotated and the validation process paused,
-thereby protecting the security and integrity of the overall system. However,
-the practical implementation of such a solution comes with its own set of
-complexities and challenges.</p>
-<p>While TEEs and secure enclaves provide an attractive prospect due to their
-ability to securely isolate and process sensitive data, they are not immune to
-threats. Side-channel attacks, in particular, can pose significant risks in a
-decentralized network where trust is distributed across numerous nodes.</p>
-<h2 id="learning-from-tendermints-key-management-system"><a class="header" href="#learning-from-tendermints-key-management-system">Learning from Tendermint's Key Management System</a></h2>
-<p>The Tendermint KMS (Key Management System) is a notable example of an alternate
-approach to key management, which provides some valuable insights. Tendermint
-KMS is specifically designed for Tendermint applications like Cosmos Validators
-and offers high-availability access to validator signing keys, double-signing
-prevention, and optional hardware security module storage for validator keys.</p>
-<p>It is crucial to note that while the Tendermint KMS approach may not be
-directly applicable to the Polkadot/Substrate ecosystem due to differences in
-system design, the principles and techniques it employs can offer valuable
-lessons. For example, adopting strategies for high-availability access and
-double-signing prevention could potentially enhance Polkadot's key management
-framework.</p>
-<h2 id="yubikeys-hsm2-a-potential-game-changer"><a class="header" href="#yubikeys-hsm2-a-potential-game-changer">YubiKey's HSM2: A Potential Game Changer</a></h2>
-<p>The introduction of YubiKey's HSM2 module offers a significant leap forward in
-secure key management. As the world's smallest Hardware Security Module (HSM),
-it provides robust security solutions that traditional, larger HSMs struggle to
-deliver. It strengthens the protection of cryptographic keys, providing secure
-generation, storage, and management of digital keys. With support for PKCS#11,
-the HSM2 integrates quickly with hardware-backed security, providing a
-comprehensive open-source toolbox for cryptographic operations.</p>
-<p>By leveraging the security advantages of the YubiKey's HSM2 module and the
-strategic insights provided by systems like Tendermint KMS, we can navigate the
-complexities of secure key management in Validator as a Service. These
-approaches allow us to bolster security, provide a cost-effective solution, and
-reinforce key management in the face of the unique challenges posed by a
-decentralized network.</p>
-<h2 id="solution"><a class="header" href="#solution">Solution</a></h2>
-<p>Ideally, the controller key, which allows the assignment of session keys, would
-be stored and managed by the HSM. This is an important aspect of maintaining
-security in the Polkadot/Substrate system. Here's how it would work:</p>
-<p>Key Generation: The controller key, like other keys, would be generated within
-the secure confines of the HSM. This guarantees the randomness of the key and
-the security of the key generation process.</p>
-<p>Key Storage: Once generated, the controller key would remain inside the HSM.
-This means it cannot be extracted or accessed directly, adding an additional
-layer of security.</p>
-<p>Key Usage: Whenever the controller key needs to be used, for instance, to
-generate or assign session keys, the operation is performed within the HSM.
-This ensures that the key material never leaves the HSM, thereby maintaining
-the integrity and confidentiality of the key.</p>
-<p>Key Rotation: The HSM allows for secure key rotation. Regularly changing the
-controller key enhances the security of the system, making it more resilient to
-potential attacks.</p>
-<p>Managing the controller key within the HSM not only enhances security but also
-simplifies key management. It streamlines the process of assigning session keys
-and makes the process more secure by reducing the exposure of key material to
-potential threats.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="team"><a class="header" href="#team">Team</a></h1>
 <div style="display: flex; margin-bottom: 4em;">
 <div style="display: flex; flex-direction: column; flex: 0 0 20%;">
