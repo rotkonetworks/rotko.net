@@ -182,38 +182,102 @@ with a high tolerance for complexity.</p>
 <h2 id="zfs"><a class="header" href="#zfs">ZFS</a></h2>
 <p>ZFS offers incredibly easy client tool to use for setting up complex filesystem
 setup with snapshots and quota management.</p>
-<p>We propose following settings in general for blockchains with variation in recordsize:</p>
-<pre><code class="language-bash"># Create the pool (replace tank and device with your pool name and device path)
-zpool create -o ashift=12 tank device /dev/nvme0to5
+<h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
+<p>execute as sudo on debian12/bookworm</p>
+<pre><code class="language-bash">#!/bin/bash
 
-# Set the primary cache to only metadata, as ParityDb relies on the OS page cache
-zfs set primarycache=metadata tank
+# Create the backports file
+echo &quot;deb http://deb.debian.org/debian bookworm-backports main contrib
+deb-src http://deb.debian.org/debian bookworm-backports main contrib&quot; &gt; /etc/apt/sources.list.d/bookworm-backports.list
 
-# Set recordsize to 16K as most values in the ParityDb are small and values over 16K are rare
-zfs set recordsize=16K tank
+# Create the preferences file
+echo &quot;Package: src:zfs-linux
+Pin: release n=bookworm-backports
+Pin-Priority: 990&quot; &gt; /etc/apt/preferences.d/90_zfs
 
-# Enable compression as it can provide both space and performance benefits
-zfs set compression=lz4 tank
+# Update package lists
+apt update
+
+# Install necessary packages
+apt install -y dpkg-dev linux-headers-$(uname -r) linux-image-$(uname -r)
+
+# Set the environment variable DEBIAN_FRONTEND to noninteractive
+# Install ZFS packages
+DEBIAN_FRONTEND=noninteractive apt install -y zfs-dkms zfsutils-linux
+
+# Verify the ZFS installation
+modprobe zfs &amp;&amp; echo &quot;ZFS installed successfully&quot; || echo &quot;ZFS installation failed&quot;
+</code></pre>
+<h3 id="zfs-partitioning"><a class="header" href="#zfs-partitioning">ZFS partitioning</a></h3>
+<pre><code class="language-bash">#!/bin/bash
+# bkk03 zfs setup
+
+# Array of disks to be used
+disks=(&quot;nvme1n1&quot; &quot;nvme2n1&quot; &quot;nvme3n1&quot; &quot;nvme4n1&quot;)
+
+# Size of the swap partition on each disk
+swap_size=&quot;16G&quot;
+
+# Create swap partition and ZFS partition on each disk
+for disk in &quot;${disks[@]}&quot;; do
+    echo &quot;Creating partitions on /dev/${disk}&quot;
+    
+    # Create the swap partition
+    parted -s /dev/${disk} mklabel gpt
+    parted -s /dev/${disk} mkpart primary linux-swap 1MiB ${swap_size}
+    mkswap /dev/${disk}p1
+    swap_uuid=$(blkid -s UUID -o value /dev/${disk}p1)
+
+    # Add the swap partitions to /etc/fstab so they're used on startup
+    echo &quot;UUID=${swap_uuid} none swap sw 0 0&quot; &gt;&gt; /etc/fstab
+
+    # Enable the swap partition
+    echo &quot;Enabling swap on /dev/${disk}p1&quot;
+    swapon /dev/${disk}p1
+
+    # Create the ZFS partition
+    parted -s /dev/${disk} mkpart primary ${swap_size} 100%
+
+    # Inform the OS of partition table changes
+    partprobe /dev/${disk}
+done
+
+</code></pre>
+<h3 id="zfs-optimized-for-blockchain"><a class="header" href="#zfs-optimized-for-blockchain">ZFS optimized for blockchain</a></h3>
+<pre><code class="language-bash"># Now, create the ZFS pool with the remaining space
+# TODO: add disk with  root installation to pool as well
+zpool create -o ashift=12 tank $(for disk in &quot;${disks[@]}&quot;; do echo &quot;/dev/${disk}p2&quot;; done)
 
 # Disable access time (atime) as it can negatively impact performance
 zfs set atime=off tank
-
+# Set recordsize to 16K as most values in the ParityDb are small and values over 16K are rare
+zfs set recordsize=16k tank
+# throughput safer than latency
+zfs set logbias=throughput tank
+# Set the primary cache to only metadata, as ParityDb relies on the OS page cache
+zfs set primarycache=metadata tank
+# Enable compression as it can provide both space and performance benefits
+zfs set compression=lz4 tank
 # Set redundant metadata to most to protect against data corruption
 zfs set redundant_metadata=most tank
-
 # Synchronous writes (sync) should be set to standard to ensure data integrity in case of an unexpected shutdown
 zfs set sync=standard tank
-
-# Given that we are prioritizing latency, leave logbias at its default setting (latency)
-zfs set logbias=latency tank
-
 # Enable snapshots for better data protection
 # TODO: Set up daily with cron
 zfs snapshot tank@daily
+
+echo &quot;Finished setting up ZFS pool and swap partitions&quot;
 </code></pre>
+<h3 id="blockchains-on-hdd"><a class="header" href="#blockchains-on-hdd">Blockchains on HDD</a></h3>
 <p>The NVMe drives themselves should provide high performance and low latency for
 your ZFS pool, and a separate ZIL or L2ARC might not provide significant
-benefits and could even add unnecessary complexity or costs.</p>
+benefits and could even add unnecessary complexity or costs. You can create
+tank/slog and tank/L2ARC for performant read and write cache to reach
+&quot;balanced disk&quot; like boosted performance. ZIL ~8GB and L2ARC ~128GB.
+This can make huge difference in HDD capability of synchronizing Blockchains
+when data is first written in NVMe.</p>
+<p>We are using HDD purely for storing snapshots as backups due to using striping
+raid for our NVMe:s.</p>
 <p>Notice that if you running EVM blockchain with small blocks like Ethereum, it might 
 be best option to set your recordsize 4K instead before starting syncing.</p>
 
