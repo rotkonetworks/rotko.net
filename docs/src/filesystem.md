@@ -91,6 +91,7 @@ done
 ```bash
 # Now, create the ZFS pool with the remaining space
 # TODO: add disk with  root installation to pool as well
+disks=("nvme1n1" "nvme2n1" "nvme3n1" "nvme4n1")
 zpool create -o ashift=12 tank $(for disk in "${disks[@]}"; do echo "/dev/${disk}p2"; done)
 
 # Disable access time (atime) as it can negatively impact performance
@@ -108,10 +109,34 @@ zfs set redundant_metadata=most tank
 # Synchronous writes (sync) should be set to standard to ensure data integrity in case of an unexpected shutdown
 zfs set sync=standard tank
 # Enable snapshots for better data protection
-# TODO: Set up daily with cron
 zfs snapshot tank@daily
 
 echo "Finished setting up ZFS pool and swap partitions"
+```
+
+bkk03 lsblk:
+```bash
+NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+sda           8:0    1  28.7G  0 disk
+├─sda1        8:1    1   1.9G  0 part /boot/efi
+├─sda2        8:2    1   1.9G  0 part /boot
+└─sda3        8:3    1  24.9G  0 part /media/user/489b6b9f-f615-4270-b2c9-9565b9516c00
+nvme1n1     259:0    0   1.9T  0 disk
+├─nvme1n1p2 259:7    0   1.8T  0 part
+└─nvme1n1p1 259:8    0  14.9G  0 part [SWAP]
+nvme2n1     259:1    0   1.9T  0 disk
+├─nvme2n1p1 259:10   0  14.9G  0 part [SWAP]
+└─nvme2n1p2 259:11   0   1.8T  0 part
+nvme3n1     259:2    0   1.9T  0 disk
+├─nvme3n1p1 259:12   0  14.9G  0 part [SWAP]
+└─nvme3n1p2 259:13   0   1.8T  0 part
+nvme4n1     259:3    0   1.9T  0 disk
+├─nvme4n1p1 259:14   0  14.9G  0 part [SWAP]
+└─nvme4n1p2 259:15   0   1.8T  0 part
+nvme0n1     259:4    0   1.9T  0 disk
+├─nvme0n1p1 259:5    0  59.6G  0 part [SWAP]
+├─nvme0n1p2 259:6    0 126.7G  0 part /
+└─nvme0n1p3 259:9    0   1.7T  0 part
 ```
 
 ### Blockchains on HDD
