@@ -1,4 +1,4 @@
-# BKK04 - Bootnode 1
+# BKK04 - Bootnode
 
 ## CPU
 
