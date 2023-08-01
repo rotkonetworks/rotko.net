@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Ansible - Rotko Networks infrastructure</title>
+        <title>Networking - Rotko Networks infrastructure</title>
 
 
         <!-- Custom HTML head -->
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking_hw.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">2.3.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.4.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.5.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.6.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.7.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.8.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_sw.html"><strong aria-hidden="true">3.1.</strong> Networking</a></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.2.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html" class="active"><strong aria-hidden="true">3.3.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.4.</strong> Virtualization</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking_hw.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">2.3.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.4.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.5.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.6.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.7.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.8.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_sw.html" class="active"><strong aria-hidden="true">3.1.</strong> Networking</a></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.2.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.3.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.4.</strong> Virtualization</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -166,17 +166,125 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="ansible"><a class="header" href="#ansible">Ansible</a></h1>
+                        <h1 id="proxmox-network-configuration-guide"><a class="header" href="#proxmox-network-configuration-guide">Proxmox Network Configuration Guide</a></h1>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>Networking in Proxmox is managed through the Debian network interface
+configuration file at <code>/etc/network/interfaces</code>. This guide will walk you
+through the process of configuring the network interfaces and creating a Linux
+bridge for your Proxmox server.</p>
+<h2 id="pre-requisites"><a class="header" href="#pre-requisites">Pre-requisites:</a></h2>
+<p>Before we begin, you should have:</p>
+<ol>
+<li>A Proxmox VE installed and configured on your server.</li>
+<li>Administrative or root access to your Proxmox VE server.</li>
+</ol>
+<h2 id="step-1-understand-proxmox-network-configuration-files"><a class="header" href="#step-1-understand-proxmox-network-configuration-files">Step 1: Understand Proxmox Network Configuration Files</a></h2>
+<p>Proxmox network settings are mainly configured in two files:</p>
+<ul>
+<li><code>/etc/network/interfaces</code>: This file describes the network interfaces
+available on your system and how to activate them. This file is critical for
+setting up bridged networking or configuring network interfaces manually.</li>
+<li><code>/etc/hosts</code>: This file contains IP address to hostname mappings.</li>
+</ul>
+<h2 id="step-2-configure-primary-network-interface"><a class="header" href="#step-2-configure-primary-network-interface">Step 2: Configure Primary Network Interface</a></h2>
+<p>First, open the network interfaces configuration file for editing:
+Set your primary network interface (e.g., <code>enp9s0</code>) to manual:</p>
+<pre><code class="language-bash">nano /etc/network/interfaces
+</code></pre>
+<pre><code class="language-bash">auto enp9s0
+iface enp9s0 inet manual
+</code></pre>
+<h2 id="step-3-configure-linux-bridge"><a class="header" href="#step-3-configure-linux-bridge">Step 3: Configure Linux Bridge</a></h2>
+<p>Next, create a Linux bridge (<code>vmbr0</code>):</p>
+<pre><code class="language-bash">auto vmbr0
+iface vmbr0 inet static
+    address 192.168.69.103
+    netmask 255.255.255.0
+    gateway 192.168.69.1
+    bridge_ports enp9s0
+    bridge_stp off
+    bridge_fd 0
+</code></pre>
+<p>Make sure to replace the <code>address</code>, <code>netmask</code>, and <code>gateway</code> parameters with
+the correct values for your network.</p>
+<h2 id="step-4-apply-configuration"><a class="header" href="#step-4-apply-configuration">Step 4: Apply Configuration</a></h2>
+<p>Save and exit the file, then restart the network service for the changes to
+take effect:</p>
+<pre><code class="language-bash">systemctl restart networking.service
+</code></pre>
+<h2 id="step-5-verify-configuration"><a class="header" href="#step-5-verify-configuration">Step 5: Verify Configuration</a></h2>
+<p>Use the <code>ip a</code> command to verify that the bridge was created successfully:</p>
+<pre><code class="language-bash">ip a
+</code></pre>
+<h2 id="step-6-configure-the-hosts-file"><a class="header" href="#step-6-configure-the-hosts-file">Step 6: Configure the Hosts File</a></h2>
+<p>The <code>/etc/hosts</code> file maps network addresses to hostnames. Open this file in a
+text editor:</p>
+<pre><code class="language-bash">nano /etc/hosts
+</code></pre>
+<p>Then, define the IP address and corresponding FQDN and hostname for your
+Proxmox server:</p>
+<pre><code class="language-bash">127.0.0.1	localhost
+192.168.69.103	bkk03.yourdomain.com	bkk03
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+</code></pre>
+<p>Remember to replace <code>192.168.69.103</code>, <code>bkk03.yourdomain.com</code>, and <code>bkk03</code> with
+your server's IP address, FQDN, and hostname, respectively.</p>
+<p>After updating the <code>/etc/hosts</code> file, save and exit the editor.</p>
+<p><strong>Important</strong>: Ensure the FQDN in your <code>/etc/hosts</code> matches the actual FQDN of
+your server. This FQDN should be resolvable from the server itself and any
+machines that will be accessing it. The Proxmox web interface uses this
+hostname to generate SSL certificates for the HTTPS interface, so incorrect
+resolution may lead to certificate issues.</p>
+<p>By carefully following the instructions provided in this guide, administrators
+can ensure a robust and secure networking setup for their Proxmox servers. This
+guide should provide a good starting point for both new and experienced Proxmox
+administrators to understand and manage the network settings of their servers
+effectively.</p>
+<h2 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h2>
+<p>If you run into issues during this process, you can use the following commands
+to troubleshoot:</p>
+<ul>
+<li>
+<p><code>systemctl status networking.service</code>: Displays the status of the networking
+service.</p>
+</li>
+<li>
+<p><code>journalctl -xeu networking.service</code>: Provides detailed logs for the
+networking service.</p>
+</li>
+<li>
+<p><code>ip addr flush dev &lt;interface&gt;</code> and <code>ip route flush dev &lt;interface&gt;</code>: Clears
+IP addresses and routes on a given interface.</p>
+</li>
+<li>
+<p><code>ip link delete &lt;bridge&gt;</code> and <code>ip link add name &lt;bridge&gt; type bridge</code>:
+Deletes and recreates a bridge.</p>
+</li>
+<li>
+<p><code>ip link set &lt;interface&gt; master &lt;bridge&gt;</code>: Assigns an interface to a bridge.</p>
+</li>
+<li>
+<p><code>ip addr add &lt;ip&gt;/&lt;subnet&gt; dev &lt;bridge&gt;</code>: Assigns an IP address to a bridge.</p>
+</li>
+</ul>
+<p>Remember to replace <code>&lt;interface&gt;</code>, <code>&lt;bridge&gt;</code>, <code>&lt;ip&gt;</code>, and <code>&lt;subnet&gt;</code> with the
+appropriate values for your network.</p>
+<p>For more detailed information about Proxmox networking, refer to the <a href="https://pve.proxmox.com/wiki/Network_Configuration">official
+Proxmox documentation</a>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="filesystem.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="software.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="virtualization.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="filesystem.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -186,11 +294,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="filesystem.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="software.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="virtualization.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="filesystem.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

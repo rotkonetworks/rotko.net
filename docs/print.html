@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">2.3.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.4.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.5.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.6.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.7.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.8.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.1.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.2.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.3.</strong> Virtualization</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking_hw.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">2.3.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.4.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.5.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.6.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.7.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.8.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_sw.html"><strong aria-hidden="true">3.1.</strong> Networking</a></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.2.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.3.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.4.</strong> Virtualization</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -619,7 +619,7 @@ authentication infrastructure.</li>
 <li><strong>Macro scripts:</strong> Repetitive actions can be automated with keyboard &amp; mouse action macros.</li>
 <li><strong>Open &amp; free:</strong> PiKVM is open-source software, released under the GPLv3.</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk03---bootnode-2"><a class="header" href="#bkk03---bootnode-2">BKK03 - Bootnode 2</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk03---bootnode"><a class="header" href="#bkk03---bootnode">BKK03 - Bootnode</a></h1>
 <h2 id="cpu-2"><a class="header" href="#cpu-2">CPU</a></h2>
 <p><a href="https://www.amd.com/en/products/apu/amd-ryzen-9-7950x3d">AMD Ryzen™ 9 7950X3D 16-Core 32-Thread 5NM</a></p>
 <p>At the core of our server operations sits the impressive AMD Ryzen 9 7950X3D.
@@ -646,10 +646,6 @@ with the robustness and dependability of server-grade hardware. The Rack
 B650D4U-2L2T is a Micro-ATX motherboard that fully supports DDR5 ECC UDIMM
 memories, a feature that provides increased data integrity and system
 reliability - essential elements in server environments.</p>
-<p>Its dual 10G LAN functionality makes it an excellent choice for environments
-with high network traffic. This not only ensures swift and efficient data
-transfer but also minimizes latency, providing a smooth, unbroken service for
-end users.</p>
 <p>The motherboard comes with full PCIe 5.0 support, which is crucial for tackling
 demanding tasks and ensuring optimal performance. It features an M.2 slot, a
 x16 slot, and a x4 slot, which provides the flexibility to cater to various
@@ -671,15 +667,6 @@ preserving the trustworthiness of our transactions and operations.</p>
 leads to faster data processing, resulting in more efficient and responsive
 system performance. Our memory modules have demonstrated impressive low-latency
 performance in our extensive testing.</p>
-<h3 id="test-results"><a class="header" href="#test-results">Test results</a></h3>
-<pre><code>|----------+----------------+-------------+-------------+-------------------|
-|  Memory  | Copy | 22.24 GiBs | 14.32 GiBs |        ✅ Pass (155.3 %)      |
-|----------+----------------+-------------+-------------+-------------------|
-</code></pre>
-<p>These results speak volumes about the high-quality performance offered by our
-chosen memory modules. Their low latency will ensure that data is processed
-rapidly and efficiently, contributing to the overall performance and
-responsiveness of our server.</p>
 <h2 id="ssd-expansion-cards"><a class="header" href="#ssd-expansion-cards">SSD Expansion Cards</a></h2>
 <p><a href="">NVMe SSD Expansion Card NVMe PCIe RAID Adapter 4 Ports NVME SSD To PCI-E 4.0 X16 Expansion Card</a></p>
 <p>Our selection of this SSD expansion card is an integral part of our data
@@ -688,6 +675,8 @@ NVMe SSDs, which are renowned for their superlative speed and efficiency in
 storage and data retrieval. By enabling faster access to stored data, this card
 aids in optimizing overall system performance, significantly enhancing our
 server's responsiveness.</p>
+<p>There is also card for 1x slot with ricer as well as x4 card to utilize x4
+PCIe5.0 slot later bringing fast disk space over 10Tb.</p>
 <h2 id="storage-2"><a class="header" href="#storage-2">Storage</a></h2>
 <p><a href="https://www.amazon.co.jp/Hanye-%E3%80%90PS5%E5%8B%95%E4%BD%9C%E7%A2%BA%E8%AA%8D%E6%B8%88%E3%81%BF%E3%80%91-PCIe-Gen4x4-DRAM%E6%90%AD%E8%BC%89/dp/B0B58JXNXG">5x 2TB Hanye ME70 NVMe PCI-E4.0 7200mb/s</a></p>
 <p>Our system utilizes six 2TB High Performance ME70 M.2 NVMe SSDs, offering a
@@ -697,23 +686,40 @@ read speeds of 7200 MB/s, combined with a powerful error correction algorithm,
 LDPC (Low Density Parity Check), and DRAM cache for improved response times and
 data integrity - making them an essential asset in our high-demand network
 operations.</p>
-<h3 id="test-results-with-3-cards"><a class="header" href="#test-results-with-3-cards">Test results with 3 cards</a></h3>
-<pre><code>|----------+----------------+-------------+-------------+-------------------|
-| Disk     | Seq Write      | 2.56 GiBs   | 450.00 MiBs | ✅ Pass (582.0 %) |
-|----------+----------------+-------------+-------------+-------------------|
-| Disk     | Rnd Write      | 1.05 GiBs   | 200.00 MiBs | ✅ Pass (535.3 %) |
+<h2 id="benchmark-of-zpool"><a class="header" href="#benchmark-of-zpool">Benchmark of zpool</a></h2>
+<pre><code>2023-07-31 13:55:08 Running machine benchmarks...
+2023-07-31 13:55:34
 +----------+----------------+-------------+-------------+-------------------+
+| Category | Function       | Score       | Minimum     | Result            |
++===========================================================================+
+| CPU      | BLAKE2-256     | 1.56 GiBs   | 783.27 MiBs | ✅ Pass (203.8 %) |
+|----------+----------------+-------------+-------------+-------------------|
+| CPU      | SR25519-Verify | 788.10 KiBs | 560.67 KiBs | ✅ Pass (140.6 %) |
+|----------+----------------+-------------+-------------+-------------------|
+| Memory   | Copy           | 27.73 GiBs  | 11.49 GiBs  | ✅ Pass (241.3 %) |
+|----------+----------------+-------------+-------------+-------------------|
+| Disk     | Seq Write      | 2.99 GiBs   | 950.00 MiBs | ✅ Pass (322.0 %) |
+|----------+----------------+-------------+-------------+-------------------|
+| Disk     | Rnd Write      | 1.29 GiBs   | 420.00 MiBs | ✅ Pass (313.4 %) |
++----------+----------------+-------------+-------------+-------------------+
+From 5 benchmarks in total, 5 passed and 0 failed (10% fault tolerance).
+2023-07-31 13:55:34 The hardware meets the requirements
+Read Latency Statistics in nanoseconds:
+-------------------------
+Minimum: 520 ns
+Maximum: 22540 ns
+Mean: 914.595734 ns
+Standard Deviation: 222.087316 ns
+Read IOPS: 953140.861971
 </code></pre>
-<p>IOPS 745388.087064
-99.99th Percentile Read Latency: 310 ns</p>
 <h2 id="chassis-2"><a class="header" href="#chassis-2">Chassis</a></h2>
 <p><a href="https://www.pcgallery.co.th/product/tgc-h1-400/">1U Case, TGC H1-400</a></p>
 <h2 id="power-supply-unit"><a class="header" href="#power-supply-unit">Power Supply Unit</a></h2>
-<p><a href=""></a></p>
+<p>400W Compuware 80 PLUS Platinum PSU from <a href="https://www.pcgallery.co.th/">PC Gallery</a></p>
 <h2 id="kvm-2"><a class="header" href="#kvm-2">KVM</a></h2>
 <p>[Asrock Rack BCM/IPMI]</p>
 <p>AsRock Rack motherboard comes with BCM for remote control.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk04---bootnode-1"><a class="header" href="#bkk04---bootnode-1">BKK04 - Bootnode 1</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk04---bootnode"><a class="header" href="#bkk04---bootnode">BKK04 - Bootnode</a></h1>
 <h2 id="cpu-3"><a class="header" href="#cpu-3">CPU</a></h2>
 <img src="images/bkk04/amdryzen9-2.webp" alt="CPU" style="width: 45%; margin-right: 1em; object-fit: cover;">
 <img src="images/bkk04/amdryzen9.webp" alt="CPU" style="width: 45%; margin-left: 1em; object-fit: cover;">
@@ -771,7 +777,7 @@ preserving the trustworthiness of our transactions and operations.</p>
 leads to faster data processing, resulting in more efficient and responsive
 system performance. Our memory modules have demonstrated impressive low-latency
 performance in our extensive testing.</p>
-<h4 id="test-results-1"><a class="header" href="#test-results-1">Test results</a></h4>
+<h4 id="test-results"><a class="header" href="#test-results">Test results</a></h4>
 <pre><code>|----------+----------------+-------------+-------------+-------------------|
 |  Memory  | Copy | 22.24 GiBs | 14.32 GiBs |        ✅ Pass (155.3 %)      |
 |----------+----------------+-------------+-------------+-------------------|
@@ -944,6 +950,115 @@ reliable network operations.</p>
 operations. They are chosen not just for their individual capabilities, but
 also for their compatibility and interoperability, creating an integrated,
 efficient, and reliable software infrastructure.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="proxmox-network-configuration-guide"><a class="header" href="#proxmox-network-configuration-guide">Proxmox Network Configuration Guide</a></h1>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>Networking in Proxmox is managed through the Debian network interface
+configuration file at <code>/etc/network/interfaces</code>. This guide will walk you
+through the process of configuring the network interfaces and creating a Linux
+bridge for your Proxmox server.</p>
+<h2 id="pre-requisites"><a class="header" href="#pre-requisites">Pre-requisites:</a></h2>
+<p>Before we begin, you should have:</p>
+<ol>
+<li>A Proxmox VE installed and configured on your server.</li>
+<li>Administrative or root access to your Proxmox VE server.</li>
+</ol>
+<h2 id="step-1-understand-proxmox-network-configuration-files"><a class="header" href="#step-1-understand-proxmox-network-configuration-files">Step 1: Understand Proxmox Network Configuration Files</a></h2>
+<p>Proxmox network settings are mainly configured in two files:</p>
+<ul>
+<li><code>/etc/network/interfaces</code>: This file describes the network interfaces
+available on your system and how to activate them. This file is critical for
+setting up bridged networking or configuring network interfaces manually.</li>
+<li><code>/etc/hosts</code>: This file contains IP address to hostname mappings.</li>
+</ul>
+<h2 id="step-2-configure-primary-network-interface"><a class="header" href="#step-2-configure-primary-network-interface">Step 2: Configure Primary Network Interface</a></h2>
+<p>First, open the network interfaces configuration file for editing:
+Set your primary network interface (e.g., <code>enp9s0</code>) to manual:</p>
+<pre><code class="language-bash">nano /etc/network/interfaces
+</code></pre>
+<pre><code class="language-bash">auto enp9s0
+iface enp9s0 inet manual
+</code></pre>
+<h2 id="step-3-configure-linux-bridge"><a class="header" href="#step-3-configure-linux-bridge">Step 3: Configure Linux Bridge</a></h2>
+<p>Next, create a Linux bridge (<code>vmbr0</code>):</p>
+<pre><code class="language-bash">auto vmbr0
+iface vmbr0 inet static
+    address 192.168.69.103
+    netmask 255.255.255.0
+    gateway 192.168.69.1
+    bridge_ports enp9s0
+    bridge_stp off
+    bridge_fd 0
+</code></pre>
+<p>Make sure to replace the <code>address</code>, <code>netmask</code>, and <code>gateway</code> parameters with
+the correct values for your network.</p>
+<h2 id="step-4-apply-configuration"><a class="header" href="#step-4-apply-configuration">Step 4: Apply Configuration</a></h2>
+<p>Save and exit the file, then restart the network service for the changes to
+take effect:</p>
+<pre><code class="language-bash">systemctl restart networking.service
+</code></pre>
+<h2 id="step-5-verify-configuration"><a class="header" href="#step-5-verify-configuration">Step 5: Verify Configuration</a></h2>
+<p>Use the <code>ip a</code> command to verify that the bridge was created successfully:</p>
+<pre><code class="language-bash">ip a
+</code></pre>
+<h2 id="step-6-configure-the-hosts-file"><a class="header" href="#step-6-configure-the-hosts-file">Step 6: Configure the Hosts File</a></h2>
+<p>The <code>/etc/hosts</code> file maps network addresses to hostnames. Open this file in a
+text editor:</p>
+<pre><code class="language-bash">nano /etc/hosts
+</code></pre>
+<p>Then, define the IP address and corresponding FQDN and hostname for your
+Proxmox server:</p>
+<pre><code class="language-bash">127.0.0.1	localhost
+192.168.69.103	bkk03.yourdomain.com	bkk03
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+</code></pre>
+<p>Remember to replace <code>192.168.69.103</code>, <code>bkk03.yourdomain.com</code>, and <code>bkk03</code> with
+your server's IP address, FQDN, and hostname, respectively.</p>
+<p>After updating the <code>/etc/hosts</code> file, save and exit the editor.</p>
+<p><strong>Important</strong>: Ensure the FQDN in your <code>/etc/hosts</code> matches the actual FQDN of
+your server. This FQDN should be resolvable from the server itself and any
+machines that will be accessing it. The Proxmox web interface uses this
+hostname to generate SSL certificates for the HTTPS interface, so incorrect
+resolution may lead to certificate issues.</p>
+<p>By carefully following the instructions provided in this guide, administrators
+can ensure a robust and secure networking setup for their Proxmox servers. This
+guide should provide a good starting point for both new and experienced Proxmox
+administrators to understand and manage the network settings of their servers
+effectively.</p>
+<h2 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h2>
+<p>If you run into issues during this process, you can use the following commands
+to troubleshoot:</p>
+<ul>
+<li>
+<p><code>systemctl status networking.service</code>: Displays the status of the networking
+service.</p>
+</li>
+<li>
+<p><code>journalctl -xeu networking.service</code>: Provides detailed logs for the
+networking service.</p>
+</li>
+<li>
+<p><code>ip addr flush dev &lt;interface&gt;</code> and <code>ip route flush dev &lt;interface&gt;</code>: Clears
+IP addresses and routes on a given interface.</p>
+</li>
+<li>
+<p><code>ip link delete &lt;bridge&gt;</code> and <code>ip link add name &lt;bridge&gt; type bridge</code>:
+Deletes and recreates a bridge.</p>
+</li>
+<li>
+<p><code>ip link set &lt;interface&gt; master &lt;bridge&gt;</code>: Assigns an interface to a bridge.</p>
+</li>
+<li>
+<p><code>ip addr add &lt;ip&gt;/&lt;subnet&gt; dev &lt;bridge&gt;</code>: Assigns an IP address to a bridge.</p>
+</li>
+</ul>
+<p>Remember to replace <code>&lt;interface&gt;</code>, <code>&lt;bridge&gt;</code>, <code>&lt;ip&gt;</code>, and <code>&lt;subnet&gt;</code> with the
+appropriate values for your network.</p>
+<p>For more detailed information about Proxmox networking, refer to the <a href="https://pve.proxmox.com/wiki/Network_Configuration">official
+Proxmox documentation</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="filesystem"><a class="header" href="#filesystem">Filesystem</a></h1>
 <p>The file system is perhaps the most underappreciated component in the
 blockchain synchronization process, despite being pivotal. It's puzzling how
