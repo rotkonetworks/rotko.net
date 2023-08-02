@@ -74,17 +74,6 @@ leads to faster data processing, resulting in more efficient and responsive
 system performance. Our memory modules have demonstrated impressive low-latency
 performance in our extensive testing.
 
-#### Test results
-```
-|----------+----------------+-------------+-------------+-------------------|
-|  Memory  | Copy | 22.24 GiBs | 14.32 GiBs |        ✅ Pass (155.3 %)      |
-|----------+----------------+-------------+-------------+-------------------|
-```
-
-These results speak volumes about the high-quality performance offered by our
-chosen memory modules. Their low latency will ensure that data is processed
-rapidly and efficiently, contributing to the overall performance and
-responsiveness of our server.
 
 ### SSD Expansion Cards
 [NVMe SSD Expansion Card NVMe PCIe RAID Adapter 4 Ports NVME SSD To PCI-E 4.0 X16 Expansion Card]()
@@ -98,18 +87,37 @@ server's responsiveness.
 
 ### Storage
 [6x 2TB Samsung SSD Pro 980](https://www.amazon.co.jp/-/en/SAMSUNG-PCIe-Internal-Gaming-MZ-V8P2T0B/dp/B08RK2SR23/)
+has extra M2 slot for one more.
 
 #### Test results with 6 nvme cards
 ```
+``+----------+----------------+-------------+-------------+-------------------+
+| Category | Function       | Score       | Minimum     | Result            |
++===========================================================================+
+| CPU      | BLAKE2-256     | 1.65 GiBs   | 783.27 MiBs | ✅ Pass (215.8 %) |
 |----------+----------------+-------------+-------------+-------------------|
-| Disk     | Seq Write      | 2.56 GiBs   | 450.00 MiBs | ✅ Pass (582.0 %) |
+| CPU      | SR25519-Verify | 832.82 KiBs | 560.67 KiBs | ✅ Pass (148.5 %) |
 |----------+----------------+-------------+-------------+-------------------|
-| Disk     | Rnd Write      | 1.05 GiBs   | 200.00 MiBs | ✅ Pass (535.3 %) |
+| Memory   | Copy           | 16.99 GiBs  | 11.49 GiBs  | ✅ Pass (147.9 %) |
+|----------+----------------+-------------+-------------+-------------------|
+| Disk     | Seq Write      | 2.09 GiBs   | 950.00 MiBs | ✅ Pass (225.3 %) |
+|----------+----------------+-------------+-------------+-------------------|
+| Disk     | Rnd Write      | 885.35 MiBs | 420.00 MiBs | ✅ Pass (210.8 %) |
 +----------+----------------+-------------+-------------+-------------------+
-```
+From 5 benchmarks in total, 5 passed and 0 failed (10% fault tolerance).
+2023-08-03 00:49:00 The hardware meets the requirements
+Read Latency Statistics in nanoseconds:
+-------------------------
+Minimum: 460 ns
+Maximum: 535014 ns
+Mean: 968.885148 ns
+Standard Deviation: 280.737214 ns
+99.99th Percentile Read Latency: 350 ns
+-------------------------
+Read IOPS: 906996.500117
 
-IOPS 745388.087064
-99.99th Percentile Read Latency: 310 ns
+The read latency meets the 2000 ns and lower QoS requirement
+```
 
 #### Backup storage
 
