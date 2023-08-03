@@ -168,83 +168,79 @@
                     <main>
                         <h1 id="fasttracking"><a class="header" href="#fasttracking">FastTracking</a></h1>
 <h2 id="efficient-routing-and-firewall-management-with-mikrotik-routers"><a class="header" href="#efficient-routing-and-firewall-management-with-mikrotik-routers"><strong>Efficient Routing and Firewall Management with MikroTik Routers</strong></a></h2>
-<h3 id="introduction"><a class="header" href="#introduction"><strong>Introduction</strong></a></h3>
-<p>In a network environment, especially when handling significant amounts of
-traffic, efficiency in routing and firewall management is critical. This
-document outlines best practices for configuring MikroTik routers to achieve
-optimal performance, with a particular focus on FastTrack and efficient
-firewall rule ordering.</p>
-<h3 id="fasttrack-configuration"><a class="header" href="#fasttrack-configuration"><strong>FastTrack Configuration</strong></a></h3>
-<p>FastTrack is a performance optimization in MikroTik routers that allows certain
-packets to bypass several layers of handling, reducing CPU load and increasing
-throughput.</p>
-<h4 id="why-use-fasttrack"><a class="header" href="#why-use-fasttrack"><strong>Why Use FastTrack?</strong></a></h4>
-<p>FastTrack significantly reduces the load on the router's CPU, allowing for more
-connections and higher throughput. This is especially beneficial for
-Peer-to-Peer (P2P) connections, such as those used by Polkadot nodes.</p>
-<h4 id="configuring-fasttrack"><a class="header" href="#configuring-fasttrack"><strong>Configuring FastTrack</strong></a></h4>
-<p>Certainly! Here's the revised section with the numbered steps, as requested:</p>
-<h4 id="configuring-fasttrack-for-polkadot-p2p-ports"><a class="header" href="#configuring-fasttrack-for-polkadot-p2p-ports"><strong>Configuring FastTrack for Polkadot P2P Ports</strong></a></h4>
+<p>Efficiency in routing and firewall management is paramount in a network
+environment, especially when tasked with handling substantial traffic volumes.
+This document elucidates best practices for configuring MikroTik routers to
+realize optimal performance, concentrating on FastTrack technology and
+judicious firewall rule arrangement.</p>
+<h2 id="fasttrack-configuration"><a class="header" href="#fasttrack-configuration"><strong>FastTrack Configuration</strong></a></h2>
+<p>MikroTik routers offer FastTrack, a performance optimization feature that
+enables specific packets to bypass various handling layers. The benefit of this
+bypass is twofold: reduced CPU load and increased throughput.</p>
+<h3 id="the-advantage-of-fasttrack"><a class="header" href="#the-advantage-of-fasttrack"><strong>The Advantage of FastTrack</strong></a></h3>
+<p>FastTrack substantially lightens the burden on the router's CPU, thereby
+accommodating more connections and amplifying throughput. This efficiency is
+particularly invaluable for Peer-to-Peer (P2P) connections, such as those
+utilized by Polkadot nodes.</p>
+<h3 id="implementing-fasttrack"><a class="header" href="#implementing-fasttrack"><strong>Implementing FastTrack</strong></a></h3>
+<p>FastTrack can be implemented with precision to enhance the performance of
+Polkadot P2P ports.</p>
 <ol>
 <li>
-<p><strong>Identify the Connections</strong>: Determine the connections you want to
-FastTrack. For Polkadot nodes, you would typically want to FastTrack the P2P
-ports (e.g., <code>30333</code>) used for inter-node communication.</p>
+<p><strong>Identify the Connections</strong>: Ascertain the connections you desire to
+FastTrack. Typically, for Polkadot nodes, the FastTrack would be applied to
+the P2P ports (e.g., <code>30333</code>) responsible for inter-node communication.</p>
 </li>
 <li>
-<p><strong>Create the FastTrack Rule</strong>: Place the FastTrack rule at the top of the
-firewall filter rules. Here's an example for the Polkadot P2P port <code>30333</code>,
-forwarding to the IP address <code>192.168.42.101</code>:</p>
+<p><strong>Construct the FastTrack Rule</strong>: Position the FastTrack rule at the zenith
+of the firewall filter rules. The following example demonstrates a FastTrack
+rule for Polkadot P2P port <code>30333</code>, targeting the IP address <code>192.168.42.101</code>:</p>
 <pre><code class="language-shell">/ip firewall filter add chain=forward action=fasttrack-connection dst-address=192.168.42.101 protocol=tcp dst-port=30333 connection-state=established,related
 </code></pre>
 </li>
 <li>
-<p><strong>Create a Corresponding Accept Rule</strong>: FastTracking a connection doesn't
-automatically allow it, so you'll need a corresponding 'accept' rule below
-the FastTrack rule:</p>
+<p><strong>Formulate a Corresponding Accept Rule</strong>: FastTracking a connection does
+not automatically validate it, necessitating a corresponding 'accept' rule
+subsequent to the FastTrack rule:</p>
 <pre><code class="language-shell">/ip firewall filter add chain=forward action=accept dst-address=192.168.42.101 protocol=tcp dst-port=30333 connection-state=established,related
 </code></pre>
 </li>
 <li>
-<p><strong>Configure Port Forwarding</strong>: Proper port forwarding is essential for
-routing traffic to the Polkadot node. Here's an example of a Destination NAT
-rule for forwarding traffic on port <code>30333</code> to the internal address
-<code>192.168.42.101</code>:</p>
+<p><strong>Configure Port Forwarding</strong>: Accurate port forwarding is fundamental for
+channeling traffic to the Polkadot node. An example of a Destination NAT
+rule for directing traffic on port <code>30333</code> to the internal address
+<code>192.168.42.101</code> is as follows:</p>
 <pre><code class="language-shell">/ip firewall nat add chain=dstnat action=dst-nat to-addresses=192.168.42.101 to-ports=30333 protocol=tcp dst-address=27.131.160.106 dst-port=30333
 </code></pre>
 </li>
 </ol>
-<h3 id="ordering-firewall-rules"><a class="header" href="#ordering-firewall-rules"><strong>Ordering Firewall Rules</strong></a></h3>
-<p>The order of firewall rules is crucial, as rules are processed in sequence.
-Here is the general recommended order:</p>
+<h2 id="ordering-firewall-rules"><a class="header" href="#ordering-firewall-rules"><strong>Ordering Firewall Rules</strong></a></h2>
+<p>The sequencing of firewall rules is pivotal, as rules are processed linearly.
+The advised general order is:</p>
 <ol>
-<li><strong>Essential Drop Rules</strong>: Block known malicious IPs or unwanted traffic.</li>
-<li><strong>FastTrack Rules</strong>: As described above.</li>
-<li><strong>General Allow and Deny Rules</strong>: These include standard protocols and
-services you want to allow or block.</li>
+<li><strong>Essential Drop Rules</strong>: Intercept known malicious IPs or undesired
+traffic.</li>
+<li><strong>FastTrack Rules</strong>: As detailed above.</li>
+<li><strong>General Allow and Deny Rules</strong>: These encompass standard protocols and
+services either to be permitted or obstructed.</li>
 </ol>
-<h3 id="nat-rules-and-efficiency"><a class="header" href="#nat-rules-and-efficiency"><strong>NAT Rules and Efficiency</strong></a></h3>
-<p>For Destination NAT (dstnat) rules, efficiency can be enhanced by grouping
-similar rules together. However, MikroTik doesn't support multiple port
-destination NAT directly, so the rules often appear verbose. Always ensure that
-the necessary port forwards are appropriately configured.</p>
-<h3 id="monitoring-and-optimization"><a class="header" href="#monitoring-and-optimization"><strong>Monitoring and Optimization</strong></a></h3>
-<p>MikroTik provides various tools to monitor the performance of your router:</p>
+<h2 id="monitoring-and-refinement"><a class="header" href="#monitoring-and-refinement"><strong>Monitoring and Refinement</strong></a></h2>
+<p>MikroTik offers diverse tools to observe your router's performance:</p>
 <ul>
-<li><strong>Resource Monitoring</strong>: Use <code>/system resource print</code> to view CPU, memory
-usage.</li>
-<li><strong>Connection Tracking</strong>: View FastTrack connections with <code>/ip firewall connection tracking print</code>.</li>
+<li><strong>Resource Monitoring</strong>: Utilize <code>/system resource print</code> to inspect CPU and
+memory usage.</li>
+<li><strong>Connection Tracking</strong>: Examine FastTrack connections with <code>/ip firewall connection tracking print</code>.</li>
 </ul>
-<p>Regular monitoring helps identify bottlenecks and opportunities for further
-optimization.</p>
-<h3 id="conclusion"><a class="header" href="#conclusion"><strong>Conclusion</strong></a></h3>
-<p>Optimizing the configuration of a MikroTik router involves understanding and
-appropriately using features like FastTrack and carefully ordering firewall
-rules. Regular monitoring and review of the router's performance will help
-maintain an efficient and secure network environment.</p>
-<p>Always test changes in a controlled environment before deploying them in
-production, as incorrect configurations can lead to unexpected behaviors and
-potential network vulnerabilities.</p>
+<p>Consistent monitoring is instrumental in detecting performance restrictions and
+avenues for further enhancement.</p>
+<h2 id="conclusion"><a class="header" href="#conclusion"><strong>Conclusion</strong></a></h2>
+<p>The optimization of a MikroTik router's configuration is a nuanced process that
+requires comprehension of features like FastTrack and meticulous ordering of
+firewall rules. Regular scrutiny and evaluation of the router's functionality
+will aid in sustaining a network environment that is both efficient and secure.</p>
+<p>Adherence to best practices, such as testing modifications in a controlled
+setting before full deployment, will mitigate the risks of unforeseen behaviors
+and potential network vulnerabilities.</p>
 
                     </main>
 
