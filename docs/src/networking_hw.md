@@ -33,6 +33,8 @@ optimal low latency networking and high throughput capabilities.
   white 1U rackmount, incorporates built-in dual redundant power supplies for
   uninterrupted service.
 
+<img src="images/networking/router-arch.png" alt="Mikrotik Cloud Core Router" style="width: 100%; margin-top: 2em; object-fit: cover;">
+
 ## IPv4 Configuration
 
 Our subnet, based on the CIDR notation of 255.255.255.248 (/29), provides us
