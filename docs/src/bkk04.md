@@ -20,6 +20,7 @@ transactions.
 - **Enhancement:** [Thermalright aluminium alloy AM5 frame](https://aliexpress.com/item/1005004904430608.html)
 
 ### Motherboard
+![Motherboard as new](./images/bkk04/bkk04_motherboard_new.webp)
 **Model:** [AsRock Rack B650D4U(LGA 1718)](https://www.asrockrack.com/general/productdetail.asp?Model=B650D4U#Specifications)
 
 - **Form Factor:** Micro-ATX
@@ -35,6 +36,7 @@ transactions.
 - **Performance:** Low-latency
 
 ### SSD Expansion Cards
+![Extension card](./images/bkk04/bkk04_motherboard.webp)
 - **Model:** NVMe SSD Expansion Card NVMe PCIe RAID Adapter 4 Ports NVME SSD To
 PCI-E 4.0 X16 Expansion Card
 
