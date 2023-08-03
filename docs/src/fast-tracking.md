@@ -24,22 +24,37 @@ Peer-to-Peer (P2P) connections, such as those used by Polkadot nodes.
 
 #### **Configuring FastTrack**
 
+Certainly! Here's the revised section with the numbered steps, as requested:
+
+#### **Configuring FastTrack for Polkadot P2P Ports**
+
 1. **Identify the Connections**: Determine the connections you want to
-   FastTrack. Common scenarios include established and related connections,
-specific P2P ports, etc.
+   FastTrack. For Polkadot nodes, you would typically want to FastTrack the P2P
+ports (e.g., `30333`) used for inter-node communication.
+
 2. **Create the FastTrack Rule**: Place the FastTrack rule at the top of the
-   firewall filter rules. Example:
+   firewall filter rules. Here's an example for the Polkadot P2P port `30333`,
+forwarding to the IP address `192.168.42.101`:
 
    ```shell
-   /ip firewall filter add chain=forward action=fasttrack-connection connection-state=established,related 
+   /ip firewall filter add chain=forward action=fasttrack-connection dst-address=192.168.42.101 protocol=tcp dst-port=30333 connection-state=established,related
    ```
 
 3. **Create a Corresponding Accept Rule**: FastTracking a connection doesn't
    automatically allow it, so you'll need a corresponding 'accept' rule below
-the FastTrack rule.
+the FastTrack rule:
 
    ```shell
-   /ip firewall filter add chain=forward action=accept connection-state=established,related 
+   /ip firewall filter add chain=forward action=accept dst-address=192.168.42.101 protocol=tcp dst-port=30333 connection-state=established,related
+   ```
+
+4. **Configure Port Forwarding**: Proper port forwarding is essential for
+   routing traffic to the Polkadot node. Here's an example of a Destination NAT
+rule for forwarding traffic on port `30333` to the internal address
+`192.168.42.101`:
+
+   ```shell
+   /ip firewall nat add chain=dstnat action=dst-nat to-addresses=192.168.42.101 to-ports=30333 protocol=tcp dst-address=27.131.160.106 dst-port=30333
    ```
 
 ### **Ordering Firewall Rules**
