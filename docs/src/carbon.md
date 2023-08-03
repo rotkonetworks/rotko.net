@@ -1,5 +1,7 @@
 # Energy Consumption and Carbon Offset
 
+![Rack from the back with electricity sockets](./images/rack/rack_back.webp)
+
 **Energy Consumption**
 
 We meticulously engineer our server infrastructure, selecting the most
@@ -14,9 +16,9 @@ than the manufacturer's estimates.
   * MikroTik CCR2004-16G-2S+: Max 35W
 
 * **Monthly Energy Consumption Estimate:**
-  * Total Power: 2 * 65W (5600G) + 170W (5950X) + 120W (5950X3D) = 420W
-  * Monthly: 0.42 kW * 24 hours/day * 30 days/month = 302.4 kWh
-  * CO2e Emissions (Thailand's 2021 average): 166.32 kg or 0.166 metric tons (mt)
+  * Total Power: 2 * 65W (5600G) + 170W (5950X) + 120W (5950X3D) + 35W (router) = 455W
+  * Monthly: 0.455 kW * 24 hours/day * 30 days/month = 327.6 kWh
+  * CO2e Emissions (Thailand's 2021 average): 170.32 kg or 0.17 metric tons (mt)
 
 Our selection of processors and devices, including the MikroTik
 CCR2004-16G-2S+, ensures an optimal performance-to-power ratio. This innovative
