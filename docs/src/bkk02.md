@@ -1,5 +1,7 @@
 # BKK02 - Validator 2
 
+![BKK01](./images/bkk02/bkk02.webp)
+
 ## CPU
 
 [AMD RYZEN 5 5600G 6-Core 3.7 GHz (4.6 GHz Max Boost) Socket AM4 65W](https://www.amd.com/en/products/cpu/amd-ryzen-5-5600g)

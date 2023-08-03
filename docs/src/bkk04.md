@@ -1,4 +1,5 @@
 ## BKK04 - Bootnode/RPC
+![BKK04](./images/bkk04/bkk04_internals.webp)
 
 ### CPU
 **Model:** [AMD Ryzen 9 7950X R9 7950X CPU Processor 16-Core 32-Thread 5NM L3=64M Socket AM5](https://www.amd.com/en/products/cpu/amd-ryzen-9-7950x)

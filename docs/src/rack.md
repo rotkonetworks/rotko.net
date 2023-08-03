@@ -1,4 +1,6 @@
-## Rack
+# Rack
+
+![Rack from front](./images/rack/rack_front.webp)
 
 At the heart of our operations is a meticulously designed server
 infrastructure, securely housed within ten units of a top-tier 42U rack.
@@ -17,6 +19,8 @@ ecosystem meticulously architected to achieve maximum efficiency. Leveraging
 location flexibility, our infrastructure can be configured across multiple
 strategic points to guarantee optimal network connectivity and minimized
 latency.
+
+![Machines at rack](./images/rack/machines_at_rack.webp)
 
 Direct peering arrangements with major local and international internet
 exchanges ensure broad bandwidth and unwavering connectivity. Coupled with

@@ -1,4 +1,5 @@
 # BKK01 - Validator
+![BKK01](./images/bkk01/bkk01.webp)
 
 ## CPU
 

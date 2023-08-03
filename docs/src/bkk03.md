@@ -1,5 +1,7 @@
 # BKK03 - Bootnode/RPC
 
+![BKK03](./images/bkk03/bkk03_internals.webp)
+
 ## CPU: AMD Ryzen™ 9 7950X3D 16-Core 32-Thread 5NM
 
 ### [Product Link](https://www.amd.com/en/products/apu/amd-ryzen-9-7950x3d)
@@ -15,6 +17,8 @@ transactions. The large 128MB L3 cache further bolsters performance by
 facilitating quick access to frequently used data, enhancing efficiency.
 
 ## CPU Cooling System
+
+![BKK03](./images/bkk03/am5socket.webp)
 
 ### [COOLSERVER P32 CPU Cooler](https://aliexpress.com/item/1005004050053958.html)
 ### [Thermalright aluminium alloy AM5 frame](https://aliexpress.com/item/1005004904430608.html)
