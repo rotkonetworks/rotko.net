@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking_hw.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">2.3.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.4.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.5.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.6.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.7.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.8.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_sw.html"><strong aria-hidden="true">3.1.</strong> Networking</a></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.2.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.3.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.4.</strong> Virtualization</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking_hw.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">2.3.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.4.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.5.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.6.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.7.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.8.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_sw.html"><strong aria-hidden="true">3.1.</strong> Networking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="fast-tracking.html"><strong aria-hidden="true">3.1.1.</strong> FastTracking</a></li></ol></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.2.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.3.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.4.</strong> Virtualization</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -1070,6 +1070,74 @@ Deletes and recreates a bridge.</p>
 appropriate values for your network.</p>
 <p>For more detailed information about Proxmox networking, refer to the <a href="https://pve.proxmox.com/wiki/Network_Configuration">official
 Proxmox documentation</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="fasttracking"><a class="header" href="#fasttracking">FastTracking</a></h1>
+<h2 id="efficient-routing-and-firewall-management-with-mikrotik-routers"><a class="header" href="#efficient-routing-and-firewall-management-with-mikrotik-routers"><strong>Efficient Routing and Firewall Management with MikroTik Routers</strong></a></h2>
+<h3 id="introduction-1"><a class="header" href="#introduction-1"><strong>Introduction</strong></a></h3>
+<p>In a network environment, especially when handling significant amounts of
+traffic, efficiency in routing and firewall management is critical. This
+document outlines best practices for configuring MikroTik routers to achieve
+optimal performance, with a particular focus on FastTrack and efficient
+firewall rule ordering.</p>
+<h3 id="fasttrack-configuration"><a class="header" href="#fasttrack-configuration"><strong>FastTrack Configuration</strong></a></h3>
+<p>FastTrack is a performance optimization in MikroTik routers that allows certain
+packets to bypass several layers of handling, reducing CPU load and increasing
+throughput.</p>
+<h4 id="why-use-fasttrack"><a class="header" href="#why-use-fasttrack"><strong>Why Use FastTrack?</strong></a></h4>
+<p>FastTrack significantly reduces the load on the router's CPU, allowing for more
+connections and higher throughput. This is especially beneficial for
+Peer-to-Peer (P2P) connections, such as those used by Polkadot nodes.</p>
+<h4 id="configuring-fasttrack"><a class="header" href="#configuring-fasttrack"><strong>Configuring FastTrack</strong></a></h4>
+<ol>
+<li>
+<p><strong>Identify the Connections</strong>: Determine the connections you want to
+FastTrack. Common scenarios include established and related connections,
+specific P2P ports, etc.</p>
+</li>
+<li>
+<p><strong>Create the FastTrack Rule</strong>: Place the FastTrack rule at the top of the
+firewall filter rules. Example:</p>
+<pre><code class="language-shell">/ip firewall filter add chain=forward action=fasttrack-connection connection-state=established,related 
+</code></pre>
+</li>
+<li>
+<p><strong>Create a Corresponding Accept Rule</strong>: FastTracking a connection doesn't
+automatically allow it, so you'll need a corresponding 'accept' rule below
+the FastTrack rule.</p>
+<pre><code class="language-shell">/ip firewall filter add chain=forward action=accept connection-state=established,related 
+</code></pre>
+</li>
+</ol>
+<h3 id="ordering-firewall-rules"><a class="header" href="#ordering-firewall-rules"><strong>Ordering Firewall Rules</strong></a></h3>
+<p>The order of firewall rules is crucial, as rules are processed in sequence.
+Here is the general recommended order:</p>
+<ol>
+<li><strong>Essential Drop Rules</strong>: Block known malicious IPs or unwanted traffic.</li>
+<li><strong>FastTrack Rules</strong>: As described above.</li>
+<li><strong>General Allow and Deny Rules</strong>: These include standard protocols and
+services you want to allow or block.</li>
+</ol>
+<h3 id="nat-rules-and-efficiency"><a class="header" href="#nat-rules-and-efficiency"><strong>NAT Rules and Efficiency</strong></a></h3>
+<p>For Destination NAT (dstnat) rules, efficiency can be enhanced by grouping
+similar rules together. However, MikroTik doesn't support multiple port
+destination NAT directly, so the rules often appear verbose. Always ensure that
+the necessary port forwards are appropriately configured.</p>
+<h3 id="monitoring-and-optimization"><a class="header" href="#monitoring-and-optimization"><strong>Monitoring and Optimization</strong></a></h3>
+<p>MikroTik provides various tools to monitor the performance of your router:</p>
+<ul>
+<li><strong>Resource Monitoring</strong>: Use <code>/system resource print</code> to view CPU, memory
+usage.</li>
+<li><strong>Connection Tracking</strong>: View FastTrack connections with <code>/ip firewall connection tracking print</code>.</li>
+</ul>
+<p>Regular monitoring helps identify bottlenecks and opportunities for further
+optimization.</p>
+<h3 id="conclusion"><a class="header" href="#conclusion"><strong>Conclusion</strong></a></h3>
+<p>Optimizing the configuration of a MikroTik router involves understanding and
+appropriately using features like FastTrack and carefully ordering firewall
+rules. Regular monitoring and review of the router's performance will help
+maintain an efficient and secure network environment.</p>
+<p>Always test changes in a controlled environment before deploying them in
+production, as incorrect configurations can lead to unexpected behaviors and
+potential network vulnerabilities.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="filesystem"><a class="header" href="#filesystem">Filesystem</a></h1>
 <p>The file system is perhaps the most underappreciated component in the
 blockchain synchronization process, despite being pivotal. It's puzzling how
