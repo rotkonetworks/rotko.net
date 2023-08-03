@@ -1,7 +1,5 @@
 # Energy Consumption and Carbon Offset
 
-![Rack from the back with electricity sockets](./images/rack/rack_back.webp)
-
 **Energy Consumption**
 
 We meticulously engineer our server infrastructure, selecting the most

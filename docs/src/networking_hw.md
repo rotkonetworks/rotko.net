@@ -50,3 +50,5 @@ We currently use the following configuration:
 - **Our Router's WAN Interface:** 27.131.160.106
 - **Usable addresses for nodes:** 27.131.160.107 to 27.131.160.110
 - **Broadcast Address:** 27.131.160.111
+
+![Rack from the back with electricity sockets](./images/networking/rack_back.webp)
