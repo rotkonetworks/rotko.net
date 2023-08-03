@@ -12,6 +12,7 @@
   - [Carbon offset](./carbon.md)
 - [Software](./software.md)
   - [Networking](./networking_sw.md)
+    - [FastTracking](./fast-tracking.md)
   - [Filesystem](./filesystem.md)
   - [Ansible](./ansible.md)
   - [Virtualization](./virtualization.md)
