@@ -1,2 +1,5 @@
 # Rotko Networks
-Infrastructure provider for Web3 for South East Asia
+
+web3 Infrastructure builder for South East Asia.
+
+[Learn more](https://rotko.net/docs)
