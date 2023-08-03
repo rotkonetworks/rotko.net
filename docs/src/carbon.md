@@ -1,17 +1,27 @@
-### Energy Consumption and Carbon Offset
+# Energy Consumption and Carbon Offset
 
 **Energy Consumption**
 
-Energy is vital to our operations, specifically in our server infrastructure.
-We've opted for low TDP processors in our server rack for increased efficiency,
-using 2x AMD Ryzen 5600G, 1x AMD Ryzen 5950X, and 1x AMD Ryzen 5950X3D. This
-results in an excellent performance-to-power ratio within our 4kWh server rack.
+We meticulously engineer our server infrastructure, selecting the most
+energy-efficient devices the market can provide for the amount of computation
+required. Our approach is proven by the actual consumption rate, which is lower
+than the manufacturer's estimates.
+
+* **Processor Selection:**
+  * 2x AMD Ryzen 5600G: 65W each
+  * 1x AMD Ryzen 5950X: 170W
+  * 1x AMD Ryzen 5950X3D: 120W
+  * MikroTik CCR2004-16G-2S+: Max 35W
 
 * **Monthly Energy Consumption Estimate:**
-  * Total Power: 420W (2 * 65W + 170W + 120W)
+  * Total Power: 2 * 65W (5600G) + 170W (5950X) + 120W (5950X3D) = 420W
   * Monthly: 0.42 kW * 24 hours/day * 30 days/month = 302.4 kWh
-  * CO2e Emissions (Thailand's 2021 average): 166.32 kg or 0.166 metric tons
-  (mt)
+  * CO2e Emissions (Thailand's 2021 average): 166.32 kg or 0.166 metric tons (mt)
+
+Our selection of processors and devices, including the MikroTik
+CCR2004-16G-2S+, ensures an optimal performance-to-power ratio. This innovative
+approach to energy consumption highlights our dedication to sustainability and
+our commitment to leading the way in energy-efficient computing.
 
 **Carbon Offset**
 
@@ -29,6 +39,8 @@ efforts. Our goal transcends merely offsetting emissions; we're building a
 resilient, sustainable organization contributing positively to our planet.
 
 **Carbon Offset Plan**
+
+![TerraPass certificate for month of August](./images/carbon/terrapass-voucher.webp)
 
 Achieving sustainability requires active offsetting. We've partnered with
 TerraPass, choosing their 1 MWh/month RECs subscription for £12.00 per MWh,
