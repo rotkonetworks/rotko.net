@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking_hw.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">2.3.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.4.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.5.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.6.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.7.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.8.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_sw.html"><strong aria-hidden="true">3.1.</strong> Networking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="proxmox.html"><strong aria-hidden="true">3.1.1.</strong> Proxmox</a></li><li class="chapter-item expanded "><a href="fast-tracking.html"><strong aria-hidden="true">3.1.2.</strong> FastTracking</a></li><li class="chapter-item expanded "><a href="routeros.html"><strong aria-hidden="true">3.1.3.</strong> RouterOS</a></li></ol></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.2.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.3.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.4.</strong> Virtualization</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.2.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.3.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.4.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.5.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.6.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">3.1.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">3.2.</strong> Networking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_proxmox.html"><strong aria-hidden="true">3.2.1.</strong> Proxmox</a></li><li class="chapter-item expanded "><a href="networking_routeros.html"><strong aria-hidden="true">3.2.2.</strong> RouterOS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_routeros_fast.html"><strong aria-hidden="true">3.2.2.1.</strong> FastTracking</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.3.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.4.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.5.</strong> Virtualization</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -274,205 +274,6 @@ operational environment. </p>
 <ul>
 <li><a href="https://www.rittal.com/com-en/products/PG0900ZUBEHOER1/PG0919ZUBEHOER1">Rittal 42U</a></li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="networking"><a class="header" href="#networking">Networking</a></h1>
-<h2 id="bandwidth"><a class="header" href="#bandwidth">Bandwidth</a></h2>
-<img src="images/networking/bandwidth.webp" alt="Scaling bandwidth" style="width: 100%; margin-top: 2em; object-fit: cover;">
-<p>We operate a dedicated bandwidth connection providing up to 200Mbps for
-international direct land-line and under-sea connections. This service extends
-all the way to Singapore, ensuring latency below 30ms. This speed is critical
-for RPC endpoint provider operations, where timely data transfer is a crucial
-success factor. The provision to scale up our bandwidth capabilities offers
-us the flexibility to match our growing needs without compromising on the
-quality of service.</p>
-<h2 id="router"><a class="header" href="#router">Router</a></h2>
-<img src="images/networking/mikrotik.webp" alt="Mikrotik Cloud Core Router" style="width: 100%; margin-top: 2em; object-fit: cover;">
-<p><a href="https://mikrotik.com/product/ccr2004_16g_2splus">MikroTik Cloud Core Router CCR2004-16G-2S+</a></p>
-<p>We use the <a href="https://mikrotik.com/product/ccr2004_16g_2splus">MikroTik Cloud Core Router CCR2004-16G-2S+</a> for its
-optimal low latency networking and high throughput capabilities.</p>
-<ul>
-<li><strong>Performance:</strong> The CCR2004 router uses the Annapurna Labs Alpine v2 CPU,
-which has 4x 64-bit ARMv8-A Cortex-A57 cores for robust single-core
-performance.</li>
-<li><strong>Bandwidth:</strong> The router has 18 wired ports, including 16x Gigabit Ethernet
-ports and two 10G SFP+ cages for high data traffic management.</li>
-<li><strong>No Bottlenecks:</strong> Each group of 8 Gigabit Ethernet ports is connected to a
-distinct Marvell Amethyst family switch-chip, each having a separate 10 Gbps
-full-duplex line to the CPU for full wire speed operation.</li>
-<li><strong>Single-Core Performance per Watt:</strong> The CCR2004 router offers the best
-single-core performance per watt across all CCR devices.</li>
-<li><strong>Reliability and Durability:</strong> The CCR2004 router, encased in a classic
-white 1U rackmount, incorporates built-in dual redundant power supplies for
-uninterrupted service.</li>
-</ul>
-<img src="images/networking/router-arch.png" alt="Mikrotik Cloud Core Router" style="width: 100%; margin-top: 2em; object-fit: cover;">
-<h2 id="ipv4-configuration"><a class="header" href="#ipv4-configuration">IPv4 Configuration</a></h2>
-<p>Our subnet, based on the CIDR notation of 255.255.255.248 (/29), provides us
-with 6 usable IP addresses, from 27.131.160.105 to 27.131.160.110, out of a
-total of 8. The first address, 27.131.160.104, is the network address, and the
-last one, 27.131.160.111, is the broadcast address. They can't be used for
-hosts (like our router or nodes). </p>
-<p>We currently use the following configuration:</p>
-<ul>
-<li><strong>Network Address:</strong> 27.131.160.104</li>
-<li><strong>Gateway (ISP's router):</strong> 27.131.160.105</li>
-<li><strong>Our Router's WAN Interface:</strong> 27.131.160.106</li>
-<li><strong>Usable addresses for nodes:</strong> 27.131.160.107 to 27.131.160.110</li>
-<li><strong>Broadcast Address:</strong> 27.131.160.111</li>
-</ul>
-<p><img src="./images/networking/rack_back.webp" alt="Rack from the back with electricity sockets" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="firmware-updates"><a class="header" href="#firmware-updates">Firmware Updates</a></h1>
-<h2 id="samsung-980pro-nvme"><a class="header" href="#samsung-980pro-nvme">Samsung 980Pro NVMe</a></h2>
-<pre><code class="language-bash">wget https://semiconductor.samsung.com/resources/software-resources/Samsung_SSD_980_PRO_5B2QGXA7.iso
-apt-get -y install gzip unzip wget cpio
-mkdir /mnt/iso
-sudo mount -o loop ./Samsung_SSD_980_PRO_5B2QGXA7.iso /mnt/iso/
-mkdir /tmp/fwupdate
-cd /tmp/fwupdate
-gzip -dc /mnt/iso/initrd | cpio -idv --no-absolute-filenames
-cd root/fumagician/
-sudo ./fumagician
-</code></pre>
-<p>This .iso is for 980 Pro, if you have different model replace ISO with link on
-https://semiconductor.samsung.com/consumer-storage/support/tools/</p>
-<h2 id="asrock-rack-motherboard"><a class="header" href="#asrock-rack-motherboard">ASRock Rack Motherboard</a></h2>
-<p>This guide outlines the steps to update the firmware on your ASRock Rack
-motherboard. The update includes the BIOS, BMC (Baseboard Management
-Controller), and the networking firmware.</p>
-<p>Before starting, download the following files:</p>
-<ul>
-<li><a href="https://www.dropbox.com/s/01csce7jp2n18xm/B650D4U-2L2T-BCM_4.01.ROM?dl=0">BIOS L4.01</a></li>
-<li><a href="https://www.dropbox.com/s/gwrmaowuxn8uvi5/B650D4U_2L2T-BCM_BMC4.01.00.zip?dl=0">BMC</a></li>
-<li><a href="https://www.dropbox.com/s/ftuwqr9renu9lo9/Broadcom%2057416%20LAN%20Flashing%20FW%20EN.zip?dl=0">Broadcom 57416 LAN Flashing Firmware</a></li>
-</ul>
-<h2 id="bios-update"><a class="header" href="#bios-update">BIOS Update</a></h2>
-<p>ASRock Rack provides a BIOS flash utility called ASRock Rack Instant Flash,
-embedded in the Flash ROM, to make the BIOS update process simple and
-straightforward.</p>
-<ol>
-<li>
-<p><strong>Preparation</strong>: Format a USB flash drive with FAT32/16/12 file system and
-save the new BIOS file to your USB flash drive.</p>
-</li>
-<li>
-<p><strong>Access ASRock Rack Instant Flash</strong>: Restart the server and press the
-<code>&lt;F6&gt;</code> key during the POST or the <code>&lt;F2&gt;</code> key to enter the BIOS setup menu.
-From there, access the ASRock Rack Instant Flash utility.</p>
-</li>
-<li>
-<p><strong>Update BIOS</strong>: Follow the instructions provided by the utility to update
-the BIOS.</p>
-</li>
-</ol>
-<h2 id="bmc-firmware-update"><a class="header" href="#bmc-firmware-update">BMC Firmware Update</a></h2>
-<p>In order to keep your BMC firmware up-to-date and have the latest features and
-improvements, regular updates are recommended. This guide provides step-by-step
-instructions on how to update your BMC firmware. </p>
-<ol>
-<li>
-<p><strong>Preparation</strong>: Download the correct BMC firmware update file from the
-ASRock Rack website. Ensure the firmware version is later than the one
-currently installed on your device. Save the firmware file on your local
-system.</p>
-</li>
-<li>
-<p><strong>Access BMC Maintenance Portal</strong>: Open your web browser and navigate to the
-BMC maintenance portal using the IP address of the BMC. Typically, the URL
-is https://[BMC IP Address]/#maintenance/firmware_update_wizard, for
-instance, https://192.168.33.114/#maintenance/firmware_update_wizard.</p>
-</li>
-<li>
-<p><strong>Login</strong>: Use your BMC username and password to log into the portal. </p>
-</li>
-<li>
-<p><strong>Firmware Update Section</strong>: Navigate to the firmware update section.</p>
-</li>
-<li>
-<p><strong>Upload Firmware Image</strong>: Click on &quot;Select Firmware Image&quot; and upload the
-firmware file you downloaded earlier. The firmware files typically end with
-<code>.ima</code>. For instance, <code>B650D4U_2L2T_4.01.00.ima</code>.</p>
-</li>
-<li>
-<p><strong>Preserve Configuration</strong>: If you want to preserve all the current
-configurations during the update, check the box &quot;Preserve all
-Configuration&quot;. This will maintain all the settings irrespective of the
-individual items marked as preserve/overwrite in the table below. </p>
-</li>
-<li>
-<p><strong>Start Update</strong>: Click &quot;Firmware Update&quot;. The system will validate the
-image and if successful, the update process will start. The progress will be
-shown on the screen.</p>
-</li>
-<li>
-<p><strong>Reboot</strong>: Once the update is completed, the system will reboot
-automatically. </p>
-</li>
-</ol>
-<blockquote>
-<p><strong>WARNING</strong>: Please note that after entering the update mode, other web
-pages, widgets, and services will not work. All the open widgets will be
-automatically closed. If the update is cancelled in the middle of the
-process, the device will be reset only for BMC BOOT, and APP components of
-Firmware.</p>
-</blockquote>
-<blockquote>
-<p><strong>NOTE</strong>: The IP address used in this guide is an example. Replace it with
-the actual IP address of your BMC. Also, remember to use a reliable network
-connection during the update process to prevent any interruption.</p>
-</blockquote>
-<h2 id="networking-firmware-update"><a class="header" href="#networking-firmware-update">Networking Firmware Update</a></h2>
-<ol>
-<li>
-<p><strong>Preparation</strong>: Format a USB flash drive and copy the
-&quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot; folder from the downloaded Broadcom 57416
-LAN Flashing Firmware onto it.</p>
-</li>
-<li>
-<p><strong>Access UEFI Shell</strong>: Insert the USB flash drive into your ASRock Rack
-server board, reboot the server, and hit F11 at the POST screen. Select
-&quot;UEFI: Built-in EFI Shell&quot;. The USB flash drive should be named <code>FS0:</code>. Type
-<code>FS0:</code> and press enter.</p>
-<p><img src="images/firmware/image0.png" alt="UEFI Shell" /></p>
-</li>
-<li>
-<p><strong>Verify Current Firmware Version</strong>: Execute <code>bnxtmt.efi</code> to display the
-current firmware version.</p>
-<p><img src="images/firmware/image1.png" alt="bnxtmt efi execution" /></p>
-</li>
-<li>
-<p><strong>Erase the Flash</strong>: Navigate to the &quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot;
-folder and execute <code>bnxtmt.efi -sysop -none -no_swap –blank</code> to erase the
-current firmware.</p>
-<p><img src="images/firmware/image3.jpg" alt="Erase Flash" /></p>
-</li>
-<li>
-<p><strong>Flash the Firmware</strong>: Execute <code>bnxtmt.efi -sysop -none -no_swap -fnvm ASRR57416-2T.PKG -log FW1.log</code> to flash the new firmware. Here,
-<code>ASRR57416-2T.PKG</code> is the firmware file.</p>
-<p><img src="images/firmware/image2.jpg" alt="Flash Firmware" /></p>
-</li>
-<li>
-<p><strong>Verify Updated Firmware Version</strong>: Run <code>bnxtmt.efi</code> again to verify the
-new firmware version.</p>
-<p><img src="images/firmware/image4.jpg" alt="bnxtmt efi execution" /></p>
-</li>
-<li>
-<p><strong>Flash LAN Ports' MAC Addresses</strong>: Execute <code>bnxtmt.efi -none –m -log MAC1.log</code>.</p>
-<p><img src="images/firmware/image5.jpg" alt="Flash MAC" /></p>
-</li>
-<li>
-<p><strong>Input MAC Addresses</strong>: Enter the MAC addresses of both LAN ports when
-prompted. <em>Write down these addresses beforehand.</em></p>
-<p><img src="images/firmware/image6.jpg" alt="Enter MAC Addresses" /></p>
-</li>
-<li>
-<p><strong>Power Cycle</strong>: Turn off the system, power cycle the PSU, and then power
-everything back on.</p>
-</li>
-</ol>
-<blockquote>
-<p>Note: The MAC addresses for your LAN ports are crucial. Write them down
-before starting the update process as they need to be added during the
-command at step 8.</p>
-</blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="bkk01---validator"><a class="header" href="#bkk01---validator">BKK01 - Validator</a></h1>
 <p><img src="./images/bkk01/bkk01.webp" alt="BKK01" /></p>
 <h2 id="cpu"><a class="header" href="#cpu">CPU</a></h2>
@@ -894,6 +695,205 @@ reliable network operations.</p>
 operations. They are chosen not just for their individual capabilities, but
 also for their compatibility and interoperability, creating an integrated,
 efficient, and reliable software infrastructure.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="firmware-updates"><a class="header" href="#firmware-updates">Firmware Updates</a></h1>
+<h2 id="samsung-980pro-nvme"><a class="header" href="#samsung-980pro-nvme">Samsung 980Pro NVMe</a></h2>
+<pre><code class="language-bash">wget https://semiconductor.samsung.com/resources/software-resources/Samsung_SSD_980_PRO_5B2QGXA7.iso
+apt-get -y install gzip unzip wget cpio
+mkdir /mnt/iso
+sudo mount -o loop ./Samsung_SSD_980_PRO_5B2QGXA7.iso /mnt/iso/
+mkdir /tmp/fwupdate
+cd /tmp/fwupdate
+gzip -dc /mnt/iso/initrd | cpio -idv --no-absolute-filenames
+cd root/fumagician/
+sudo ./fumagician
+</code></pre>
+<p>This .iso is for 980 Pro, if you have different model replace ISO with link on
+https://semiconductor.samsung.com/consumer-storage/support/tools/</p>
+<h2 id="asrock-rack-motherboard"><a class="header" href="#asrock-rack-motherboard">ASRock Rack Motherboard</a></h2>
+<p>This guide outlines the steps to update the firmware on your ASRock Rack
+motherboard. The update includes the BIOS, BMC (Baseboard Management
+Controller), and the networking firmware.</p>
+<p>Before starting, download the following files:</p>
+<ul>
+<li><a href="https://www.dropbox.com/s/01csce7jp2n18xm/B650D4U-2L2T-BCM_4.01.ROM?dl=0">BIOS L4.01</a></li>
+<li><a href="https://www.dropbox.com/s/gwrmaowuxn8uvi5/B650D4U_2L2T-BCM_BMC4.01.00.zip?dl=0">BMC</a></li>
+<li><a href="https://www.dropbox.com/s/ftuwqr9renu9lo9/Broadcom%2057416%20LAN%20Flashing%20FW%20EN.zip?dl=0">Broadcom 57416 LAN Flashing Firmware</a></li>
+</ul>
+<h2 id="bios-update"><a class="header" href="#bios-update">BIOS Update</a></h2>
+<p>ASRock Rack provides a BIOS flash utility called ASRock Rack Instant Flash,
+embedded in the Flash ROM, to make the BIOS update process simple and
+straightforward.</p>
+<ol>
+<li>
+<p><strong>Preparation</strong>: Format a USB flash drive with FAT32/16/12 file system and
+save the new BIOS file to your USB flash drive.</p>
+</li>
+<li>
+<p><strong>Access ASRock Rack Instant Flash</strong>: Restart the server and press the
+<code>&lt;F6&gt;</code> key during the POST or the <code>&lt;F2&gt;</code> key to enter the BIOS setup menu.
+From there, access the ASRock Rack Instant Flash utility.</p>
+</li>
+<li>
+<p><strong>Update BIOS</strong>: Follow the instructions provided by the utility to update
+the BIOS.</p>
+</li>
+</ol>
+<h2 id="bmc-firmware-update"><a class="header" href="#bmc-firmware-update">BMC Firmware Update</a></h2>
+<p>In order to keep your BMC firmware up-to-date and have the latest features and
+improvements, regular updates are recommended. This guide provides step-by-step
+instructions on how to update your BMC firmware. </p>
+<ol>
+<li>
+<p><strong>Preparation</strong>: Download the correct BMC firmware update file from the
+ASRock Rack website. Ensure the firmware version is later than the one
+currently installed on your device. Save the firmware file on your local
+system.</p>
+</li>
+<li>
+<p><strong>Access BMC Maintenance Portal</strong>: Open your web browser and navigate to the
+BMC maintenance portal using the IP address of the BMC. Typically, the URL
+is https://[BMC IP Address]/#maintenance/firmware_update_wizard, for
+instance, https://192.168.33.114/#maintenance/firmware_update_wizard.</p>
+</li>
+<li>
+<p><strong>Login</strong>: Use your BMC username and password to log into the portal. </p>
+</li>
+<li>
+<p><strong>Firmware Update Section</strong>: Navigate to the firmware update section.</p>
+</li>
+<li>
+<p><strong>Upload Firmware Image</strong>: Click on &quot;Select Firmware Image&quot; and upload the
+firmware file you downloaded earlier. The firmware files typically end with
+<code>.ima</code>. For instance, <code>B650D4U_2L2T_4.01.00.ima</code>.</p>
+</li>
+<li>
+<p><strong>Preserve Configuration</strong>: If you want to preserve all the current
+configurations during the update, check the box &quot;Preserve all
+Configuration&quot;. This will maintain all the settings irrespective of the
+individual items marked as preserve/overwrite in the table below. </p>
+</li>
+<li>
+<p><strong>Start Update</strong>: Click &quot;Firmware Update&quot;. The system will validate the
+image and if successful, the update process will start. The progress will be
+shown on the screen.</p>
+</li>
+<li>
+<p><strong>Reboot</strong>: Once the update is completed, the system will reboot
+automatically. </p>
+</li>
+</ol>
+<blockquote>
+<p><strong>WARNING</strong>: Please note that after entering the update mode, other web
+pages, widgets, and services will not work. All the open widgets will be
+automatically closed. If the update is cancelled in the middle of the
+process, the device will be reset only for BMC BOOT, and APP components of
+Firmware.</p>
+</blockquote>
+<blockquote>
+<p><strong>NOTE</strong>: The IP address used in this guide is an example. Replace it with
+the actual IP address of your BMC. Also, remember to use a reliable network
+connection during the update process to prevent any interruption.</p>
+</blockquote>
+<h2 id="networking-firmware-update"><a class="header" href="#networking-firmware-update">Networking Firmware Update</a></h2>
+<ol>
+<li>
+<p><strong>Preparation</strong>: Format a USB flash drive and copy the
+&quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot; folder from the downloaded Broadcom 57416
+LAN Flashing Firmware onto it.</p>
+</li>
+<li>
+<p><strong>Access UEFI Shell</strong>: Insert the USB flash drive into your ASRock Rack
+server board, reboot the server, and hit F11 at the POST screen. Select
+&quot;UEFI: Built-in EFI Shell&quot;. The USB flash drive should be named <code>FS0:</code>. Type
+<code>FS0:</code> and press enter.</p>
+<p><img src="images/firmware/image0.png" alt="UEFI Shell" /></p>
+</li>
+<li>
+<p><strong>Verify Current Firmware Version</strong>: Execute <code>bnxtmt.efi</code> to display the
+current firmware version.</p>
+<p><img src="images/firmware/image1.png" alt="bnxtmt efi execution" /></p>
+</li>
+<li>
+<p><strong>Erase the Flash</strong>: Navigate to the &quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot;
+folder and execute <code>bnxtmt.efi -sysop -none -no_swap –blank</code> to erase the
+current firmware.</p>
+<p><img src="images/firmware/image3.jpg" alt="Erase Flash" /></p>
+</li>
+<li>
+<p><strong>Flash the Firmware</strong>: Execute <code>bnxtmt.efi -sysop -none -no_swap -fnvm ASRR57416-2T.PKG -log FW1.log</code> to flash the new firmware. Here,
+<code>ASRR57416-2T.PKG</code> is the firmware file.</p>
+<p><img src="images/firmware/image2.jpg" alt="Flash Firmware" /></p>
+</li>
+<li>
+<p><strong>Verify Updated Firmware Version</strong>: Run <code>bnxtmt.efi</code> again to verify the
+new firmware version.</p>
+<p><img src="images/firmware/image4.jpg" alt="bnxtmt efi execution" /></p>
+</li>
+<li>
+<p><strong>Flash LAN Ports' MAC Addresses</strong>: Execute <code>bnxtmt.efi -none –m -log MAC1.log</code>.</p>
+<p><img src="images/firmware/image5.jpg" alt="Flash MAC" /></p>
+</li>
+<li>
+<p><strong>Input MAC Addresses</strong>: Enter the MAC addresses of both LAN ports when
+prompted. <em>Write down these addresses beforehand.</em></p>
+<p><img src="images/firmware/image6.jpg" alt="Enter MAC Addresses" /></p>
+</li>
+<li>
+<p><strong>Power Cycle</strong>: Turn off the system, power cycle the PSU, and then power
+everything back on.</p>
+</li>
+</ol>
+<blockquote>
+<p>Note: The MAC addresses for your LAN ports are crucial. Write them down
+before starting the update process as they need to be added during the
+command at step 8.</p>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="networking"><a class="header" href="#networking">Networking</a></h1>
+<h2 id="bandwidth"><a class="header" href="#bandwidth">Bandwidth</a></h2>
+<img src="images/networking/bandwidth.webp" alt="Scaling bandwidth" style="width: 100%; margin-top: 2em; object-fit: cover;">
+<p>We operate a dedicated bandwidth connection providing up to 200Mbps for
+international direct land-line and under-sea connections. This service extends
+all the way to Singapore, ensuring latency below 30ms. This speed is critical
+for RPC endpoint provider operations, where timely data transfer is a crucial
+success factor. The provision to scale up our bandwidth capabilities offers
+us the flexibility to match our growing needs without compromising on the
+quality of service.</p>
+<h2 id="router"><a class="header" href="#router">Router</a></h2>
+<img src="images/networking/mikrotik.webp" alt="Mikrotik Cloud Core Router" style="width: 100%; margin-top: 2em; object-fit: cover;">
+<p><a href="https://mikrotik.com/product/ccr2004_16g_2splus">MikroTik Cloud Core Router CCR2004-16G-2S+</a></p>
+<p>We use the <a href="https://mikrotik.com/product/ccr2004_16g_2splus">MikroTik Cloud Core Router CCR2004-16G-2S+</a> for its
+optimal low latency networking and high throughput capabilities.</p>
+<ul>
+<li><strong>Performance:</strong> The CCR2004 router uses the Annapurna Labs Alpine v2 CPU,
+which has 4x 64-bit ARMv8-A Cortex-A57 cores for robust single-core
+performance.</li>
+<li><strong>Bandwidth:</strong> The router has 18 wired ports, including 16x Gigabit Ethernet
+ports and two 10G SFP+ cages for high data traffic management.</li>
+<li><strong>No Bottlenecks:</strong> Each group of 8 Gigabit Ethernet ports is connected to a
+distinct Marvell Amethyst family switch-chip, each having a separate 10 Gbps
+full-duplex line to the CPU for full wire speed operation.</li>
+<li><strong>Single-Core Performance per Watt:</strong> The CCR2004 router offers the best
+single-core performance per watt across all CCR devices.</li>
+<li><strong>Reliability and Durability:</strong> The CCR2004 router, encased in a classic
+white 1U rackmount, incorporates built-in dual redundant power supplies for
+uninterrupted service.</li>
+</ul>
+<img src="images/networking/router-arch.png" alt="Mikrotik Cloud Core Router" style="width: 100%; margin-top: 2em; object-fit: cover;">
+<h2 id="ipv4-configuration"><a class="header" href="#ipv4-configuration">IPv4 Configuration</a></h2>
+<p>Our subnet, based on the CIDR notation of 255.255.255.248 (/29), provides us
+with 6 usable IP addresses, from 27.131.160.105 to 27.131.160.110, out of a
+total of 8. The first address, 27.131.160.104, is the network address, and the
+last one, 27.131.160.111, is the broadcast address. They can't be used for
+hosts (like our router or nodes). </p>
+<p>We currently use the following configuration:</p>
+<ul>
+<li><strong>Network Address:</strong> 27.131.160.104</li>
+<li><strong>Gateway (ISP's router):</strong> 27.131.160.105</li>
+<li><strong>Our Router's WAN Interface:</strong> 27.131.160.106</li>
+<li><strong>Usable addresses for nodes:</strong> 27.131.160.107 to 27.131.160.110</li>
+<li><strong>Broadcast Address:</strong> 27.131.160.111</li>
+</ul>
+<p><img src="./images/networking/rack_back.webp" alt="Rack from the back with electricity sockets" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="proxmox-network-configuration-guide"><a class="header" href="#proxmox-network-configuration-guide">Proxmox Network Configuration Guide</a></h1>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <p>Networking in Proxmox is managed through the Debian network interface
@@ -1003,7 +1003,79 @@ Deletes and recreates a bridge.</p>
 appropriate values for your network.</p>
 <p>For more detailed information about Proxmox networking, refer to the <a href="https://pve.proxmox.com/wiki/Network_Configuration">official
 Proxmox documentation</a>.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="proxmox"><a class="header" href="#proxmox">Proxmox</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="routeros"><a class="header" href="#routeros">RouterOS</a></h1>
+<p>RouterOS is an operating system designed specifically for routers and network
+devices. Developed by the Latvian company MikroTik, it is used to turn standard
+x86-64 architecture computers or MikroTik's own RouterBOARD hardware into fully
+functional routers.</p>
+<p>RouterOS provides all the core features expected in a router, such as routing,
+firewalling, bandwidth management, VPN support, and more. Here's a brief
+overview of some key features and aspects:</p>
+<ol>
+<li>
+<p><strong>Routing</strong>: Supports various routing protocols such as BGP, OSPF, RIP, and
+MPLS, allowing for robust and scalable network design.</p>
+</li>
+<li>
+<p><strong>Firewall</strong>: RouterOS includes a powerful firewall to secure the network.
+It allows for filtering by IP address, port, protocol, and other parameters.</p>
+</li>
+<li>
+<p><strong>Quality of Service (QoS)</strong>: Bandwidth management is a strong feature in
+RouterOS, enabling administrators to prioritize certain types of traffic,
+limit bandwidth for specific users, or guarantee certain bandwidth levels for
+specific services.</p>
+</li>
+<li>
+<p><strong>Virtual Private Network (VPN) Support</strong>: RouterOS supports various VPN
+protocols, including OpenVPN, L2TP, PPTP, and SSTP, allowing secure
+connections to remote networks.</p>
+</li>
+<li>
+<p><strong>Wireless Capabilities</strong>: It provides support for various wireless
+standards, making it suitable for creating Wi-Fi hotspots or linking
+locations wirelessly.</p>
+</li>
+<li>
+<p><strong>User Management</strong>: RouterOS offers multiple user levels and authentication
+methods, such as local database, RADIUS, and more.</p>
+</li>
+<li>
+<p><strong>Hotspot Gateway</strong>: It allows the setup of a custom user login page,
+authentication of users, and bandwidth limitation, particularly useful in
+public Wi-Fi scenarios like hotels, airports, etc.</p>
+</li>
+<li>
+<p><strong>Winbox</strong>: RouterOS can be managed through Winbox, a GUI application
+provided by MikroTik, as well as through command line and web interfaces.
+Winbox enables an easy-to-use interface for configuring and monitoring the
+router.</p>
+</li>
+<li>
+<p><strong>Scalability</strong>: Suitable for small home setups and also for large
+enterprise networks. It provides robust features that can be tailored to fit
+various network sizes and requirements.</p>
+</li>
+<li>
+<p><strong>Licensing</strong>: RouterOS licensing is tiered, with higher-level licenses
+unlocking additional features. This allows users to choose the level that
+fits their specific needs and budget.</p>
+</li>
+<li>
+<p><strong>Scripting</strong>: RouterOS includes a scripting language that lets
+administrators automate various functions and operations.
+Also SSL secured API available.</p>
+</li>
+<li>
+<p><strong>Updates and Security</strong>: Regular updates are provided by MikroTik,
+including security patches and feature enhancements.</p>
+</li>
+</ol>
+<p>RouterOS makes a compelling choice for network professionals who need an
+affordable and highly configurable operating system for their routers. It can
+transform simple hardware into powerful network devices with an extensive range
+of features. Whether deployed in small businesses, large enterprises, or ISPs,
+RouterOS is a versatile solution to many networking needs.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="fasttracking"><a class="header" href="#fasttracking">FastTracking</a></h1>
 <h2 id="efficient-routing-and-firewall-management-with-mikrotik-routers"><a class="header" href="#efficient-routing-and-firewall-management-with-mikrotik-routers"><strong>Efficient Routing and Firewall Management with MikroTik Routers</strong></a></h2>
 <p>Efficiency in routing and firewall management is paramount in a network
@@ -1079,7 +1151,6 @@ will aid in sustaining a network environment that is both efficient and secure.<
 <p>Adherence to best practices, such as testing modifications in a controlled
 setting before full deployment, will mitigate the risks of unforeseen behaviors
 and potential network vulnerabilities.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="routeros"><a class="header" href="#routeros">RouterOS</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="filesystem"><a class="header" href="#filesystem">Filesystem</a></h1>
 <p>The file system is perhaps the most underappreciated component in the
 blockchain synchronization process, despite being pivotal. It's puzzling how
