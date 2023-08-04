@@ -1,5 +1,7 @@
 # Hardware
 
+![Machines at rack](./images/rack/machines_at_rack.webp)
+
 Our primary goal is to deliver a high-performance and secure blockchain
 infrastructure that fosters trust and reliability. We aim to achieve this by
 focusing on the critical elements of blockchain technology - namely, ensuring
