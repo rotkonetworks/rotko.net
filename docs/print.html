@@ -1248,8 +1248,9 @@ zfs set compression=lz4 tank
 zfs set redundant_metadata=most tank
 # Synchronous writes (sync) should be set to standard to ensure data integrity in case of an unexpected shutdown
 zfs set sync=standard tank
-# Enable snapshots for better data protection
-zfs snapshot tank@daily
+# Enable snapshots for better data protection using crontab(zfs snapshot
+# tank/subvol-101-disk-1@${date} # or use some better tooling for it
+# like zfsnap
 
 echo &quot;Finished setting up ZFS pool and swap partitions&quot;
 </code></pre>
