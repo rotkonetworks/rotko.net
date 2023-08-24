@@ -77,14 +77,3 @@ connection tracking print`.
 
 Consistent monitoring is instrumental in detecting performance restrictions and
 avenues for further enhancement.
-
-## **Conclusion**
-
-The optimization of a MikroTik router's configuration is a nuanced process that
-requires comprehension of features like FastTrack and meticulous ordering of
-firewall rules. Regular scrutiny and evaluation of the router's functionality
-will aid in sustaining a network environment that is both efficient and secure.
-
-Adherence to best practices, such as testing modifications in a controlled
-setting before full deployment, will mitigate the risks of unforeseen behaviors
-and potential network vulnerabilities.
