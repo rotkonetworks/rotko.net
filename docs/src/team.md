@@ -55,35 +55,36 @@ users.
 <!-- algorithmic creativity. He’s not just a coder; he’s a craftsman. </p> </div> -->
 <!-- </div> -->
 <!---->
-<!-- <div style="display: flex; margin-bottom: 4em;"> <div style="display: flex; -->
-<!-- flex-direction: column; flex: 0 0 20%;"> <img src="images/team/mikko.webp" -->
-<!-- alt="Mikko" style="width: 100%; margin-top: 1em; object-fit: cover;"> -->
-<!-- <center><h3>Mikko</h3></center> </div> <div style="margin-left: 1em;"> <p> With -->
-<!-- over 40 years of diverse and significant technical experience, Mikko is the -->
-<!-- ideal advisor for creating Internet and networking infrastructure at Rotko -->
-<!-- Networks. His expertise spans across all technical layers, from layer 1 -->
-<!-- hardware programming to layer 7 application interfaces, making him an essential -->
-<!-- asset, especially considering the CEO's top-to-bottom learning path. -->
-<!---->
-<!-- His technical journey began in the mid-1980s at Nokia Mobile Phones, where he -->
-<!-- hand-wrote UI with NEC's Assembly without a compiler, demonstrating a profound -->
-<!-- understanding of low-level programming. His most notable achievement at Nokia -->
-<!-- was the invention of the menu buttons on the display, a pioneering feature that -->
-<!-- has become ubiquitous in mobile user interfaces. -->
-<!---->
-<!-- One of the most noteworthy roles was serving as the IT Manager at the -->
-<!-- University of Turku, where he was responsible for managing and upgrading the -->
-<!-- entire IT infrastructure, including modern Data Center and network services. He -->
-<!-- implemented crucial projects like Datacenter upgrades, WLAN enhancements, -->
-<!-- network topology redesigns, and developed vital services such as private cloud -->
-<!-- storage and learning platforms. -->
-<!---->
-<!-- His profound knowledge of technologies like Novell NetWare, AD, MS Exchange, -->
-<!-- backup and storage systems, IIS, ISA Firewall, DNS, and DHCP, coupled with his -->
-<!-- broad understanding of both low-level and high-level systems, makes him a -->
-<!-- tremendous asset for Rotko Networks. His broad and deep technical expertise -->
-<!-- ensures he will provide significant guidance in building a robust and efficient -->
-<!-- Internet and networking infrastructure. </p> </div> </div> -->
+
+<div style="display: flex; margin-bottom: 4em;"> <div style="display: flex;
+flex-direction: column; flex: 0 0 20%;"> <img src="images/team/mikko.webp"
+alt="Mikko" style="width: 100%; margin-top: 1em; object-fit: cover;">
+<center><h3>Mikko</h3></center> </div> <div style="margin-left: 1em;"> <p> With
+over 40 years of diverse and significant technical experience, Mikko is the
+ideal advisor for creating Internet and networking infrastructure at Rotko
+Networks. His expertise spans across all technical layers, from layer 1
+hardware programming to layer 7 application interfaces, making him an essential
+asset, especially considering the CEO's top-to-bottom learning path.
+
+His technical journey began in the mid-1980s at Nokia Mobile Phones, where he
+hand-wrote UI with NEC's Assembly without a compiler, demonstrating a profound
+understanding of low-level programming. His most notable achievement at Nokia
+was the invention of the menu buttons on the display, a pioneering feature that
+has become ubiquitous in mobile user interfaces.
+
+One of the most noteworthy roles was serving as the IT Manager at the
+University of Turku, where he was responsible for managing and upgrading the
+entire IT infrastructure, including modern Data Center and network services. He
+implemented crucial projects like Datacenter upgrades, WLAN enhancements,
+network topology redesigns, and developed vital services such as private cloud
+storage and learning platforms.
+
+His profound knowledge of technologies like Novell NetWare, AD, MS Exchange,
+backup and storage systems, IIS, ISA Firewall, DNS, and DHCP, coupled with his
+broad understanding of both low-level and high-level systems, makes him a
+tremendous asset for Rotko Networks. His broad and deep technical expertise
+ensures he will provide significant guidance in building a robust and efficient
+Internet and networking infrastructure. </p> </div> </div>
 
 <style>
   h1 {text-align: center;}
