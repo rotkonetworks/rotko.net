@@ -8,11 +8,10 @@ discover the dearth of literature on this subject. By offloading additional
 tasks to the application users, we inadvertently make chains more difficult to
 synchronize, an outcome that inadvertently centralizes those running the nodes.
 
-Upon rigorous testing of various file systems - including mdraid (ext4), LVM,
-mdraid, Btrfs, and ZFS - our findings suggest that ZFS stands out as the most
-user-friendly and well-rounded solution. While LVM and Btrfs also has its
-merits, its user interface tooling design seems to be more suitable for those
-with a high tolerance for complexity.
+For validator nodes we highly recommend avoiding Copy on Write filesystems like
+ZFS and BTRFS and using instead traditional mdraid or ext4 on LVM. For
+bootnodes and RPC endpoints that redundancy, snapshotting and ability to read
+data plays more role ZFS with raidz seems great option.
 
 ## ZFS
 
@@ -86,11 +85,11 @@ done
 
 ```
 
-### ZFS optimized for blockchain
+### ZFS settings optimized for endpoint/bootnodes
 
 ```bash
 # Now, create the ZFS pool with the remaining space
-# TODO: add disk with  root installation to pool as well
+# Optionally use raidz instead of striped especially in cases you don't have active backups.
 disks=("nvme1n1" "nvme2n1" "nvme3n1" "nvme4n1")
 zpool create -o ashift=12 tank $(for disk in "${disks[@]}"; do echo "/dev/${disk}p2"; done)
 
@@ -139,19 +138,3 @@ nvme0n1     259:4    0   1.9T  0 disk
 ├─nvme0n1p2 259:6    0 126.7G  0 part /
 └─nvme0n1p3 259:9    0   1.7T  0 part
 ```
-
-### Blockchains on HDD
-
-The NVMe drives themselves should provide high performance and low latency for
-your ZFS pool, and a separate ZIL or L2ARC might not provide significant
-benefits and could even add unnecessary complexity or costs. You can create
-tank/slog and tank/L2ARC for performant read and write cache to reach
-"balanced disk" like boosted performance. ZIL ~8GB and L2ARC ~128GB.
-This can make huge difference in HDD capability of synchronizing Blockchains
-when data is first written in NVMe.
-
-We are using HDD purely for storing snapshots as backups due to using striping
-raid for our NVMe:s.
-
-Notice that if you running EVM blockchain with small blocks like Ethereum, it might 
-be best option to set your recordsize 4K instead before starting syncing.
