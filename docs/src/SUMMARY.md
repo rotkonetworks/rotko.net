@@ -15,6 +15,5 @@
     - [RouterOS](./networking_routeros.md)
       - [FastTracking](./networking_routeros_fast.md)
   - [Filesystem](./filesystem.md)
-  - [Ansible](./ansible.md)
-  - [Virtualization](./virtualization.md)
+  - [Unlabored](./unlabored.md)
 - [Team](./team.md)
