@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.2.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.3.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.4.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.5.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.6.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">3.1.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">3.2.</strong> Networking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_proxmox.html"><strong aria-hidden="true">3.2.1.</strong> Proxmox</a></li><li class="chapter-item expanded "><a href="networking_routeros.html"><strong aria-hidden="true">3.2.2.</strong> RouterOS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_routeros_fast.html"><strong aria-hidden="true">3.2.2.1.</strong> FastTracking</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.3.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="ansible.html"><strong aria-hidden="true">3.4.</strong> Ansible</a></li><li class="chapter-item expanded "><a href="virtualization.html"><strong aria-hidden="true">3.5.</strong> Virtualization</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.2.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.3.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.4.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.5.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.6.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">3.1.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">3.2.</strong> Networking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_proxmox.html"><strong aria-hidden="true">3.2.1.</strong> Proxmox</a></li><li class="chapter-item expanded "><a href="networking_routeros.html"><strong aria-hidden="true">3.2.2.</strong> RouterOS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_routeros_fast.html"><strong aria-hidden="true">3.2.2.1.</strong> FastTracking</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.3.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="unlabored.html"><strong aria-hidden="true">3.4.</strong> Unlabored</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -1151,11 +1151,10 @@ discussing the ideal record sizes for blockchain databases - you'll quickly
 discover the dearth of literature on this subject. By offloading additional
 tasks to the application users, we inadvertently make chains more difficult to
 synchronize, an outcome that inadvertently centralizes those running the nodes.</p>
-<p>Upon rigorous testing of various file systems - including mdraid (ext4), LVM,
-mdraid, Btrfs, and ZFS - our findings suggest that ZFS stands out as the most
-user-friendly and well-rounded solution. While LVM and Btrfs also has its
-merits, its user interface tooling design seems to be more suitable for those
-with a high tolerance for complexity.</p>
+<p>For validator nodes we highly recommend avoiding Copy on Write filesystems like
+ZFS and BTRFS and using instead traditional mdraid or ext4 on LVM. For
+bootnodes and RPC endpoints that redundancy, snapshotting and ability to read
+data plays more role ZFS with raidz seems great option.</p>
 <h2 id="zfs-1"><a class="header" href="#zfs-1">ZFS</a></h2>
 <p>ZFS offers incredibly easy client tool to use for setting up complex filesystem
 setup with snapshots and quota management.</p>
@@ -1220,9 +1219,9 @@ for disk in &quot;${disks[@]}&quot;; do
 done
 
 </code></pre>
-<h3 id="zfs-optimized-for-blockchain"><a class="header" href="#zfs-optimized-for-blockchain">ZFS optimized for blockchain</a></h3>
+<h3 id="zfs-settings-optimized-for-endpointbootnodes"><a class="header" href="#zfs-settings-optimized-for-endpointbootnodes">ZFS settings optimized for endpoint/bootnodes</a></h3>
 <pre><code class="language-bash"># Now, create the ZFS pool with the remaining space
-# TODO: add disk with  root installation to pool as well
+# Optionally use raidz instead of striped especially in cases you don't have active backups.
 disks=(&quot;nvme1n1&quot; &quot;nvme2n1&quot; &quot;nvme3n1&quot; &quot;nvme4n1&quot;)
 zpool create -o ashift=12 tank $(for disk in &quot;${disks[@]}&quot;; do echo &quot;/dev/${disk}p2&quot;; done)
 
@@ -1269,20 +1268,10 @@ nvme0n1     259:4    0   1.9T  0 disk
 ├─nvme0n1p2 259:6    0 126.7G  0 part /
 └─nvme0n1p3 259:9    0   1.7T  0 part
 </code></pre>
-<h3 id="blockchains-on-hdd"><a class="header" href="#blockchains-on-hdd">Blockchains on HDD</a></h3>
-<p>The NVMe drives themselves should provide high performance and low latency for
-your ZFS pool, and a separate ZIL or L2ARC might not provide significant
-benefits and could even add unnecessary complexity or costs. You can create
-tank/slog and tank/L2ARC for performant read and write cache to reach
-&quot;balanced disk&quot; like boosted performance. ZIL ~8GB and L2ARC ~128GB.
-This can make huge difference in HDD capability of synchronizing Blockchains
-when data is first written in NVMe.</p>
-<p>We are using HDD purely for storing snapshots as backups due to using striping
-raid for our NVMe:s.</p>
-<p>Notice that if you running EVM blockchain with small blocks like Ethereum, it might 
-be best option to set your recordsize 4K instead before starting syncing.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="ansible-1"><a class="header" href="#ansible-1">Ansible</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="virtualization"><a class="header" href="#virtualization">Virtualization</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="unlabored"><a class="header" href="#unlabored">Unlabored</a></h1>
+<p>Effortless Proxmox Infrastructure is deployed using comprehensive collection of
+rolebooks use to deploy complete infrastructure as a code can be found now in
+<a href="https://github.com/rotkonetworks/unlabored/">Github</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="team"><a class="header" href="#team">Team</a></h1>
 <div style="display: flex; margin-bottom: 4em;">
 <div style="display: flex; flex-direction: column; flex: 0 0 20%;">
