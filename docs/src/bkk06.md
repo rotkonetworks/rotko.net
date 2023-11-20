@@ -28,7 +28,9 @@ The BKK06 server stands at the vanguard of our infrastructure, specifically tail
 **Model:** SuperMicro 64GB ECC Registered DDR5 4800
 - **Capacity:** Currently 6 modules (to be expanded to 12)
 - **Technology:** ECC Registered for increased reliability
-- **Speed:** 4800MHz (to be upgraded to 57600MHz for full-channel bandwidth)
+- **Speed:** 4800MHz (running at 57600MHz for full 12-channel bandwidth)
+
+***Note:*** Under the SuperMicro brand, actual chip running is HMCG94MEBRA109N AA SKhynix DDR5 64GB SKhynix-Montage 2Rx4 1.1v 4800MHz ECC Registered 288-pin.
 
 ### Storage
 **Primary Storage:** 4x [SAMSUNG 990 PRO M.2 2280 4TB NVMe](https://www.samsung.com/us/computing/memory-storage/solid-state-drives/990-pro-pcie-4-0-nvme-ssd-4tb-mz-v9p4t0b-am/)
