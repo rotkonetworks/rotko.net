@@ -52,3 +52,6 @@ In conclusion, our approach to energy consumption and carbon offsetting aligns
 with our commitment to environmental responsibility and innovation. By actively
 engaging in sustainable practices, we contribute not only to offsetting our
 carbon emissions but to the broader goal of a cleaner, greener future.
+
+***2023***: [8](./files/terrapass/august.pdf), [9](./files/terrapass/october.pdf), [10](./files/terrapass/september.pdf), [11](./files/terrapass/november.pdf), [12](./files/terrapass/december.pdf)
+***2023***: 

@@ -1,140 +1,101 @@
 # Filesystem
 
-The file system is perhaps the most underappreciated component in the
-blockchain synchronization process, despite being pivotal. It's puzzling how
-little attention this crucial element receives. Try seeking a single article
-discussing the ideal record sizes for blockchain databases - you'll quickly
-discover the dearth of literature on this subject. By offloading additional
-tasks to the application users, we inadvertently make chains more difficult to
-synchronize, an outcome that inadvertently centralizes those running the nodes.
+Blockchain nodes, such as validators and archive nodes, require a highly reliable and efficient filesystem to operate effectively. The choice of filesystem can significantly affect the performance and reliability of these nodes. In light of performance concerns with ZFS, especially in ParityDB workloads as discussed in [paritytech/polkadot-sdk/pull/1792](https://github.com/paritytech/polkadot-sdk/pull/1792), this guide provides a detailed approach to configuring a robust filesystem in Proxmox.
 
-For validator nodes we highly recommend avoiding Copy on Write filesystems like
-ZFS and BTRFS and using instead traditional mdraid or ext4 on LVM. For
-bootnodes and RPC endpoints that redundancy, snapshotting and ability to read
-data plays more role ZFS with raidz seems great option.
+## Filesystem Choices and Their Impact
 
-## ZFS
+The extensive use of I/O operations by blockchain nodes means the filesystem must manage write and read operations efficiently. CoW filesystems, while feature-rich and robust, introduce overhead that can degrade performance, as evidenced by the cited benchmarks.
 
-ZFS offers incredibly easy client tool to use for setting up complex filesystem
-setup with snapshots and quota management.
+### Why Not ZFS or Btrfs for Blockchain Nodes?
 
-### Installation
+- **ZFS**: While ZFS is revered for its data integrity, the added overhead from features like snapshotting, checksums, and the dynamic block size can significantly slow down write operations crucial for blockchain databases.
+- **Btrfs**: Similar to ZFS, Btrfs offers advanced features such as snapshotting and volume management. However, its CoW nature means it can suffer from fragmentation and performance degradation over time, which is less than ideal for write-intensive blockchain operations.
 
-execute as sudo on debian12/bookworm
-```bash
-#!/bin/bash
+Given these insights, a move towards a more traditional, performant, and linear filesystem is recommended.
 
-# Create the backports file
-echo "deb http://deb.debian.org/debian bookworm-backports main contrib
-deb-src http://deb.debian.org/debian bookworm-backports main contrib" > /etc/apt/sources.list.d/bookworm-backports.list
+### Recommended Setup: LVM-thin with ext4
 
-# Create the preferences file
-echo "Package: src:zfs-linux
-Pin: release n=bookworm-backports
-Pin-Priority: 990" > /etc/apt/preferences.d/90_zfs
+For high I/O workloads such as those handled by blockchain validators and archive nodes, `LVM-thin` provisioned with `ext4` stands out:
 
-# Update package lists
-apt update
+- **ext4**: Offers a stable and linear write performance, which is critical for the high transaction throughput of blockchain applications.
+- **LVM-thin**: Allows for flexible disk space allocation, providing the benefits of thin provisioning such as snapshotting and easier resizing without the CoW overhead.
 
-# Install necessary packages
-apt install -y dpkg-dev linux-headers-$(uname -r) linux-image-$(uname -r)
+## Strategic Partitioning for Maximum Reliability and Performance
 
-# Set the environment variable DEBIAN_FRONTEND to noninteractive
-# Install ZFS packages
-DEBIAN_FRONTEND=noninteractive apt install -y zfs-dkms zfsutils-linux
+A well-thought-out partitioning scheme is crucial for maintaining data integrity and ensuring high availability.
 
-# Verify the ZFS installation
-modprobe zfs && echo "ZFS installed successfully" || echo "ZFS installation failed"
-```
+### RAID 1 Configuration for the Root Partition
 
-### ZFS partitioning
+Using a RAID 1 setup for the root partition provides mirroring of data across two disks, thus ensuring that the system can continue to operate even if one disk fails.
 
-```bash
-#!/bin/bash
-# bkk03 zfs setup
+#### Implementing RAID 1:
 
-# Array of disks to be used
-disks=("nvme1n1" "nvme2n1" "nvme3n1" "nvme4n1")
+1. **Disk Preparation:**
+   - Select two identical disks (e.g., `/dev/sda` and `/dev/sdb`).
+   - Partition both disks with an identical layout, reserving space for the root partition.
 
-# Size of the swap partition on each disk
-swap_size="16G"
+2. **RAID Array Creation:**
+   - Execute the command to create the RAID 1 array:
+     ```bash
+     mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sda1 /dev/sdb1
+     ```
+   - Format the RAID array with a resilient filesystem like ext4:
+     ```bash
+     mkfs.ext4 /dev/md0
+     ```
+   - Mount the RAID array at the root mount point during the Proxmox installation or manually afterward.
 
-# Create swap partition and ZFS partition on each disk
-for disk in "${disks[@]}"; do
-    echo "Creating partitions on /dev/${disk}"
-    
-    # Create the swap partition
-    parted -s /dev/${disk} mklabel gpt
-    parted -s /dev/${disk} mkpart primary linux-swap 1MiB ${swap_size}
-    mkswap /dev/${disk}p1
-    swap_uuid=$(blkid -s UUID -o value /dev/${disk}p1)
+### Boot Partition Configuration
 
-    # Add the swap partitions to /etc/fstab so they're used on startup
-    echo "UUID=${swap_uuid} none swap sw 0 0" >> /etc/fstab
+Having two separate boot partitions provides redundancy, ensuring the system remains bootable in the event of a primary boot partition failure.
 
-    # Enable the swap partition
-    echo "Enabling swap on /dev/${disk}p1"
-    swapon /dev/${disk}p1
+#### Configuring Boot Partitions:
 
-    # Create the ZFS partition
-    parted -s /dev/${disk} mkpart primary ${swap_size} 100%
+- **Primary Boot Partition:**
+  - On the first disk, create a boot partition (e.g., `/dev/sda2`).
+  - Install the bootloader and kernel images here.
 
-    # Inform the OS of partition table changes
-    partprobe /dev/${disk}
-done
+- **Fallback Boot Partition:**
+  - Mirror the primary boot partition to a second disk (e.g., `/dev/sdb2`).
+  - Configure the bootloader to fall back to this partition if the primary boot fails.
 
-```
+### LVM-Thin Provisioning on Data Disks
 
-### ZFS settings optimized for endpoint/bootnodes
+LVM-thin provisioning is recommended for managing data disks. It allows for efficient disk space utilization by provisioning "thin" volumes that can be expanded dynamically as needed.
 
-```bash
-# Now, create the ZFS pool with the remaining space
-# Optionally use raidz instead of striped especially in cases you don't have active backups.
-disks=("nvme1n1" "nvme2n1" "nvme3n1" "nvme4n1")
-zpool create -o ashift=12 tank $(for disk in "${disks[@]}"; do echo "/dev/${disk}p2"; done)
+#### Steps for LVM-Thin Provisioning:
 
-# Disable access time (atime) as it can negatively impact performance
-zfs set atime=off tank
-# Set recordsize to 16K as most values in the ParityDb are small and values over 16K are rare
-zfs set recordsize=16k tank
-# throughput safer than latency
-zfs set logbias=throughput tank
-# Set the primary cache to only metadata, as ParityDb relies on the OS page cache
-zfs set primarycache=metadata tank
-# Enable compression as it can provide both space and performance benefits
-zfs set compression=lz4 tank
-# Set redundant metadata to most to protect against data corruption
-zfs set redundant_metadata=most tank
-# Synchronous writes (sync) should be set to standard to ensure data integrity in case of an unexpected shutdown
-zfs set sync=standard tank
-# Enable snapshots for better data protection using crontab(zfs snapshot
-# tank/subvol-101-disk-1@${date} # or use some better tooling for it
-# like zfsnap
+1. **Initialize LVM Physical Volumes:**
+   - Use the `pvcreate` command on the designated data disks:
+     ```bash
+     pvcreate /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
+     ```
 
-echo "Finished setting up ZFS pool and swap partitions"
-```
+2. **Create a Volume Group:**
+   - Group the initialized disks into a volume group:
+     ```bash
+     vgcreate vg_data /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
+     ```
 
-bkk03 lsblk:
-```bash
-NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
-sda           8:0    1  28.7G  0 disk
-├─sda1        8:1    1   1.9G  0 part /boot/efi
-├─sda2        8:2    1   1.9G  0 part /boot
-└─sda3        8:3    1  24.9G  0 part /media/user/489b6b9f-f615-4270-b2c9-9565b9516c00
-nvme1n1     259:0    0   1.9T  0 disk
-├─nvme1n1p2 259:7    0   1.8T  0 part
-└─nvme1n1p1 259:8    0  14.9G  0 part [SWAP]
-nvme2n1     259:1    0   1.9T  0 disk
-├─nvme2n1p1 259:10   0  14.9G  0 part [SWAP]
-└─nvme2n1p2 259:11   0   1.8T  0 part
-nvme3n1     259:2    0   1.9T  0 disk
-├─nvme3n1p1 259:12   0  14.9G  0 part [SWAP]
-└─nvme3n1p2 259:13   0   1.8T  0 part
-nvme4n1     259:3    0   1.9T  0 disk
-├─nvme4n1p1 259:14   0  14.9G  0 part [SWAP]
-└─nvme4n1p2 259:15   0   1.8T  0 part
-nvme0n1     259:4    0   1.9T  0 disk
-├─nvme0n1p1 259:5    0  59.6G  0 part [SWAP]
-├─nvme0n1p2 259:6    0 126.7G  0 part /
-└─nvme0n1p3 259:9    0   1.7T  0 part
-```
+3. **Establish a Thin Pool:**
+   - Create a thin pool within the volume group to hold the thin volumes:
+     ```bash
+     lvcreate --size 100G --thinpool data_tpool vg_data
+     ```
+
+4. **Provision Thin Volumes:**
+   - Create thin volumes from the pool as needed for containers or virtual machines: ```bash
+     lvcreate --virtualsize 500G --thin data_tpool --name data_volume
+     ```
+
+5. **Format and Mount Thin Volumes:**
+   - Format the volumes with a filesystem, such as ext4, and mount them:
+     ```bash
+     mkfs.ext4 /dev/vg_data/data_volume
+     mount /dev/vg_data/data_volume /mnt/data_volume
+     ```
+
+## Integrating LVM-Thin Volumes with Proxmox
+
+Proxmox's `pct` command-line tool can manage container storage by mapping LVM-thin volumes to container mount points.
+
