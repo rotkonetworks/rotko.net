@@ -91,7 +91,9 @@
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.2.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.3.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.4.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.5.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.6.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">3.1.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">3.2.</strong> Networking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_proxmox.html"><strong aria-hidden="true">3.2.1.</strong> Proxmox</a></li><li class="chapter-item expanded "><a href="networking_routeros.html"><strong aria-hidden="true">3.2.2.</strong> RouterOS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_routeros_fast.html"><strong aria-hidden="true">3.2.2.1.</strong> FastTracking</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.3.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="unlabored.html"><strong aria-hidden="true">3.4.</strong> Unlabored</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
 
         <!-- Track and set sidebar scroll position -->
@@ -658,6 +660,8 @@ environmental change.</p>
 with our commitment to environmental responsibility and innovation. By actively
 engaging in sustainable practices, we contribute not only to offsetting our
 carbon emissions but to the broader goal of a cleaner, greener future.</p>
+<p><em><strong>2023</strong></em>: <a href="./files/terrapass/august.pdf">8</a>, <a href="./files/terrapass/october.pdf">9</a>, <a href="./files/terrapass/september.pdf">10</a>, <a href="./files/terrapass/november.pdf">11</a>, <a href="./files/terrapass/december.pdf">12</a>
+<em><strong>2023</strong></em>: </p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="software-infrastructure"><a class="header" href="#software-infrastructure">Software Infrastructure</a></h1>
 <p>Our infrastructure leverages several powerful
 technologies and platforms to provide a robust and efficient environment for
@@ -1149,130 +1153,122 @@ memory usage.</li>
 <p>Consistent monitoring is instrumental in detecting performance restrictions and
 avenues for further enhancement.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="filesystem"><a class="header" href="#filesystem">Filesystem</a></h1>
-<p>The file system is perhaps the most underappreciated component in the
-blockchain synchronization process, despite being pivotal. It's puzzling how
-little attention this crucial element receives. Try seeking a single article
-discussing the ideal record sizes for blockchain databases - you'll quickly
-discover the dearth of literature on this subject. By offloading additional
-tasks to the application users, we inadvertently make chains more difficult to
-synchronize, an outcome that inadvertently centralizes those running the nodes.</p>
-<p>For validator nodes we highly recommend avoiding Copy on Write filesystems like
-ZFS and BTRFS and using instead traditional mdraid or ext4 on LVM. For
-bootnodes and RPC endpoints that redundancy, snapshotting and ability to read
-data plays more role ZFS with raidz seems great option.</p>
-<h2 id="zfs-1"><a class="header" href="#zfs-1">ZFS</a></h2>
-<p>ZFS offers incredibly easy client tool to use for setting up complex filesystem
-setup with snapshots and quota management.</p>
-<h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
-<p>execute as sudo on debian12/bookworm</p>
-<pre><code class="language-bash">#!/bin/bash
-
-# Create the backports file
-echo &quot;deb http://deb.debian.org/debian bookworm-backports main contrib
-deb-src http://deb.debian.org/debian bookworm-backports main contrib&quot; &gt; /etc/apt/sources.list.d/bookworm-backports.list
-
-# Create the preferences file
-echo &quot;Package: src:zfs-linux
-Pin: release n=bookworm-backports
-Pin-Priority: 990&quot; &gt; /etc/apt/preferences.d/90_zfs
-
-# Update package lists
-apt update
-
-# Install necessary packages
-apt install -y dpkg-dev linux-headers-$(uname -r) linux-image-$(uname -r)
-
-# Set the environment variable DEBIAN_FRONTEND to noninteractive
-# Install ZFS packages
-DEBIAN_FRONTEND=noninteractive apt install -y zfs-dkms zfsutils-linux
-
-# Verify the ZFS installation
-modprobe zfs &amp;&amp; echo &quot;ZFS installed successfully&quot; || echo &quot;ZFS installation failed&quot;
+<p>Blockchain nodes, such as validators and archive nodes, require a highly reliable and efficient filesystem to operate effectively. The choice of filesystem can significantly affect the performance and reliability of these nodes. In light of performance concerns with ZFS, especially in ParityDB workloads as discussed in <a href="https://github.com/paritytech/polkadot-sdk/pull/1792">paritytech/polkadot-sdk/pull/1792</a>, this guide provides a detailed approach to configuring a robust filesystem in Proxmox.</p>
+<h2 id="filesystem-choices-and-their-impact"><a class="header" href="#filesystem-choices-and-their-impact">Filesystem Choices and Their Impact</a></h2>
+<p>The extensive use of I/O operations by blockchain nodes means the filesystem must manage write and read operations efficiently. CoW filesystems, while feature-rich and robust, introduce overhead that can degrade performance, as evidenced by the cited benchmarks.</p>
+<h3 id="why-not-zfs-or-btrfs-for-blockchain-nodes"><a class="header" href="#why-not-zfs-or-btrfs-for-blockchain-nodes">Why Not ZFS or Btrfs for Blockchain Nodes?</a></h3>
+<ul>
+<li><strong>ZFS</strong>: While ZFS is revered for its data integrity, the added overhead from features like snapshotting, checksums, and the dynamic block size can significantly slow down write operations crucial for blockchain databases.</li>
+<li><strong>Btrfs</strong>: Similar to ZFS, Btrfs offers advanced features such as snapshotting and volume management. However, its CoW nature means it can suffer from fragmentation and performance degradation over time, which is less than ideal for write-intensive blockchain operations.</li>
+</ul>
+<p>Given these insights, a move towards a more traditional, performant, and linear filesystem is recommended.</p>
+<h3 id="recommended-setup-lvm-thin-with-ext4"><a class="header" href="#recommended-setup-lvm-thin-with-ext4">Recommended Setup: LVM-thin with ext4</a></h3>
+<p>For high I/O workloads such as those handled by blockchain validators and archive nodes, <code>LVM-thin</code> provisioned with <code>ext4</code> stands out:</p>
+<ul>
+<li><strong>ext4</strong>: Offers a stable and linear write performance, which is critical for the high transaction throughput of blockchain applications.</li>
+<li><strong>LVM-thin</strong>: Allows for flexible disk space allocation, providing the benefits of thin provisioning such as snapshotting and easier resizing without the CoW overhead.</li>
+</ul>
+<h2 id="strategic-partitioning-for-maximum-reliability-and-performance"><a class="header" href="#strategic-partitioning-for-maximum-reliability-and-performance">Strategic Partitioning for Maximum Reliability and Performance</a></h2>
+<p>A well-thought-out partitioning scheme is crucial for maintaining data integrity and ensuring high availability.</p>
+<h3 id="raid-1-configuration-for-the-root-partition"><a class="header" href="#raid-1-configuration-for-the-root-partition">RAID 1 Configuration for the Root Partition</a></h3>
+<p>Using a RAID 1 setup for the root partition provides mirroring of data across two disks, thus ensuring that the system can continue to operate even if one disk fails.</p>
+<h4 id="implementing-raid-1"><a class="header" href="#implementing-raid-1">Implementing RAID 1:</a></h4>
+<ol>
+<li>
+<p><strong>Disk Preparation:</strong></p>
+<ul>
+<li>Select two identical disks (e.g., <code>/dev/sda</code> and <code>/dev/sdb</code>).</li>
+<li>Partition both disks with an identical layout, reserving space for the root partition.</li>
+</ul>
+</li>
+<li>
+<p><strong>RAID Array Creation:</strong></p>
+<ul>
+<li>Execute the command to create the RAID 1 array:
+<pre><code class="language-bash">mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sda1 /dev/sdb1
 </code></pre>
-<h3 id="zfs-partitioning"><a class="header" href="#zfs-partitioning">ZFS partitioning</a></h3>
-<pre><code class="language-bash">#!/bin/bash
-# bkk03 zfs setup
-
-# Array of disks to be used
-disks=(&quot;nvme1n1&quot; &quot;nvme2n1&quot; &quot;nvme3n1&quot; &quot;nvme4n1&quot;)
-
-# Size of the swap partition on each disk
-swap_size=&quot;16G&quot;
-
-# Create swap partition and ZFS partition on each disk
-for disk in &quot;${disks[@]}&quot;; do
-    echo &quot;Creating partitions on /dev/${disk}&quot;
-    
-    # Create the swap partition
-    parted -s /dev/${disk} mklabel gpt
-    parted -s /dev/${disk} mkpart primary linux-swap 1MiB ${swap_size}
-    mkswap /dev/${disk}p1
-    swap_uuid=$(blkid -s UUID -o value /dev/${disk}p1)
-
-    # Add the swap partitions to /etc/fstab so they're used on startup
-    echo &quot;UUID=${swap_uuid} none swap sw 0 0&quot; &gt;&gt; /etc/fstab
-
-    # Enable the swap partition
-    echo &quot;Enabling swap on /dev/${disk}p1&quot;
-    swapon /dev/${disk}p1
-
-    # Create the ZFS partition
-    parted -s /dev/${disk} mkpart primary ${swap_size} 100%
-
-    # Inform the OS of partition table changes
-    partprobe /dev/${disk}
-done
-
+</li>
+<li>Format the RAID array with a resilient filesystem like ext4:
+<pre><code class="language-bash">mkfs.ext4 /dev/md0
 </code></pre>
-<h3 id="zfs-settings-optimized-for-endpointbootnodes"><a class="header" href="#zfs-settings-optimized-for-endpointbootnodes">ZFS settings optimized for endpoint/bootnodes</a></h3>
-<pre><code class="language-bash"># Now, create the ZFS pool with the remaining space
-# Optionally use raidz instead of striped especially in cases you don't have active backups.
-disks=(&quot;nvme1n1&quot; &quot;nvme2n1&quot; &quot;nvme3n1&quot; &quot;nvme4n1&quot;)
-zpool create -o ashift=12 tank $(for disk in &quot;${disks[@]}&quot;; do echo &quot;/dev/${disk}p2&quot;; done)
-
-# Disable access time (atime) as it can negatively impact performance
-zfs set atime=off tank
-# Set recordsize to 16K as most values in the ParityDb are small and values over 16K are rare
-zfs set recordsize=16k tank
-# throughput safer than latency
-zfs set logbias=throughput tank
-# Set the primary cache to only metadata, as ParityDb relies on the OS page cache
-zfs set primarycache=metadata tank
-# Enable compression as it can provide both space and performance benefits
-zfs set compression=lz4 tank
-# Set redundant metadata to most to protect against data corruption
-zfs set redundant_metadata=most tank
-# Synchronous writes (sync) should be set to standard to ensure data integrity in case of an unexpected shutdown
-zfs set sync=standard tank
-# Enable snapshots for better data protection using crontab(zfs snapshot
-# tank/subvol-101-disk-1@${date} # or use some better tooling for it
-# like zfsnap
-
-echo &quot;Finished setting up ZFS pool and swap partitions&quot;
+</li>
+<li>Mount the RAID array at the root mount point during the Proxmox installation or manually afterward.</li>
+</ul>
+</li>
+</ol>
+<h3 id="boot-partition-configuration"><a class="header" href="#boot-partition-configuration">Boot Partition Configuration</a></h3>
+<p>Having two separate boot partitions provides redundancy, ensuring the system remains bootable in the event of a primary boot partition failure.</p>
+<h4 id="configuring-boot-partitions"><a class="header" href="#configuring-boot-partitions">Configuring Boot Partitions:</a></h4>
+<ul>
+<li>
+<p><strong>Primary Boot Partition:</strong></p>
+<ul>
+<li>On the first disk, create a boot partition (e.g., <code>/dev/sda2</code>).</li>
+<li>Install the bootloader and kernel images here.</li>
+</ul>
+</li>
+<li>
+<p><strong>Fallback Boot Partition:</strong></p>
+<ul>
+<li>Mirror the primary boot partition to a second disk (e.g., <code>/dev/sdb2</code>).</li>
+<li>Configure the bootloader to fall back to this partition if the primary boot fails.</li>
+</ul>
+</li>
+</ul>
+<h3 id="lvm-thin-provisioning-on-data-disks"><a class="header" href="#lvm-thin-provisioning-on-data-disks">LVM-Thin Provisioning on Data Disks</a></h3>
+<p>LVM-thin provisioning is recommended for managing data disks. It allows for efficient disk space utilization by provisioning &quot;thin&quot; volumes that can be expanded dynamically as needed.</p>
+<h4 id="steps-for-lvm-thin-provisioning"><a class="header" href="#steps-for-lvm-thin-provisioning">Steps for LVM-Thin Provisioning:</a></h4>
+<ol>
+<li>
+<p><strong>Initialize LVM Physical Volumes:</strong></p>
+<ul>
+<li>Use the <code>pvcreate</code> command on the designated data disks:
+<pre><code class="language-bash">pvcreate /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
 </code></pre>
-<p>bkk03 lsblk:</p>
-<pre><code class="language-bash">NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
-sda           8:0    1  28.7G  0 disk
-├─sda1        8:1    1   1.9G  0 part /boot/efi
-├─sda2        8:2    1   1.9G  0 part /boot
-└─sda3        8:3    1  24.9G  0 part /media/user/489b6b9f-f615-4270-b2c9-9565b9516c00
-nvme1n1     259:0    0   1.9T  0 disk
-├─nvme1n1p2 259:7    0   1.8T  0 part
-└─nvme1n1p1 259:8    0  14.9G  0 part [SWAP]
-nvme2n1     259:1    0   1.9T  0 disk
-├─nvme2n1p1 259:10   0  14.9G  0 part [SWAP]
-└─nvme2n1p2 259:11   0   1.8T  0 part
-nvme3n1     259:2    0   1.9T  0 disk
-├─nvme3n1p1 259:12   0  14.9G  0 part [SWAP]
-└─nvme3n1p2 259:13   0   1.8T  0 part
-nvme4n1     259:3    0   1.9T  0 disk
-├─nvme4n1p1 259:14   0  14.9G  0 part [SWAP]
-└─nvme4n1p2 259:15   0   1.8T  0 part
-nvme0n1     259:4    0   1.9T  0 disk
-├─nvme0n1p1 259:5    0  59.6G  0 part [SWAP]
-├─nvme0n1p2 259:6    0 126.7G  0 part /
-└─nvme0n1p3 259:9    0   1.7T  0 part
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Create a Volume Group:</strong></p>
+<ul>
+<li>Group the initialized disks into a volume group:
+<pre><code class="language-bash">vgcreate vg_data /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
 </code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Establish a Thin Pool:</strong></p>
+<ul>
+<li>Create a thin pool within the volume group to hold the thin volumes:
+<pre><code class="language-bash">lvcreate --size 100G --thinpool data_tpool vg_data
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Provision Thin Volumes:</strong></p>
+<ul>
+<li>Create thin volumes from the pool as needed for containers or virtual machines: ```bash
+lvcreate --virtualsize 500G --thin data_tpool --name data_volume
+<pre><code>
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Format and Mount Thin Volumes:</strong></p>
+<ul>
+<li>Format the volumes with a filesystem, such as ext4, and mount them:
+<pre><code class="language-bash">mkfs.ext4 /dev/vg_data/data_volume
+mount /dev/vg_data/data_volume /mnt/data_volume
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="integrating-lvm-thin-volumes-with-proxmox"><a class="header" href="#integrating-lvm-thin-volumes-with-proxmox">Integrating LVM-Thin Volumes with Proxmox</a></h2>
+<p>Proxmox's <code>pct</code> command-line tool can manage container storage by mapping LVM-thin volumes to container mount points.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="unlabored"><a class="header" href="#unlabored">Unlabored</a></h1>
 <p>Effortless Proxmox Infrastructure is deployed using comprehensive collection of
 rolebooks use to deploy complete infrastructure as a code can be found now in
