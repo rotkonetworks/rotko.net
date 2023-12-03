@@ -7,6 +7,8 @@
   - [BKK02](./bkk02.md)
   - [BKK03](./bkk03.md)
   - [BKK04](./bkk04.md)
+  - [BKK05](./bkk05.md)
+  - [BKK06](./bkk06.md)
   - [Carbon offset](./carbon.md)
 - [Software](./software.md)
   - [Firmware](./firmware.md)
