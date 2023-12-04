@@ -11,13 +11,13 @@ than the manufacturer's estimates.
   * 2x AMD Ryzen 5600G: 65W each
   * 1x AMD Ryzen 5950X: 170W
   * 1x AMD Ryzen 5950X3D: 120W
-  * 1x AMD EPYC 9654: 280W
+  * 1x AMD EPYC 9654: 360W
   * MikroTik CCR2004-16G-2S+: Max 35W
 
 * **Monthly Energy Consumption Estimate:**
-  * Total Power: 2 * 65W (5600G) + 170W (5950X) + 120W (5950X3D) + 35W (router) + 280 = 735W
-  * Monthly: 0.735 kW * 24 hours/day * 30 days/month = 529.2 kWh 
-  * CO2e Emissions (Thailand's 2021 average): 250.62 kg or 0.25 metric tons (mt)
+  * Total Power: 2 * 65W (5600G) + 170W (5950X) + 120W (5950X3D) + 35W (router) + 360W (EPYC9654) = 815W
+  * Monthly: 0.815 kW * 24 hours/day * 30 days/month = 586.8 kWh 
+  * CO2e Emissions (Thailand's 2021 average): 330.62 kg or 0.33 metric tons (mt)
 
 Our selection of processors and devices, including the MikroTik
 CCR2004-16G-2S+, ensures an optimal performance-to-power ratio. This innovative
@@ -45,7 +45,7 @@ resilient, sustainable organization contributing positively to our planet.
 
 Achieving sustainability requires active offsetting. We've partnered with
 TerraPass, choosing their 1 MWh/month RECs subscription for £12.00 per MWh,
-exceeding our estimated emissions of 0.25 mt of CO2e. This 'over-offsetting'
+exceeding our estimated emissions of 0.33 mt of CO2e. This 'over-offsetting'
 strategy supports renewable energy projects, reflecting our dedication to
 environmental change.
 
