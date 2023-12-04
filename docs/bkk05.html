@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>RouterOS - Rotko Networks infrastructure</title>
+        <title>BKK05 - Rotko Networks infrastructure</title>
 
 
         <!-- Custom HTML head -->
@@ -88,7 +88,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.2.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.3.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.4.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.5.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="bkk05.html"><strong aria-hidden="true">2.6.</strong> BKK05</a></li><li class="chapter-item expanded "><a href="bkk06.html"><strong aria-hidden="true">2.7.</strong> BKK06</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.8.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">3.1.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">3.2.</strong> Networking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_proxmox.html"><strong aria-hidden="true">3.2.1.</strong> Proxmox</a></li><li class="chapter-item expanded "><a href="networking_routeros.html" class="active"><strong aria-hidden="true">3.2.2.</strong> RouterOS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_routeros_fast.html"><strong aria-hidden="true">3.2.2.1.</strong> FastTracking</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.3.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="unlabored.html"><strong aria-hidden="true">3.4.</strong> Unlabored</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.2.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.3.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.4.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.5.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="bkk05.html" class="active"><strong aria-hidden="true">2.6.</strong> BKK05</a></li><li class="chapter-item expanded "><a href="bkk06.html"><strong aria-hidden="true">2.7.</strong> BKK06</a></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">2.8.</strong> Carbon offset</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">3.1.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">3.2.</strong> Networking</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_proxmox.html"><strong aria-hidden="true">3.2.1.</strong> Proxmox</a></li><li class="chapter-item expanded "><a href="networking_routeros.html"><strong aria-hidden="true">3.2.2.</strong> RouterOS</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking_routeros_fast.html"><strong aria-hidden="true">3.2.2.1.</strong> FastTracking</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.3.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="unlabored.html"><strong aria-hidden="true">3.4.</strong> Unlabored</a></li></ol></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">4.</strong> Team</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -173,89 +173,41 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="routeros"><a class="header" href="#routeros">RouterOS</a></h1>
-<p>RouterOS is an operating system designed specifically for routers and network
-devices. Developed by the Latvian company MikroTik, it is used to turn standard
-x86-64 architecture computers or MikroTik's own RouterBOARD hardware into fully
-functional routers.</p>
-<p>RouterOS provides all the core features expected in a router, such as routing,
-firewalling, bandwidth management, VPN support, and more. Here's a brief
-overview of some key features and aspects:</p>
-<ol>
-<li>
-<p><strong>Routing</strong>: Supports various routing protocols such as BGP, OSPF, RIP, and
-MPLS, allowing for robust and scalable network design.</p>
-</li>
-<li>
-<p><strong>Firewall</strong>: RouterOS includes a powerful firewall to secure the network.
-It allows for filtering by IP address, port, protocol, and other parameters.</p>
-</li>
-<li>
-<p><strong>Quality of Service (QoS)</strong>: Bandwidth management is a strong feature in
-RouterOS, enabling administrators to prioritize certain types of traffic,
-limit bandwidth for specific users, or guarantee certain bandwidth levels for
-specific services.</p>
-</li>
-<li>
-<p><strong>Virtual Private Network (VPN) Support</strong>: RouterOS supports various VPN
-protocols, including OpenVPN, L2TP, PPTP, and SSTP, allowing secure
-connections to remote networks.</p>
-</li>
-<li>
-<p><strong>Wireless Capabilities</strong>: It provides support for various wireless
-standards, making it suitable for creating Wi-Fi hotspots or linking
-locations wirelessly.</p>
-</li>
-<li>
-<p><strong>User Management</strong>: RouterOS offers multiple user levels and authentication
-methods, such as local database, RADIUS, and more.</p>
-</li>
-<li>
-<p><strong>Hotspot Gateway</strong>: It allows the setup of a custom user login page,
-authentication of users, and bandwidth limitation, particularly useful in
-public Wi-Fi scenarios like hotels, airports, etc.</p>
-</li>
-<li>
-<p><strong>Winbox</strong>: RouterOS can be managed through Winbox, a GUI application
-provided by MikroTik, as well as through command line and web interfaces.
-Winbox enables an easy-to-use interface for configuring and monitoring the
-router.</p>
-</li>
-<li>
-<p><strong>Scalability</strong>: Suitable for small home setups and also for large
-enterprise networks. It provides robust features that can be tailored to fit
-various network sizes and requirements.</p>
-</li>
-<li>
-<p><strong>Licensing</strong>: RouterOS licensing is tiered, with higher-level licenses
-unlocking additional features. This allows users to choose the level that
-fits their specific needs and budget.</p>
-</li>
-<li>
-<p><strong>Scripting</strong>: RouterOS includes a scripting language that lets
-administrators automate various functions and operations.
-Also SSL secured API available.</p>
-</li>
-<li>
-<p><strong>Updates and Security</strong>: Regular updates are provided by MikroTik,
-including security patches and feature enhancements.</p>
-</li>
-</ol>
-<p>RouterOS makes a compelling choice for network professionals who need an
-affordable and highly configurable operating system for their routers. It can
-transform simple hardware into powerful network devices with an extensive range
-of features. Whether deployed in small businesses, large enterprises, or ISPs,
-RouterOS is a versatile solution to many networking needs.</p>
+                        <h1 id="bkk05-pioneering-risc-v-debian-webhosting"><a class="header" href="#bkk05-pioneering-risc-v-debian-webhosting">BKK05: Pioneering RISC-V Debian Webhosting</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>Welcome to the frontier of web hosting with our BKK05 server, a trailblazing platform powered by the RISC-V Debian. This server represents not just a shift in technology but an experimental leap into the future of open-source computing.</p>
+<p><img src="./images/bkk05/bkk05.webp" alt="BKK05" /></p>
+<h2 id="technical-specifications"><a class="header" href="#technical-specifications">Technical Specifications</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Component</th><th>Specifications</th></tr></thead><tbody>
+<tr><td><strong>Processor</strong></td><td>StarFive JH7100 64bit SoC with RV64GC, up to 1.5GHz</td></tr>
+<tr><td><strong>Memory</strong></td><td>LPDDR4, Configurable up to 8GB</td></tr>
+<tr><td><strong>Storage</strong></td><td>2TB Samsung 980 NVMe</td></tr>
+<tr><td><strong>Networking</strong></td><td>Dual RJ45 Gigabit Ethernet</td></tr>
+<tr><td><strong>Expansion</strong></td><td>M.2 M-Key for NVMe SSDs</td></tr>
+<tr><td><strong>USB Ports</strong></td><td>2x USB 2.0 + 2x USB 3.0</td></tr>
+<tr><td><strong>Video Out</strong></td><td>HDMI 2.0, supporting 4K resolution</td></tr>
+</tbody></table>
+</div>
+<h2 id="performance"><a class="header" href="#performance">Performance</a></h2>
+<p>The BKK05 server is equipped with a VisionFive 2 SBC at its core, featuring a StarFive JH7110 SoC. With 8GB of LPDDR4 RAM and a 2TB Samsung 980 NVMe drive, it's designed to handle web hosting and experimental server tasks with ease. Its RISC-V architecture ensures an open and versatile computing experience.</p>
+<h2 id="risc-v-debian-the-new-era"><a class="header" href="#risc-v-debian-the-new-era">RISC-V Debian: The New Era</a></h2>
+<p>RISC-V brings a breath of fresh air to the server landscape, offering an open ISA (Instruction Set Architecture) that fosters innovation. Debian's adoption of RISC-V for our BKK05 server underpins our commitment to pioneering technology and community-driven development.</p>
+<h2 id="web-hosting-capabilities"><a class="header" href="#web-hosting-capabilities">Web Hosting Capabilities</a></h2>
+<p>BKK05 runs Debian 12 (Bookworm), optimized for the RISC-V architecture. The server's configuration, which includes a robust 2TB NVMe drive, is particularly suited for web hosting, offering rapid data retrieval and ample storage for web applications.</p>
+<h2 id="experimental-projects"><a class="header" href="#experimental-projects">Experimental Projects</a></h2>
+<p>The open nature of RISC-V and Debian makes BKK05 the perfect candidate for experimental projects. Its platform is ideal for developers looking to explore the capabilities of RISC-V architecture and contribute to the growth of the ecosystem.</p>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>The BKK05 server is a testament to our commitment to embracing open and innovative technologies. By leveraging the power of RISC-V Debian, we provide a stable and forward-thinking web hosting service while also contributing to an exciting new chapter in computing.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="networking_proxmox.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="bkk04.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="networking_routeros_fast.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="bkk06.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -265,11 +217,11 @@ RouterOS is a versatile solution to many networking needs.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="networking_proxmox.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="bkk04.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="networking_routeros_fast.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="bkk06.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
