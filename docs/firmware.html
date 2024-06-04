@@ -219,7 +219,7 @@ the BIOS.</p>
 <h2 id="bmc-firmware-update"><a class="header" href="#bmc-firmware-update">BMC Firmware Update</a></h2>
 <p>In order to keep your BMC firmware up-to-date and have the latest features and
 improvements, regular updates are recommended. This guide provides step-by-step
-instructions on how to update your BMC firmware. </p>
+instructions on how to update your BMC firmware.</p>
 <ol>
 <li>
 <p><strong>Preparation</strong>: Download the correct BMC firmware update file from the
@@ -234,30 +234,30 @@ is https://[BMC IP Address]/#maintenance/firmware_update_wizard, for
 instance, https://192.168.33.114/#maintenance/firmware_update_wizard.</p>
 </li>
 <li>
-<p><strong>Login</strong>: Use your BMC username and password to log into the portal. </p>
+<p><strong>Login</strong>: Use your BMC username and password to log into the portal.</p>
 </li>
 <li>
 <p><strong>Firmware Update Section</strong>: Navigate to the firmware update section.</p>
 </li>
 <li>
-<p><strong>Upload Firmware Image</strong>: Click on &quot;Select Firmware Image&quot; and upload the
+<p><strong>Upload Firmware Image</strong>: Click on "Select Firmware Image" and upload the
 firmware file you downloaded earlier. The firmware files typically end with
 <code>.ima</code>. For instance, <code>B650D4U_2L2T_4.01.00.ima</code>.</p>
 </li>
 <li>
 <p><strong>Preserve Configuration</strong>: If you want to preserve all the current
-configurations during the update, check the box &quot;Preserve all
-Configuration&quot;. This will maintain all the settings irrespective of the
-individual items marked as preserve/overwrite in the table below. </p>
+configurations during the update, check the box "Preserve all
+Configuration". This will maintain all the settings irrespective of the
+individual items marked as preserve/overwrite in the table below.</p>
 </li>
 <li>
-<p><strong>Start Update</strong>: Click &quot;Firmware Update&quot;. The system will validate the
+<p><strong>Start Update</strong>: Click "Firmware Update". The system will validate the
 image and if successful, the update process will start. The progress will be
 shown on the screen.</p>
 </li>
 <li>
 <p><strong>Reboot</strong>: Once the update is completed, the system will reboot
-automatically. </p>
+automatically.</p>
 </li>
 </ol>
 <blockquote>
@@ -276,13 +276,13 @@ connection during the update process to prevent any interruption.</p>
 <ol>
 <li>
 <p><strong>Preparation</strong>: Format a USB flash drive and copy the
-&quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot; folder from the downloaded Broadcom 57416
+"bnxtmt-lite-uefi-221.0.117.0-x64" folder from the downloaded Broadcom 57416
 LAN Flashing Firmware onto it.</p>
 </li>
 <li>
 <p><strong>Access UEFI Shell</strong>: Insert the USB flash drive into your ASRock Rack
 server board, reboot the server, and hit F11 at the POST screen. Select
-&quot;UEFI: Built-in EFI Shell&quot;. The USB flash drive should be named <code>FS0:</code>. Type
+"UEFI: Built-in EFI Shell". The USB flash drive should be named <code>FS0:</code>. Type
 <code>FS0:</code> and press enter.</p>
 <p><img src="images/firmware/image0.png" alt="UEFI Shell" /></p>
 </li>
@@ -292,7 +292,7 @@ current firmware version.</p>
 <p><img src="images/firmware/image1.png" alt="bnxtmt efi execution" /></p>
 </li>
 <li>
-<p><strong>Erase the Flash</strong>: Navigate to the &quot;bnxtmt-lite-uefi-221.0.117.0-x64&quot;
+<p><strong>Erase the Flash</strong>: Navigate to the "bnxtmt-lite-uefi-221.0.117.0-x64"
 folder and execute <code>bnxtmt.efi -sysop -none -no_swap –blank</code> to erase the
 current firmware.</p>
 <p><img src="images/firmware/image3.jpg" alt="Erase Flash" /></p>
