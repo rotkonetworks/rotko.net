@@ -174,65 +174,71 @@
                 <div id="content" class="content">
                     <main>
                         <h2 id="bkk06---bootnoderpc"><a class="header" href="#bkk06---bootnoderpc">BKK06 - Bootnode/RPC</a></h2>
-<p><img src="./images/bkk06/bkk06.webp" alt="BKK04" /></p>
+<p><img src="./images/bkk06/bkk06.webp" alt="BKK06" /></p>
 <h1 id="bkk06---high-performance-bootnoderpc-server"><a class="header" href="#bkk06---high-performance-bootnoderpc-server">BKK06 - High-Performance Bootnode/RPC Server</a></h1>
-<p>The BKK06 server stands at the vanguard of our infrastructure, specifically tailored to
-function as a bootnode and RPC server. It's built around the AMD EPYC™ 9654 CPU and designed
-to deliver unmatched performance for blockchain and high-computational tasks.</p>
+<p>The BKK06 server stands at the vanguard of our infrastructure, specifically
+tailored to function as a bootnode and RPC server. It's built around the
+AMD EPYC™ 7742 CPU and designed to deliver fine performance for RPC, bootnode
+and computational tasks.</p>
 <h3 id="cpu"><a class="header" href="#cpu">CPU</a></h3>
-<p><strong>Model:</strong> <a href="https://www.amd.com/en/product/12191">AMD EPYC™ 9654</a></p>
+<p><strong>Model:</strong> <a href="https://www.amd.com/en/products/cpu/amd-epyc-7742">AMD EPYC™ 7742</a></p>
 <ul>
-<li><strong>Core Count:</strong> 96 cores</li>
-<li><strong>Threads:</strong> 192</li>
-<li><strong>Max. Boost Clock:</strong> Up to 3.7GHz</li>
-<li><strong>Base Clock:</strong> 2.4GHz</li>
-<li><strong>L3 Cache:</strong> 384MB</li>
-<li><strong>TDP:</strong> 360W (Configurable TDP 320-400W)</li>
+<li><strong>Core Count:</strong> 64 cores</li>
+<li><strong>Threads:</strong> 128</li>
+<li><strong>Max. Boost Clock:</strong> Up to 3.4GHz</li>
+<li><strong>Base Clock:</strong> 2.25GHz</li>
+<li><strong>L3 Cache:</strong> 256MB</li>
+<li><strong>TDP:</strong> 225W</li>
 </ul>
 <h4 id="cooler"><a class="header" href="#cooler">Cooler</a></h4>
-<p><em><strong>Model:</strong></em> COOLSERVER AMD SP5 S21 Server CPU Cooler 350W 6 Copper Tubes</p>
-<p><strong>Capabilities:</strong> Tailored to handle high-concurrency workloads, the EPYC™ 9654 is perfect for bootnode operations and RPC handling, offering rapid data processing and low-latency networking.</p>
+<p><strong>Model:</strong> COOLSERVER AMD SP5 S21 Server CPU Cooler 350W 6 Copper Tubes</p>
+<p><strong>Capabilities:</strong> Tailored to handle high-concurrency workloads, the EPYC™ 7742
+is perfect for bootnode operations and RPC handling, offering rapid data
+processing and low-latency networking.</p>
 <h3 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h3>
-<p><strong>Model:</strong> <a href="https://www.gigabyte.com/Enterprise/Server-Motherboard/MZ33-AR0-rev-10#Specifications">GIGABYTE MZ33-AR0 (rev. 1.0)</a></p>
+<p><strong>Model:</strong> <a href="https://www.supermicro.com/en/products/motherboard/H11SSL-i">Supermicro H11SSL-i</a></p>
 <ul>
 <li><strong>Chipset:</strong> System on Chip</li>
 <li><strong>Form Factor:</strong> E-ATX</li>
-<li><strong>Memory Slots:</strong> 24 x DIMM slots supporting DDR5</li>
+<li><strong>Memory Slots:</strong> 8 x DIMM slots supporting DDR4</li>
 </ul>
-<p><strong>Capabilities:</strong> With 12 memory channels and support for up to 24 DDR5 ECC memory modules, the motherboard is currently populated with 6 x SuperMicro 64GB ECC Registered DDR5 memory modules in a 6-channel configuration, primed for an upgrade to a full 12-channel setup to enhance data throughput and server responsiveness.</p>
+<p><strong>Capabilities:</strong> With 8 memory channels and support for up to 8 DDR4 ECC memory
+modules, the motherboard is currently populated with 8 x Micron 32GB ECC Registered
+DDR4 memory modules, providing a total of 256GB of memory.</p>
 <h3 id="memory"><a class="header" href="#memory">Memory</a></h3>
-<p><strong>Model:</strong> SuperMicro 64GB ECC Registered DDR5 4800</p>
+<p><strong>Model:</strong> Micron 32GB ECC Registered DDR4 3200</p>
 <ul>
-<li><strong>Capacity:</strong> Currently 6 modules (to be expanded to 12)</li>
+<li><strong>Capacity:</strong> 8 modules</li>
 <li><strong>Technology:</strong> ECC Registered for increased reliability</li>
-<li><strong>Speed:</strong> 4800MHz (running at 57600MHz for full 12-channel bandwidth)</li>
+<li><strong>Speed:</strong> 3200MHz</li>
 </ul>
-<p><em><strong>Note:</strong></em> Under the SuperMicro brand, actual chip running is HMCG94MEBRA109N AA SKhynix DDR5 64GB SKhynix-Montage 2Rx4 1.1v 4800MHz ECC Registered 288-pin.</p>
 <h3 id="storage"><a class="header" href="#storage">Storage</a></h3>
-<p><strong>Primary Storage:</strong> 5x <a href="https://www.samsung.com/us/computing/memory-storage/solid-state-drives/990-pro-pcie-4-0-nvme-ssd-4tb-mz-v9p4t0b-am/">SAMSUNG 990 PRO M.2 2280 4TB NVMe</a></p>
+<p><strong>Primary Storage:</strong></p>
 <ul>
-<li><strong>Sequential Read/Write Speeds:</strong> Up to 7,450/6,900 MB/s</li>
-<li><strong>Random Read/Write Speeds (IOPS):</strong> Up to 1,600K/1,550K for 4TB</li>
-<li><strong>Interface:</strong> PCI-Express Gen 4.0 x4</li>
-<li><strong>Technology:</strong> NVMe 2.0 V-NAND</li>
-<li><strong>Form Factor:</strong> M.2 2280</li>
+<li>2x <a href="https://www.samsung.com/us/computing/memory-storage/solid-state-drives/980-pro-pcie-4-0-nvme-ssd-2tb-mz-v8p2t0b-am/">Samsung SSD 980 PRO 2TB NVMe</a> (Configured in RAID for boot/root)</li>
+<li>4x <a href="https://www.samsung.com/us/computing/memory-storage/solid-state-drives/990-pro-pcie-4-0-nvme-ssd-4tb-mz-v9p4t0b-am/">Samsung SSD 990 PRO 4TB NVMe</a> (For data)</li>
 </ul>
-<p><strong>Capabilities:</strong> The Samsung 990 PRO drives are renowned for their swift read/write speeds and robust endurance, making them ideal for the intensive data demands of a bootnode and RPC server. +400K R/W IOPS per Terabyte is something ANY cloud provider ain't capable provide for whatever price you were willing to pay.</p>
+<p><strong>Capabilities:</strong> The Samsung 980 PRO drives ensure reliable boot and root
+operations with RAID configuration, while the 990 PRO drives offer swift
+read/write speeds and robust endurance for intensive data demands of a bootnode
+and RPC server.</p>
 <h3 id="connectivity"><a class="header" href="#connectivity">Connectivity</a></h3>
+<p><strong>LAN:</strong></p>
 <ul>
-<li><strong>LAN:</strong> Dual 10Gb/s BASE-T LAN ports (Broadcom® BCM57416)</li>
-<li><strong>Management Port:</strong> 1 x Dedicated management port</li>
+<li>eno1: 10Gb/s BASE-T LAN port</li>
+<li>eno2: 10Gb/s BASE-T LAN port</li>
 </ul>
+<p><strong>Management Port:</strong> 1 x Dedicated management port</p>
 <h3 id="board-management-controller-bmc"><a class="header" href="#board-management-controller-bmc">Board Management Controller (BMC)</a></h3>
+<p><strong>BMC Model:</strong> Aspeed® AST2500</p>
 <ul>
-<li><strong>BMC Model:</strong> Aspeed® AST2600</li>
-<li><strong>Capabilities:</strong> Integrated BMC with Aspeed® AST2600 GPU offers comprehensive remote management capabilities, including KVM over IP, enabling administrators to manage the server efficiently and securely.</li>
+<li><strong>Capabilities:</strong> Integrated BMC with Aspeed® AST2500 GPU offers comprehensive remote management capabilities, including KVM over IP, enabling administrators to manage the server efficiently and securely.</li>
 </ul>
 <h3 id="chassis-and-power-supply-unit-psu"><a class="header" href="#chassis-and-power-supply-unit-psu">Chassis and Power Supply Unit (PSU)</a></h3>
-<ul>
-<li><strong>Chassis:</strong> Ultra Short 2U rackmount Server Chassis S24306 with six 2.5 ssd bays support eatx dual processor board</li>
-<li><strong>PSU:</strong> Greatwall Dual PSU 2U 1+1 CRPS redundant 800W</li>
-</ul>
+<p><strong>Chassis:</strong> Supermicro Main Server Chassis
+<strong>PSU:</strong> Greatwall Dual PSU 2U 1+1 CRPS redundant 800W</p>
+<p>This updated configuration should accurately reflect the setup and capabilities
+of your BKK06 - High-Performance Bootnode/RPC Server.</p>
 
                     </main>
 

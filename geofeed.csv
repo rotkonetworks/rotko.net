@@ -1,0 +1,6 @@
+# The format follows the RFC 8805 standard.
+# netblock,latitude,longitude,city,region,country
+
+27.131.160.104/29,13.756468,100.613932,Bangkok,Bangkok,TH
+2407:7a00:1010:dc:4:0:160:69/64,13.756468,100.613932,Bangkok,Bangkok,TH
+2001:df3:d740::/48,13.756468,100.613932,Bangkok,Bangkok,TH
