@@ -1,4 +1,4 @@
-# netblock,country,region,city,latitude,longitude
-27.131.160.104/29,TH,Bangkok,Bangkok,13.756468,100.613932
-2407:7a00:1010:dc:4:0:160:69/64,TH,Bangkok,Bangkok,13.756468,100.613932
-2001:df3:d740::/48,TH,Bangkok,Bangkok,13.756468,100.613932
+# netblock,country,region,city,zipcode
+27.131.160.104/29,TH,TH-10,Bangkok,10240
+2407:7a00:1010:dc:4:0:160:69/64,TH,TH-10,Bangkok,10240
+2001:df3:d740::/48,TH,TH-10,Bangkok,10240
