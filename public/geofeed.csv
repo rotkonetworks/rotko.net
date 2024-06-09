@@ -1,5 +1,3 @@
 # https://datatracker.ietf.org/doc/rfc8805/
 # network, iso_country code, iso_region_code, city_name, postal_code
-27.131.160.104/29,TH,TH-10,Bangkok,10240,
-2407:7a00:1010:dc:4:0:160:69/64,TH,TH-10,Bangkok,10240,
 2001:df3:d740::/48,TH,TH-10,Bangkok,10240,
