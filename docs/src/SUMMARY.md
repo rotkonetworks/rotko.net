@@ -19,3 +19,4 @@
   - [Filesystem](./filesystem.md)
   - [Unlabored](./unlabored.md)
 - [Team](./team.md)
+- [Resources](./resources.md)
