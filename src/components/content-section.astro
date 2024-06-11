@@ -2,14 +2,15 @@
 export interface Props {
   id: string;
   title: string;
+  class?: string;
 }
 
-const { title, id } = Astro.props;
+const { title, id, class: additionalClass } = Astro.props;
 ---
 
 <section
   id={id}
-  class="flex scroll-mt-24 flex-col items-center gap-4 space-y-8"
+  class={`flex flex-col items-center gap-4 px-8 py-24 ${additionalClass}`}
 >
   <div class="flex flex-col items-center gap-4">
     <slot name="eyebrow" />
@@ -24,3 +25,4 @@ const { title, id } = Astro.props;
   </p>
   <slot />
 </section>
+

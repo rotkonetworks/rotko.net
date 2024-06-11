@@ -17,3 +17,23 @@
   --color-background-offset: theme("colors.gray.800");
   --color-border: theme("colors.gray.50" / 10%);
 }
+
+:root[data-theme='light'] .inverted-theme {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+:root[data-theme='dark'] .inverted-theme {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+:root[data-theme='light'] .inverted-theme {
+  background-color: var(--color-background-offset);
+  color: var(--color-text);
+}
+
+:root[data-theme='dark'] .inverted-theme {
+  background-color: var(--color-background-offset);
+  color: var(--color-text);
+}
