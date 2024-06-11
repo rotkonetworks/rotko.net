@@ -1,0 +1,65 @@
+---
+import { Icon } from "astro-icon";
+import ContentSection from "~/components/content-section.astro";
+import type { FeatureItem } from "~/types";
+
+const networks: Array<FeatureItem> = [
+  {
+    title: "Polkadot",
+    description:
+      "A heteregeneous, scalable, interoperable network designed to secure public compute and communication.",
+    icon: "mdi:network",
+  },
+  {
+    title: "Kusama",
+    description:
+      "An early, highly experimental version of Polkadot presenting real economic conditions.",
+    icon: "mdi:rocket",
+  },
+  {
+    title: "Westend Testnet",
+    description:
+      "A test network to experiment upcoming core features and updates.",
+    icon: "mdi:test-tube",
+  },
+  {
+    title: "Paseo Testnet",
+    description:
+      "A community-led initiative focused on testing and validating new features and updates in a collaborative and open environment.",
+    icon: "mdi:flask",
+  },
+  {
+    title: "Hydration",
+    description:
+      "Exchange features multi-asset omnipool for highly efficient trading.",
+    icon: "mdi:water",
+  },
+  {
+    title: "Penumbra",
+    description:
+      "An interoperable, MEV-minimized exchange designed for privacy-minded users.",
+    icon: "mdi:shield",
+  },
+];
+---
+
+<ContentSection title="Networks" id="networks">
+  <Fragment slot="lead">
+    We maintain networks with <span class="text-primary">unique capabilities</span> for the decentralized world.
+    Our robust infrastructure includes diligent <span class="text-primary">validation</span>, <span class="text-primary">collation</span>,
+    and a suite of bootnodes and endpoints, focusing solely on <span class="text-primary">relevant</span> development.
+  </Fragment>
+  <ul class="grid max-w-6xl grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    {
+      networks.map(({ title, description, icon }) => (
+        <li class="flex flex-col items-center gap-4 border border-default bg-offset p-6">
+          <div class="h-16 w-16 rounded-full border-2 border-current p-3">
+            <Icon name={icon} />
+          </div>
+          <p class="text-center font-extrabold text-xl">{title}</p>
+          <p class="text-center text-offset text-sm">{description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</ContentSection>
