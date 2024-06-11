@@ -2,6 +2,7 @@
 import { Picture } from "@astrojs/image/components";
 import { Icon } from "astro-icon";
 import spaceSkotti from "~/assets/space-skotti.webp";
+import spaceSkotti from "~/assets/rotkonaut.webp";
 import HeroImage from "~/components/hero-image.astro";
 import Starfield from "~/components/starfield.astro";
 import GitHubCorner from "./github-corner.astro";
@@ -9,6 +10,7 @@ import GitHubCorner from "./github-corner.astro";
 const widths = [450, 800];
 const sizes = "(min-width: 640px) 42vw, 67vw";
 ---
+
 
 <section class="relative h-full bg-black">
   <Starfield />
@@ -31,7 +33,7 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
     </h2>
     <div
       id="astronaut"
-      class="w-2/3 max-w-3xl self-start sm:w-10/12 sm:self-auto sm:justify-self-start"
+      class="w-2/3 max-w-2xl self-start sm:w-10/12 sm:self-auto sm:justify-self-start sm:ml-16"
     >
       <Picture
         class="h-full w-full object-cover"
