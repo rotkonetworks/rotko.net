@@ -44,9 +44,9 @@ router.
    enterprise networks. It provides robust features that can be tailored to fit
 various network sizes and requirements.
 
-10. **Licensing**: RouterOS licensing is tiered, with higher-level licenses
-    unlocking additional features. This allows users to choose the level that
-fits their specific needs and budget.
+10. **BGP Routing**: Regardless of being small vendor MikroTik RouterOS
+    supports BGP routing protocol and has its security features implemented in
+    better than larger vendors.
 
 11. **Scripting**: RouterOS includes a scripting language that lets
     administrators automate various functions and operations.

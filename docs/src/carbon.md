@@ -8,11 +8,14 @@ required. Our approach is proven by the actual consumption rate, which is lower
 than the manufacturer's estimates.
 
 * **Processor Selection:**
-  * 2x AMD Ryzen 5600G: 65W each
+  * 2x AMD Ryzen 5600G: 65W
   * 1x AMD Ryzen 5950X: 170W
   * 1x AMD Ryzen 5950X3D: 120W
   * 1x AMD EPYC 9654: 360W
+  * 1x AMD EPYC 7642: 280W 
   * MikroTik CCR2004-16G-2S+: Max 35W
+  * MikroTik CCR2004-16G-2S+: Max 35W
+  * MikroTik CCR2116-12G-4S+: Max 
 
 * **Monthly Energy Consumption Estimate:**
   * Total Power: 2 * 65W (5600G) + 170W (5950X) + 120W (5950X3D) + 35W (router) + 360W (EPYC9654) = 815W
@@ -57,3 +60,9 @@ carbon emissions but to the broader goal of a cleaner, greener future.
 ## TerraPass Vouchers
 ***2023***: [8](./files/terrapass/august.pdf), [9](./files/terrapass/october.pdf), [10](./files/terrapass/september.pdf), [11](./files/terrapass/november.pdf), [12](./files/terrapass/december.pdf)  
 ***2024***: 
+
+## Move to new carbon neutral datacenter
+Partially due to the increasing energy consumption of our servers and no green
+energy options availability in sight with our current provider, we've decided to
+move to a new datacenter that is offsetting all carbon consumption and planning
+carbon neutrality by 2030. The move is timed for June 2024.
