@@ -38,7 +38,7 @@ by aligning it closely with geographic relevance and connectivity requirements.
 allocations for significant internet exchanges like Tokyo (`142108:410`) and Seoul (`142108:420`).
 
 - **`142108:1000-1999`** - Routes to non-APNIC regions, ensuring global reach and
-connectivity with substantial allocations for regions like Europe (`142108:1010`) and North America (`142108:1020`).
+connectivity with substantial allocations for regions like Europe (`142108:1100`) and North America (`142108:1100`).
 
 ## Routing Policy
 
