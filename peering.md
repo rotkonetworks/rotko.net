@@ -1,5 +1,4 @@
 # Rotko Networks Peering Policies
-i# Rotko Networks Peering Policies
 
 Welcome to Rotko Networks' Peering Information page. Our network's peering strategy
 is meticulously designed to enhance routing efficiency and optimize connectivity
