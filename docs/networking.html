@@ -173,52 +173,63 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="networking"><a class="header" href="#networking">Networking</a></h1>
+                        <h1 id="network-configuration-documentation"><a class="header" href="#network-configuration-documentation">Network Configuration Documentation</a></h1>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>This document outlines the BGP routing configuration for our multi-homed network
+with connections to various internet exchanges and transit providers in Bangkok,
+Hong Kong, Singapore, and Europe. Currently 3x 10G fibers are used for uplinks.</p>
 <h2 id="bandwidth"><a class="header" href="#bandwidth">Bandwidth</a></h2>
 <img src="images/networking/bandwidth.webp" alt="Scaling bandwidth" style="width: 100%; margin-top: 2em; object-fit: cover;">
-<p>We operate a dedicated bandwidth connection providing up to 200Mbps for
-international direct land-line and under-sea connections. This service extends
-all the way to Singapore, ensuring latency below 30ms. This speed is critical
-for RPC endpoint provider operations, where timely data transfer is a crucial
-success factor. The provision to scale up our bandwidth capabilities offers
-us the flexibility to match our growing needs without compromising on the
-quality of service.</p>
-<h2 id="router"><a class="header" href="#router">Router</a></h2>
-<img src="images/networking/mikrotik.webp" alt="Mikrotik Cloud Core Router" style="width: 100%; margin-top: 2em; object-fit: cover;">
-<p><a href="https://mikrotik.com/product/ccr2004_16g_2splus">MikroTik Cloud Core Router CCR2004-16G-2S+</a></p>
-<p>We use the <a href="https://mikrotik.com/product/ccr2004_16g_2splus">MikroTik Cloud Core Router CCR2004-16G-2S+</a> for its
-optimal low latency networking and high throughput capabilities.</p>
+<h2 id="bgp-community-structure"><a class="header" href="#bgp-community-structure">BGP Community Structure</a></h2>
+<p>We use BGP communities to classify and manage routes based on their origin and characteristics. Our community format is <code>AABBCC</code>, where:</p>
 <ul>
-<li><strong>Performance:</strong> The CCR2004 router uses the Annapurna Labs Alpine v2 CPU,
-which has 4x 64-bit ARMv8-A Cortex-A57 cores for robust single-core
-performance.</li>
-<li><strong>Bandwidth:</strong> The router has 18 wired ports, including 16x Gigabit Ethernet
-ports and two 10G SFP+ cages for high data traffic management.</li>
-<li><strong>No Bottlenecks:</strong> Each group of 8 Gigabit Ethernet ports is connected to a
-distinct Marvell Amethyst family switch-chip, each having a separate 10 Gbps
-full-duplex line to the CPU for full wire speed operation.</li>
-<li><strong>Single-Core Performance per Watt:</strong> The CCR2004 router offers the best
-single-core performance per watt across all CCR devices.</li>
-<li><strong>Reliability and Durability:</strong> The CCR2004 router, encased in a classic
-white 1U rackmount, incorporates built-in dual redundant power supplies for
-uninterrupted service.</li>
-</ul>
-<img src="images/networking/router-arch.png" alt="Mikrotik Cloud Core Router" style="width: 100%; margin-top: 2em; object-fit: cover;">
-<h2 id="ipv4-configuration"><a class="header" href="#ipv4-configuration">IPv4 Configuration</a></h2>
-<p>Our subnet, based on the CIDR notation of 255.255.255.248 (/29), provides us
-with 6 usable IP addresses, from 27.131.160.105 to 27.131.160.110, out of a
-total of 8. The first address, 27.131.160.104, is the network address, and the
-last one, 27.131.160.111, is the broadcast address. They can't be used for
-hosts (like our router or nodes).</p>
-<p>We currently use the following configuration:</p>
+<li><code>AA</code>: Region/Type
 <ul>
-<li><strong>Network Address:</strong> 27.131.160.104</li>
-<li><strong>Gateway (ISP's router):</strong> 27.131.160.105</li>
-<li><strong>Our Router's WAN Interface:</strong> 27.131.160.106</li>
-<li><strong>Usable addresses for nodes:</strong> 27.131.160.107 to 27.131.160.110</li>
-<li><strong>Broadcast Address:</strong> 27.131.160.111</li>
+<li><code>10</code>: Local (Bangkok)</li>
+<li><code>20</code>: Regional</li>
+<li><code>30</code>: Remote</li>
 </ul>
-<p><img src="./images/networking/rack_back.webp" alt="Rack from the back with electricity sockets" /></p>
+</li>
+<li><code>BB</code>: Provider
+<ul>
+<li><code>10</code>: BKNIX</li>
+<li><code>20</code>: AMS-IX</li>
+<li><code>30</code>: IPTX</li>
+<li><code>40</code>: Reserved for future use</li>
+</ul>
+</li>
+<li><code>CC</code>: Connection Identifier
+<ul>
+<li><code>00</code>: Primary connection</li>
+<li><code>01-99</code>: Additional connections, ordered by preference</li>
+</ul>
+</li>
+</ul>
+<h3 id="key-communities"><a class="header" href="#key-communities">Key Communities</a></h3>
+<ul>
+<li>101000: BKNIX Primary (Local 10G - Bangkok)</li>
+<li>102000: AMS-IX Bangkok Primary (Local 1G - Bangkok)</li>
+<li>201000: AMS-IX Hong Kong Primary (Regional 200M - Hong Kong)</li>
+<li>203000: IPTX Singapore Primary (Regional 500M - Singapore)</li>
+<li>203001: IPTX Hong Kong Secondary (Regional 500M - Hong Kong)</li>
+<li>302000: AMS-IX Europe Primary (Remote 100M - Amsterdam)</li>
+</ul>
+<h2 id="routing-configuration"><a class="header" href="#routing-configuration">Routing Configuration</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Speed</th><th>Path Prepend</th><th>MED</th><th>Local Pref</th><th>Community</th><th>Description</th><th>Edge Router</th></tr></thead><tbody>
+<tr><td>BKNIX</td><td>10G</td><td>0</td><td>50</td><td>200</td><td>142108:101000</td><td>LOCAL-BKNIX-PRIMARY</td><td>BKK10</td></tr>
+<tr><td>AMS-IX Bangkok</td><td>1G</td><td>0</td><td>100</td><td>190</td><td>142108:102000</td><td>LOCAL-AMSIX-PRIMARY</td><td>BKK20</td></tr>
+<tr><td>IPTX Singapore</td><td>500M</td><td>1</td><td>150</td><td>185</td><td>142108:203000</td><td>REGIONAL-IPTX-SG-PRI</td><td>BKK20</td></tr>
+<tr><td>IPTX Hong Kong</td><td>500M</td><td>1</td><td>150</td><td>180</td><td>142108:203001</td><td>REGIONAL-IPTX-HK-SEC</td><td>BKK10</td></tr>
+<tr><td>AMS-IX Hong Kong</td><td>200M</td><td>2</td><td>200</td><td>170</td><td>142108:201000</td><td>REGIONAL-AMSIX-HK-PRI</td><td>BKK10</td></tr>
+<tr><td>AMS-IX Europe</td><td>100M</td><td>3</td><td>300</td><td>160</td><td>142108:302000</td><td>REMOTE-AMSIX-EU-PRI</td><td>BKK20</td></tr>
+</tbody></table>
+</div>
+<h2 id="traffic-engineering-principles"><a class="header" href="#traffic-engineering-principles">Traffic Engineering Principles</a></h2>
+<ol>
+<li>Local Preference: Higher values indicate more preferred routes. Local routes are preferred over regional, which are preferred over remote routes.</li>
+<li>MED (Multi-Exit Discriminator): Lower values are preferred. Used to influence inbound traffic when other attributes are equal.</li>
+<li>AS Path Prepending: Increases AS path length to make a route less preferred. Used for coarse control of inbound traffic.</li>
+</ol>
 
                     </main>
 
