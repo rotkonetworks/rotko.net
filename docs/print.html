@@ -888,7 +888,6 @@ Hong Kong, Singapore, and Europe. Currently 3x 10G fibers are used for uplinks.<
 </li>
 </ul>
 <h3 id="key-communities"><a class="header" href="#key-communities">Key Communities</a></h3>
-<p><img src="https://github.com/user-attachments/assets/72bf265f-76c9-4a1e-a290-1c21c0233061" alt="image" /></p>
 <ul>
 <li>101000: BKNIX Primary (Local 10G - Bangkok)</li>
 <li>102000: AMS-IX Bangkok Primary (Local 1G - Bangkok)</li>
@@ -897,6 +896,50 @@ Hong Kong, Singapore, and Europe. Currently 3x 10G fibers are used for uplinks.<
 <li>203001: IPTX Hong Kong Secondary (Regional 500M - Hong Kong)</li>
 <li>302000: AMS-IX Europe Primary (Remote 100M - Amsterdam)</li>
 </ul>
+<h1 id="network-topology-diagram"><a class="header" href="#network-topology-diagram">Network Topology Diagram</a></h1>
+<pre><code class="language-mermaid">graph TD
+    BKK50((BKK50 Gateway Router&lt;br&gt;CCR2004-16G-2S+&lt;br&gt;ECMP with 10G connections))
+    BKK50 --&gt; |10G| BKK20
+    BKK50 --&gt; |10G| BKK10
+
+    subgraph BKK20[BKK20 Edge Router&lt;br&gt;CCR2216-1G-12XS-2XQ]
+        B20_AMSIX[AMSIX-LAG&lt;br&gt;10G Physical Port]
+    end
+
+    subgraph BKK10[BKK10 Edge Router&lt;br&gt;CCR2116-12G-4S+]
+        B10_AMSIX[AMSIX-LAG&lt;br&gt;10G Physical Port]
+        B10_BKNIX[BKNIX-LAG&lt;br&gt;10G Physical Port]
+    end
+
+    B20_AMSIX --&gt; |VLAN 911&lt;br&gt;1G| AMS_IX_BKK[AMS-IX Bangkok]
+    B20_AMSIX --&gt; |VLAN 3994&lt;br&gt;200M| AMS_IX_HK[AMS-IX Hong Kong]
+    B20_AMSIX ==&gt; |VLAN 2520&lt;br&gt;500M&lt;br&gt;Active| IPTX_SG[IPTX Singapore]
+    B20_AMSIX -.-&gt; |VLAN 2517&lt;br&gt;500M&lt;br&gt;Passive| IPTX_HK[IPTX Hong Kong]
+
+    B10_AMSIX ==&gt; |VLAN 2519&lt;br&gt;500M&lt;br&gt;Active| IPTX_HK
+    B10_AMSIX -.-&gt; |VLAN 2518&lt;br&gt;500M&lt;br&gt;Passive| IPTX_SG
+    B10_AMSIX --&gt; |VLAN 3995&lt;br&gt;100M| AMS_IX_EU[AMS-IX Europe]
+    B10_BKNIX --&gt; |10G| BKNIX[BKNIX]
+
+    AMS_IX_BKK --&gt; INTERNET((Internet))
+    AMS_IX_HK --&gt; INTERNET
+    AMS_IX_EU --&gt; INTERNET
+    IPTX_SG --&gt; INTERNET
+    IPTX_HK --&gt; INTERNET
+    BKNIX --&gt; INTERNET
+
+    classDef router fill:#1a5f7a,color:#ffffff,stroke:#333,stroke-width:2px;
+    classDef ix fill:#4d3e3e,color:#ffffff,stroke:#333,stroke-width:2px;
+    classDef internet fill:#0077be,color:#ffffff,stroke:#333,stroke-width:2px;
+    classDef active stroke:#00ff00,stroke-width:4px;
+    classDef passive stroke:#ff0000,stroke-dasharray: 5 5;
+
+    class BKK50,INTERNET internet;
+    class BKK20,BKK10 router;
+    class AMS_IX_BKK,AMS_IX_HK,AMS_IX_EU,IPTX_SG,IPTX_HK,BKNIX ix;
+
+    linkStyle default stroke:#ffffff,stroke-width:2px;
+</code></pre>
 <h2 id="routing-configuration"><a class="header" href="#routing-configuration">Routing Configuration</a></h2>
 <div class="table-wrapper"><table><thead><tr><th>Name</th><th>Speed</th><th>Path Prepend</th><th>MED</th><th>Local Pref</th><th>Community</th><th>Description</th><th>Edge Router</th></tr></thead><tbody>
 <tr><td>BKNIX</td><td>10G</td><td>0</td><td>50</td><td>200</td><td>142108:101000</td><td>LOCAL-BKNIX-PRIMARY</td><td>BKK10</td></tr>
