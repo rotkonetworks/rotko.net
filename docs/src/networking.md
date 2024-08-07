@@ -27,6 +27,7 @@ We use BGP communities to classify and manage routes based on their origin and c
   - `01-99`: Additional connections, ordered by preference
 
 ### Key Communities
+![image](https://github.com/user-attachments/assets/f22a3c7d-514c-4a84-a369-c226eebe2540)
 
 - 101000: BKNIX Primary (Local 10G - Bangkok)
 - 102000: AMS-IX Bangkok Primary (Local 1G - Bangkok)
