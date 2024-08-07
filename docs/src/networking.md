@@ -27,7 +27,6 @@ We use BGP communities to classify and manage routes based on their origin and c
   - `01-99`: Additional connections, ordered by preference
 
 ### Key Communities
-![image](https://github.com/user-attachments/assets/72bf265f-76c9-4a1e-a290-1c21c0233061)
 
 - 101000: BKNIX Primary (Local 10G - Bangkok)
 - 102000: AMS-IX Bangkok Primary (Local 1G - Bangkok)
@@ -35,6 +34,52 @@ We use BGP communities to classify and manage routes based on their origin and c
 - 203000: IPTX Singapore Primary (Regional 500M - Singapore)
 - 203001: IPTX Hong Kong Secondary (Regional 500M - Hong Kong)
 - 302000: AMS-IX Europe Primary (Remote 100M - Amsterdam)
+
+# Network Topology Diagram
+```mermaid
+graph TD
+    BKK50((BKK50 Gateway Router<br>CCR2004-16G-2S+<br>ECMP with 10G connections))
+    BKK50 --> |10G| BKK20
+    BKK50 --> |10G| BKK10
+
+    subgraph BKK20[BKK20 Edge Router<br>CCR2216-1G-12XS-2XQ]
+        B20_AMSIX[AMSIX-LAG<br>10G Physical Port]
+    end
+
+    subgraph BKK10[BKK10 Edge Router<br>CCR2116-12G-4S+]
+        B10_AMSIX[AMSIX-LAG<br>10G Physical Port]
+        B10_BKNIX[BKNIX-LAG<br>10G Physical Port]
+    end
+
+    B20_AMSIX --> |VLAN 911<br>1G| AMS_IX_BKK[AMS-IX Bangkok]
+    B20_AMSIX --> |VLAN 3994<br>200M| AMS_IX_HK[AMS-IX Hong Kong]
+    B20_AMSIX ==> |VLAN 2520<br>500M<br>Active| IPTX_SG[IPTX Singapore]
+    B20_AMSIX -.-> |VLAN 2517<br>500M<br>Passive| IPTX_HK[IPTX Hong Kong]
+
+    B10_AMSIX ==> |VLAN 2519<br>500M<br>Active| IPTX_HK
+    B10_AMSIX -.-> |VLAN 2518<br>500M<br>Passive| IPTX_SG
+    B10_AMSIX --> |VLAN 3995<br>100M| AMS_IX_EU[AMS-IX Europe]
+    B10_BKNIX --> |10G| BKNIX[BKNIX]
+
+    AMS_IX_BKK --> INTERNET((Internet))
+    AMS_IX_HK --> INTERNET
+    AMS_IX_EU --> INTERNET
+    IPTX_SG --> INTERNET
+    IPTX_HK --> INTERNET
+    BKNIX --> INTERNET
+
+    classDef router fill:#1a5f7a,color:#ffffff,stroke:#333,stroke-width:2px;
+    classDef ix fill:#4d3e3e,color:#ffffff,stroke:#333,stroke-width:2px;
+    classDef internet fill:#0077be,color:#ffffff,stroke:#333,stroke-width:2px;
+    classDef active stroke:#00ff00,stroke-width:4px;
+    classDef passive stroke:#ff0000,stroke-dasharray: 5 5;
+
+    class BKK50,INTERNET internet;
+    class BKK20,BKK10 router;
+    class AMS_IX_BKK,AMS_IX_HK,AMS_IX_EU,IPTX_SG,IPTX_HK,BKNIX ix;
+
+    linkStyle default stroke:#ffffff,stroke-width:2px;
+```
 
 ## Routing Configuration
 
