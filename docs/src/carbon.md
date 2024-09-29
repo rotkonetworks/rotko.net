@@ -1,68 +1,38 @@
 # Energy Consumption and Carbon Offset
 
-**Energy Consumption**
+## Relocating to a Greener Data Center
 
-We meticulously engineer our server infrastructure, selecting the most
-energy-efficient devices the market can provide for the amount of computation
-required. Our approach is proven by the actual consumption rate, which is lower
-than the manufacturer's estimates.
+We are committed to reducing our carbon footprint, and as part of that journey,
+we have relocated to a new data center at STT. This move is crucial to aligning
+with our environmental goals, as the STT data center is on track to achieve full
+carbon neutrality by 2030. The facility is already implementing 100% carbon
+offsetting measures, making it an essential step in our decarbonization strategy.
 
-* **Processor Selection:**
-  * 2x AMD Ryzen 5600G: 65W
-  * 1x AMD Ryzen 5950X: 170W
-  * 1x AMD Ryzen 5950X3D: 120W
-  * 1x AMD EPYC 9654: 360W
-  * 1x AMD EPYC 7642: 280W 
-  * MikroTik CCR2004-16G-2S+: Max 35W
-  * MikroTik CCR2004-16G-2S+: Max 35W
-  * MikroTik CCR2116-12G-4S+: Max 
+### Current Energy Consumption
 
-* **Monthly Energy Consumption Estimate:**
-  * Total Power: 2 * 65W (5600G) + 170W (5950X) + 120W (5950X3D) + 35W (router) + 360W (EPYC9654) = 815W
-  * Monthly: 0.815 kW * 24 hours/day * 30 days/month = 586.8 kWh 
-  * CO2e Emissions (Thailand's 2021 average): 330.62 kg or 0.33 metric tons (mt)
+Our current infrastructure consumes **595.1 kWh per month** per rack, reflecting
+the continuous optimization of power usage.
 
-Our selection of processors and devices, including the MikroTik
-CCR2004-16G-2S+, ensures an optimal performance-to-power ratio. This innovative
-approach to energy consumption highlights our dedication to sustainability and
-our commitment to leading the way in energy-efficient computing.
+* **Monthly CO2e Emission Estimate:**
+  * Thailand's 2021 CO2 emission factor: **0.563 kg CO2e/kWh**
+  * Monthly emissions: `595.1 kWh * 0.563 kg CO2e/kWh = 335 kg CO2e` or
+  **0.335 metric tons (mt) CO2e** per month.
 
-**Carbon Offset**
+By relocating to STT's greener facility and leveraging their renewable energy
+and offset programs, we are significantly reducing our carbon emissions, making
+our operations more eco-friendly and sustainable.
 
-To mitigate our environmental impact, we're offsetting our carbon emissions
-through a monthly subscription with TerraPass, purchasing Renewable Energy
-Certificates (RECs) for clean energy projects. These offsets, including
-Landfill Gas Capture and Wind Farms, are under reputable standards like the
-Climate Action Reserve (CAR).
+## Carbon Offset Strategy
 
-**Moving Forward**
+In line with our sustainability commitments, we previously offset our carbon
+emissions through Renewable Energy Certificates (RECs) via TerraPass. With the
+relocation to the STT data center, we are now focusing more on reducing the
+emissions directly, while still engaging in over-offsetting strategies to cover
+any residual emissions.
 
-We're committed to transparent and accountable climate action, continuously
-striving to reduce our environmental impact and informing stakeholders of our
-efforts. Our goal transcends merely offsetting emissions; we're building a
-resilient, sustainable organization contributing positively to our planet.
+## Conclusion
 
-**Carbon Offset Plan**
-
-![TerraPass certificate for month of August](./images/carbon/terrapass-voucher.webp)
-
-Achieving sustainability requires active offsetting. We've partnered with
-TerraPass, choosing their 1 MWh/month RECs subscription for £12.00 per MWh,
-exceeding our estimated emissions of 0.33 mt of CO2e. This 'over-offsetting'
-strategy supports renewable energy projects, reflecting our dedication to
-environmental change.
-
-In conclusion, our approach to energy consumption and carbon offsetting aligns
-with our commitment to environmental responsibility and innovation. By actively
-engaging in sustainable practices, we contribute not only to offsetting our
-carbon emissions but to the broader goal of a cleaner, greener future.
-
-## TerraPass Vouchers
-***2023***: [8](./files/terrapass/august.pdf), [9](./files/terrapass/october.pdf), [10](./files/terrapass/september.pdf), [11](./files/terrapass/november.pdf), [12](./files/terrapass/december.pdf)  
-***2024***: 
-
-## Move to new carbon neutral datacenter
-Partially due to the increasing energy consumption of our servers and no green
-energy options availability in sight with our current provider, we've decided to
-move to a new datacenter that is offsetting all carbon consumption and planning
-carbon neutrality by 2030. The move is timed for June 2024.
+The transition to the STT data center marks a new chapter in our sustainability
+efforts, combining energy-efficient infrastructure with a comprehensive
+offsetting plan. By continually optimizing our energy consumption and utilizing
+greener facilities, we are advancing towards our goal of a carbon-neutral future.
