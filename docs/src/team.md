@@ -120,6 +120,7 @@ secretly a tech wizard in disguise.
 <div style="display: flex; flex-direction: column; flex: 0 0 20%;">
 <img src="images/team/mikko.webp" alt="Mikko" style="width: 100%; margin-top: 1em; object-fit: cover;">
 <center><h3>Mikko</h3></center>
+<center><h4>Advisor</h4></center>
 </div>
 <div style="margin-left: 1em;">
 <p>
