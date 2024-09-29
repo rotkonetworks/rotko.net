@@ -36,3 +36,5 @@ The transition to the STT data center marks a new chapter in our sustainability
 efforts, combining energy-efficient infrastructure with a comprehensive
 offsetting plan. By continually optimizing our energy consumption and utilizing
 greener facilities, we are advancing towards our goal of a carbon-neutral future.
+
+!![First TerraPass certificate](./images/carbon/terrapass-voucher.webp)
