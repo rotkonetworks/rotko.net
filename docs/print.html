@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="light" dir="ltr">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -31,15 +31,17 @@
 
         <!-- Custom theme stylesheets -->
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,45 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="hardware.html"><strong aria-hidden="true">2.</strong> Hardware</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="rack.html"><strong aria-hidden="true">2.1.</strong> Rack</a></li><li class="chapter-item expanded "><a href="networking_hardware.html"><strong aria-hidden="true">2.2.</strong> Networking</a></li><li class="chapter-item expanded "><a href="bkk01.html"><strong aria-hidden="true">2.3.</strong> BKK01</a></li><li class="chapter-item expanded "><a href="bkk02.html"><strong aria-hidden="true">2.4.</strong> BKK02</a></li><li class="chapter-item expanded "><a href="bkk03.html"><strong aria-hidden="true">2.5.</strong> BKK03</a></li><li class="chapter-item expanded "><a href="bkk04.html"><strong aria-hidden="true">2.6.</strong> BKK04</a></li><li class="chapter-item expanded "><a href="bkk05.html"><strong aria-hidden="true">2.7.</strong> BKK05</a></li><li class="chapter-item expanded "><a href="bkk06.html"><strong aria-hidden="true">2.8.</strong> BKK06</a></li><li class="chapter-item expanded "><a href="bkk07.html"><strong aria-hidden="true">2.9.</strong> BKK07</a></li><li class="chapter-item expanded "><a href="bkk08.html"><strong aria-hidden="true">2.10.</strong> BKK08</a></li></ol></li><li class="chapter-item expanded "><a href="software.html"><strong aria-hidden="true">3.</strong> Software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="networking.html"><strong aria-hidden="true">3.1.</strong> Networking</a></li><li class="chapter-item expanded "><a href="firmware.html"><strong aria-hidden="true">3.2.</strong> Firmware</a></li><li class="chapter-item expanded "><a href="networking_proxmox.html"><strong aria-hidden="true">3.3.</strong> Proxmox</a></li><li class="chapter-item expanded "><a href="networking_routeros.html"><strong aria-hidden="true">3.4.</strong> RouterOS</a></li><li class="chapter-item expanded "><a href="filesystem.html"><strong aria-hidden="true">3.5.</strong> Filesystem</a></li><li class="chapter-item expanded "><a href="unlabored.html"><strong aria-hidden="true">3.6.</strong> Unlabored</a></li></ol></li><li class="chapter-item expanded "><a href="carbon.html"><strong aria-hidden="true">4.</strong> Carbon offset</a></li><li class="chapter-item expanded "><a href="team.html"><strong aria-hidden="true">5.</strong> Team</a></li><li class="chapter-item expanded "><a href="resources.html"><strong aria-hidden="true">6.</strong> Resources</a></li></ol>
-            </div>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
             </div>
         </nav>
 
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
-
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -1618,6 +1597,109 @@ Internet and networking infrastructure.</p>
 <li><a href="https://williamyaps.github.io/wlmjavascript/servercli.html">Speedtest server list</a></li>
 <li><a href="https://opengeofeed.org/validator">Geofeed Validator</a></li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="post-mortems"><a class="header" href="#post-mortems">Post Mortems</a></h1>
+<h2 id="why-we-write-postmortems"><a class="header" href="#why-we-write-postmortems">Why We Write Postmortems</a></h2>
+<p>At Rotko Network, we believe in radical transparency. While it's common in our
+industry to see providers minimize their technical issues or deflect blame onto
+others, we choose a different path. Every failure is an opportunity to learn
+and improve - not just for us, but for the broader network engineering community.</p>
+<p>We've observed a concerning trend where major providers often:</p>
+<ul>
+<li>Minimize the scope of incidents</li>
+<li>Provide vague technical details</li>
+<li>Deflect responsibility to third parties</li>
+<li>Hide valuable learning opportunities</li>
+</ul>
+<p>A prime example of this behavior can be seen in the <a href="https://blog.cloudflare.com/ovhcloud-outage-route-leak-october-2024">October 2024 OVHcloud incident</a>,
+where their initial response blamed a "peering partner" without acknowledging
+the underlying architectural(basic filtering) vulnerabilities that allowed
+the route leak to cause such significant impact.</p>
+<p>In contrast, our postmortems:</p>
+<ul>
+<li>Provide detailed technical analysis</li>
+<li>Acknowledge our mistakes openly</li>
+<li>Share our learnings</li>
+<li>Document both immediate fixes and longer-term improvements</li>
+<li>Include specific timeline data for accountability</li>
+<li>Reference relevant RFCs and technical standards</li>
+</ul>
+<h2 id="directory"><a class="header" href="#directory">Directory</a></h2>
+<h3 id="2024"><a class="header" href="#2024">2024</a></h3>
+<ul>
+<li><a href="network_outage_pm_241219.html">2024-12-19: Edge Router Configuration Incident</a>
+<ul>
+<li>Impact: 95-minute connectivity loss affecting AMSIX, BKNIX, and HGC Hong Kong IPTx</li>
+<li>Root Cause: Misconceptions about router-id uniqueness requirements and OSPF behavior</li>
+<li>Status: Partial resolution, follow-up planned for 2025</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="network-outage-postmortem-2024-12-1920"><a class="header" href="#network-outage-postmortem-2024-12-1920">Network Outage Postmortem (2024-12-19/20)</a></h1>
+<h2 id="summary-1"><a class="header" href="#summary-1">Summary</a></h2>
+<p>A planned intervention to standardize router-id configurations across our edge
+routing infrastructure resulted in an unexpected connectivity loss affecting our
+AMSIX Amsterdam, BKNIX, and HGC Hong Kong IPTx peering sessions. The incident
+lasted approximately 95 minutes (23:55 UTC to 01:30 UTC) and impacted our validator
+performance on both Kusama and Polkadot networks. Specifically, this resulted in
+missed votes during Kusama Session 44,359 at Era 7,496 and Polkadot Session
+10,010 at Era 1,662 with a 0.624 MVR (missed vote ratio).</p>
+<h2 id="technical-details"><a class="header" href="#technical-details">Technical Details</a></h2>
+<p>The root cause was traced to an attempt to resolve a pre-existing routing anomaly
+where our edge routers were operating with multiple router-ids across different
+uplink connections and iBGP sessions. The heterogeneous router-id configuration
+had been causing nexthop resolution failures and inability to transit in our
+BGP infrastructure.</p>
+<p>The original misconfiguration stemmed from an incorrect assumption that router-ids
+needed to be publicly unique at Internet exchange points. This is not the case - router-ids
+only need to be unique within our Interior Gateway Protocol (IGP)
+domain. This misunderstanding led to the implementation of multiple router-ids
+in loopback interfaces, creating unnecessary complexity in our routing
+infrastructure.</p>
+<p>During the remediation attempt to standardize OSPF router-ids to a uniform
+value across the infrastructure, we encountered an unexpected failure mode
+that propagated through our second edge router, resulting in a total loss of
+connectivity regardless of router&amp;&amp;uplink redundancy. The exact mechanism of
+the secondary failure remains under investigation - the cascade effect that
+caused our redundant edge router to lose connectivity suggests an underlying
+architectural vulnerability in our BGP session management.</p>
+<h2 id="response-timeline"><a class="header" href="#response-timeline">Response Timeline</a></h2>
+<ul>
+<li>23:55 UTC: Initiated planned router-id standardization</li>
+<li>~23:56 UTC: Primary connectivity loss detected</li>
+<li>~23:57 UTC: Secondary edge router unexpectedly lost connectivity</li>
+<li>01:30 UTC: Full service restored via configuration rollback</li>
+</ul>
+<h2 id="mitigation"><a class="header" href="#mitigation">Mitigation</a></h2>
+<p>Recovery was achieved through an onsite restoration of backed-up router
+configurations. While this approach was successful, the 95-minute resolution
+time indicates a need for more robust rollback procedures and potentially an
+automated configuration management system.</p>
+<h2 id="impact"><a class="header" href="#impact">Impact</a></h2>
+<ul>
+<li>Kusama validator session 44,359 experienced degraded performance with MVR 1 in Era 7,496 and missed votes in Era 7,495</li>
+<li>Polkadot validator session 10,010 experienced degraded performance with 0.624 MVR in Era 1,662</li>
+<li>Temporary loss of peering sessions with AMSIX, BKNIX, and HGC Hong Kong IPTx</li>
+</ul>
+<h2 id="current-status-and-future-plans"><a class="header" href="#current-status-and-future-plans">Current Status and Future Plans</a></h2>
+<p>The underlying routing issue (multiple router-ids in loopback) remains unresolved.
+Due to the maintenance freeze in internet exchanges during the holiday period,
+the resolution has been postponed until next year. To ensure higher redundancy
+during the next maintenance window, we plan to install a third edge router
+before attempting the configuration standardization again.</p>
+<h2 id="future-work"><a class="header" href="#future-work">Future Work</a></h2>
+<ol>
+<li>Implementation of automated configuration validation testing</li>
+<li>Enforce usage of Safe Mode during remote maintenance to prevent cascading failures</li>
+<li>Investigation into BGP session interdependencies between edge routers</li>
+<li>Read <a href="https://www.ietf.org/rfc/rfc2328.txt">RFC 2328</a> to understand actual
+protocol and how vendor implementation differ</li>
+<li>Installation and configuration of third edge router to provide N+2 redundancy
+during upcoming maintenance</li>
+<li>Study route reflector architechture to move route management from edge
+routers to centralized route server like birdc that is known for correctness
+in implementation of RFC specs.</li>
+<li>Implementation of <a href="https://www.rfc-editor.org/rfc/rfc8195.html">RFC 8195</a> for improved traffic steering via large BGP communities</li>
+</ol>
 
                     </main>
 

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Filesystem - Rotko Networks infrastructure</title>
+        <title>241219 - Network Outage - Rotko Networks infrastructure</title>
 
 
         <!-- Custom HTML head -->
@@ -152,135 +152,81 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="filesystem"><a class="header" href="#filesystem">Filesystem</a></h1>
-<p>Blockchain nodes, such as validators and archive nodes, require a highly reliable and efficient filesystem to operate effectively. The choice of filesystem can significantly affect the performance and reliability of these nodes. In light of performance concerns with ZFS, especially in ParityDB workloads as discussed in <a href="https://github.com/paritytech/polkadot-sdk/pull/1792">paritytech/polkadot-sdk/pull/1792</a>, this guide provides a detailed approach to configuring a robust filesystem in Proxmox.</p>
-<h2 id="filesystem-choices-and-their-impact"><a class="header" href="#filesystem-choices-and-their-impact">Filesystem Choices and Their Impact</a></h2>
-<p>The extensive use of I/O operations by blockchain nodes means the filesystem must manage write and read operations efficiently. CoW filesystems, while feature-rich and robust, introduce overhead that can degrade performance, as evidenced by the cited benchmarks.</p>
-<h3 id="why-not-zfs-or-btrfs-for-blockchain-nodes"><a class="header" href="#why-not-zfs-or-btrfs-for-blockchain-nodes">Why Not ZFS or Btrfs for Blockchain Nodes?</a></h3>
+                        <h1 id="network-outage-postmortem-2024-12-1920"><a class="header" href="#network-outage-postmortem-2024-12-1920">Network Outage Postmortem (2024-12-19/20)</a></h1>
+<h2 id="summary"><a class="header" href="#summary">Summary</a></h2>
+<p>A planned intervention to standardize router-id configurations across our edge
+routing infrastructure resulted in an unexpected connectivity loss affecting our
+AMSIX Amsterdam, BKNIX, and HGC Hong Kong IPTx peering sessions. The incident
+lasted approximately 95 minutes (23:55 UTC to 01:30 UTC) and impacted our validator
+performance on both Kusama and Polkadot networks. Specifically, this resulted in
+missed votes during Kusama Session 44,359 at Era 7,496 and Polkadot Session
+10,010 at Era 1,662 with a 0.624 MVR (missed vote ratio).</p>
+<h2 id="technical-details"><a class="header" href="#technical-details">Technical Details</a></h2>
+<p>The root cause was traced to an attempt to resolve a pre-existing routing anomaly
+where our edge routers were operating with multiple router-ids across different
+uplink connections and iBGP sessions. The heterogeneous router-id configuration
+had been causing nexthop resolution failures and inability to transit in our
+BGP infrastructure.</p>
+<p>The original misconfiguration stemmed from an incorrect assumption that router-ids
+needed to be publicly unique at Internet exchange points. This is not the case - router-ids
+only need to be unique within our Interior Gateway Protocol (IGP)
+domain. This misunderstanding led to the implementation of multiple router-ids
+in loopback interfaces, creating unnecessary complexity in our routing
+infrastructure.</p>
+<p>During the remediation attempt to standardize OSPF router-ids to a uniform
+value across the infrastructure, we encountered an unexpected failure mode
+that propagated through our second edge router, resulting in a total loss of
+connectivity regardless of router&amp;&amp;uplink redundancy. The exact mechanism of
+the secondary failure remains under investigation - the cascade effect that
+caused our redundant edge router to lose connectivity suggests an underlying
+architectural vulnerability in our BGP session management.</p>
+<h2 id="response-timeline"><a class="header" href="#response-timeline">Response Timeline</a></h2>
 <ul>
-<li><strong>ZFS</strong>: While ZFS is revered for its data integrity, the added overhead from features like snapshotting, checksums, and the dynamic block size can significantly slow down write operations crucial for blockchain databases.</li>
-<li><strong>Btrfs</strong>: Similar to ZFS, Btrfs offers advanced features such as snapshotting and volume management. However, its CoW nature means it can suffer from fragmentation and performance degradation over time, which is less than ideal for write-intensive blockchain operations.</li>
+<li>23:55 UTC: Initiated planned router-id standardization</li>
+<li>~23:56 UTC: Primary connectivity loss detected</li>
+<li>~23:57 UTC: Secondary edge router unexpectedly lost connectivity</li>
+<li>01:30 UTC: Full service restored via configuration rollback</li>
 </ul>
-<p>Given these insights, a move towards a more traditional, performant, and linear filesystem is recommended.</p>
-<h3 id="recommended-setup-lvm-thin-with-ext4"><a class="header" href="#recommended-setup-lvm-thin-with-ext4">Recommended Setup: LVM-thin with ext4</a></h3>
-<p>For high I/O workloads such as those handled by blockchain validators and archive nodes, <code>LVM-thin</code> provisioned with <code>ext4</code> stands out:</p>
+<h2 id="mitigation"><a class="header" href="#mitigation">Mitigation</a></h2>
+<p>Recovery was achieved through an onsite restoration of backed-up router
+configurations. While this approach was successful, the 95-minute resolution
+time indicates a need for more robust rollback procedures and potentially an
+automated configuration management system.</p>
+<h2 id="impact"><a class="header" href="#impact">Impact</a></h2>
 <ul>
-<li><strong>ext4</strong>: Offers a stable and linear write performance, which is critical for the high transaction throughput of blockchain applications.</li>
-<li><strong>LVM-thin</strong>: Allows for flexible disk space allocation, providing the benefits of thin provisioning such as snapshotting and easier resizing without the CoW overhead.</li>
+<li>Kusama validator session 44,359 experienced degraded performance with MVR 1 in Era 7,496 and missed votes in Era 7,495</li>
+<li>Polkadot validator session 10,010 experienced degraded performance with 0.624 MVR in Era 1,662</li>
+<li>Temporary loss of peering sessions with AMSIX, BKNIX, and HGC Hong Kong IPTx</li>
 </ul>
-<h2 id="strategic-partitioning-for-maximum-reliability-and-performance"><a class="header" href="#strategic-partitioning-for-maximum-reliability-and-performance">Strategic Partitioning for Maximum Reliability and Performance</a></h2>
-<p>A well-thought-out partitioning scheme is crucial for maintaining data integrity and ensuring high availability.</p>
-<h3 id="raid-1-configuration-for-the-root-partition"><a class="header" href="#raid-1-configuration-for-the-root-partition">RAID 1 Configuration for the Root Partition</a></h3>
-<p>Using a RAID 1 setup for the root partition provides mirroring of data across two disks, thus ensuring that the system can continue to operate even if one disk fails.</p>
-<h4 id="implementing-raid-1"><a class="header" href="#implementing-raid-1">Implementing RAID 1:</a></h4>
+<h2 id="current-status-and-future-plans"><a class="header" href="#current-status-and-future-plans">Current Status and Future Plans</a></h2>
+<p>The underlying routing issue (multiple router-ids in loopback) remains unresolved.
+Due to the maintenance freeze in internet exchanges during the holiday period,
+the resolution has been postponed until next year. To ensure higher redundancy
+during the next maintenance window, we plan to install a third edge router
+before attempting the configuration standardization again.</p>
+<h2 id="future-work"><a class="header" href="#future-work">Future Work</a></h2>
 <ol>
-<li>
-<p><strong>Disk Preparation:</strong></p>
-<ul>
-<li>Select two identical disks (e.g., <code>/dev/sda</code> and <code>/dev/sdb</code>).</li>
-<li>Partition both disks with an identical layout, reserving space for the root partition.</li>
-</ul>
-</li>
-<li>
-<p><strong>RAID Array Creation:</strong></p>
-<ul>
-<li>Execute the command to create the RAID 1 array:
-<pre><code class="language-bash">mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sda1 /dev/sdb1
-</code></pre>
-</li>
-<li>Format the RAID array with a resilient filesystem like ext4:
-<pre><code class="language-bash">mkfs.ext4 /dev/md0
-</code></pre>
-</li>
-<li>Mount the RAID array at the root mount point during the Proxmox installation or manually afterward.</li>
-</ul>
-</li>
+<li>Implementation of automated configuration validation testing</li>
+<li>Enforce usage of Safe Mode during remote maintenance to prevent cascading failures</li>
+<li>Investigation into BGP session interdependencies between edge routers</li>
+<li>Read <a href="https://www.ietf.org/rfc/rfc2328.txt">RFC 2328</a> to understand actual
+protocol and how vendor implementation differ</li>
+<li>Installation and configuration of third edge router to provide N+2 redundancy
+during upcoming maintenance</li>
+<li>Study route reflector architechture to move route management from edge
+routers to centralized route server like birdc that is known for correctness
+in implementation of RFC specs.</li>
+<li>Implementation of <a href="https://www.rfc-editor.org/rfc/rfc8195.html">RFC 8195</a> for improved traffic steering via large BGP communities</li>
 </ol>
-<h3 id="boot-partition-configuration"><a class="header" href="#boot-partition-configuration">Boot Partition Configuration</a></h3>
-<p>Having two separate boot partitions provides redundancy, ensuring the system remains bootable in the event of a primary boot partition failure.</p>
-<h4 id="configuring-boot-partitions"><a class="header" href="#configuring-boot-partitions">Configuring Boot Partitions:</a></h4>
-<ul>
-<li>
-<p><strong>Primary Boot Partition:</strong></p>
-<ul>
-<li>On the first disk, create a boot partition (e.g., <code>/dev/sda2</code>).</li>
-<li>Install the bootloader and kernel images here.</li>
-</ul>
-</li>
-<li>
-<p><strong>Fallback Boot Partition:</strong></p>
-<ul>
-<li>Mirror the primary boot partition to a second disk (e.g., <code>/dev/sdb2</code>).</li>
-<li>Configure the bootloader to fall back to this partition if the primary boot fails.</li>
-</ul>
-</li>
-</ul>
-<h3 id="lvm-thin-provisioning-on-data-disks"><a class="header" href="#lvm-thin-provisioning-on-data-disks">LVM-Thin Provisioning on Data Disks</a></h3>
-<p>LVM-thin provisioning is recommended for managing data disks. It allows for efficient disk space utilization by provisioning "thin" volumes that can be expanded dynamically as needed.</p>
-<h4 id="steps-for-lvm-thin-provisioning"><a class="header" href="#steps-for-lvm-thin-provisioning">Steps for LVM-Thin Provisioning:</a></h4>
-<ol>
-<li>
-<p><strong>Initialize LVM Physical Volumes:</strong></p>
-<ul>
-<li>Use the <code>pvcreate</code> command on the designated data disks:
-<pre><code class="language-bash">pvcreate /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
-</code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Create a Volume Group:</strong></p>
-<ul>
-<li>Group the initialized disks into a volume group:
-<pre><code class="language-bash">vgcreate vg_data /dev/nvme1n1 /dev/nvme2n1 /dev/nvme3n1
-</code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Establish a Thin Pool:</strong></p>
-<ul>
-<li>Create a thin pool within the volume group to hold the thin volumes:
-<pre><code class="language-bash">lvcreate --size 100G --thinpool data_tpool vg_data
-</code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Provision Thin Volumes:</strong></p>
-<ul>
-<li>Create thin volumes from the pool as needed for containers or virtual machines: ```bash
-lvcreate --virtualsize 500G --thin data_tpool --name data_volume
-<pre><code>
-</code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Format and Mount Thin Volumes:</strong></p>
-<ul>
-<li>Format the volumes with a filesystem, such as ext4, and mount them:
-<pre><code class="language-bash">mkfs.ext4 /dev/vg_data/data_volume
-mount /dev/vg_data/data_volume /mnt/data_volume
-</code></pre>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="integrating-lvm-thin-volumes-with-proxmox"><a class="header" href="#integrating-lvm-thin-volumes-with-proxmox">Integrating LVM-Thin Volumes with Proxmox</a></h2>
-<p>Proxmox's <code>pct</code> command-line tool can manage container storage by mapping LVM-thin volumes to container mount points.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="networking_routeros.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="post_mortems.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="unlabored.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -288,13 +234,10 @@ mount /dev/vg_data/data_volume /mnt/data_volume
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="networking_routeros.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="post_mortems.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="unlabored.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
