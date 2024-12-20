@@ -40,8 +40,8 @@ architectural vulnerability in our BGP session management.
 ## Mitigation
 Recovery was achieved through an onsite restoration of backed-up router
 configurations. While this approach was successful, the 95-minute resolution
-time indicates a need for more robust rollback procedures triggered by
-watchdog.
+time indicates a need for more robust rollback procedures and most of all
+precaution during network configuration.
 
 ## Impact
 - Kusama validator session 44,359 experienced degraded performance with MVR 1 in Era 7,496 and missed votes in Era 7,495
