@@ -53,8 +53,7 @@ jobs:
 
       - name: Move mdBook to Astro docs folder
         run: |
-          mkdir -p dist/docs
-          mv docs/book/* dist/docs/
+          mkdir -p dist/docs && mv docs/book/* dist/docs/
           
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
