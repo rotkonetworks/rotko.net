@@ -16,7 +16,6 @@
   - [Networking](./networking.md)
   - [Firmware](./firmware.md)
   - [Proxmox](./networking_proxmox.md)
-  - [RouterOS](./networking_routeros.md)
   - [Filesystem](./filesystem.md)
   - [Unlabored](./unlabored.md)
 - [Carbon offset](./carbon.md)
