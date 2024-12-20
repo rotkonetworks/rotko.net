@@ -34,19 +34,21 @@ architectural vulnerability in our BGP session management.
 ## Response Timeline
 - 23:55 UTC: Initiated planned router-id standardization
 - ~23:56 UTC: Primary connectivity loss detected
-- ~23:57 UTC: Secondary edge router unexpectedly lost connectivity
+- ~23:56 UTC: Secondary edge router unexpectedly lost connectivity
 - 01:30 UTC: Full service restored via configuration rollback
 
 ## Mitigation
 Recovery was achieved through an onsite restoration of backed-up router
 configurations. While this approach was successful, the 95-minute resolution
-time indicates a need for more robust rollback procedures and potentially an
-automated configuration management system.
+time indicates a need for more robust rollback procedures triggered by
+watchdog.
 
 ## Impact
 - Kusama validator session 44,359 experienced degraded performance with MVR 1 in Era 7,496 and missed votes in Era 7,495
 - Polkadot validator session 10,010 experienced degraded performance with 0.624 MVR in Era 1,662
 - Temporary loss of peering sessions with AMSIX, BKNIX, and HGC Hong Kong IPTx
+
+![Current connectivity](./images/postmortem/rotko_upstream.webp)
 
 ## Current Status and Future Plans
 The underlying routing issue (multiple router-ids in loopback) remains unresolved.
