@@ -9,6 +9,8 @@ performance on both Kusama and Polkadot networks. Specifically, this resulted in
 missed votes during Kusama Session 44,359 at Era 7,496 and Polkadot Session
 10,010 at Era 1,662 with a 0.624 MVR (missed vote ratio).
 
+![Misconfguration illustrated](./images/postmortem/rotko_old_upstream.webp)
+
 ## Technical Details
 The root cause was traced to an attempt to resolve a pre-existing routing anomaly
 where our edge routers were operating with multiple router-ids across different
@@ -48,7 +50,7 @@ precaution during network configuration.
 - Polkadot validator session 10,010 experienced degraded performance with 0.624 MVR in Era 1,662
 - Temporary loss of peering sessions with AMSIX, BKNIX, and HGC Hong Kong IPTx
 
-![Current connectivity](./images/postmortem/rotko_upstream.webp)
+![Correct connectivity](./images/postmortem/rotko_upstream.webp)
 
 ## Current Status and Future Plans
 The underlying routing issue (multiple router-ids in loopback) remains unresolved.
