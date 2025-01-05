@@ -156,43 +156,10 @@
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <p>This document outlines the BGP routing configuration for our multi-homed network
 with connections to various internet exchanges and transit providers in Bangkok,
-Hong Kong, Singapore, and Europe. Currently 3x 10G fibers are used for uplinks.</p>
+Hong Kong, Singapore, and Europe. Currently 3x 10G fibers are used for physical
+uplinks.</p>
 <h2 id="bandwidth"><a class="header" href="#bandwidth">Bandwidth</a></h2>
 <img src="images/networking/bandwidth.webp" alt="Scaling bandwidth" style="width: 100%; margin-top: 2em; object-fit: cover;">
-<h2 id="bgp-community-structure"><a class="header" href="#bgp-community-structure">BGP Community Structure</a></h2>
-<p>We use BGP communities to classify and manage routes based on their origin and characteristics. Our community format is <code>AABBCC</code>, where:</p>
-<ul>
-<li><code>AA</code>: Region/Type
-<ul>
-<li><code>10</code>: Local (Bangkok)</li>
-<li><code>20</code>: Regional</li>
-<li><code>30</code>: Remote</li>
-</ul>
-</li>
-<li><code>BB</code>: Provider
-<ul>
-<li><code>10</code>: BKNIX</li>
-<li><code>20</code>: AMS-IX</li>
-<li><code>30</code>: IPTX</li>
-<li><code>40</code>: Reserved for future use</li>
-</ul>
-</li>
-<li><code>CC</code>: Connection Identifier
-<ul>
-<li><code>00</code>: Primary connection</li>
-<li><code>01-99</code>: Additional connections, ordered by preference</li>
-</ul>
-</li>
-</ul>
-<h3 id="key-communities"><a class="header" href="#key-communities">Key Communities</a></h3>
-<ul>
-<li>101000: BKNIX Primary (Local 10G - Bangkok)</li>
-<li>102000: AMS-IX Bangkok Primary (Local 1G - Bangkok)</li>
-<li>201000: AMS-IX Hong Kong Primary (Regional 200M - Hong Kong)</li>
-<li>203000: IPTX Singapore Primary (Regional 500M - Singapore)</li>
-<li>203001: IPTX Hong Kong Secondary (Regional 500M - Hong Kong)</li>
-<li>302000: AMS-IX Europe Primary (Remote 100M - Amsterdam)</li>
-</ul>
 <h1 id="network-topology-diagram"><a class="header" href="#network-topology-diagram">Network Topology Diagram</a></h1>
 <pre><code class="language-mermaid">graph TD
     BKK50((BKK50 Gateway Router&lt;br&gt;CCR2004-16G-2S+&lt;br&gt;ECMP with 10G connections))
@@ -238,15 +205,24 @@ Hong Kong, Singapore, and Europe. Currently 3x 10G fibers are used for uplinks.<
     linkStyle default stroke:#ffffff,stroke-width:2px;
 </code></pre>
 <h2 id="routing-configuration"><a class="header" href="#routing-configuration">Routing Configuration</a></h2>
-<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Speed</th><th>Path Prepend</th><th>MED</th><th>Local Pref</th><th>Community</th><th>Description</th><th>Edge Router</th></tr></thead><tbody>
-<tr><td>BKNIX</td><td>10G</td><td>0</td><td>50</td><td>200</td><td>142108:101000</td><td>LOCAL-BKNIX-PRIMARY</td><td>BKK10</td></tr>
-<tr><td>AMS-IX Bangkok</td><td>1G</td><td>0</td><td>100</td><td>190</td><td>142108:102000</td><td>LOCAL-AMSIX-PRIMARY</td><td>BKK20</td></tr>
-<tr><td>IPTX Singapore</td><td>500M</td><td>1</td><td>150</td><td>185</td><td>142108:203000</td><td>REGIONAL-IPTX-SG-PRI</td><td>BKK20</td></tr>
-<tr><td>IPTX Hong Kong</td><td>500M</td><td>1</td><td>150</td><td>180</td><td>142108:203001</td><td>REGIONAL-IPTX-HK-SEC</td><td>BKK10</td></tr>
-<tr><td>AMS-IX Hong Kong</td><td>200M</td><td>2</td><td>200</td><td>170</td><td>142108:201000</td><td>REGIONAL-AMSIX-HK-PRI</td><td>BKK10</td></tr>
-<tr><td>AMS-IX Europe</td><td>100M</td><td>3</td><td>300</td><td>160</td><td>142108:302000</td><td>REMOTE-AMSIX-EU-PRI</td><td>BKK20</td></tr>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Speed</th><th>Path Prepend</th><th>MED</th><th>Local Pref</th><th>External Communities</th><th>Description</th><th>Router</th></tr></thead><tbody>
+<tr><td>BKNIX</td><td>10G</td><td>0</td><td>10</td><td>200</td><td>142108:1:764</td><td>Local IX</td><td>BKK10</td></tr>
+<tr><td>AMS-IX Bangkok</td><td>1G</td><td>0</td><td>20</td><td>190</td><td>142108:1:764</td><td>Local IX</td><td>BKK20</td></tr>
+<tr><td>IPTX Singapore-BKK10</td><td>500M</td><td>1</td><td>50</td><td>170</td><td>142108:2:35</td><td>Regional Transit</td><td>BKK10</td></tr>
+<tr><td>IPTX Singapore-BKK20</td><td>500M</td><td>1</td><td>50</td><td>160</td><td>142108:2:35</td><td>Regional Transit</td><td>BKK20</td></tr>
+<tr><td>AMS-IX Hong Kong</td><td>200M</td><td>2</td><td>100</td><td>150</td><td>142108:2:142</td><td>Regional IX</td><td>BKK20</td></tr>
+<tr><td>IPTX HK-BKK20</td><td>500M</td><td>2</td><td>100</td><td>130</td><td>142108:2:142</td><td>Regional Transit</td><td>BKK20</td></tr>
+<tr><td>IPTX HK-BKK10</td><td>500M</td><td>2</td><td>100</td><td>120</td><td>142108:2:142</td><td>Regional Transit</td><td>BKK10</td></tr>
+<tr><td>AMS-IX EU</td><td>100M</td><td>3</td><td>200</td><td>100</td><td>142108:2:142</td><td>Remote IX</td><td>BKK10</td></tr>
 </tbody></table>
 </div>
+<p>This way:</p>
+<ol>
+<li>We keep our internal communities for our own routing decisions</li>
+<li>We share geographic information allowing peers to optimize their routing</li>
+<li>Peers can make informed decisions about traffic paths to our network</li>
+</ol>
+<p>Would this be a useful approach?</p>
 <h2 id="traffic-engineering-principles"><a class="header" href="#traffic-engineering-principles">Traffic Engineering Principles</a></h2>
 <ol>
 <li>Local Preference: Higher values indicate more preferred routes. Local routes are preferred over regional, which are preferred over remote routes.</li>
