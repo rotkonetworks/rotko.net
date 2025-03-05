@@ -179,43 +179,86 @@ capabilities, and the reasons they've been chosen for our server operations.</p>
 engineered to promote growth and foster innovation in the Web3 ecosystem.
 Prepare for an insightful journey into the hardware specifics that power Rotko
 Networks. Stay tuned!</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="hardware"><a class="header" href="#hardware">Hardware</a></h1>
-<p><img src="./images/rack/machines_at_rack.webp" alt="Machines at rack" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hardware-infrastructure"><a class="header" href="#hardware-infrastructure">Hardware Infrastructure</a></h1>
+<p><img src="./images/rack/rotko_rack_front.jpeg" alt="Machines at rack" /></p>
 <p>Our primary goal is to deliver a high-performance and secure blockchain
 infrastructure that fosters trust and reliability. We aim to achieve this by
 focusing on the critical elements of blockchain technology - namely, ensuring
 high single-thread performance for validator services, and low latency for RPC
 services, among others.</p>
-<p>Validator services in blockchain infrastructures demand high single-thread
-performance due to the nature of their operations. Validators, in essence,
-validate transactions and blocks within the blockchain. They act as the
-arbitrators of the system, ensuring the veracity and accuracy of the
-information being added to the blockchain. This is an intensive process that
-involves complex computations and encryption, thus requiring a
-high-performance, single-thread system to maintain efficiency.</p>
-<p>The low latency required for our RPC services is another vital factor in our
-hardware design. RPC, or Remote Procedure Call, is a protocol that allows a
-computer program to execute a procedure in another address space, usually on
-another network, without the programmer needing to explicitly code for this
-functionality. In simpler terms, it's a way for systems to talk to each other.
-Low latency in these operations is crucial to ensure a smooth and seamless
-dialogue between various systems within the blockchain. A delay or a lag in
-these communications can cause bottlenecks, leading to a slowdown in overall
-operations.</p>
+<h2 id="network-architecture"><a class="header" href="#network-architecture">Network Architecture</a></h2>
+<p><img src="./images/hardware/network_topology.svg" alt="Network Diagram" /></p>
+<p>For reference, our network topology includes the following components:</p>
+<h3 id="upstream-providers"><a class="header" href="#upstream-providers">Upstream Providers</a></h3>
+<ul>
+<li>BKNIX, AMS-IX (Bangkok, Hong Kong, Europe)</li>
+<li>HGC IPTX (Hong Kong, Singapore)</li>
+<li>Backup circuits: HGC IPTX TH-HK and TH-SG</li>
+</ul>
+<h3 id="edge-routers"><a class="header" href="#edge-routers">Edge Routers</a></h3>
+<ul>
+<li>BKK00 (MikroTik CRR2216)</li>
+<li>BKK20 (MikroTik CRR2216)</li>
+</ul>
+<h3 id="core-routers"><a class="header" href="#core-routers">Core Routers</a></h3>
+<ul>
+<li>BKK10 (MikroTik CRR2116) - VRRP Primary</li>
+<li>BKK50 (MikroTik CCR2004) - VRRP Fallback</li>
+</ul>
+<h3 id="storage-infrastructure"><a class="header" href="#storage-infrastructure">Storage Infrastructure</a></h3>
+<ul>
+<li>High-speed switches: BKK30, BKK40 (100G)</li>
+<li>Storage servers: BKK06 (EPYC 7713), BKK07 (EPYC 9654), BKK08 (EPYC 7742)</li>
+<li>HA Quorum Network for redundancy</li>
+</ul>
+<h3 id="validator-nodes"><a class="header" href="#validator-nodes">Validator Nodes</a></h3>
+<ul>
+<li>BKK01, BKK02 (Ryzen 5600G)</li>
+<li>BKK03 (Ryzen 7950X3D)</li>
+<li>BKK04 (Ryzen 9950X)</li>
+<li>BKK09 (Ryzen 7945HX)</li>
+<li>BKK11, BKK13 (Ryzen 5950X)</li>
+<li>BKK12 (Ryzen 7950X)</li>
+</ul>
+<h3 id="management"><a class="header" href="#management">Management</a></h3>
+<ul>
+<li>BKK60 (MikroTik CRS354) for IPMI access to all devices</li>
+</ul>
+<h2 id="performance-considerations"><a class="header" href="#performance-considerations">Performance Considerations</a></h2>
+<p>Validator services in blockchain infrastructures demand high single-thread performance due to the nature of their operations. Validators, in essence, validate transactions and blocks within the blockchain. They act as the arbitrators of the system, ensuring the veracity and accuracy of the information being added to the blockchain. This is an intensive process that involves complex computations and encryption, thus requiring a high-performance, single-thread system to maintain efficiency.</p>
+<p>The low latency required for our RPC services is another vital factor in our hardware design. RPC, or Remote Procedure Call, is a protocol that allows a computer program to execute a procedure in another address space, usually on another network, without the programmer needing to explicitly code for this functionality. In simpler terms, it's a way for systems to talk to each other. Low latency in these operations is crucial to ensure a smooth and seamless dialogue between various systems within the blockchain. A delay or a lag in these communications can cause bottlenecks, leading to a slowdown in overall operations.</p>
+<h2 id="hardware-specifications"><a class="header" href="#hardware-specifications">Hardware Specifications</a></h2>
 <p>The hardware components and their configurations we have selected are
-specifically designed to address these needs. By leveraging advanced
-technologies like the AMD Ryzen 9 7950X for its superior single-thread
-performance, DDR5 memory for fast data retrieval, and NVMe SSDs for their
-exceptional speed in data storage and retrieval, we aim to provide an
-infrastructure that can effectively handle the demands of blockchain
-technology.</p>
+specifically designed to address these needs. By leveraging advanced technologies
+like the AMD Ryzen 9 7950X for its superior single-thread performance, DDR5
+memory for fast data retrieval, and NVMe SSDs for their exceptional speed in
+data storage and retrieval, we aim to provide an infrastructure that can
+effectively handle the demands of blockchain technology.</p>
+<h3 id="key-components"><a class="header" href="#key-components">Key Components</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Node Type</th><th>Processor</th><th>Memory</th><th>Storage</th><th>Purpose</th></tr></thead><tbody>
+<tr><td>Validator</td><td>AMD Ryzen 7950X/5950X</td><td>DDR5</td><td>NVMe SSDs</td><td>Transaction validation</td></tr>
+<tr><td>Storage</td><td>AMD EPYC 7713/9654/7742</td><td>High-capacity</td><td>Redundant arrays</td><td>Blockchain data storage</td></tr>
+<tr><td>Edge</td><td>MikroTik CRR2216</td><td>-</td><td>-</td><td>Network edge routing</td></tr>
+<tr><td>Core</td><td>MikroTik CRR2116/CCR2004</td><td>-</td><td>-</td><td>VRRP redundant core routing</td></tr>
+</tbody></table>
+</div>
+<h2 id="scalability-and-resilience"><a class="header" href="#scalability-and-resilience">Scalability and Resilience</a></h2>
 <p>Our infrastructure is also designed to ensure scalability and flexibility. As
 the demands of the blockchain ecosystem grow, so too should our capacity to
 handle these increasing demands. Hence, our hardware design also incorporates
 elements that will allow us to easily scale up our operations when necessary.</p>
-<p>In essence, our hardware is purpose-built to deliver high-performance
-blockchain operations that are secure, reliable, and capable of scaling with
-the demands of the evolving blockchain ecosystem.</p>
+<p>The network features full redundancy with:</p>
+<ul>
+<li>Cross-connected edge routers with multiple upstream providers</li>
+<li>Geographic diversity with connections to Hong Kong, Singapore, Bangkok, and Europe</li>
+<li>Backup IPTX circuits for fallback connectivity</li>
+<li>VRRP router redundancy for core routing</li>
+<li>High-speed 100G storage networking</li>
+<li>HA Quorum Network for storage resilience</li>
+</ul>
+<p>In essence, our hardware is purpose-built to deliver high-performance blockchain
+operations that are secure, reliable, and capable of scaling with the demands of
+the evolving blockchain ecosystem.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rack"><a class="header" href="#rack">Rack</a></h1>
 <p><img src="./images/rack/rack_front.webp" alt="Rack from front" /></p>
 <p>At the heart of our operations is a meticulously designed server
@@ -261,12 +304,12 @@ operational environment.</p>
 <li><a href="https://www.rittal.com/com-en/products/PG0900ZUBEHOER1/PG0919ZUBEHOER1">Rittal 42U</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="networking-hardware-overview"><a class="header" href="#networking-hardware-overview">Networking Hardware Overview</a></h2>
-<h3 id="edge-routers"><a class="header" href="#edge-routers">Edge Routers</a></h3>
+<h3 id="edge-routers-1"><a class="header" href="#edge-routers-1">Edge Routers</a></h3>
 <ul>
 <li><strong>CRR2216 (bkk10)</strong>: Edge router for Bangkok site.</li>
 <li><strong>CRR2116 (bkk20)</strong>: Edge router for Bangkok site.</li>
 </ul>
-<h3 id="core-routers"><a class="header" href="#core-routers">Core Routers</a></h3>
+<h3 id="core-routers-1"><a class="header" href="#core-routers-1">Core Routers</a></h3>
 <ul>
 <li><strong>CRR2004 (bkk50)</strong>: Core router for Bangkok site.</li>
 </ul>
