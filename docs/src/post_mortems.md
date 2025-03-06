@@ -33,3 +33,9 @@ In contrast, our postmortems:
   - Impact: 95-minute connectivity loss affecting AMSIX, BKNIX, and HGC Hong Kong IPTx
   - Root Cause: Misconceptions about router-id uniqueness requirements and OSPF behavior
   - Status: Partial resolution, follow-up planned for 2025
+
+### 2025
+- [2025-3-6: Router Misconfiguration Incident](network_outage_pm_250306.md)
+  - Impact: 18-minute network outage affecting lower era points for validator and RPC nodes downtime
+  - Root Cause: Misconfiguration between a router and switch.
+  - Status: Fully recover

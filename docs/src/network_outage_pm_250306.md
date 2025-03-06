@@ -33,18 +33,14 @@ The network is now fully operational. However, this incident underscores the nee
 
 ## Future Work
 ### Identified Problems:
-
 - Lack of a redundant fallback mechanism for critical routers.
 - Current proxy method for router access relies on internal infrastructure instead of an external jump server.
 - Forced reliance on WireGuard VPN for emergency access, which can be cumbersome.
-
 ### Improvement Plan:
-
-- Jump Server Access: Configure external jump server access, allowing:
+Jump Server Access: Configure external jump server access, allowing:
  - Simple SSH access via ssh router_name@jump.rotko.net.
  - Users to have pre-configured jump configurations on their machines.
  - Access management via per-user SSH authorized_keys file.
 
-- Network Redundancy:
- - Implement failover mechanisms to prevent single router dependency.
+Network Redundancy:
  - Improving infra setup to have more redundancy.
