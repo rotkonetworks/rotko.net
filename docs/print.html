@@ -1580,6 +1580,16 @@ the route leak to cause such significant impact.</p>
 </ul>
 </li>
 </ul>
+<h3 id="2025"><a class="header" href="#2025">2025</a></h3>
+<ul>
+<li><a href="network_outage_pm_250306.html">2025-3-6: Router Misconfiguration Incident</a>
+<ul>
+<li>Impact: 18-minute network outage affecting lower era points for validator and RPC nodes downtime</li>
+<li>Root Cause: Misconfiguration between a router and switch.</li>
+<li>Status: Fully recover</li>
+</ul>
+</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="network-outage-postmortem-2024-12-1920"><a class="header" href="#network-outage-postmortem-2024-12-1920">Network Outage Postmortem (2024-12-19/20)</a></h1>
 <h2 id="summary-1"><a class="header" href="#summary-1">Summary</a></h2>
 <p>A planned intervention to standardize router-id configurations across our edge
@@ -1648,6 +1658,67 @@ routers to centralized route server like birdc that is known for correctness
 in implementation of RFC specs.</li>
 <li>Implementation of <a href="https://www.rfc-editor.org/rfc/rfc8195.html">RFC 8195</a> for improved traffic steering via large BGP communities</li>
 </ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="network-outage-postmortem-2025-3-6"><a class="header" href="#network-outage-postmortem-2025-3-6">Network Outage Postmortem (2025-3-6)</a></h1>
+<h2 id="summary-2"><a class="header" href="#summary-2">Summary</a></h2>
+<p>On March 6, 2025, at approximately 09:31 UTC, a network misconfiguration on router caused an outage,
+rendering the router and other dependent infrastructure unreachable. Reversing the misconfiguration did not
+immediately restore network connectivity, leading to an 18-minute downtime until a router reboot resolved the issue.
+The outage impacted a lower era points for our validators, while our RPC nodes SLA allows ~40 mins of weekly downtime.</p>
+<h2 id="technical-details-1"><a class="header" href="#technical-details-1">Technical Details</a></h2>
+<p>The issue arose when configuring our router &amp; switch infra. Approximately 1-3 minutes later after doing the suspected cause
+the infra is not reachable using ssh and our proxy for ssh is inside the infra. And after tried to use WireGuard, we can ssh
+into the router and reverse the changes. However, this reversal did not take effect immediately, leaving the router in a stuck
+state where SSH access was unreachable. This situation persisted until a manual reboot restored proper functionality.</p>
+<h2 id="response-timeline-1"><a class="header" href="#response-timeline-1">Response Timeline</a></h2>
+<ul>
+<li>09:31 UTC: Network outage occurred &amp; connectivity loss detected</li>
+<li>~09:37 UTC: Connectivity with WireGuard established</li>
+<li>~09:38 UTC: Reversal of the root cause, but not solve the problem</li>
+<li>~09:47 UTC: Decision to reboot the router</li>
+<li>09:49 UTC: Service restored after rebooting the router</li>
+</ul>
+<h2 id="mitigation-1"><a class="header" href="#mitigation-1">Mitigation</a></h2>
+<p>The immediate resolution was to reboot bkk50, which restored its functionality as the network gateway. However, this incident highlighted
+the lack of a fully redundant infrastructure.</p>
+<h2 id="impact-1"><a class="header" href="#impact-1">Impact</a></h2>
+<ul>
+<li>Network downtime lasted approximately 18 minutes, affecting internal infrastructure.</li>
+<li>No major disruption to services, but some validators experienced mildly lower era points in Era 7801 for <a href="https://apps.turboflakes.io/?chain=kusama#/validator/ESSZefozpZYVLbLF1vaGtabthQYg8PVXiTytVm6YiiwAnee?mode=history">Kusama</a> and Era 1738 for <a href="https://apps.turboflakes.io/#/validator/1ArdZJtNUrZsfidfn1t69xHaSWwzf6PQNdLEUpcnVmbkZc5?mode=history">Polkadot</a>.</li>
+<li>No impact on RPC services, which remain within SLA allowances (weekly downtime limit: 40 minutes).</li>
+</ul>
+<h2 id="current-status-and-future-plans-1"><a class="header" href="#current-status-and-future-plans-1">Current Status and Future Plans</a></h2>
+<p>The network is now fully operational. However, this incident underscores the need for more robust redundancy and streamlined access to critical infrastructure.</p>
+<h2 id="future-work-1"><a class="header" href="#future-work-1">Future Work</a></h2>
+<h3 id="identified-problems"><a class="header" href="#identified-problems">Identified Problems:</a></h3>
+<ul>
+<li>Lack of a redundant fallback mechanism for critical routers.</li>
+<li>Current proxy method for router access relies on internal infrastructure instead of an external jump server.</li>
+<li>Forced reliance on WireGuard VPN for emergency access, which can be cumbersome.</li>
+</ul>
+<h3 id="improvement-plan"><a class="header" href="#improvement-plan">Improvement Plan:</a></h3>
+<ul>
+<li>
+<p>Jump Server Access: Configure external jump server access, allowing:</p>
+</li>
+<li>
+<p>Simple SSH access via ssh router_name@jump.rotko.net.</p>
+</li>
+<li>
+<p>Users to have pre-configured jump configurations on their machines.</p>
+</li>
+<li>
+<p>Access management via per-user SSH authorized_keys file.</p>
+</li>
+<li>
+<p>Network Redundancy:</p>
+</li>
+<li>
+<p>Implement failover mechanisms to prevent single router dependency.</p>
+</li>
+<li>
+<p>Improving infra setup to have more redundancy.</p>
+</li>
+</ul>
 
                     </main>
 
