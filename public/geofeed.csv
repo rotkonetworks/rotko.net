@@ -1,12 +1,16 @@
-# AS142108:AS-ROTKONETWORKS, 160.22.180.0/23, 2401:A860::/32
-# https://datatracker.ietf.org/doc/rfc8805/
-# network, iso_country code, iso_region_code, city_name, postal_code
-# ANYCAST ipv4
-#160.22.180.0/24,TH,TH-10,Bangkok,10240
-# ANYCAST ipv6
-#2401:A860::/48,TH,TH-10,Bangkok,10240
-# UNICAST
+# AS142108:AS-ROTKONETWORKS
+# IPv4: 160.22.180.0/23
+# IPv6: 2401:A860::/32
+# Format: network, iso_country_code, iso_region_code, city_name, postal_code
+# RFC: https://datatracker.ietf.org/doc/rfc8805/
+
+# --- ANYCAST ADDRESSES ---
+# These are globally routed, geo-indeterminate
+160.22.180.0/24,ZZ,,,
+2401:A860::/48,ZZ,,,
+
+# --- UNICAST ADDRESSES ---
 160.22.181.0/24,TH,TH-10,Bangkok,10240
-2401:A860:1::/33,TH,TH-10,Bangkok,10240
-2401:A860:8000::/33,TH,TH-10,Bangkok,10240
+2401:A860:1::/48,TH,TH-10,Bangkok,10240
 2401:A860:181::/48,TH,TH-10,Bangkok,10240
+2401:A860:8000::/33,TH,TH-10,Bangkok,10240
