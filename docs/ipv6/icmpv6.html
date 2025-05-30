@@ -1,0 +1,412 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>ICMPv6 - Rotko Networks infrastructure</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rotko Networks infrastructure</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="icmpv6-structure-and-types"><a class="header" href="#icmpv6-structure-and-types">ICMPv6 Structure and Types</a></h2>
+<h3 id="basic-icmpv6-header-structure"><a class="header" href="#basic-icmpv6-header-structure">Basic ICMPv6 Header Structure</a></h3>
+<pre><code> 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|     Type      |     Code      |          Checksum             |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                         Message Body                          +
+|                                                               |
+</code></pre>
+<h3 id="icmpv6-message-types"><a class="header" href="#icmpv6-message-types">ICMPv6 Message Types</a></h3>
+<h4 id="error-messages-types-1-127"><a class="header" href="#error-messages-types-1-127">Error Messages (Types 1-127)</a></h4>
+<p><strong>Type 1: Destination Unreachable</strong></p>
+<pre><code>Code 0: No route to destination
+Code 1: Communication administratively prohibited
+Code 2: Beyond scope of source address
+Code 3: Address unreachable
+Code 4: Port unreachable
+Code 5: Source address failed ingress/egress policy
+Code 6: Reject route to destination
+Code 7: Error in Source Routing Header
+</code></pre>
+<p><strong>Type 2: Packet Too Big</strong></p>
+<pre><code>Code: 0 (always)
+Body includes: MTU (4 bytes) + As much of original packet as possible
+</code></pre>
+<p><strong>Type 3: Time Exceeded</strong></p>
+<pre><code>Code 0: Hop limit exceeded in transit
+Code 1: Fragment reassembly time exceeded
+</code></pre>
+<p><strong>Type 4: Parameter Problem</strong></p>
+<pre><code>Code 0: Erroneous header field encountered
+Code 1: Unrecognized Next Header type encountered
+Code 2: Unrecognized IPv6 option encountered
+Body includes: Pointer (4 bytes) indicating error location
+</code></pre>
+<h4 id="informational-messages-types-128-255"><a class="header" href="#informational-messages-types-128-255">Informational Messages (Types 128-255)</a></h4>
+<p><strong>Type 128: Echo Request</strong></p>
+<pre><code>Code: 0
+Used by: ping6
+Body: Identifier + Sequence Number + Data
+</code></pre>
+<p><strong>Type 129: Echo Reply</strong></p>
+<pre><code>Code: 0
+Response to: Echo Request
+Body: Same as Echo Request
+</code></pre>
+<p><strong>Type 133: Router Solicitation (RS)</strong></p>
+<pre><code>Code: 0
+Source: Host seeking routers
+Destination: ff02::2 (all-routers)
+Options: Source Link-Layer Address
+</code></pre>
+<p><strong>Type 134: Router Advertisement (RA)</strong></p>
+<pre><code>Code: 0
+Source: Router
+Destination: ff02::1 (all-nodes) or unicast
+Flags: M|O|H|Prf|P|R
+Options: 
+- Prefix Information
+- MTU
+- Source Link-Layer Address
+- Route Information
+- DNS Information (RFC 8106)
+</code></pre>
+<p><strong>Type 135: Neighbor Solicitation (NS)</strong></p>
+<pre><code>Code: 0
+Purpose: Address resolution, DAD, NUD
+Target: Solicited IPv6 address
+Options: Source Link-Layer Address
+</code></pre>
+<p><strong>Type 136: Neighbor Advertisement (NA)</strong></p>
+<pre><code>Code: 0
+Flags: R|S|O (Router|Solicited|Override)
+Target: IPv6 address being advertised
+Options: Target Link-Layer Address
+</code></pre>
+<p><strong>Type 137: Redirect</strong></p>
+<pre><code>Code: 0
+Source: Router only
+Purpose: Inform host of better next-hop
+Body: Target Address + Destination Address
+</code></pre>
+<h3 id="multicast-listener-discovery-mld"><a class="header" href="#multicast-listener-discovery-mld">Multicast Listener Discovery (MLD)</a></h3>
+<p><strong>Type 130: Multicast Listener Query</strong></p>
+<pre><code>Code: 0
+Versions: MLDv1 (RFC 2710), MLDv2 (RFC 3810)
+</code></pre>
+<p><strong>Type 131: Multicast Listener Report (MLDv1)</strong></p>
+<pre><code>Code: 0
+</code></pre>
+<p><strong>Type 132: Multicast Listener Done</strong></p>
+<pre><code>Code: 0
+</code></pre>
+<p><strong>Type 143: Multicast Listener Report (MLDv2)</strong></p>
+<pre><code>Code: 0
+</code></pre>
+<h3 id="secure-neighbor-discovery-send"><a class="header" href="#secure-neighbor-discovery-send">Secure Neighbor Discovery (SEND)</a></h3>
+<p><strong>Type 148: Certification Path Solicitation</strong>
+<strong>Type 149: Certification Path Advertisement</strong></p>
+<h3 id="other-important-types"><a class="header" href="#other-important-types">Other Important Types</a></h3>
+<p><strong>Type 138: Router Renumbering</strong></p>
+<pre><code>Code 0: Router Renumbering Command
+Code 1: Router Renumbering Result
+Code 255: Sequence Number Reset
+</code></pre>
+<p><strong>Type 139: Node Information Query</strong>
+<strong>Type 140: Node Information Response</strong></p>
+<p><strong>Type 141: Inverse ND Solicitation</strong>
+<strong>Type 142: Inverse ND Advertisement</strong></p>
+<h3 id="mobile-ipv6-types"><a class="header" href="#mobile-ipv6-types">Mobile IPv6 Types</a></h3>
+<p><strong>Type 144: Home Agent Address Discovery Request</strong>
+<strong>Type 145: Home Agent Address Discovery Reply</strong>
+<strong>Type 146: Mobile Prefix Solicitation</strong>
+<strong>Type 147: Mobile Prefix Advertisement</strong></p>
+<h3 id="rpl-routing-protocol-for-low-power"><a class="header" href="#rpl-routing-protocol-for-low-power">RPL (Routing Protocol for Low-Power)</a></h3>
+<p><strong>Type 155: RPL Control Message</strong></p>
+<h2 id="practical-examples"><a class="header" href="#practical-examples">Practical Examples</a></h2>
+<h3 id="1-capturing-icmpv6-with-tcpdump"><a class="header" href="#1-capturing-icmpv6-with-tcpdump">1. Capturing ICMPv6 with tcpdump:</a></h3>
+<pre><code class="language-bash"># All ICMPv6
+tcpdump -i eth0 icmp6
+
+# Specific types
+tcpdump -i eth0 'icmp6 and icmp6[0] == 134'  # Router Advertisements
+tcpdump -i eth0 'icmp6 and icmp6[0] == 135'  # Neighbor Solicitations
+</code></pre>
+<h3 id="2-generating-icmpv6-messages"><a class="header" href="#2-generating-icmpv6-messages">2. Generating ICMPv6 Messages:</a></h3>
+<pre><code class="language-bash"># Echo Request
+ping6 2001:db8::1
+
+# Router Solicitation
+rdisc6 eth0
+
+# Neighbor Discovery
+ndisc6 2001:db8::1 eth0
+</code></pre>
+<h3 id="3-common-wireshark-filters"><a class="header" href="#3-common-wireshark-filters">3. Common Wireshark Filters:</a></h3>
+<pre><code>icmpv6.type == 1              # Destination Unreachable
+icmpv6.type == 134            # Router Advertisement
+icmpv6.type == 135            # Neighbor Solicitation
+icmpv6.code == 0              # Specific code
+icmpv6.nd.flag.router         # RA with Router flag
+</code></pre>
+<h2 id="security-considerations"><a class="header" href="#security-considerations">Security Considerations</a></h2>
+<h3 id="icmpv6-filtering-firewall-best-practices"><a class="header" href="#icmpv6-filtering-firewall-best-practices">ICMPv6 Filtering Firewall Best Practices:</a></h3>
+<pre><code class="language-mikrotik"># Core router (firewall)
+/ipv6 firewall raw
+add chain=prerouting protocol=icmpv6 icmp-options=135:0 action=accept comment="Type 135: Neighbor Solicitation"
+add chain=prerouting protocol=icmpv6 icmp-options=136:0 action=accept comment="Type 136: Neighbor Advertisement"
+add chain=prerouting protocol=icmpv6 icmp-options=2:0 action=accept comment="Type 2: Packet Too Big"
+add chain=prerouting protocol=icmpv6 icmp-options=3:0-1 action=accept comment="Type 3: Time Exceeded"
+add chain=prerouting protocol=icmpv6 icmp-options=4:0-2 action=accept comment="Type 4: Parameter Problem"
+add chain=prerouting protocol=icmpv6 icmp-options=133:0 action=accept comment="Type 133: Router Solicitation"
+add chain=prerouting protocol=icmpv6 icmp-options=134:0 action=accept comment="Type 134: Router Advertisement"
+add chain=prerouting protocol=icmpv6 icmp-options=128:0 limit=10,5:packet action=accept comment="Type 128: Echo Request"
+add chain=prerouting protocol=icmpv6 icmp-options=129:0 action=accept comment="Type 129: Echo Reply"
+add chain=prerouting protocol=icmpv6 action=drop comment="Drop all other ICMPv6"
+</code></pre>
+<h3 id="icmpv6-filtering-ix-facing-edge-router-best-practices"><a class="header" href="#icmpv6-filtering-ix-facing-edge-router-best-practices">ICMPv6 Filtering IX-facing Edge Router Best Practices:</a></h3>
+<pre><code class="language-mikrotik"># Edge router (IX-facing interface protection)
+/ipv6 firewall raw
+# PREROUTING (Ingress from IX)
+add chain=prerouting in-interface=sfp-sfpplus1 protocol=icmpv6 icmp-options=133:0-137:0 hop-limit=not-equal:255 action=drop
+add chain=prerouting in-interface=sfp-sfpplus1 protocol=icmpv6 icmp-options=134:0 action=drop
+add chain=prerouting in-interface=sfp-sfpplus1 protocol=icmpv6 icmp-options=137:0 action=drop
+add chain=prerouting protocol=icmpv6 icmp-options=2:0 action=accept
+add chain=prerouting protocol=icmpv6 icmp-options=3:0-1 limit=50,20:packet action=accept
+add chain=prerouting protocol=icmpv6 icmp-options=4:0-2 limit=50,20:packet action=accept
+add chain=prerouting protocol=icmpv6 icmp-options=1:0-4 limit=50,20:packet action=accept
+add chain=prerouting protocol=icmpv6 icmp-options=135:0 action=accept
+add chain=prerouting protocol=icmpv6 icmp-options=136:0 action=accept
+add chain=prerouting protocol=icmpv6 icmp-options=128:0 limit=5,2:packet action=accept
+add chain=prerouting protocol=icmpv6 icmp-options=129:0 action=accept
+add chain=prerouting protocol=icmpv6 action=drop
+
+# OUTPUT (Egress to IX)
+add chain=output out-interface=sfp-sfpplus1 protocol=icmpv6 icmp-options=134:0 action=drop
+add chain=output out-interface=sfp-sfpplus1 protocol=icmpv6 icmp-options=137:0 action=drop
+add chain=output out-interface=sfp-sfpplus1 protocol=icmpv6 icmp-options=1:0-7 limit=50,20:packet action=accept
+add chain=output out-interface=sfp-sfpplus1 protocol=icmpv6 icmp-options=3:0-1 limit=50,20:packet action=accept
+add chain=output out-interface=sfp-sfpplus1 protocol=icmpv6 icmp-options=129:0 limit=5,2:packet action=accept
+add chain=output protocol=icmpv6 action=accept comment="Allow other ICMPv6 output"
+</code></pre>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li>ICMPv6 is mandatory for IPv6 operation (unlike ICMP in IPv4)</li>
+<li>Never block all ICMPv6 - it breaks IPv6</li>
+<li>Types 1-127 are errors, 128-255 are informational</li>
+<li>Neighbor Discovery (Types 133-137) is critical for IPv6</li>
+<li>Path MTU Discovery relies on Type 2 (Packet Too Big)</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../ipv6/ipv6.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../ipv6/addgen.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../ipv6/ipv6.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../ipv6/addgen.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

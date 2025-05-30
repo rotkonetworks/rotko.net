@@ -1,0 +1,533 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Subnetting - Rotko Networks infrastructure</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rotko Networks infrastructure</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ipv6-subnetting-and-prefix-delegation"><a class="header" href="#ipv6-subnetting-and-prefix-delegation">IPv6 Subnetting and Prefix Delegation</a></h1>
+<h2 id="ipv6-address-structure-review"><a class="header" href="#ipv6-address-structure-review">IPv6 Address Structure Review</a></h2>
+<h3 id="standard-allocation-hierarchy"><a class="header" href="#standard-allocation-hierarchy">Standard Allocation Hierarchy</a></h3>
+<pre><code>/32 → ISP allocation from RIR
+/48 → Customer site assignment
+/56 → Alternative for residential
+/64 → Single subnet (LAN)
+/128 → Host address
+
+Example breakdown:
+2001:db8:1234:5678::/64
+└──┘ └─┘ └──┘ └──┘
+ Global  Site  Subnet  Interface ID (64 bits)
+ Prefix  (/48) (/64)
+</code></pre>
+<h2 id="subnetting-fundamentals"><a class="header" href="#subnetting-fundamentals">Subnetting Fundamentals</a></h2>
+<h3 id="why-64-for-lans"><a class="header" href="#why-64-for-lans">Why /64 for LANs?</a></h3>
+<pre><code>- SLAAC requires exactly 64 bits for Interface ID
+- EUI-64 addressing expects 64-bit host portion
+- Privacy extensions assume 64-bit space
+- Neighbor Discovery optimized for /64
+</code></pre>
+<h3 id="planning-a-48-allocation"><a class="header" href="#planning-a-48-allocation">Planning a /48 Allocation</a></h3>
+<pre><code>2001:db8:abcd::/48 provides:
+- 65,536 possible /64 subnets (2^16)
+- Subnet bits: 48 to 64 (16 bits)
+
+Subnet examples:
+2001:db8:abcd:0000::/64 → First subnet
+2001:db8:abcd:0001::/64 → Second subnet
+2001:db8:abcd:ffff::/64 → Last subnet
+</code></pre>
+<h3 id="hierarchical-design-example"><a class="header" href="#hierarchical-design-example">Hierarchical Design Example</a></h3>
+<pre><code>2001:db8:abcd::/48 (Company allocation)
+    │
+    ├── 2001:db8:abcd:0000::/52 (Building A - 4096 subnets)
+    │   ├── 2001:db8:abcd:0000::/64 (Floor 1 VLAN 10)
+    │   ├── 2001:db8:abcd:0001::/64 (Floor 1 VLAN 20)
+    │   └── 2001:db8:abcd:000f::/64 (Floor 1 VLAN 160)
+    │
+    ├── 2001:db8:abcd:1000::/52 (Building B - 4096 subnets)
+    │
+    └── 2001:db8:abcd:f000::/52 (Reserved/Future)
+</code></pre>
+<h2 id="subnet-calculation-methods"><a class="header" href="#subnet-calculation-methods">Subnet Calculation Methods</a></h2>
+<h3 id="binary-method"><a class="header" href="#binary-method">Binary Method</a></h3>
+<pre><code>Base prefix: 2001:db8:abcd::/48
+Need: 8 subnets (requires 3 bits)
+
+Binary:
+0000 = 2001:db8:abcd:0000::/64
+0001 = 2001:db8:abcd:0001::/64
+0010 = 2001:db8:abcd:0002::/64
+...
+0111 = 2001:db8:abcd:0007::/64
+</code></pre>
+<h3 id="nibble-aligned-method-recommended"><a class="header" href="#nibble-aligned-method-recommended">Nibble-Aligned Method (Recommended)</a></h3>
+<pre><code>Work on 4-bit boundaries for readability:
+
+/48 to /52 = 1 hex digit (16 subnets)
+/48 to /56 = 2 hex digits (256 subnets)  
+/48 to /60 = 3 hex digits (4,096 subnets)
+
+Example:
+2001:db8:abcd:XY00::/56
+Where X and Y are variable hex digits
+</code></pre>
+<h2 id="dhcpv6-prefix-delegation-pd"><a class="header" href="#dhcpv6-prefix-delegation-pd">DHCPv6 Prefix Delegation (PD)</a></h2>
+<h3 id="how-dhcpv6-pd-works"><a class="header" href="#how-dhcpv6-pd-works">How DHCPv6-PD Works</a></h3>
+<pre><code>ISP Router (Delegating Router)          Customer Router (Requesting Router)
+    │                                              │
+    │←────────── DHCPv6 Solicit ──────────────────│
+    │            (IA_PD option)                    │
+    │                                              │
+    │─────────── DHCPv6 Advertise ────────────────→│
+    │         (Available prefix)                   │
+    │                                              │
+    │←────────── DHCPv6 Request ──────────────────│
+    │         (Request specific prefix)            │
+    │                                              │
+    │─────────── DHCPv6 Reply ────────────────────→│
+    │         (Delegated: 2001:db8:1234::/56)     │
+    │                                              │
+    └──────────────────────────────────────────────┘
+</code></pre>
+<h3 id="dhcpv6-pd-message-flow"><a class="header" href="#dhcpv6-pd-message-flow">DHCPv6-PD Message Flow</a></h3>
+<pre><code>1. CPE sends Solicit with IA_PD
+2. ISP sends Advertise with available prefix
+3. CPE sends Request for prefix
+4. ISP sends Reply with delegated prefix
+5. CPE subdivides prefix for local networks
+</code></pre>
+<h2 id="practical-configuration"><a class="header" href="#practical-configuration">Practical Configuration</a></h2>
+<h3 id="mikrotik-as-dhcpv6-pd-client"><a class="header" href="#mikrotik-as-dhcpv6-pd-client">MikroTik as DHCPv6-PD Client</a></h3>
+<pre><code class="language-mikrotik"># Configure DHCPv6 client to request prefix
+/ipv6 dhcp-client
+add interface=ether1-wan request=prefix pool-name=isp-pool \
+    add-default-route=yes use-peer-dns=yes
+
+# View received prefix
+/ipv6 dhcp-client print detail
+
+# Automatically assign /64s from pool
+/ipv6 address
+add interface=bridge-lan from-pool=isp-pool
+add interface=guest-vlan from-pool=isp-pool
+add interface=iot-vlan from-pool=isp-pool
+</code></pre>
+<h3 id="mikrotik-as-dhcpv6-pd-server"><a class="header" href="#mikrotik-as-dhcpv6-pd-server">MikroTik as DHCPv6-PD Server</a></h3>
+<pre><code class="language-mikrotik"># Configure prefix pool for delegation
+/ipv6 pool
+add name=customer-pd prefix=2001:db8::/32 prefix-length=56
+
+# Configure DHCPv6 server
+/ipv6 dhcp-server
+add name=pd-server interface=ether2-customers \
+    address-pool=static-only
+
+# Create binding for specific customer
+/ipv6 dhcp-server binding
+add address=2001:db8:abcd::/56 duid="00:03:00:01:aa:bb:cc:dd:ee:ff" \
+    server=pd-server
+</code></pre>
+<h3 id="linux-dhcpv6-pd-configuration"><a class="header" href="#linux-dhcpv6-pd-configuration">Linux DHCPv6-PD Configuration</a></h3>
+<p><strong>ISC DHCP Client (dhclient):</strong></p>
+<pre><code class="language-bash"># /etc/dhcp/dhclient6.conf
+interface "eth0" {
+    send ia-pd 0;
+}
+
+id-assoc pd 0 {
+    prefix-interface eth1 {
+        sla-id 0;
+        sla-len 8;  # /56 to /64
+    };
+    prefix-interface eth2 {
+        sla-id 1;
+        sla-len 8;
+    };
+};
+</code></pre>
+<p><strong>systemd-networkd:</strong></p>
+<pre><code class="language-ini"># /etc/systemd/network/wan.network
+[Network]
+DHCP=yes
+IPv6AcceptRA=yes
+
+[DHCPv6]
+PrefixDelegationHint=::/56
+
+# /etc/systemd/network/lan.network
+[Network]
+IPv6SendRA=yes
+DHCPv6PrefixDelegation=yes
+
+[DHCPv6PrefixDelegation]
+SubnetId=0x01
+Token=::1
+</code></pre>
+<h2 id="subnet-planning-best-practices"><a class="header" href="#subnet-planning-best-practices">Subnet Planning Best Practices</a></h2>
+<h3 id="enterprise-allocation-strategy"><a class="header" href="#enterprise-allocation-strategy">Enterprise Allocation Strategy</a></h3>
+<pre><code>2001:db8::/32 (ISP Block)
+    │
+    ├── 2001:db8:0000::/36 (Region 1)
+    │   ├── 2001:db8:0000::/40 (Country A)
+    │   │   ├── 2001:db8:0000::/44 (City 1)
+    │   │   │   └── 2001:db8:0000::/48 (Site 1)
+    │   │   └── 2001:db8:0010::/44 (City 2)
+    │   └── 2001:db8:0100::/40 (Country B)
+    │
+    └── 2001:db8:1000::/36 (Region 2)
+</code></pre>
+<h3 id="residential-planning-with-56"><a class="header" href="#residential-planning-with-56">Residential Planning with /56</a></h3>
+<pre><code>2001:db8:abcd::/56 from ISP
+    │
+    ├── 2001:db8:abcd:00::/64 - Main LAN
+    ├── 2001:db8:abcd:01::/64 - Guest Network
+    ├── 2001:db8:abcd:02::/64 - IoT Devices
+    ├── 2001:db8:abcd:03::/64 - Home Office
+    └── 2001:db8:abcd:ff::/64 - Management
+</code></pre>
+<h3 id="vlan-based-subnetting"><a class="header" href="#vlan-based-subnetting">VLAN-Based Subnetting</a></h3>
+<pre><code>Pattern: 2001:db8:abcd:VVVV::/64
+Where VVVV = VLAN ID in hex
+
+VLAN 10  → 2001:db8:abcd:000a::/64
+VLAN 20  → 2001:db8:abcd:0014::/64
+VLAN 100 → 2001:db8:abcd:0064::/64
+VLAN 200 → 2001:db8:abcd:00c8::/64
+</code></pre>
+<h2 id="advanced-dhcpv6-pd-features"><a class="header" href="#advanced-dhcpv6-pd-features">Advanced DHCPv6-PD Features</a></h2>
+<h3 id="prefix-stability-and-hints"><a class="header" href="#prefix-stability-and-hints">Prefix Stability and Hints</a></h3>
+<pre><code class="language-mikrotik"># Request specific prefix (hint)
+/ipv6 dhcp-client
+add interface=ether1 request=prefix \
+    prefix-hint=2001:db8:1234::/56
+
+# Server honors hints when possible
+/ipv6 dhcp-server binding
+add address=2001:db8:1234::/56 \
+    duid="00:03:00:01:aa:bb:cc:dd:ee:ff" \
+    prefer-lifetime=1w life-time=4w
+</code></pre>
+<h3 id="cascaded-prefix-delegation"><a class="header" href="#cascaded-prefix-delegation">Cascaded Prefix Delegation</a></h3>
+<pre><code>ISP → Customer CPE → Internal Routers
+
+ISP delegates /48 → CPE
+CPE delegates /56 → Dept Router A  
+CPE delegates /56 → Dept Router B
+
+Configuration:
+/ipv6 pool
+add name=downstream prefix-from-pool=isp-pool \
+    prefix-length=56
+</code></pre>
+<h3 id="dynamic-prefix-handling"><a class="header" href="#dynamic-prefix-handling">Dynamic Prefix Handling</a></h3>
+<pre><code class="language-mikrotik"># Script to handle prefix changes
+/system script
+add name=prefix-change source={
+    :local newPrefix [/ipv6 dhcp-client get 0 prefix]
+    :if ($newPrefix != $oldPrefix) do={
+        # Update DNS records
+        # Update firewall rules
+        # Notify monitoring system
+    }
+}
+
+# Trigger on prefix change
+/ipv6 dhcp-client
+set 0 script=prefix-change
+</code></pre>
+<h2 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h2>
+<h3 id="common-subnetting-mistakes"><a class="header" href="#common-subnetting-mistakes">Common Subnetting Mistakes</a></h3>
+<p><strong>Wrong subnet size:</strong></p>
+<pre><code class="language-bash"># Check actual prefix length
+ip -6 addr show | grep "scope global"
+
+# Verify SLAAC is working
+rdisc6 -1 eth0 | grep "Prefix"
+</code></pre>
+<p><strong>Overlapping subnets:</strong></p>
+<pre><code class="language-mikrotik"># Audit configuration
+/ipv6 address print
+/ipv6 route print where dst-address~"2001:db8"
+</code></pre>
+<h3 id="dhcpv6-pd-issues"><a class="header" href="#dhcpv6-pd-issues">DHCPv6-PD Issues</a></h3>
+<p><strong>No prefix received:</strong></p>
+<pre><code class="language-bash"># Enable DHCPv6 debugging
+dhclient -6 -d -v eth0
+
+# Check tcpdump
+tcpdump -i eth0 -n port 546 or port 547
+</code></pre>
+<p><strong>Prefix not subdivided:</strong></p>
+<pre><code class="language-mikrotik"># Check pool status
+/ipv6 pool print detail
+/ipv6 pool used print
+
+# Verify address assignment
+/ipv6 address print where from-pool!=none
+</code></pre>
+<h2 id="security-considerations"><a class="header" href="#security-considerations">Security Considerations</a></h2>
+<h3 id="prefix-delegation-security"><a class="header" href="#prefix-delegation-security">Prefix Delegation Security</a></h3>
+<pre><code class="language-mikrotik"># Secure DHCPv6-PD server
+/ipv6 firewall filter
+add chain=input protocol=udp dst-port=547 \
+    src-address=fe80::/10 action=accept \
+    comment="DHCPv6 from link-local only"
+
+# Rate limit DHCPv6
+add chain=input protocol=udp dst-port=547 \
+    limit=10,5:packet action=accept
+add chain=input protocol=udp dst-port=547 \
+    action=drop
+
+# Validate DUID bindings
+/ipv6 dhcp-server
+set 0 authoritative=yes address-pool=static-only
+</code></pre>
+<h3 id="subnet-isolation"><a class="header" href="#subnet-isolation">Subnet Isolation</a></h3>
+<pre><code class="language-mikrotik"># Prevent inter-subnet routing
+/ipv6 firewall filter
+add chain=forward src-address=2001:db8:abcd:1::/64 \
+    dst-address=2001:db8:abcd:2::/64 \
+    action=drop comment="Isolate VLAN1 from VLAN2"
+</code></pre>
+<h2 id="best-practices-summary"><a class="header" href="#best-practices-summary">Best Practices Summary</a></h2>
+<h3 id="do"><a class="header" href="#do">DO:</a></h3>
+<ul>
+<li>Use nibble boundaries (/48, /52, /56, /60, /64)</li>
+<li>Plan for growth (sparse allocation)</li>
+<li>Document allocation scheme</li>
+<li>Use /64 for all end-user LANs</li>
+<li>Implement prefix stability for DHCPv6-PD</li>
+<li>Monitor prefix utilization</li>
+</ul>
+<h3 id="dont"><a class="header" href="#dont">DON'T:</a></h3>
+<ul>
+<li>Use prefixes longer than /64 for SLAAC</li>
+<li>Assign sequentially (use sparse allocation)</li>
+<li>Forget reverse DNS delegation</li>
+<li>Mix allocation sizes unnecessarily</li>
+<li>Hardcode prefixes in applications</li>
+</ul>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li>IPv6 makes subnetting simpler (no variable masks)</li>
+<li>Always use /64 for host subnets</li>
+<li>DHCPv6-PD automates prefix distribution</li>
+<li>Plan hierarchically for scalability</li>
+<li>Nibble-aligned boundaries improve readability</li>
+<li>Prefix delegation enables dynamic networks</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../ipv6/ndp.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../ipv6/routing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../ipv6/ndp.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../ipv6/routing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

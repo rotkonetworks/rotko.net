@@ -1,0 +1,454 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Address Generation - Rotko Networks infrastructure</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rotko Networks infrastructure</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ipv6-address-generation"><a class="header" href="#ipv6-address-generation">IPv6 Address Generation</a></h1>
+<h2 id="overview-of-ipv6-address-types"><a class="header" href="#overview-of-ipv6-address-types">Overview of IPv6 Address Types</a></h2>
+<h3 id="address-hierarchy"><a class="header" href="#address-hierarchy">Address Hierarchy</a></h3>
+<pre><code>Link-Local (fe80::/10) → Always first, mandatory
+     ↓
+Global/ULA → Generated after link-local
+     ↓
+Temporary/Privacy → Optional privacy addresses
+</code></pre>
+<h2 id="link-local-address-generation"><a class="header" href="#link-local-address-generation">Link-Local Address Generation</a></h2>
+<h3 id="eui-64-method-traditional"><a class="header" href="#eui-64-method-traditional">EUI-64 Method (Traditional)</a></h3>
+<p><strong>Step 1: Start with MAC address</strong></p>
+<pre><code>MAC: 00:50:56:ab:cd:ef
+</code></pre>
+<p><strong>Step 2: Insert FFFE in the middle</strong></p>
+<pre><code>00:50:56:FF:FE:ab:cd:ef
+</code></pre>
+<p><strong>Step 3: Flip the 7th bit (U/L bit)</strong></p>
+<pre><code>00 = 00000000 → 00000010 = 02
+Result: 02:50:56:FF:FE:ab:cd:ef
+</code></pre>
+<p><strong>Step 4: Add link-local prefix</strong></p>
+<pre><code>fe80::0250:56ff:feab:cdef/64
+</code></pre>
+<h3 id="stable-privacy-addresses-rfc-8064"><a class="header" href="#stable-privacy-addresses-rfc-8064">Stable Privacy Addresses (RFC 8064)</a></h3>
+<p><strong>Modern method using hash function:</strong></p>
+<pre><code>Interface_ID = Hash(Prefix, Net_Iface, Network_ID, Secret_Key)
+
+Where:
+- Prefix = fe80::/64
+- Net_Iface = Interface index
+- Network_ID = Interface name/type
+- Secret_Key = Random value
+
+Result: fe80::8b0a:55e1:7dd0:d5be/64
+</code></pre>
+<h2 id="global-address-generation"><a class="header" href="#global-address-generation">Global Address Generation</a></h2>
+<h3 id="stateless-address-autoconfiguration-slaac"><a class="header" href="#stateless-address-autoconfiguration-slaac">Stateless Address Autoconfiguration (SLAAC)</a></h3>
+<p><strong>Step 1: Router Advertisement provides prefix</strong></p>
+<pre><code>Router Advertisement contains:
+- Prefix: 2001:db8:abc::/64
+- Valid Lifetime: 2592000 seconds (30 days)
+- Preferred Lifetime: 604800 seconds (7 days)
+- A-flag: 1 (use for SLAAC)
+- L-flag: 1 (on-link)
+</code></pre>
+<p><strong>Step 2: Host combines prefix with Interface ID</strong></p>
+<p>Method 1 - EUI-64:</p>
+<pre><code>Prefix:        2001:db8:abc::/64
+Interface ID:  0250:56ff:feab:cdef
+Result:        2001:db8:abc::250:56ff:feab:cdef/64
+</code></pre>
+<p>Method 2 - Stable Privacy:</p>
+<pre><code>Prefix:        2001:db8:abc::/64  
+Interface ID:  c3b:84cd:dc09:6d91
+Result:        2001:db8:abc:0:c3b:84cd:dc09:6d91/64
+</code></pre>
+<h3 id="privacytemporary-addresses-rfc-4941"><a class="header" href="#privacytemporary-addresses-rfc-4941">Privacy/Temporary Addresses (RFC 4941)</a></h3>
+<p><strong>Generate random Interface ID:</strong></p>
+<pre><code>1. Generate random 64-bit value
+2. Set universal/local bit to 0 (local)
+3. Ensure not duplicate on link
+
+Example: 2001:db8:abc:0:c8f9:5d72:3289:fee5/64
+
+Properties:
+- Valid lifetime: From RA
+- Preferred lifetime: Shorter (typically 1 day)
+- Regenerated before expiry
+</code></pre>
+<h2 id="complete-address-generation-process"><a class="header" href="#complete-address-generation-process">Complete Address Generation Process</a></h2>
+<h3 id="1-interface-initialization"><a class="header" href="#1-interface-initialization">1. Interface Initialization</a></h3>
+<pre><code>Interface comes up
+     ↓
+Generate link-local address
+     ↓
+Perform DAD on link-local
+     ↓
+Join multicast groups:
+- ff02::1 (all-nodes)
+- ff02::1:ffXX:XXXX (solicited-node)
+</code></pre>
+<h3 id="2-router-discovery"><a class="header" href="#2-router-discovery">2. Router Discovery</a></h3>
+<pre><code>Send Router Solicitation to ff02::2
+     ↓
+Receive Router Advertisement
+     ↓
+Process prefix information
+</code></pre>
+<h3 id="3-global-address-configuration"><a class="header" href="#3-global-address-configuration">3. Global Address Configuration</a></h3>
+<pre><code>For each prefix with A-flag:
+     ↓
+Generate Interface ID (EUI-64/Privacy/Stable)
+     ↓
+Combine with prefix
+     ↓
+Perform DAD
+     ↓
+Configure address if DAD succeeds
+</code></pre>
+<h3 id="4-address-states"><a class="header" href="#4-address-states">4. Address States</a></h3>
+<pre><code>Tentative → During DAD
+     ↓
+Valid/Preferred → Normal use
+     ↓
+Valid/Deprecated → Preferred lifetime expired
+     ↓
+Invalid → Valid lifetime expired
+</code></pre>
+<h2 id="duplicate-address-detection-dad"><a class="header" href="#duplicate-address-detection-dad">Duplicate Address Detection (DAD)</a></h2>
+<h3 id="dad-process"><a class="header" href="#dad-process">DAD Process</a></h3>
+<pre><code>1. Set address as tentative
+2. Join solicited-node multicast
+3. Send NS with:
+   - Source: ::
+   - Destination: ff02::1:ffXX:XXXX
+   - Target: Tentative address
+4. Wait for response (default 1 second)
+5. If no NA received → Address is unique
+6. If NA received → DAD failed
+</code></pre>
+<h3 id="dad-example-packet-flow"><a class="header" href="#dad-example-packet-flow">DAD Example Packet Flow</a></h3>
+<pre><code>Host → ff02::1:ff09:6d91: NS for 2001:db8:abc:0:c3b:84cd:dc09:6d91
+(No response)
+Host configures: 2001:db8:abc:0:c3b:84cd:dc09:6d91/64
+</code></pre>
+<h2 id="practical-examples"><a class="header" href="#practical-examples">Practical Examples</a></h2>
+<h3 id="linux-address-configuration"><a class="header" href="#linux-address-configuration">Linux Address Configuration</a></h3>
+<p><strong>View address generation methods:</strong></p>
+<pre><code class="language-bash"># Check current settings
+sysctl net.ipv6.conf.eth0.addr_gen_mode
+# 0 = EUI-64
+# 1 = Stable privacy
+# 2 = Random
+
+# Set stable privacy mode
+sysctl -w net.ipv6.conf.eth0.addr_gen_mode=1
+
+# Disable privacy extensions
+sysctl -w net.ipv6.conf.eth0.use_tempaddr=0
+</code></pre>
+<p><strong>Monitor address generation:</strong></p>
+<pre><code class="language-bash"># Watch addresses being configured
+ip -6 monitor address
+
+# Show all addresses with states
+ip -6 addr show dev eth0
+</code></pre>
+<h3 id="mikrotik-address-configuration"><a class="header" href="#mikrotik-address-configuration">MikroTik Address Configuration</a></h3>
+<pre><code class="language-mikrotik"># Configure interface for SLAAC
+/ipv6 address
+add interface=ether1 from-pool=dhcp-pool advertise=yes
+
+# Set EUI-64 mode
+/ipv6 settings
+set addr-gen-mode=eui-64
+
+# Enable/disable privacy addresses
+/interface ethernet
+set ether1 ipv6-address-generation-mode=stable-privacy
+</code></pre>
+<h2 id="address-generation-timeline"><a class="header" href="#address-generation-timeline">Address Generation Timeline</a></h2>
+<pre><code>T+0s:   Interface UP
+T+0s:   Generate fe80::xxxx:xxxx:xxxx:xxxx (link-local)
+T+0-1s: DAD for link-local
+T+1s:   Link-local address active
+T+1s:   Send RS to ff02::2
+T+1-2s: Receive RA with prefix 2001:db8:abc::/64
+T+2s:   Generate 2001:db8:abc::xxxx:xxxx:xxxx:xxxx
+T+2-3s: DAD for global address
+T+3s:   Global address active
+T+3s:   Generate temporary address (if enabled)
+T+3-4s: DAD for temporary address
+T+4s:   All addresses configured
+</code></pre>
+<h2 id="security-considerations"><a class="header" href="#security-considerations">Security Considerations</a></h2>
+<h3 id="address-scanning-implications"><a class="header" href="#address-scanning-implications">Address Scanning Implications</a></h3>
+<p><strong>EUI-64 addresses reveal:</strong></p>
+<ul>
+<li>MAC address (vendor identification)</li>
+<li>Device tracking possibility</li>
+<li>Predictable patterns</li>
+</ul>
+<p><strong>Privacy addresses provide:</strong></p>
+<ul>
+<li>No MAC correlation</li>
+<li>Harder to scan/track</li>
+<li>Changes over time</li>
+</ul>
+<h3 id="best-practices"><a class="header" href="#best-practices">Best Practices</a></h3>
+<pre><code class="language-mikrotik"># Configure secure defaults
+/ipv6 settings
+set addr-gen-mode=stable-privacy
+set accept-router-advertisements=yes-if-forwarding-disabled
+
+# Limit address generation
+/interface ethernet
+set ether1 ipv6-nd-managed-address-config=no
+set ether1 ipv6-nd-other-config=yes
+</code></pre>
+<h2 id="troubleshooting-address-generation"><a class="header" href="#troubleshooting-address-generation">Troubleshooting Address Generation</a></h2>
+<h3 id="common-issues"><a class="header" href="#common-issues">Common Issues</a></h3>
+<p><strong>No link-local address:</strong></p>
+<pre><code class="language-bash"># Check IPv6 is enabled
+sysctl net.ipv6.conf.eth0.disable_ipv6
+# Should be 0
+
+# Force regeneration
+ip link set eth0 down
+ip link set eth0 up
+</code></pre>
+<p><strong>No global address:</strong></p>
+<pre><code class="language-bash"># Check for RAs
+tcpdump -i eth0 -n icmp6 and ip6[40] == 134
+
+# Check RA settings
+rdisc6 eth0
+</code></pre>
+<p><strong>DAD failures:</strong></p>
+<pre><code class="language-bash"># Check for duplicates
+ip -6 neigh show | grep -i failed
+
+# Monitor DAD process
+tcpdump -i eth0 -n 'icmp6 and (ip6[40] == 135 or ip6[40] == 136)'
+</code></pre>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li>Link-local is always generated first</li>
+<li>Global addresses depend on Router Advertisements</li>
+<li>Multiple addresses per interface are normal</li>
+<li>Privacy addresses rotate periodically</li>
+<li>Modern systems prefer stable-privacy over EUI-64</li>
+<li>DAD ensures address uniqueness</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../ipv6/icmpv6.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../ipv6/ndp.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../ipv6/icmpv6.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../ipv6/ndp.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
