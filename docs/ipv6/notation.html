@@ -1,0 +1,521 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Notation - Rotko Networks infrastructure</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rotko Networks infrastructure</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ipv6-address-notation-and-route-summarization"><a class="header" href="#ipv6-address-notation-and-route-summarization">IPv6 Address Notation and Route Summarization</a></h1>
+<h2 id="ipv6-address-shortening-rules"><a class="header" href="#ipv6-address-shortening-rules">IPv6 Address Shortening Rules</a></h2>
+<h3 id="rule-1-leading-zero-suppression"><a class="header" href="#rule-1-leading-zero-suppression">Rule 1: Leading Zero Suppression</a></h3>
+<pre><code>Remove leading zeros in each 16-bit field:
+2001:0db8:0000:0001:0000:0000:0000:0001
+2001:db8:0:1:0:0:0:1
+</code></pre>
+<h3 id="rule-2-consecutive-zero-compression"><a class="header" href="#rule-2-consecutive-zero-compression">Rule 2: Consecutive Zero Compression</a></h3>
+<pre><code>Replace one sequence of consecutive zeros with ::
+2001:db8:0:1:0:0:0:1
+2001:db8:0:1::1
+
+Rules:
+- Use :: only once per address
+- Choose longest sequence of zeros
+- If equal length, use leftmost
+</code></pre>
+<h3 id="common-examples"><a class="header" href="#common-examples">Common Examples</a></h3>
+<pre><code>Full:       2001:0db8:0000:0000:0000:0000:0000:0001
+Shortened:  2001:db8::1
+
+Full:       fe80:0000:0000:0000:0204:61ff:fe9d:f156
+Shortened:  fe80::204:61ff:fe9d:f156
+
+Full:       2001:0db8:0000:0001:0000:0000:0000:0000
+Shortened:  2001:db8:0:1::
+
+Full:       0000:0000:0000:0000:0000:0000:0000:0001
+Shortened:  ::1 (loopback)
+
+Full:       0000:0000:0000:0000:0000:0000:0000:0000
+Shortened:  :: (unspecified)
+</code></pre>
+<h3 id="mixed-notation-ipv4-mapped"><a class="header" href="#mixed-notation-ipv4-mapped">Mixed Notation (IPv4-Mapped)</a></h3>
+<pre><code>Full IPv6:      0000:0000:0000:0000:0000:ffff:c000:0201
+IPv4-mapped:    ::ffff:192.0.2.1
+                       └─ 192.0.2.1 in hex: c000:0201
+</code></pre>
+<h2 id="route-summarization"><a class="header" href="#route-summarization">Route Summarization</a></h2>
+<h3 id="binary-boundary-method"><a class="header" href="#binary-boundary-method">Binary Boundary Method</a></h3>
+<pre><code>Networks to summarize:
+2001:db8:0000::/48
+2001:db8:0001::/48
+2001:db8:0002::/48
+2001:db8:0003::/48
+
+Binary analysis:
+0000 = 0000
+0001 = 0001
+0002 = 0010
+0003 = 0011
+       ^^-- These 2 bits differ
+
+Summary: 2001:db8::/46 (covers 0000-0003)
+</code></pre>
+<h3 id="nibble-aligned-summarization"><a class="header" href="#nibble-aligned-summarization">Nibble-Aligned Summarization</a></h3>
+<pre><code>Prefer 4-bit boundaries for readability:
+
+Single hex digit (/48 → /44):
+2001:db8:0000::/48 through 2001:db8:000f::/48
+Summary: 2001:db8::/44
+
+Two hex digits (/48 → /40):
+2001:db8:0000::/48 through 2001:db8:00ff::/48
+Summary: 2001:db8::/40
+</code></pre>
+<h3 id="practical-summarization-examples"><a class="header" href="#practical-summarization-examples">Practical Summarization Examples</a></h3>
+<p><strong>Example 1: Customer Blocks</strong></p>
+<pre><code>Customer allocations:
+2001:db8:1000::/48
+2001:db8:1001::/48
+2001:db8:1002::/48
+2001:db8:1003::/48
+
+Summary: 2001:db8:1000::/46
+
+MikroTik implementation:
+/ipv6 route
+add dst-address=2001:db8:1000::/46 blackhole
+</code></pre>
+<p><strong>Example 2: Regional Aggregation</strong></p>
+<pre><code>City allocations:
+2001:db8:0000::/44  Chicago (16 /48s)
+2001:db8:0010::/44  Detroit (16 /48s)
+2001:db8:0020::/44  Cleveland (16 /48s)
+2001:db8:0030::/44  Columbus (16 /48s)
+
+Regional summary: 2001:db8::/40 (256 /48s)
+</code></pre>
+<p><strong>Example 3: ISP Aggregation</strong></p>
+<pre><code>Customer assignments:
+2001:db8:8000::/33  Business customers
+2001:db8:0000::/33  Residential customers
+
+ISP advertisement: 2001:db8::/32
+</code></pre>
+<h2 id="route-dampening"><a class="header" href="#route-dampening">Route Dampening</a></h2>
+<h3 id="bgp-route-dampening-concepts"><a class="header" href="#bgp-route-dampening-concepts">BGP Route Dampening Concepts</a></h3>
+<pre><code>Penalty values:
+- Route flap (withdraw/announce): 1000
+- Attribute change: 500
+
+Thresholds:
+- Suppress limit: 2000
+- Reuse limit: 750
+- Half-life: 15 minutes
+- Max suppress time: 60 minutes
+</code></pre>
+<h3 id="mikrotik-bgp-dampening-configuration"><a class="header" href="#mikrotik-bgp-dampening-configuration">MikroTik BGP Dampening Configuration</a></h3>
+<pre><code class="language-mikrotik"># Create dampening profile
+/routing filter rule
+add chain=bgp-in-v6 \
+    rule="if (dst-len &gt; 48) { 
+        set bgp-weight=0;
+        set damping='yes';
+        accept; 
+    }"
+
+# Configure dampening parameters
+/routing bgp dampening
+set enabled=yes \
+    suppress-threshold=2000 \
+    reuse-threshold=750 \
+    half-life=15m \
+    max-suppress-time=60m
+
+# View dampened routes
+/routing bgp dampening-path print
+</code></pre>
+<h3 id="route-flap-detection"><a class="header" href="#route-flap-detection">Route Flap Detection</a></h3>
+<pre><code class="language-mikrotik"># Monitor flapping routes
+/routing bgp advertisements print where withdrawn-count &gt; 5
+
+# Log excessive updates
+/routing filter rule
+add chain=bgp-in-v6 \
+    rule="if (bgp-path-peer-update-count &gt; 100) { 
+        log warning 'Excessive updates from peer'; 
+        # &amp; alert pipeline
+    }"
+</code></pre>
+<h2 id="advanced-summarization-techniques"><a class="header" href="#advanced-summarization-techniques">Advanced Summarization Techniques</a></h2>
+<h3 id="efficient-allocation-planning"><a class="header" href="#efficient-allocation-planning">Efficient Allocation Planning</a></h3>
+<pre><code>ISP receives: 2001:db8::/32
+
+Plan with sparse allocation:
+2001:db8:0000::/36  Region 1 (future: /35)
+2001:db8:2000::/36  Region 2 (future: /35)
+2001:db8:4000::/36  Region 3 (future: /35)
+2001:db8:6000::/36  Region 4 (future: /35)
+2001:db8:8000::/36  Infrastructure
+2001:db8:f000::/36  Reserved
+
+Allows growth without renumbering
+</code></pre>
+<h3 id="hierarchical-summarization"><a class="header" href="#hierarchical-summarization">Hierarchical Summarization</a></h3>
+<pre><code>Level 1: ISP advertises /32
+Level 2: Regions advertise /36
+Level 3: Cities advertise /40
+Level 4: Districts advertise /44
+Level 5: Customers receive /48
+
+Each level summarizes downstream
+</code></pre>
+<h3 id="conditional-advertisement"><a class="header" href="#conditional-advertisement">Conditional Advertisement</a></h3>
+<pre><code class="language-mikrotik"># Advertise summary only if components exist
+/routing filter rule
+add chain=bgp-out-v6 \
+    rule="if (dst == 2001:db8::/32) {
+        if (2001:db8:0::/48 in routing-table || \
+            2001:db8:1::/48 in routing-table) {
+            accept;
+        }
+        reject;
+    }"
+</code></pre>
+<h2 id="special-cases-and-gotchas"><a class="header" href="#special-cases-and-gotchas">Special Cases and Gotchas</a></h2>
+<h3 id="ambiguous-compression"><a class="header" href="#ambiguous-compression">Ambiguous Compression</a></h3>
+<pre><code>2001:0:0:1:0:0:0:1 can be:
+- 2001::1:0:0:0:1
+- 2001:0:0:1::1 (correct - longest zero sequence)
+
+Rule: Compress longest sequence
+</code></pre>
+<h3 id="link-local-with-zone-id"><a class="header" href="#link-local-with-zone-id">Link-Local with Zone ID</a></h3>
+<pre><code>fe80::1%ether1
+       └─ Zone identifier required for link-local
+       
+Cannot be shortened further
+</code></pre>
+<h3 id="prefix-length-notation"><a class="header" href="#prefix-length-notation">Prefix Length Notation</a></h3>
+<pre><code>Correct:
+2001:db8::/32
+2001:db8::1/128
+
+Incorrect:
+2001:db8/32 (missing ::)
+2001:db8::/32/64 (double prefix)
+</code></pre>
+<h2 id="practical-tools-and-verification"><a class="header" href="#practical-tools-and-verification">Practical Tools and Verification</a></h2>
+<h3 id="mikrotik-address-verification"><a class="header" href="#mikrotik-address-verification">MikroTik Address Verification</a></h3>
+<pre><code class="language-mikrotik"># Verify address notation
+/ipv6 address add address=2001:db8::1/64 interface=ether1
+
+# Check normalized form
+/ipv6 address print detail
+
+# Test summarization
+/ipv6 route add dst-address=2001:db8::/46 blackhole
+/ipv6 route check 2001:db8:1::1
+</code></pre>
+<h3 id="linux-tools"><a class="header" href="#linux-tools">Linux Tools</a></h3>
+<pre><code class="language-bash"># Normalize address
+ipcalc -6 2001:0db8:0000:0000:0000:0000:0000:0001
+2001:db8::1
+
+# Calculate summary
+ipv6calc --addr 2001:db8:0::/48 --printprefix --maskprefix=46
+2001:db8::/46
+
+# Verify route coverage
+ip -6 route get 2001:db8:2::1
+</code></pre>
+<h3 id="python-quick-scripts"><a class="header" href="#python-quick-scripts">Python Quick Scripts</a></h3>
+<pre><code class="language-python"># Address shortening
+import ipaddress
+addr = ipaddress.IPv6Address('2001:0db8:0000:0001:0000:0000:0000:0001')
+print(addr.compressed)  # 2001:db8:0:1::1
+
+# Route summarization
+networks = [
+    ipaddress.IPv6Network('2001:db8:0::/48'),
+    ipaddress.IPv6Network('2001:db8:1::/48'),
+    ipaddress.IPv6Network('2001:db8:2::/48'),
+    ipaddress.IPv6Network('2001:db8:3::/48')
+]
+summary = ipaddress.collapse_addresses(networks)
+print(list(summary))  # [IPv6Network('2001:db8::/46')]
+</code></pre>
+<h2 id="common-mistakes-and-solutions"><a class="header" href="#common-mistakes-and-solutions">Common Mistakes and Solutions</a></h2>
+<h3 id="over-summarization"><a class="header" href="#over-summarization">Over-Summarization</a></h3>
+<pre><code>Problem: Advertising 2001:db8::/32 when only using 2001:db8:0::/48
+Result: Blackholing traffic to unallocated space
+
+Solution:
+/ipv6 route
+add dst-address=2001:db8::/32 blackhole
+add dst-address=2001:db8:0::/48 gateway=fe80::1%ether1
+</code></pre>
+<h3 id="under-summarization"><a class="header" href="#under-summarization">Under-Summarization</a></h3>
+<pre><code>Problem: Advertising all /48s individually
+Result: Bloated routing tables
+
+Solution: Aggregate at boundaries
+/routing filter rule
+add chain=bgp-out \
+    rule="if (dst in 2001:db8::/32 &amp;&amp; dst-len &gt; 32) { 
+        reject; 
+    }"
+</code></pre>
+<h3 id="dampening-too-aggressive"><a class="header" href="#dampening-too-aggressive">Dampening Too Aggressive</a></h3>
+<pre><code>Problem: Legitimate route changes suppressed
+Result: Extended outages
+
+Solution: Tune parameters
+/routing bgp dampening
+set suppress-threshold=3000 \
+    reuse-threshold=1000 \
+    half-life=20m
+</code></pre>
+<h2 id="best-practices-summary"><a class="header" href="#best-practices-summary">Best Practices Summary</a></h2>
+<h3 id="address-notation"><a class="header" href="#address-notation">Address Notation</a></h3>
+<ul>
+<li>Always use compressed format in configurations</li>
+<li>Be consistent within documentation</li>
+<li>Include prefix length explicitly</li>
+<li>Use lowercase hexadecimal (RFC 5952)</li>
+</ul>
+<h3 id="summarization"><a class="header" href="#summarization">Summarization</a></h3>
+<ul>
+<li>Align on nibble boundaries when possible</li>
+<li>Plan for growth with sparse allocation</li>
+<li>Summarize at administrative boundaries</li>
+<li>Never summarize beyond allocation</li>
+</ul>
+<h3 id="dampening"><a class="header" href="#dampening">Dampening</a></h3>
+<ul>
+<li>Start with conservative values</li>
+<li>Monitor impact before tightening</li>
+<li>Exclude critical prefixes</li>
+<li>Consider per-peer policies</li>
+</ul>
+<p><strong>Key Points:</strong></p>
+<ul>
+<li>Master the two shortening rules</li>
+<li>Summarize on binary boundaries</li>
+<li>Use nibble alignment for readability</li>
+<li>Implement dampening carefully</li>
+<li>Always verify summarization coverage</li>
+<li>Plan addressing for aggregation</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../ipv6/ipv6.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../ipv6/icmpv6.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../ipv6/ipv6.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../ipv6/icmpv6.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
