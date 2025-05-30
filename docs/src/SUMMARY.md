@@ -25,6 +25,7 @@
   - [241219 - Network Outage](./network_outage_pm_241219.md)
   - [250306 - Network Outage](./network_outage_pm_250306.md)
 - [IPv6](./ipv6/ipv6.md)
+  - [Notation](./ipv6/notation.md)
   - [ICMPv6](./ipv6/icmpv6.md)
   - [Address Generation](./ipv6/addgen.md)
   - [NDP](./ipv6/ndp.md)

@@ -1,31 +1,27 @@
 # Introduction
-At Rotko Networks, our commitment to powering the development
-and deployment of decentralized applications within the Web3 ecosystem is
-unwavering. In achieving this, we are dedicated to providing an infrastructure
-that encapsulates robust hardware, optimized to deliver top-tier performance
-while ensuring minimal memory latency.
+These docs are open draft space of chief operator officer and not necessarily
+uptodate deployed setup in production. We are in process of moving docs into 
+website/blog format so treat info here as raw as hackmd posts.
 
-Our approach to building this infrastructure transcends the conventional focus
-on computational capabilities. We place a similar, if not greater, emphasis on
-storage solutions, integrating high-speed data access systems that boast
-minimal latency. Furthermore, we integrate technology that guarantees data
-integrity, adding another layer of trust to our operations.
+Expect low level mumbling about internet technologies as well as hardware spcecs
+of infra we have built ourselves part by part in place to meet the unconvetional
+specs for server world that hosting web3 succesfully requires.
+Most important components for blockchain perfomance are memory and especially
+storage for merkle trie state as well as high clock speed CPU.
 
-Our server's network robustness is another aspect we can't overemphasize. It's
-equipped with cutting-edge features that ensure seamless, swift, and efficient
-data transfer. This is a key facet of our system, as it contributes
-significantly to a smooth, unbroken service for end users.
+Some rule of a thumb when looking components for validator infra, you want CPU
+capable to function at 5GHz(singlethread performance in cpubenhcmark +3k),
+at least pcie4.0 nvme with constant performance of 1800MB/s(usually marketed
+with temporary cahce performance 7000MB/s). Ideally collators/blockbuilder
+should be run with pcie5/pcie6 and executed with multiple cores/validators.
 
-Recognizing the heavy-duty nature of blockchain operations, we've carefully
-selected components for our server that not only meet the demand for
-resource-intensive applications but also have the capacity to exceed these
-requirements.
+Random Access Memory, better known RAM, should be functioning at 4800MHz,
+meaning you can only use single stick per CPU because motherboards controller 
+is not able to deliver enough voltage for more.
+For example running all 4 slots in AM5 motherboards limits performance of RAM
+to only 3600MHz instead of functioning at full 4800-6000MHz.
 
-In the following sections, we'll delve into the specifics of the hardware that
-forms the backbone of our infrastructure, discussing their features,
-capabilities, and the reasons they've been chosen for our server operations.
-
-Join us as we take a detailed look at our server infrastructure, designed and
-engineered to promote growth and foster innovation in the Web3 ecosystem.
-Prepare for an insightful journey into the hardware specifics that power Rotko
-Networks. Stay tuned!
+Polkadot new relaychain JAM specs are going to be 16 core 5GHz SMT disabled CPU,
+8 TB of NVMe, 64GB DDR5 and networking at ~500Mbits having global routing table
+without too over subscribed routes since networking is not anymore gossip based
+but direct authenticated point to point.
