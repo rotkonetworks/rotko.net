@@ -28,3 +28,5 @@
   - [ICMPv6](./ipv6/icmpv6.md)
   - [Address Generation](./ipv6/addgen.md)
   - [NDP](./ipv6/ndp.md)
+  - [Subnetting](./ipv6/subnetting.md)
+  - [Routing](./ipv6/routing.md)
