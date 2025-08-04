@@ -37,6 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc.js"></script>
@@ -93,10 +94,13 @@
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
+                sidebar_toggle.checked = false;
             }
-            sidebar_toggle.checked = sidebar === 'visible';
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
@@ -147,7 +151,12 @@
 
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -979,6 +988,46 @@ uplinks.</p>
 <li>MED (Multi-Exit Discriminator): Lower values are preferred. Used to influence inbound traffic when other attributes are equal.</li>
 <li>AS Path Prepending: Increases AS path length to make a route less preferred. Used for coarse control of inbound traffic.</li>
 </ol>
+<h2 id="hgc-circuit-configuration-for-rotko-networks-oÜ"><a class="header" href="#hgc-circuit-configuration-for-rotko-networks-oÜ">HGC Circuit Configuration for ROTKO NETWORKS OÜ</a></h2>
+<p>The following circuits terminate at STT Bangkok 1 Data Center, MMR 3A facility
+in Bangkok, Thailand. All circuits are delivered to ROTKO NETWORKS OÜ
+infrastructure.</p>
+<h3 id="primary-transit-circuits"><a class="header" href="#primary-transit-circuits">Primary Transit Circuits</a></h3>
+<p><strong>Circuit PP9094729 (OTT00003347)</strong></p>
+<ul>
+<li>Service: 400M (Burst to 800M) Thailand IPTx FOB Hong Kong</li>
+<li>Delivery: Customer Headend #2 (PEH8001159)</li>
+<li><strong>VLAN: 2519</strong></li>
+<li>Status: Hot upgrade + renewal</li>
+</ul>
+<p><strong>Circuit PP9094730 (OTT00003348)</strong></p>
+<ul>
+<li>Service: 400M (Burst to 800M) Thailand IPTx FOB Singapore</li>
+<li>Delivery: Customer Headend #1 (PEH8001158)</li>
+<li><strong>VLAN: 2520</strong></li>
+<li>Status: Hot upgrade + renewal</li>
+</ul>
+<h3 id="backup-circuits"><a class="header" href="#backup-circuits">Backup Circuits</a></h3>
+<p><strong>Circuit PP9094735 (OTT00003349)</strong></p>
+<ul>
+<li>Service: 800M Leased Line Internet Service FOB Thailand (Backup)</li>
+<li>Delivery: Customer Headend #1 (PEH8001158)</li>
+<li><strong>VLAN: 2517</strong></li>
+<li>Status: Hot upgrade + renewal</li>
+</ul>
+<p><strong>Circuit PP9094736 (OTT00003350)</strong></p>
+<ul>
+<li>Service: 800M Leased Line Internet Service FOB Thailand (Backup)</li>
+<li>Delivery: Customer Headend #2 (PEH8001159)</li>
+<li><strong>VLAN: 2518</strong></li>
+<li>Status: Hot upgrade + renewal</li>
+</ul>
+<h3 id="configuration-validation"><a class="header" href="#configuration-validation">Configuration Validation</a></h3>
+<pre><code>BKK00: HK-HGC-IPTx-vlan2519 (Primary HK - PEH8001159)
+BKK00: SG-HGC-IPTx-backup-vlan2518 (Backup SG - PEH8001159)
+BKK20: SG-HGC-IPTx-vlan2520 (Primary SG - PEH8001158)  
+BKK20: HK-HGC-IPTx-backup-vlan2517 (Backup HK - PEH8001158)
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="firmware-updates"><a class="header" href="#firmware-updates">Firmware Updates</a></h1>
 <h2 id="samsung-980pro-nvme"><a class="header" href="#samsung-980pro-nvme">Samsung 980Pro NVMe</a></h2>
 <pre><code class="language-bash">wget https://semiconductor.samsung.com/resources/software-resources/Samsung_SSD_980_PRO_5B2QGXA7.iso
@@ -1969,6 +2018,7 @@ pip install ledgerblue
             window.setTimeout(window.print, 100);
         });
         </script>
+
 
     </div>
     </body>
