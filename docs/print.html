@@ -1826,9 +1826,10 @@ session, providing true high availability for our validation services.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="post-mortem-anycast-ip-1602218181-unreachable-from-internet"><a class="header" href="#post-mortem-anycast-ip-1602218181-unreachable-from-internet">post mortem: anycast ip 160.22.181.81 unreachable from internet</a></h1>
 <h2 id="tldr"><a class="header" href="#tldr">tldr</a></h2>
 <p><strong>problem:</strong> external users couldn't reach anycast ip 160.22.181.81 despite correct bgp announcements<br />
-<strong>root cause:</strong> anycast ip commented out in bkk06 interface config, bird announcing as unreachable<br />
-<strong>fix:</strong> uncommented ip in <code>/etc/network/interfaces</code>, cleaned duplicate routing table entries, restarted bird<br />
-<strong>result:</strong> external connectivity restored in &lt;5 minutes<br />
+<strong>root cause:</strong> anycast ip commented out in bkk06 interface config, bird announcing as unreachable, routing table corruption preventing bird reloads<br />
+<strong>immediate fix:</strong> uncommented ip in <code>/etc/network/interfaces</code>, cleaned duplicate routing table entries, restarted bird<br />
+<strong>systematic fix:</strong> updated network config generator to prevent routing table corruption and improve anycast management<br />
+<strong>result:</strong> external connectivity restored in &lt;5 minutes, prevention system deployed<br />
 <strong>action items:</strong> configure redundant anycast instances on bkk07/bkk08, add external monitoring</p>
 <hr />
 <h2 id="problem-statement"><a class="header" href="#problem-statement">problem statement</a></h2>
@@ -1869,73 +1870,100 @@ session, providing true high availability for our validation services.</p>
 </ul>
 </li>
 <li>
-<p><strong>routing table corruption</strong></p>
+<p><strong>routing table corruption preventing bird reloads</strong></p>
 <ul>
-<li><code>/etc/iproute2/rt_tables</code> had multiple duplicate entries causing bird reload failures</li>
+<li><code>/etc/iproute2/rt_tables</code> had multiple duplicate entries:</li>
+</ul>
+<pre><code class="language-bash">100 anycast
+100 public  
+100 anycast
+100 anycast  # ... 6+ duplicates
+</code></pre>
+<ul>
+<li>caused bird reload failures: <code>already defined</code> errors</li>
+<li>accumulated from repeated network interface restarts</li>
 </ul>
 </li>
 </ol>
 <h2 id="changes-implemented"><a class="header" href="#changes-implemented">changes implemented</a></h2>
-<h3 id="1-fixed-interface-configuration"><a class="header" href="#1-fixed-interface-configuration">1. fixed interface configuration</a></h3>
-<p>uncommented the anycast ip in <code>/etc/network/interfaces</code>:</p>
+<h3 id="1-immediate-fix---restored-connectivity"><a class="header" href="#1-immediate-fix---restored-connectivity">1. immediate fix - restored connectivity</a></h3>
+<p><strong>fixed interface configuration:</strong></p>
 <pre><code class="language-bash"># before
 #up ip addr add 160.22.181.81/32 dev lo
 
 # after  
 up ip addr add 160.22.181.81/32 dev lo
 </code></pre>
-<p>applied immediately:</p>
-<pre><code class="language-bash">ip addr add 160.22.181.81/32 dev lo
-ifreload -a
-</code></pre>
-<h3 id="2-cleaned-routing-table-duplicates"><a class="header" href="#2-cleaned-routing-table-duplicates">2. cleaned routing table duplicates</a></h3>
-<p>fixed <code>/etc/iproute2/rt_tables</code> from:</p>
-<pre><code class="language-bash">100 anycast
-100 public  
-100 anycast
-100 anycast
-# ... multiple duplicates
-</code></pre>
-<p>to clean version:</p>
-<pre><code class="language-bash">255	local
+<p><strong>cleaned routing table duplicates:</strong></p>
+<pre><code class="language-bash"># removed duplicates, restored clean version
+255	local
 254	main
 253	default
 0	unspec
 100	anycast
 </code></pre>
-<h3 id="3-restarted-bird-daemon"><a class="header" href="#3-restarted-bird-daemon">3. restarted bird daemon</a></h3>
+<p><strong>restarted bird daemon:</strong></p>
 <pre><code class="language-bash">systemctl restart bird
 </code></pre>
-<p>bird's direct protocol automatically detected the newly configured interface ip
-and began announcing 160.22.181.81 as reachable instead of unreachable.</p>
+<p>bird's direct protocol automatically detected the newly configured interface ip and began announcing 160.22.181.81 as reachable.</p>
+<h3 id="2-systematic-fix---prevention-system"><a class="header" href="#2-systematic-fix---prevention-system">2. systematic fix - prevention system</a></h3>
+<p><strong>updated network config generator</strong> (<a href="https://github.com/rotkonetworks/networking/commit/7f3da69e6e0d2002fbc08ce06f819cffb9a90196">commit 7f3da69</a>):</p>
+<p><strong>prevented duplicate routing table entries:</strong></p>
+<pre><code class="language-bash"># old (caused duplicates on every interface restart)
+up echo "100 anycast" &gt;&gt; /etc/iproute2/rt_tables 2&gt;/dev/null || true
+
+# new (checks before adding)
+add_rt_table() {
+  local table_id="$1" table_name="$2"
+  echo "up grep -q \"^${table_id}[[:space:]]${table_name}\" /etc/iproute2/rt_tables || echo \"${table_id} ${table_name}\" &gt;&gt; /etc/iproute2/rt_tables"
+}
+</code></pre>
+<p><strong>improved anycast source routing:</strong></p>
+<ul>
+<li>only creates anycast routing table when anycast IPs are configured</li>
+<li>proper load balancing across route reflectors</li>
+<li>comprehensive cleanup rules prevent rule accumulation</li>
+</ul>
+<p><strong>enhanced bond configuration:</strong></p>
+<ul>
+<li>changed default from <code>802.3ad</code> to <code>active-backup</code> for better compatibility</li>
+<li>fixed interface naming for split uplink configurations</li>
+</ul>
 <h2 id="verification"><a class="header" href="#verification">verification</a></h2>
-<p>after changes:</p>
+<p><strong>immediate results:</strong></p>
 <ul>
 <li>external ping to 160.22.181.81 successful (62ms response time)</li>
 <li>bird status clean with no configuration errors</li>
 <li>bgp advertisements showing proper reachable routes</li>
+</ul>
+<p><strong>systematic prevention:</strong></p>
+<ul>
+<li>network interface restarts no longer accumulate routing table entries</li>
+<li>bird configuration reloads work reliably</li>
+<li>anycast routing properly configured with failover capabilities</li>
 </ul>
 <h2 id="lessons-learned"><a class="header" href="#lessons-learned">lessons learned</a></h2>
 <h3 id="configuration-management-issues"><a class="header" href="#configuration-management-issues">configuration management issues</a></h3>
 <ul>
 <li>critical services had commented-out configuration</li>
 <li>no monitoring to detect interface ip mismatches vs bgp announcements</li>
-<li>accumulated config debris (duplicate routing table entries)</li>
+<li>accumulated config debris from repeated interface operations</li>
+<li><strong>fixed:</strong> automated config generation prevents manual configuration drift</li>
 </ul>
 <h3 id="anycast-design-gaps"><a class="header" href="#anycast-design-gaps">anycast design gaps</a></h3>
 <ul>
 <li>only one server (bkk06) configured for the anycast ip</li>
 <li>no failover capability - single point of failure</li>
-<li>need to configure 160.22.181.81 on multiple servers (bkk07, bkk08) for true anycast</li>
+<li><strong>fixing:</strong> systematic anycast deployment across multiple servers</li>
 </ul>
 <h3 id="monitoring-blindspots"><a class="header" href="#monitoring-blindspots">monitoring blindspots</a></h3>
 <ul>
 <li>edge router bgp announcements showed "valid" but didn't detect local unreachability</li>
 <li>missing end-to-end connectivity monitoring from external vantage points</li>
-<li>no alerting on interface configuration drift</li>
+<li>no alerting on interface configuration drift vs bgp announcements</li>
 </ul>
 <h2 id="recommendations"><a class="header" href="#recommendations">recommendations</a></h2>
-<h3 id="immediate-already-resolved"><a class="header" href="#immediate-already-resolved">immediate (already resolved)</a></h3>
+<h3 id="immediate-completed"><a class="header" href="#immediate-completed">immediate (completed)</a></h3>
 <ul>
 <li><input disabled="" type="checkbox" checked=""/>
 configure anycast ip on interface</li>
@@ -1943,11 +1971,13 @@ configure anycast ip on interface</li>
 clean routing table duplicates</li>
 <li><input disabled="" type="checkbox" checked=""/>
 restart bird daemon</li>
+<li><input disabled="" type="checkbox" checked=""/>
+deploy systematic fix to prevent recurrence</li>
 </ul>
 <h3 id="short-term"><a class="header" href="#short-term">short term</a></h3>
 <ul>
 <li><input disabled="" type="checkbox"/>
-configure 160.22.181.81 on bkk07 and bkk08 for redundancy</li>
+configure 160.22.181.81 on bkk07 and bkk08 for redundancy using updated config generator</li>
 <li><input disabled="" type="checkbox"/>
 test failover scenarios (shutdown bkk06, verify traffic shifts)</li>
 <li><input disabled="" type="checkbox"/>
@@ -1956,18 +1986,37 @@ add external monitoring for anycast ips</li>
 <h3 id="long-term"><a class="header" href="#long-term">long term</a></h3>
 <ul>
 <li><input disabled="" type="checkbox"/>
-implement configuration management system</li>
+implement configuration drift detection</li>
 <li><input disabled="" type="checkbox"/>
 add monitoring for interface vs bgp announcement consistency</li>
 <li><input disabled="" type="checkbox"/>
 document anycast ip allocation and server responsibilities</li>
 <li><input disabled="" type="checkbox"/>
 create runbooks for anycast troubleshooting</li>
+<li><input disabled="" type="checkbox"/>
+automated anycast health checking and failover testing</li>
 </ul>
 <h2 id="technical-details-2"><a class="header" href="#technical-details-2">technical details</a></h2>
-<h3 id="bgp-filtering-rules"><a class="header" href="#bgp-filtering-rules">bgp filtering rules</a></h3>
-<p>during investigation, we also consolidated ibgp gateway filtering rules to use
-address lists instead of individual vlan rules:</p>
+<h3 id="updated-network-configuration-generator"><a class="header" href="#updated-network-configuration-generator">updated network configuration generator</a></h3>
+<p><strong>key improvements:</strong></p>
+<ul>
+<li><strong>duplicate prevention:</strong> routing table entries checked before addition</li>
+<li><strong>anycast routing:</strong> proper source-based routing with load balancing</li>
+<li><strong>cleanup automation:</strong> comprehensive rule cleanup prevents accumulation</li>
+<li><strong>bond compatibility:</strong> improved defaults for diverse network environments</li>
+</ul>
+<p><strong>anycast source routing example:</strong></p>
+<pre><code class="language-bash"># creates anycast table only when needed
+add_rt_table "100" "anycast"
+
+# load balancing across route reflectors  
+post-up ip route add default table anycast nexthop via 10.155.106.0 weight 1 nexthop via 10.155.206.0 weight 1
+
+# source-based routing for anycast traffic
+post-up ip rule add from 160.22.181.81 table anycast priority 100
+</code></pre>
+<h3 id="bgp-filtering-optimization"><a class="header" href="#bgp-filtering-optimization">bgp filtering optimization</a></h3>
+<p>during investigation, we also consolidated ibgp gateway filtering rules:</p>
 <p><strong>bkk20 (blocks vlans 106,107,108):</strong></p>
 <pre><code class="language-bash">/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.106.0/24
 /ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.107.0/24  
@@ -1978,8 +2027,12 @@ address lists instead of individual vlan rules:</p>
 /ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.207.0/24
 /ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.208.0/24
 </code></pre>
-<p>this prevents routing loops through non-existent local vlans while maintaining
-proper ibgp route reflection behavior.</p>
+<p>prevents routing loops through non-existent local vlans while maintaining proper ibgp route reflection behavior.</p>
+<h2 id="impact-3"><a class="header" href="#impact-3">impact</a></h2>
+<p><strong>service restoration:</strong> external connectivity to anycast services restored within 5 minutes<br />
+<strong>reliability improvement:</strong> eliminated recurring bird configuration failures<br />
+<strong>operational efficiency:</strong> automated configuration management reduces manual intervention<br />
+<strong>scalability:</strong> systematic anycast deployment enables rapid service expansion</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="penumbra"><a class="header" href="#penumbra">Penumbra</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ledger-penumbra-development-setup-guide"><a class="header" href="#ledger-penumbra-development-setup-guide">Ledger Penumbra Development Setup Guide</a></h1>
 <p>This guide covers setting up the Penumbra app for Ledger hardware wallets on Linux and macOS. Tested successfully only on NixOS so message me out if you spot any faults in it. It's also good to note out that you should probably be quite advanced computer user to participate in testing the hardware wallet this early.</p>
