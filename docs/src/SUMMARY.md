@@ -25,5 +25,6 @@
   - [241219 - Network Outage](./network_outage_pm_241219.md)
   - [250306 - Network Outage](./network_outage_pm_250306.md)
   - [250619 - Validator Downtime](./validator_downtime_250619.md)
+  - [250806 - Anycast unreachable](./pm_anycast_unreachable.md)
 - [Penumbra](./penumbra.md)
   - [ledger-development-setup](./ledger-development-setup.md)
