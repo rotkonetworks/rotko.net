@@ -1823,6 +1823,163 @@ timeslots</li>
 <p>The dual monitoring approach ensures immediate detection of failures. Automated
 failover implementation will reduce outage duration from hours to single
 session, providing true high availability for our validation services.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="post-mortem-anycast-ip-1602218181-unreachable-from-internet"><a class="header" href="#post-mortem-anycast-ip-1602218181-unreachable-from-internet">post mortem: anycast ip 160.22.181.81 unreachable from internet</a></h1>
+<h2 id="tldr"><a class="header" href="#tldr">tldr</a></h2>
+<p><strong>problem:</strong> external users couldn't reach anycast ip 160.22.181.81 despite correct bgp announcements<br />
+<strong>root cause:</strong> anycast ip commented out in bkk06 interface config, bird announcing as unreachable<br />
+<strong>fix:</strong> uncommented ip in <code>/etc/network/interfaces</code>, cleaned duplicate routing table entries, restarted bird<br />
+<strong>result:</strong> external connectivity restored in &lt;5 minutes<br />
+<strong>action items:</strong> configure redundant anycast instances on bkk07/bkk08, add external monitoring</p>
+<hr />
+<h2 id="problem-statement"><a class="header" href="#problem-statement">problem statement</a></h2>
+<p>external users could not ping 160.22.181.81 from the internet, despite:</p>
+<ul>
+<li>aggregate 160.22.180.0/23 being properly announced to upstream providers</li>
+<li>internal ibgp routing showing correct paths to the anycast ip</li>
+<li>no obvious bgp or routing issues at the edge</li>
+</ul>
+<h2 id="investigation-timeline"><a class="header" href="#investigation-timeline">investigation timeline</a></h2>
+<h3 id="initial-analysis"><a class="header" href="#initial-analysis">initial analysis</a></h3>
+<ul>
+<li>confirmed aggregate announcement to upstreams (amsix, hgc, bknix)</li>
+<li>verified internal routing table showed 160.22.181.81/32 via 10.155.206.1 (bkk06)</li>
+<li>ping from edge routers (bkk00/bkk20) to 160.22.181.81 failed with timeouts</li>
+<li>discovered icmp redirects when pinging from bkk06 itself</li>
+</ul>
+<h3 id="root-cause-discovery"><a class="header" href="#root-cause-discovery">root cause discovery</a></h3>
+<p>investigation of bkk06 configuration revealed multiple issues:</p>
+<ol>
+<li>
+<p><strong>anycast ip not configured on interface</strong></p>
+<ul>
+<li><code>/etc/network/interfaces</code> had the line commented out:</li>
+</ul>
+<pre><code class="language-bash">#up ip addr add 160.22.181.81/32 dev lo
+</code></pre>
+</li>
+<li>
+<p><strong>bird announcing unreachable route</strong></p>
+<ul>
+<li>bird static configuration had:</li>
+</ul>
+<pre><code class="language-bash">route 160.22.181.81/32 unreachable;
+</code></pre>
+<ul>
+<li>this caused bird to announce the route but blackhole traffic locally</li>
+</ul>
+</li>
+<li>
+<p><strong>routing table corruption</strong></p>
+<ul>
+<li><code>/etc/iproute2/rt_tables</code> had multiple duplicate entries causing bird reload failures</li>
+</ul>
+</li>
+</ol>
+<h2 id="changes-implemented"><a class="header" href="#changes-implemented">changes implemented</a></h2>
+<h3 id="1-fixed-interface-configuration"><a class="header" href="#1-fixed-interface-configuration">1. fixed interface configuration</a></h3>
+<p>uncommented the anycast ip in <code>/etc/network/interfaces</code>:</p>
+<pre><code class="language-bash"># before
+#up ip addr add 160.22.181.81/32 dev lo
+
+# after  
+up ip addr add 160.22.181.81/32 dev lo
+</code></pre>
+<p>applied immediately:</p>
+<pre><code class="language-bash">ip addr add 160.22.181.81/32 dev lo
+ifreload -a
+</code></pre>
+<h3 id="2-cleaned-routing-table-duplicates"><a class="header" href="#2-cleaned-routing-table-duplicates">2. cleaned routing table duplicates</a></h3>
+<p>fixed <code>/etc/iproute2/rt_tables</code> from:</p>
+<pre><code class="language-bash">100 anycast
+100 public  
+100 anycast
+100 anycast
+# ... multiple duplicates
+</code></pre>
+<p>to clean version:</p>
+<pre><code class="language-bash">255	local
+254	main
+253	default
+0	unspec
+100	anycast
+</code></pre>
+<h3 id="3-restarted-bird-daemon"><a class="header" href="#3-restarted-bird-daemon">3. restarted bird daemon</a></h3>
+<pre><code class="language-bash">systemctl restart bird
+</code></pre>
+<p>bird's direct protocol automatically detected the newly configured interface ip
+and began announcing 160.22.181.81 as reachable instead of unreachable.</p>
+<h2 id="verification"><a class="header" href="#verification">verification</a></h2>
+<p>after changes:</p>
+<ul>
+<li>external ping to 160.22.181.81 successful (62ms response time)</li>
+<li>bird status clean with no configuration errors</li>
+<li>bgp advertisements showing proper reachable routes</li>
+</ul>
+<h2 id="lessons-learned"><a class="header" href="#lessons-learned">lessons learned</a></h2>
+<h3 id="configuration-management-issues"><a class="header" href="#configuration-management-issues">configuration management issues</a></h3>
+<ul>
+<li>critical services had commented-out configuration</li>
+<li>no monitoring to detect interface ip mismatches vs bgp announcements</li>
+<li>accumulated config debris (duplicate routing table entries)</li>
+</ul>
+<h3 id="anycast-design-gaps"><a class="header" href="#anycast-design-gaps">anycast design gaps</a></h3>
+<ul>
+<li>only one server (bkk06) configured for the anycast ip</li>
+<li>no failover capability - single point of failure</li>
+<li>need to configure 160.22.181.81 on multiple servers (bkk07, bkk08) for true anycast</li>
+</ul>
+<h3 id="monitoring-blindspots"><a class="header" href="#monitoring-blindspots">monitoring blindspots</a></h3>
+<ul>
+<li>edge router bgp announcements showed "valid" but didn't detect local unreachability</li>
+<li>missing end-to-end connectivity monitoring from external vantage points</li>
+<li>no alerting on interface configuration drift</li>
+</ul>
+<h2 id="recommendations"><a class="header" href="#recommendations">recommendations</a></h2>
+<h3 id="immediate-already-resolved"><a class="header" href="#immediate-already-resolved">immediate (already resolved)</a></h3>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+configure anycast ip on interface</li>
+<li><input disabled="" type="checkbox" checked=""/>
+clean routing table duplicates</li>
+<li><input disabled="" type="checkbox" checked=""/>
+restart bird daemon</li>
+</ul>
+<h3 id="short-term"><a class="header" href="#short-term">short term</a></h3>
+<ul>
+<li><input disabled="" type="checkbox"/>
+configure 160.22.181.81 on bkk07 and bkk08 for redundancy</li>
+<li><input disabled="" type="checkbox"/>
+test failover scenarios (shutdown bkk06, verify traffic shifts)</li>
+<li><input disabled="" type="checkbox"/>
+add external monitoring for anycast ips</li>
+</ul>
+<h3 id="long-term"><a class="header" href="#long-term">long term</a></h3>
+<ul>
+<li><input disabled="" type="checkbox"/>
+implement configuration management system</li>
+<li><input disabled="" type="checkbox"/>
+add monitoring for interface vs bgp announcement consistency</li>
+<li><input disabled="" type="checkbox"/>
+document anycast ip allocation and server responsibilities</li>
+<li><input disabled="" type="checkbox"/>
+create runbooks for anycast troubleshooting</li>
+</ul>
+<h2 id="technical-details-2"><a class="header" href="#technical-details-2">technical details</a></h2>
+<h3 id="bgp-filtering-rules"><a class="header" href="#bgp-filtering-rules">bgp filtering rules</a></h3>
+<p>during investigation, we also consolidated ibgp gateway filtering rules to use
+address lists instead of individual vlan rules:</p>
+<p><strong>bkk20 (blocks vlans 106,107,108):</strong></p>
+<pre><code class="language-bash">/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.106.0/24
+/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.107.0/24  
+/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.108.0/24
+</code></pre>
+<p><strong>bkk00 (blocks vlans 206,207,208):</strong></p>
+<pre><code class="language-bash">/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.206.0/24
+/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.207.0/24
+/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.208.0/24
+</code></pre>
+<p>this prevents routing loops through non-existent local vlans while maintaining
+proper ibgp route reflection behavior.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="penumbra"><a class="header" href="#penumbra">Penumbra</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ledger-penumbra-development-setup-guide"><a class="header" href="#ledger-penumbra-development-setup-guide">Ledger Penumbra Development Setup Guide</a></h1>
 <p>This guide covers setting up the Penumbra app for Ledger hardware wallets on Linux and macOS. Tested successfully only on NixOS so message me out if you spot any faults in it. It's also good to note out that you should probably be quite advanced computer user to participate in testing the hardware wallet this early.</p>

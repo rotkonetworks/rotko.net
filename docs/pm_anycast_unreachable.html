@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>250619 - Validator Downtime - Rotko Networks infrastructure</title>
+        <title>250806 - Anycast unreachable - Rotko Networks infrastructure</title>
 
 
         <!-- Custom HTML head -->
@@ -175,73 +175,173 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="kusama-validator-outage-post-mortem-era-8219"><a class="header" href="#kusama-validator-outage-post-mortem-era-8219">Kusama Validator Outage Post-Mortem: Era 8,219</a></h1>
-<p><strong>Validator</strong>: rotko.net/ksm02
-<strong>Stash</strong>: DKKax6uZkiNPfd2ATd8cJhyi3c1KZD24VDdoWG9CfTmwgSp</p>
-<h3 id="summary-complete-validator-outage-occurred-at-era-8219-lasting-6"><a class="header" href="#summary-complete-validator-outage-occurred-at-era-8219-lasting-6">Summary Complete validator outage occurred at era 8,219, lasting 6</a></h3>
-<p>consecutive sessions. Root cause: physical power disconnection on bkk04 (7950X)
-during maintenance combined with monitoring blind spot.</p>
-<h3 id="impact"><a class="header" href="#impact">Impact</a></h3>
+                        <h1 id="post-mortem-anycast-ip-1602218181-unreachable-from-internet"><a class="header" href="#post-mortem-anycast-ip-1602218181-unreachable-from-internet">post mortem: anycast ip 160.22.181.81 unreachable from internet</a></h1>
+<h2 id="tldr"><a class="header" href="#tldr">tldr</a></h2>
+<p><strong>problem:</strong> external users couldn't reach anycast ip 160.22.181.81 despite correct bgp announcements<br />
+<strong>root cause:</strong> anycast ip commented out in bkk06 interface config, bird announcing as unreachable<br />
+<strong>fix:</strong> uncommented ip in <code>/etc/network/interfaces</code>, cleaned duplicate routing table entries, restarted bird<br />
+<strong>result:</strong> external connectivity restored in &lt;5 minutes<br />
+<strong>action items:</strong> configure redundant anycast instances on bkk07/bkk08, add external monitoring</p>
+<hr />
+<h2 id="problem-statement"><a class="header" href="#problem-statement">problem statement</a></h2>
+<p>external users could not ping 160.22.181.81 from the internet, despite:</p>
 <ul>
-<li>6 consecutive sessions(over 2eras) offline (no signing/voting/backing/block production)</li>
-<li>Complete loss of validator duties during outage period</li>
+<li>aggregate 160.22.180.0/23 being properly announced to upstream providers</li>
+<li>internal ibgp routing showing correct paths to the anycast ip</li>
+<li>no obvious bgp or routing issues at the edge</li>
 </ul>
-<h3 id="root-cause-analysis"><a class="header" href="#root-cause-analysis">Root Cause Analysis</a></h3>
-<ol>
-<li><strong>Hardware failure</strong>: Power cable disconnection on bkk04 during routine
-maintenance. 1U form factor precludes redundant PSU configuration.</li>
-<li><strong>Monitoring failure</strong>: Node excluded from Prometheus configuration, creating
-visibility gap. No alerts triggered during outage.</li>
-</ol>
-<h3 id="immediate-actions"><a class="header" href="#immediate-actions">Immediate Actions</a></h3>
+<h2 id="investigation-timeline"><a class="header" href="#investigation-timeline">investigation timeline</a></h2>
+<h3 id="initial-analysis"><a class="header" href="#initial-analysis">initial analysis</a></h3>
 <ul>
-<li>Migrated validation from failed bkk04 (7950X) to higher performance server
-(9950X on bkk03)</li>
-<li>Scheduled onsite assessment for 2025-06-20</li>
+<li>confirmed aggregate announcement to upstreams (amsix, hgc, bknix)</li>
+<li>verified internal routing table showed 160.22.181.81/32 via 10.155.206.1 (bkk06)</li>
+<li>ping from edge routers (bkk00/bkk20) to 160.22.181.81 failed with timeouts</li>
+<li>discovered icmp redirects when pinging from bkk06 itself</li>
 </ul>
-<h3 id="corrective-measures-implemented"><a class="header" href="#corrective-measures-implemented">Corrective Measures Implemented</a></h3>
+<h3 id="root-cause-discovery"><a class="header" href="#root-cause-discovery">root cause discovery</a></h3>
+<p>investigation of bkk06 configuration revealed multiple issues:</p>
 <ol>
-<li><strong>Dual monitoring system</strong>:
+<li>
+<p><strong>anycast ip not configured on interface</strong></p>
 <ul>
-<li>Direct node metrics monitoring (CPU, memory, network, sync status)</li>
-<li>Performance monitoring via forked turboflakes API with custom Prometheus
-exporter (era points, backing performance, block production)</li>
+<li><code>/etc/network/interfaces</code> had the line commented out:</li>
+</ul>
+<pre><code class="language-bash">#up ip addr add 160.22.181.81/32 dev lo
+</code></pre>
+</li>
+<li>
+<p><strong>bird announcing unreachable route</strong></p>
+<ul>
+<li>bird static configuration had:</li>
+</ul>
+<pre><code class="language-bash">route 160.22.181.81/32 unreachable;
+</code></pre>
+<ul>
+<li>this caused bird to announce the route but blackhole traffic locally</li>
 </ul>
 </li>
-<li><strong>Redundancy</strong>: Two independent monitoring paths ensure failure detection
-even if one system fails</li>
-<li><strong>Configuration audit</strong>: All active validators now properly configured in
-both monitoring systems</li>
-</ol>
-<h3 id="future-prevention--automated-failover"><a class="header" href="#future-prevention--automated-failover">Future Prevention &amp; Automated Failover</a></h3>
+<li>
+<p><strong>routing table corruption</strong></p>
 <ul>
-<li>Enhanced physical maintenance protocols to prevent cable disconnections</li>
-<li>Automated configuration validation for monitoring systems</li>
-<li><strong>Automated Failover System</strong> (in development):
-<ul>
-<li>Trigger: MVR=1 (100% missed votes) for single session</li>
-<li>30-second polling interval via turboflakes API</li>
-<li>Automatic session key rotation to backup node</li>
-<li>Maximum 1-2 session downtime (rotation delay only)</li>
-<li>30-minute cooldown prevents flip-flopping</li>
-<li>Eliminates manual detection and reaction window at possibly error prone
-timeslots</li>
+<li><code>/etc/iproute2/rt_tables</code> had multiple duplicate entries causing bird reload failures</li>
 </ul>
 </li>
+</ol>
+<h2 id="changes-implemented"><a class="header" href="#changes-implemented">changes implemented</a></h2>
+<h3 id="1-fixed-interface-configuration"><a class="header" href="#1-fixed-interface-configuration">1. fixed interface configuration</a></h3>
+<p>uncommented the anycast ip in <code>/etc/network/interfaces</code>:</p>
+<pre><code class="language-bash"># before
+#up ip addr add 160.22.181.81/32 dev lo
+
+# after  
+up ip addr add 160.22.181.81/32 dev lo
+</code></pre>
+<p>applied immediately:</p>
+<pre><code class="language-bash">ip addr add 160.22.181.81/32 dev lo
+ifreload -a
+</code></pre>
+<h3 id="2-cleaned-routing-table-duplicates"><a class="header" href="#2-cleaned-routing-table-duplicates">2. cleaned routing table duplicates</a></h3>
+<p>fixed <code>/etc/iproute2/rt_tables</code> from:</p>
+<pre><code class="language-bash">100 anycast
+100 public  
+100 anycast
+100 anycast
+# ... multiple duplicates
+</code></pre>
+<p>to clean version:</p>
+<pre><code class="language-bash">255	local
+254	main
+253	default
+0	unspec
+100	anycast
+</code></pre>
+<h3 id="3-restarted-bird-daemon"><a class="header" href="#3-restarted-bird-daemon">3. restarted bird daemon</a></h3>
+<pre><code class="language-bash">systemctl restart bird
+</code></pre>
+<p>bird's direct protocol automatically detected the newly configured interface ip
+and began announcing 160.22.181.81 as reachable instead of unreachable.</p>
+<h2 id="verification"><a class="header" href="#verification">verification</a></h2>
+<p>after changes:</p>
+<ul>
+<li>external ping to 160.22.181.81 successful (62ms response time)</li>
+<li>bird status clean with no configuration errors</li>
+<li>bgp advertisements showing proper reachable routes</li>
 </ul>
-<p>The dual monitoring approach ensures immediate detection of failures. Automated
-failover implementation will reduce outage duration from hours to single
-session, providing true high availability for our validation services.</p>
+<h2 id="lessons-learned"><a class="header" href="#lessons-learned">lessons learned</a></h2>
+<h3 id="configuration-management-issues"><a class="header" href="#configuration-management-issues">configuration management issues</a></h3>
+<ul>
+<li>critical services had commented-out configuration</li>
+<li>no monitoring to detect interface ip mismatches vs bgp announcements</li>
+<li>accumulated config debris (duplicate routing table entries)</li>
+</ul>
+<h3 id="anycast-design-gaps"><a class="header" href="#anycast-design-gaps">anycast design gaps</a></h3>
+<ul>
+<li>only one server (bkk06) configured for the anycast ip</li>
+<li>no failover capability - single point of failure</li>
+<li>need to configure 160.22.181.81 on multiple servers (bkk07, bkk08) for true anycast</li>
+</ul>
+<h3 id="monitoring-blindspots"><a class="header" href="#monitoring-blindspots">monitoring blindspots</a></h3>
+<ul>
+<li>edge router bgp announcements showed "valid" but didn't detect local unreachability</li>
+<li>missing end-to-end connectivity monitoring from external vantage points</li>
+<li>no alerting on interface configuration drift</li>
+</ul>
+<h2 id="recommendations"><a class="header" href="#recommendations">recommendations</a></h2>
+<h3 id="immediate-already-resolved"><a class="header" href="#immediate-already-resolved">immediate (already resolved)</a></h3>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+configure anycast ip on interface</li>
+<li><input disabled="" type="checkbox" checked=""/>
+clean routing table duplicates</li>
+<li><input disabled="" type="checkbox" checked=""/>
+restart bird daemon</li>
+</ul>
+<h3 id="short-term"><a class="header" href="#short-term">short term</a></h3>
+<ul>
+<li><input disabled="" type="checkbox"/>
+configure 160.22.181.81 on bkk07 and bkk08 for redundancy</li>
+<li><input disabled="" type="checkbox"/>
+test failover scenarios (shutdown bkk06, verify traffic shifts)</li>
+<li><input disabled="" type="checkbox"/>
+add external monitoring for anycast ips</li>
+</ul>
+<h3 id="long-term"><a class="header" href="#long-term">long term</a></h3>
+<ul>
+<li><input disabled="" type="checkbox"/>
+implement configuration management system</li>
+<li><input disabled="" type="checkbox"/>
+add monitoring for interface vs bgp announcement consistency</li>
+<li><input disabled="" type="checkbox"/>
+document anycast ip allocation and server responsibilities</li>
+<li><input disabled="" type="checkbox"/>
+create runbooks for anycast troubleshooting</li>
+</ul>
+<h2 id="technical-details"><a class="header" href="#technical-details">technical details</a></h2>
+<h3 id="bgp-filtering-rules"><a class="header" href="#bgp-filtering-rules">bgp filtering rules</a></h3>
+<p>during investigation, we also consolidated ibgp gateway filtering rules to use
+address lists instead of individual vlan rules:</p>
+<p><strong>bkk20 (blocks vlans 106,107,108):</strong></p>
+<pre><code class="language-bash">/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.106.0/24
+/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.107.0/24  
+/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.108.0/24
+</code></pre>
+<p><strong>bkk00 (blocks vlans 206,207,208):</strong></p>
+<pre><code class="language-bash">/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.206.0/24
+/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.207.0/24
+/ip/firewall/address-list/add list=ibgp-block-gw-v4 address=10.155.208.0/24
+</code></pre>
+<p>this prevents routing loops through non-existent local vlans while maintaining
+proper ibgp route reflection behavior.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="network_outage_pm_250306.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="validator_downtime_250619.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="pm_anycast_unreachable.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="penumbra.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -251,11 +351,11 @@ session, providing true high availability for our validation services.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="network_outage_pm_250306.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="validator_downtime_250619.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="pm_anycast_unreachable.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="penumbra.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
