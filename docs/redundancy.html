@@ -1,0 +1,464 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Redundancy - Rotko Networks infrastructure</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rotko Networks infrastructure</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ibp-rank-6-network-infrastructure-documentation"><a class="header" href="#ibp-rank-6-network-infrastructure-documentation">IBP Rank 6 Network Infrastructure Documentation</a></h1>
+<h2 id="rotko-networks-oÜ-as142108"><a class="header" href="#rotko-networks-oÜ-as142108">ROTKO NETWORKS OÜ (AS142108)</a></h2>
+<h3 id="executive-summary"><a class="header" href="#executive-summary">Executive Summary</a></h3>
+<p>ROTKO NETWORKS operates a highly redundant, carrier-grade network infrastructure
+in Bangkok, Thailand, designed to meet and exceed IBP Rank 6 requirements. Our
+infrastructure features full redundancy at every layer - from multiple 10G/100G
+transit connections to redundant route reflectors, hypervisors, and storage
+systems.</p>
+<h2 id="network-architecture-overview"><a class="header" href="#network-architecture-overview">Network Architecture Overview</a></h2>
+<h3 id="core-routing-infrastructure"><a class="header" href="#core-routing-infrastructure">Core Routing Infrastructure</a></h3>
+<p>Our network utilizes a hierarchical BGP architecture with dedicated route
+reflectors providing redundancy and scalability:</p>
+<h4 id="route-reflectors-core-routers"><a class="header" href="#route-reflectors-core-routers">Route Reflectors (Core Routers)</a></h4>
+<ul>
+<li>
+<p><strong>BKK00</strong> (CCR2216-1G-12XS-2XQ) - Primary Route Reflector</p>
+<ul>
+<li>Router ID: 10.155.255.4</li>
+<li>100G connections to edge routers</li>
+<li>Multiple 10G transit/IX connections</li>
+</ul>
+</li>
+<li>
+<p><strong>BKK20</strong> (CCR2216-1G-12XS-2XQ) - Secondary Route Reflector</p>
+<ul>
+<li>Router ID: 10.155.255.2</li>
+<li>100G connections to edge routers</li>
+<li>Diverse 10G transit/IX connections</li>
+</ul>
+</li>
+</ul>
+<p>Both route reflectors run iBGP with full mesh connectivity and serve as
+aggregation points for external BGP sessions.</p>
+<h3 id="layer-2-switching-infrastructure"><a class="header" href="#layer-2-switching-infrastructure">Layer 2 Switching Infrastructure</a></h3>
+<h4 id="core-switches"><a class="header" href="#core-switches">Core Switches</a></h4>
+<ul>
+<li><strong>BKK30</strong> (CRS504-4XQ) - 4x100G QSFP28 switch</li>
+<li><strong>BKK40</strong> (CRS504-4XQ) - 4x100G QSFP28 switch</li>
+<li><strong>BKK10</strong> (CCR2216-1G-12XS-4XQ) - 4xSFP+ 25G 12x 1G (fallback for 100G)</li>
+<li><strong>BKK60</strong> (CRS354-48G-4S+2Q+) - 48x1G + 4xSFP+ + 2xQSFP+ switch (reserved)</li>
+<li><strong>BKK50</strong> (CCR2004-16G-2S+) - Management network</li>
+</ul>
+<p>These switches provide Q-in-Q VLAN tagging for service isolation and traffic segregation.</p>
+<h2 id="multi-layer-redundancy-architecture"><a class="header" href="#multi-layer-redundancy-architecture">Multi-Layer Redundancy Architecture</a></h2>
+<h3 id="1-physical-layer-redundancy"><a class="header" href="#1-physical-layer-redundancy">1. Physical Layer Redundancy</a></h3>
+<h4 id="diverse-fiber-paths"><a class="header" href="#diverse-fiber-paths">Diverse Fiber Paths</a></h4>
+<ul>
+<li><strong>3x Independent 10G fiber uplinks</strong> from different carriers</li>
+<li><strong>Physically diverse cable routes</strong> to prevent simultaneous cuts</li>
+<li><strong>Multiple cross-connects</strong> within the data center</li>
+<li><strong>Dual power feeds</strong> to all critical equipment</li>
+</ul>
+<h4 id="hardware-redundancy"><a class="header" href="#hardware-redundancy">Hardware Redundancy</a></h4>
+<ul>
+<li><strong>Dual PSU</strong> on all servers and network equipment</li>
+<li><strong>Hot-swappable components</strong> (fans, PSUs, drives)</li>
+<li><strong>N+1 cooling</strong> in server chassis</li>
+<li><strong>Spare equipment</strong> pre-racked for rapid replacement</li>
+</ul>
+<h3 id="2-network-layer-redundancy"><a class="header" href="#2-network-layer-redundancy">2. Network Layer Redundancy</a></h3>
+<h4 id="transit-diversity"><a class="header" href="#transit-diversity">Transit Diversity</a></h4>
+<p>Our multi-homed architecture eliminates single points of failure:</p>
+<p><strong>Primary Transit - HGC (AS9304)</strong></p>
+<pre><code>Hong Kong Path:
+├── Active: BKK00 → VLAN 2519 → 400M (burst 800M)
+└── Backup: BKK20 → VLAN 2517 → 800M standby
+
+Singapore Path:
+├── Active: BKK20 → VLAN 2520 → 400M (burst 800M)
+└── Backup: BKK00 → VLAN 2518 → 800M standby
+</code></pre>
+<p><strong>Internet Exchange Diversity</strong></p>
+<pre><code>Local (Thailand):
+├── BKNIX: 10G direct peering (200+ networks)
+└── AMS-IX Bangkok: 1G peering (100+ networks)
+
+Regional:
+├── AMS-IX Hong Kong: 200M connection
+└── HGC IPTx: Dual paths to HK/SG
+
+Global:
+└── AMS-IX Europe: 100M connection
+</code></pre>
+<h4 id="bgp-redundancy-features"><a class="header" href="#bgp-redundancy-features">BGP Redundancy Features</a></h4>
+<ul>
+<li><strong>Dual Route Reflectors</strong>: Automatic failover with iBGP</li>
+<li><strong>BFD Detection</strong>: 100ms failure detection</li>
+<li><strong>Graceful Restart</strong>: Maintains forwarding during control plane restart</li>
+<li><strong>Path Diversity</strong>: Multiple valid routes to every destination</li>
+<li><strong>ECMP Load Balancing</strong>: Traffic distributed across equal-cost paths</li>
+</ul>
+<h3 id="3-hypervisor-layer-redundancy"><a class="header" href="#3-hypervisor-layer-redundancy">3. Hypervisor Layer Redundancy</a></h3>
+<h4 id="proxmox-cluster-features"><a class="header" href="#proxmox-cluster-features">Proxmox Cluster Features</a></h4>
+<pre><code>High Availability Configuration:
+├── Live Migration: Zero-downtime VM movement
+├── HA Manager: Automatic VM restart on node failure
+├── Shared Storage: Distributed access to VM data
+└── Fencing: Ensures failed nodes are isolated
+</code></pre>
+<h4 id="per-hypervisor-network-redundancy"><a class="header" href="#per-hypervisor-network-redundancy">Per-Hypervisor Network Redundancy</a></h4>
+<p>Each hypervisor (BKK06, BKK07, BKK08) implements:</p>
+<pre><code>Dual Uplink Configuration:
+├── bond-bkk00 (Active Path)
+│   ├── Primary: vlan1X7 @ 100G
+│   └── Backup: vlan1X7 @ 100G (different switch)
+└── bond-bkk20 (Standby Path)
+    ├── Primary: vlan2X7 @ 100G
+    └── Backup: vlan2X7 @ 100G (different switch)
+
+Failover Time: &lt;100ms using active-backup bonding
+</code></pre>
+<h3 id="4-storage-layer-redundancy"><a class="header" href="#4-storage-layer-redundancy">4. Storage Layer Redundancy</a></h3>
+<h4 id="zfs-resilience-by-node"><a class="header" href="#zfs-resilience-by-node">ZFS Resilience by Node</a></h4>
+<p><strong>BKK06 - Maximum Redundancy (Mirror)</strong></p>
+<pre><code>Configuration: 6x mirror vdevs (2-way mirrors)
+Fault Tolerance: 
+- Can lose 1 disk per mirror (up to 6 disks total)
+- Instant read performance during rebuild
+- 50% storage efficiency for maximum protection
+Recovery: Hot spare activation &lt; 1 minute
+</code></pre>
+<p><strong>BKK07 - Balanced Redundancy (RAIDZ2)</strong></p>
+<pre><code>Configuration: 12-disk RAIDZ2
+Fault Tolerance:
+- Can lose any 2 disks simultaneously
+- Maintains full operation during rebuild
+- 83% storage efficiency
+Recovery: Distributed parity reconstruction
+</code></pre>
+<p><strong>BKK08 - Performance Redundancy (RAIDZ1)</strong></p>
+<pre><code>Configuration: 2x 4-disk RAIDZ1 vdevs
+Fault Tolerance:
+- Can lose 1 disk per vdev (2 disks total)
+- Parallel vdev operation for performance
+- 75% storage efficiency
+Recovery: Per-vdev independent rebuild
+</code></pre>
+<h3 id="5-service-layer-redundancy"><a class="header" href="#5-service-layer-redundancy">5. Service Layer Redundancy</a></h3>
+<h4 id="container-distribution-strategy"><a class="header" href="#container-distribution-strategy">Container Distribution Strategy</a></h4>
+<pre><code>Service Deployment:
+├── Primary Instance: BKK06
+├── Secondary Instance: BKK07
+├── Tertiary/Specialized: BKK08
+└── Load Balancing: HAProxy on each node
+
+Failover Mechanism:
+- Health checks every 2 seconds
+- Automatic traffic rerouting
+- Session persistence via cookies
+- &lt;5 second service failover
+</code></pre>
+<h4 id="anycast-services"><a class="header" href="#anycast-services">Anycast Services</a></h4>
+<pre><code>Global Anycast: 160.22.180.180/32
+├── Announced from all locations
+├── BGP-based geographic routing
+└── Automatic closest-node selection
+
+Local Anycast: 160.22.181.81/32
+├── Thailand-specific services
+├── Lower latency for regional users
+└── Fallback to global on failure
+</code></pre>
+<h3 id="6-failure-scenarios--recovery"><a class="header" href="#6-failure-scenarios--recovery">6. Failure Scenarios &amp; Recovery</a></h3>
+<h4 id="single-component-failures-no-impact"><a class="header" href="#single-component-failures-no-impact">Single Component Failures (No Impact)</a></h4>
+<ul>
+<li><strong>1 Transit Link Down</strong>: Traffic reroutes via alternate transit</li>
+<li><strong>1 Route Reflector Down</strong>: Secondary handles all traffic</li>
+<li><strong>1 Hypervisor Down</strong>: VMs migrate or run from replicas</li>
+<li><strong>1 Disk Failure</strong>: ZFS continues with degraded redundancy</li>
+<li><strong>1 PSU Failure</strong>: Secondary PSU maintains operation</li>
+</ul>
+<h4 id="multiple-component-failures-degraded-but-operational"><a class="header" href="#multiple-component-failures-degraded-but-operational">Multiple Component Failures (Degraded but Operational)</a></h4>
+<ul>
+<li><strong>Both HK Links Down</strong>: Singapore paths maintain connectivity</li>
+<li><strong>Entire Hypervisor Failure</strong>: Services run from remaining 2 nodes</li>
+<li><strong>Multiple Disk Failures</strong>: ZFS tolerates per design limits</li>
+<li><strong>Primary + Backup Network Path</strong>: Tertiary paths available</li>
+</ul>
+<h4 id="disaster-recovery"><a class="header" href="#disaster-recovery">Disaster Recovery</a></h4>
+<ul>
+<li><strong>Complete DC Failure</strong>:
+<ul>
+<li>Off-site backups available</li>
+<li>DNS failover to alternate regions</li>
+<li>Recovery Time Objective (RTO): 4 hours</li>
+<li>Recovery Point Objective (RPO): 1 hour</li>
+</ul>
+</li>
+</ul>
+<h2 id="redundancy-validation--testing"><a class="header" href="#redundancy-validation--testing">Redundancy Validation &amp; Testing</a></h2>
+<h3 id="automated-testing"><a class="header" href="#automated-testing">Automated Testing</a></h3>
+<ul>
+<li><strong>BGP Session Monitoring</strong>: Real-time alerting on session drops</li>
+<li><strong>Path Validation</strong>: Continuous reachability tests</li>
+<li><strong>Storage Health</strong>: ZFS scrubs weekly, SMART monitoring</li>
+<li><strong>Service Health</strong>: Prometheus + Grafana dashboards</li>
+</ul>
+<h3 id="manual-testing-schedule"><a class="header" href="#manual-testing-schedule">Manual Testing Schedule</a></h3>
+<ul>
+<li><strong>Monthly</strong>: Controlled failover testing</li>
+<li><strong>Quarterly</strong>: Full redundancy validation</li>
+<li><strong>Annually</strong>: Disaster recovery drill</li>
+</ul>
+<h2 id="compliance-with-ibp-rank-6-requirements"><a class="header" href="#compliance-with-ibp-rank-6-requirements">Compliance with IBP Rank 6 Requirements</a></h2>
+<h3 id="-no-single-point-of-failure"><a class="header" href="#-no-single-point-of-failure">✓ No Single Point of Failure</a></h3>
+<p>Every critical component has at least one backup:</p>
+<ul>
+<li>Dual route reflectors with automatic failover</li>
+<li>Multiple transit providers and exchange points</li>
+<li>Redundant power, cooling, and network paths</li>
+<li>Distributed storage with multi-disk fault tolerance</li>
+</ul>
+<h3 id="-sub-second-network-convergence"><a class="header" href="#-sub-second-network-convergence">✓ Sub-Second Network Convergence</a></h3>
+<ul>
+<li>BFD: 100ms detection + 200ms convergence = 300ms total</li>
+<li>Bond failover: &lt;100ms for layer 2 switchover</li>
+<li>BGP: Graceful restart maintains forwarding plane</li>
+</ul>
+<h3 id="-geographic--provider-diversity"><a class="header" href="#-geographic--provider-diversity">✓ Geographic &amp; Provider Diversity</a></h3>
+<ul>
+<li>Transit via Hong Kong and Singapore</li>
+<li>Peering in Bangkok, Hong Kong, and Amsterdam</li>
+<li>Multiple submarine cable systems</li>
+<li>Carrier-neutral facility</li>
+</ul>
+<h3 id="-automated-recovery"><a class="header" href="#-automated-recovery">✓ Automated Recovery</a></h3>
+<ul>
+<li>HA cluster manages VM availability</li>
+<li>BGP automatically selects best paths</li>
+<li>ZFS self-healing with checksum validation</li>
+<li>Container orchestration via systemd</li>
+</ul>
+<p>This comprehensive redundancy architecture ensures 99.95% uptime SLA compliance
+and exceeds all IBP Rank 6 requirements for infrastructure resilience.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="networking.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="firmware.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="networking.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="firmware.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

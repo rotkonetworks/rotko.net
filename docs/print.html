@@ -691,14 +691,143 @@ provide.</p>
 <p>The open nature of RISC-V and Debian makes BKK05 the perfect candidate for experimental projects. Its platform is ideal for developers looking to explore the capabilities of RISC-V architecture and contribute to the growth of the ecosystem.</p>
 <h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
 <p>The BKK05 server is a testament to our commitment to embracing open and innovative technologies. By leveraging the power of RISC-V Debian, we provide a stable and forward-thinking web hosting service while also contributing to an exciting new chapter in computing.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="bkk06---bootnoderpc"><a class="header" href="#bkk06---bootnoderpc">BKK06 - Bootnode/RPC</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="bkk06---high-performance-storagecompute-node"><a class="header" href="#bkk06---high-performance-storagecompute-node">BKK06 - High-Performance Storage/Compute Node</a></h2>
 <p><img src="./images/bkk06/bkk06.webp" alt="BKK06" /></p>
-<h1 id="bkk06---high-performance-bootnoderpc-server"><a class="header" href="#bkk06---high-performance-bootnoderpc-server">BKK06 - High-Performance Bootnode/RPC Server</a></h1>
-<p>The BKK06 server stands at the vanguard of our infrastructure, specifically
-tailored to function as a bootnode and RPC server. It's built around the
-AMD EPYC™ 7742 CPU and designed to deliver fine performance for RPC, bootnode
-and computational tasks.</p>
 <h3 id="cpu-3"><a class="header" href="#cpu-3">CPU</a></h3>
+<p><strong>Model:</strong> <a href="https://www.amd.com/en/products/cpu/amd-epyc-7713">AMD EPYC™ 7713</a></p>
+<ul>
+<li><strong>Core Count:</strong> 64 cores</li>
+<li><strong>Threads:</strong> 128</li>
+<li><strong>Max. Boost Clock:</strong> Up to 3.675GHz</li>
+<li><strong>Base Clock:</strong> 2.0GHz</li>
+<li><strong>L3 Cache:</strong> 256MB</li>
+<li><strong>TDP:</strong> 225W</li>
+</ul>
+<p><strong>Capabilities:</strong> Optimized for high-throughput storage operations and parallel processing workloads. The EPYC 7713 provides exceptional multi-threaded performance for distributed storage and compute tasks.</p>
+<h3 id="motherboard-3"><a class="header" href="#motherboard-3">Motherboard</a></h3>
+<p><strong>Model:</strong> <a href="https://www.supermicro.com/en/products/motherboard/H11SSL-i">Supermicro H11SSL-i</a></p>
+<ul>
+<li><strong>Chipset:</strong> System on Chip</li>
+<li><strong>Form Factor:</strong> E-ATX</li>
+<li><strong>Memory Slots:</strong> 8 x DIMM slots supporting DDR4</li>
+<li><strong>PCIe Slots:</strong> Multiple PCIe 3.0 slots</li>
+</ul>
+<h3 id="memory-1"><a class="header" href="#memory-1">Memory</a></h3>
+<p><strong>Model:</strong> 8x Micron 32GB ECC Registered DDR4 3200</p>
+<ul>
+<li><strong>Total Capacity:</strong> 256GB</li>
+<li><strong>Technology:</strong> ECC Registered for data integrity</li>
+<li><strong>Speed:</strong> 3200MHz</li>
+</ul>
+<h3 id="storage-configuration"><a class="header" href="#storage-configuration">Storage Configuration</a></h3>
+<pre><code>Pool: bkk06pool
+State: ONLINE (with errors requiring attention)
+Configuration: 6 mirror vdevs (12x Samsung 990 PRO 4TB NVMe)
+Status: 16 data errors detected during scrub
+Recent: Removal of vdev 5 completed, 93.6M memory used for mappings
+</code></pre>
+<h3 id="networking"><a class="header" href="#networking">Networking</a></h3>
+<p><strong>Primary Interfaces:</strong></p>
+<ul>
+<li>2x Intel E810-C 25G QSFP ports (100G capable)</li>
+<li>2x Broadcom BCM5720 1G management ports</li>
+</ul>
+<p><strong>Anycast Configuration:</strong></p>
+<ul>
+<li>Participates in 100G anycast routing via BGP</li>
+<li>Route reflector client with dedicated ASN</li>
+<li>Q-in-Q VLAN tagging for service isolation</li>
+<li>Bond interfaces: bond-bkk00 and bond-bkk20 for redundancy</li>
+</ul>
+<h3 id="active-services-28-containers"><a class="header" href="#active-services-28-containers">Active Services (28 containers)</a></h3>
+<p>Primary RPC nodes for:</p>
+<ul>
+<li>Polkadot relay chain and system parachains</li>
+<li>Kusama relay chain and system parachains</li>
+<li>Multiple Polkadot parachains (Moonbeam, Acala, Hydration, Bifrost, etc.)</li>
+<li>Paseo testnet infrastructure</li>
+<li>Penumbra node</li>
+<li>HAProxy load balancer</li>
+</ul>
+<h3 id="chassis-and-power"><a class="header" href="#chassis-and-power">Chassis and Power</a></h3>
+<ul>
+<li><strong>Chassis:</strong> 2U Supermicro server chassis</li>
+<li><strong>PSU:</strong> Greatwall Dual PSU 2U 1+1 CRPS redundant 800W</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="bkk07---high-performance-storagecompute-node"><a class="header" href="#bkk07---high-performance-storagecompute-node">BKK07 - High-Performance Storage/Compute Node</a></h2>
+<p><img src="./images/BKK07/BKK07.webp" alt="BKK07" /></p>
+<h3 id="cpu-4"><a class="header" href="#cpu-4">CPU</a></h3>
+<p><strong>Model:</strong> <a href="https://www.amd.com/en/product/12191">AMD EPYC™ 9654</a></p>
+<ul>
+<li><strong>Core Count:</strong> 96 cores</li>
+<li><strong>Threads:</strong> 192</li>
+<li><strong>Max. Boost Clock:</strong> Up to 3.7GHz</li>
+<li><strong>Base Clock:</strong> 2.4GHz</li>
+<li><strong>L3 Cache:</strong> 384MB</li>
+<li><strong>TDP:</strong> 360W (Configurable 320-400W)</li>
+</ul>
+<p><strong>Capabilities:</strong> Cutting-edge Genoa generation processor delivering exceptional performance for high-concurrency storage operations and compute-intensive workloads.</p>
+<h3 id="motherboard-4"><a class="header" href="#motherboard-4">Motherboard</a></h3>
+<p><strong>Model:</strong> <a href="https://www.supermicro.com/en/products/motherboard/h13ssl-n">Supermicro H13SSL-N</a></p>
+<ul>
+<li><strong>Chipset:</strong> System on Chip</li>
+<li><strong>Form Factor:</strong> ATX</li>
+<li><strong>Memory Slots:</strong> 12 x DIMM slots supporting DDR5</li>
+</ul>
+<h3 id="memory-2"><a class="header" href="#memory-2">Memory</a></h3>
+<p><strong>Model:</strong> 6x SuperMicro 64GB ECC Registered DDR5 4800</p>
+<ul>
+<li><strong>Current Capacity:</strong> 384GB (6 modules)</li>
+<li><strong>Technology:</strong> DDR5 ECC Registered</li>
+<li><strong>Speed:</strong> 4800MHz</li>
+<li><strong>Upgrade Path:</strong> Expandable to 12 modules for full bandwidth</li>
+</ul>
+<h3 id="storage-configuration-1"><a class="header" href="#storage-configuration-1">Storage Configuration</a></h3>
+<pre><code>Pool: bkk07pool
+State: ONLINE
+Configuration: 1x 12-disk RAIDZ2
+- 12x Samsung 990 PRO 4TB NVMe
+Redundancy: Can tolerate 2 simultaneous disk failures
+Capacity: ~32TB usable (10 data + 2 parity)
+Last scrub: 0 errors (July 13, 2025)
+</code></pre>
+<h3 id="networking-1"><a class="header" href="#networking-1">Networking</a></h3>
+<p><strong>Primary Interfaces:</strong></p>
+<ul>
+<li>2x Intel E810-C 25G QSFP ports (100G capable)</li>
+<li>2x Broadcom BCM5720 1G management ports</li>
+</ul>
+<p><strong>Anycast Configuration:</strong></p>
+<ul>
+<li>Participates in 100G anycast routing via BGP</li>
+<li>Route reflector client with dedicated ASN</li>
+<li>VLAN configuration: 100p1.400 for backbone connectivity</li>
+<li>Dual bond interfaces for active-backup failover</li>
+</ul>
+<h3 id="active-services-24-containers"><a class="header" href="#active-services-24-containers">Active Services (24 containers)</a></h3>
+<p>Secondary RPC nodes for:</p>
+<ul>
+<li>Polkadot relay chain and all system parachains</li>
+<li>Kusama relay chain and all system parachains</li>
+<li>Paseo testnet (relay and system chains)</li>
+<li>Penumbra node</li>
+<li>IBP infrastructure</li>
+<li>HAProxy load balancer</li>
+<li>Build and Docker services</li>
+</ul>
+<h3 id="board-management-controller-bmc"><a class="header" href="#board-management-controller-bmc">Board Management Controller (BMC)</a></h3>
+<ul>
+<li><strong>BMC Model:</strong> Aspeed AST2600</li>
+<li><strong>Capabilities:</strong> Full remote management with KVM over IP</li>
+</ul>
+<h3 id="chassis-and-power-1"><a class="header" href="#chassis-and-power-1">Chassis and Power</a></h3>
+<ul>
+<li><strong>Chassis:</strong> Ultra Short 2U rackmount chassis</li>
+<li><strong>PSU:</strong> Greatwall Dual PSU 2U 1+1 CRPS redundant 800W</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="bkk08---high-performance-storagecompute-node"><a class="header" href="#bkk08---high-performance-storagecompute-node">BKK08 - High-Performance Storage/Compute Node</a></h2>
+<p><img src="./images/BKK08/BKK08.webp" alt="BKK08" /></p>
+<h3 id="cpu-5"><a class="header" href="#cpu-5">CPU</a></h3>
 <p><strong>Model:</strong> <a href="https://www.amd.com/en/products/cpu/amd-epyc-7742">AMD EPYC™ 7742</a></p>
 <ul>
 <li><strong>Core Count:</strong> 64 cores</li>
@@ -708,167 +837,91 @@ and computational tasks.</p>
 <li><strong>L3 Cache:</strong> 256MB</li>
 <li><strong>TDP:</strong> 225W</li>
 </ul>
-<h4 id="cooler"><a class="header" href="#cooler">Cooler</a></h4>
-<p><strong>Model:</strong> COOLSERVER AMD SP5 S21 Server CPU Cooler 350W 6 Copper Tubes</p>
-<p><strong>Capabilities:</strong> Tailored to handle high-concurrency workloads, the EPYC™ 7742
-is perfect for bootnode operations and RPC handling, offering rapid data
-processing and low-latency networking.</p>
-<h3 id="motherboard-3"><a class="header" href="#motherboard-3">Motherboard</a></h3>
-<p><strong>Model:</strong> <a href="https://www.supermicro.com/en/products/motherboard/H11SSL-i">Supermicro H11SSL-i</a></p>
+<p><strong>Capabilities:</strong> Optimized for parallel processing and storage workloads, delivering excellent multi-threaded performance for distributed systems.</p>
+<h3 id="motherboard-5"><a class="header" href="#motherboard-5">Motherboard</a></h3>
+<p><strong>Model:</strong> Supermicro H11SSL-series</p>
 <ul>
 <li><strong>Chipset:</strong> System on Chip</li>
 <li><strong>Form Factor:</strong> E-ATX</li>
 <li><strong>Memory Slots:</strong> 8 x DIMM slots supporting DDR4</li>
 </ul>
-<p><strong>Capabilities:</strong> With 8 memory channels and support for up to 8 DDR4 ECC memory
-modules, the motherboard is currently populated with 8 x Micron 32GB ECC Registered
-DDR4 memory modules, providing a total of 256GB of memory.</p>
-<h3 id="memory-1"><a class="header" href="#memory-1">Memory</a></h3>
-<p><strong>Model:</strong> Micron 32GB ECC Registered DDR4 3200</p>
+<h3 id="memory-3"><a class="header" href="#memory-3">Memory</a></h3>
+<p><strong>Configuration:</strong> 8x 32GB DDR4 ECC Registered</p>
 <ul>
-<li><strong>Capacity:</strong> 8 modules</li>
-<li><strong>Technology:</strong> ECC Registered for increased reliability</li>
+<li><strong>Total Capacity:</strong> 256GB</li>
 <li><strong>Speed:</strong> 3200MHz</li>
+<li><strong>Technology:</strong> ECC for data integrity</li>
 </ul>
-<h3 id="storage-3"><a class="header" href="#storage-3">Storage</a></h3>
-<p><strong>Primary Storage:</strong></p>
+<h3 id="storage-configuration-2"><a class="header" href="#storage-configuration-2">Storage Configuration</a></h3>
+<p>Pool: bkk08pool
+State: ONLINE
+Configuration: 2x 4-disk RAIDZ1 vdevs</p>
+<p>8x Samsung 990 PRO 4TB NVMe total
+Redundancy: Can tolerate 1 disk failure per vdev
+Capacity: ~24TB usable (6 data + 2 parity)
+Last scrub: 0 errors (July 13, 2025)</p>
+<h3 id="networking-2"><a class="header" href="#networking-2">Networking</a></h3>
+<p><strong>Primary Interfaces:</strong></p>
 <ul>
-<li>2x <a href="https://www.samsung.com/us/computing/memory-storage/solid-state-drives/980-pro-pcie-4-0-nvme-ssd-2tb-mz-v8p2t0b-am/">Samsung SSD 980 PRO 2TB NVMe</a> (Configured in RAID for boot/root)</li>
-<li>4x <a href="https://www.samsung.com/us/computing/memory-storage/solid-state-drives/990-pro-pcie-4-0-nvme-ssd-4tb-mz-v9p4t0b-am/">Samsung SSD 990 PRO 4TB NVMe</a> (For data)</li>
+<li>2x Intel E810-C 25G QSFP ports (100G capable)</li>
+<li>2x Broadcom BCM5720 1G management ports</li>
 </ul>
-<p><strong>Capabilities:</strong> The Samsung 980 PRO drives ensure reliable boot and root
-operations with RAID configuration, while the 990 PRO drives offer swift
-read/write speeds and robust endurance for intensive data demands of a bootnode
-and RPC server.</p>
-<h3 id="connectivity"><a class="header" href="#connectivity">Connectivity</a></h3>
-<p><strong>LAN:</strong></p>
+<p><strong>Anycast Configuration:</strong></p>
 <ul>
-<li>eno1: 10Gb/s BASE-T LAN port</li>
-<li>eno2: 10Gb/s BASE-T LAN port</li>
+<li>Participates in 100G anycast routing via BGP</li>
+<li>Route reflector client with dedicated ASN</li>
+<li>Redundant path configuration for high availability</li>
+<li>Q-in-Q VLAN tagging for traffic isolation</li>
 </ul>
-<p><strong>Management Port:</strong> 1 x Dedicated management port</p>
-<h3 id="board-management-controller-bmc"><a class="header" href="#board-management-controller-bmc">Board Management Controller (BMC)</a></h3>
-<p><strong>BMC Model:</strong> Aspeed® AST2500</p>
+<h3 id="active-services-24-containers-1"><a class="header" href="#active-services-24-containers-1">Active Services (24 containers)</a></h3>
+<p>Tertiary/specialized nodes for:</p>
 <ul>
-<li><strong>Capabilities:</strong> Integrated BMC with Aspeed® AST2500 GPU offers comprehensive remote management capabilities, including KVM over IP, enabling administrators to manage the server efficiently and securely.</li>
-</ul>
-<h3 id="chassis-and-power-supply-unit-psu"><a class="header" href="#chassis-and-power-supply-unit-psu">Chassis and Power Supply Unit (PSU)</a></h3>
-<p><strong>Chassis:</strong> Supermicro Main Server Chassis
-<strong>PSU:</strong> Greatwall Dual PSU 2U 1+1 CRPS redundant 800W</p>
-<p>This updated configuration should accurately reflect the setup and capabilities
-of your BKK06 - High-Performance Bootnode/RPC Server.</p>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="bkk07---bootnoderpc"><a class="header" href="#bkk07---bootnoderpc">BKK07 - Bootnode/RPC</a></h2>
-<p><img src="./images/BKK07/BKK07.webp" alt="BKK07" /></p>
-<h1 id="bkk07---high-performance-bootnoderpc-server"><a class="header" href="#bkk07---high-performance-bootnoderpc-server">BKK07 - High-Performance Bootnode/RPC Server</a></h1>
-<p>The BKK07 server stands at the vanguard of our infrastructure, specifically tailored to
-function as a bootnode and RPC server. It's built around the AMD EPYC™ 9654 CPU and designed
-to deliver unmatched performance for blockchain and high-computational tasks.</p>
-<h3 id="cpu-4"><a class="header" href="#cpu-4">CPU</a></h3>
-<p><strong>Model:</strong> <a href="https://www.amd.com/en/product/12191">AMD EPYC™ 9654</a></p>
-<ul>
-<li><strong>Core Count:</strong> 96 cores</li>
-<li><strong>Threads:</strong> 192</li>
-<li><strong>Max. Boost Clock:</strong> Up to 3.7GHz</li>
-<li><strong>Base Clock:</strong> 2.4GHz</li>
-<li><strong>L3 Cache:</strong> 384MB</li>
-<li><strong>TDP:</strong> 360W (Configurable TDP 320-400W)</li>
-</ul>
-<h4 id="cooler-1"><a class="header" href="#cooler-1">Cooler</a></h4>
-<p><em><strong>Model:</strong></em> COOLSERVER AMD SP5 S21 Server CPU Cooler 350W 6 Copper Tubes</p>
-<p><strong>Capabilities:</strong> Tailored to handle high-concurrency workloads, the EPYC™ 9654 is perfect
-for bootnode operations and RPC handling, offering rapid data processing and low-latency networking.</p>
-<h3 id="motherboard-4"><a class="header" href="#motherboard-4">Motherboard</a></h3>
-<p><strong>Model:</strong> <a href="https://www.supermicro.com/en/products/motherboard/h13ssl-n">Supermicro H13SSL-N</a></p>
-<ul>
-<li><strong>Chipset:</strong> System on Chip</li>
-<li><strong>Form Factor:</strong> ATX</li>
-<li><strong>Memory Slots:</strong> 12 x DIMM slots supporting DDR5</li>
-</ul>
-<p><strong>Capabilities:</strong> With 12 memory channels and support for up to 24 DDR5 ECC memory modules,
-the motherboard is currently populated with 6 x SuperMicro 64GB ECC Registered DDR5 memory
-modules in a 6-channel configuration, primed for an upgrade to a full 12-channel setup to
-enhance data throughput and server responsiveness.</p>
-<h3 id="memory-2"><a class="header" href="#memory-2">Memory</a></h3>
-<p><strong>Model:</strong> SuperMicro 64GB ECC Registered DDR5 4800</p>
-<ul>
-<li><strong>Capacity:</strong> Currently 6 modules (to be expanded to 12)</li>
-<li><strong>Technology:</strong> ECC Registered for increased reliability</li>
-<li><strong>Speed:</strong> 4800MHz (running at 57600MHz for full 12-channel bandwidth)</li>
-</ul>
-<p><em><strong>Note:</strong></em> Under the SuperMicro brand, actual chip running is HMCG94MEBRA109N AA SKhynix DDR5 64GB SKhynix-Montage 2Rx4 1.1v 4800MHz ECC Registered 288-pin.</p>
-<h3 id="storage-4"><a class="header" href="#storage-4">Storage</a></h3>
-<p><strong>Primary Storage:</strong> 5x <a href="https://www.samsung.com/us/computing/memory-storage/solid-state-drives/990-pro-pcie-4-0-nvme-ssd-4tb-mz-v9p4t0b-am/">SAMSUNG 990 PRO M.2 2280 4TB NVMe</a></p>
-<ul>
-<li><strong>Sequential Read/Write Speeds:</strong> Up to 7,450/6,900 MB/s</li>
-<li><strong>Random Read/Write Speeds (IOPS):</strong> Up to 1,600K/1,550K for 4TB</li>
-<li><strong>Interface:</strong> PCI-Express Gen 4.0 x4</li>
-<li><strong>Technology:</strong> NVMe 2.0 V-NAND</li>
-<li><strong>Form Factor:</strong> M.2 2280</li>
-</ul>
-<p><strong>Capabilities:</strong> The Samsung 990 PRO drives are renowned for their swift read/write speeds
-and robust endurance, making them ideal for the intensive data demands of a bootnode and
-RPC server. +400K R/W IOPS per Terabyte is something ANY cloud provider ain't capable provide
-for whatever price you were willing to pay.</p>
-<h3 id="connectivity-1"><a class="header" href="#connectivity-1">Connectivity</a></h3>
-<ul>
-<li><strong>LAN:</strong> Dual 10Gb/s BASE-T LAN ports (Broadcom® BCM57416)</li>
-<li><strong>Management Port:</strong> 1 x Dedicated management port</li>
+<li>Polkadot RPC and parachains (Moonbeam, Nexus, Acala, Kilt, Hydration, Bifrost, Ajuna, Polimec, Unique, XCavate, Mythos)</li>
+<li>Paseo validator and RPC nodes</li>
+<li>Penumbra node</li>
+<li>IBP infrastructure</li>
+<li>IX peering management</li>
+<li>HAProxy load balancer</li>
+<li>Build services and logging infrastructure</li>
 </ul>
 <h3 id="board-management-controller-bmc-1"><a class="header" href="#board-management-controller-bmc-1">Board Management Controller (BMC)</a></h3>
 <ul>
-<li><strong>BMC Model:</strong> Aspeed® AST2600</li>
-<li><strong>Capabilities:</strong> Integrated BMC with Aspeed® AST2600 GPU offers comprehensive remote management
-capabilities, including KVM over IP, enabling administrators to manage the server efficiently and securely.</li>
+<li><strong>BMC Model:</strong> Aspeed AST2500</li>
+<li><strong>Capabilities:</strong> Remote management with IPMI/KVM over IP</li>
 </ul>
-<h3 id="chassis-and-power-supply-unit-psu-1"><a class="header" href="#chassis-and-power-supply-unit-psu-1">Chassis and Power Supply Unit (PSU)</a></h3>
+<h3 id="chassis-and-power-2"><a class="header" href="#chassis-and-power-2">Chassis and Power</a></h3>
 <ul>
-<li><strong>Chassis:</strong> Ultra Short 2U rackmount Server Chassis S24306 with six 2.5 ssd bays support eatx dual processor board</li>
+<li><strong>Chassis:</strong> Ultra Short 2U rackmount chassis</li>
 <li><strong>PSU:</strong> Greatwall Dual PSU 2U 1+1 CRPS redundant 800W</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="bkk08---rpc"><a class="header" href="#bkk08---rpc">BKK08 - RPC</a></h2>
-<p><img src="./images/BKK08/BKK08.webp" alt="BKK08" /></p>
-<h1 id="bkk08---high-performance-bootnoderpc-server"><a class="header" href="#bkk08---high-performance-bootnoderpc-server">BKK08 - High-Performance Bootnode/RPC Server</a></h1>
-<p>The BKK08 server stands at the vanguard of our infrastructure, specifically tailored to
-function as a bootnode and RPC server.</p>
-<h3 id="cpu-5"><a class="header" href="#cpu-5">CPU</a></h3>
-<p><strong>Model:</strong> <a href="">AMD EPYC™ 7773X</a></p>
-<h4 id="cooler-2"><a class="header" href="#cooler-2">Cooler</a></h4>
-<p><em><strong>Model:</strong></em></p>
-<h3 id="motherboard-5"><a class="header" href="#motherboard-5">Motherboard</a></h3>
-<p><strong>Model:</strong> <a href="https://www.supermicro.com/en/products/motherboard/h13ssl-n">Supermicro NOTSURE</a></p>
+<hr />
+<h2 id="network-architecture-overview"><a class="header" href="#network-architecture-overview">Network Architecture Overview</a></h2>
+<p>All three nodes (BKK06, BKK07, BKK08) participate in our advanced networking infrastructure:</p>
+<h3 id="anycast-implementation"><a class="header" href="#anycast-implementation">Anycast Implementation</a></h3>
 <ul>
-<li><strong>Chipset:</strong> System on Chip</li>
-<li><strong>Form Factor:</strong> ATX</li>
-<li><strong>Memory Slots:</strong> 8 x DIMM slots supporting DDR4</li>
+<li><strong>100G Backbone:</strong> High-speed interconnects between storage nodes</li>
+<li><strong>BGP Routing:</strong> Each node operates as a route reflector client</li>
+<li><strong>Dedicated ASN:</strong> Independent autonomous system number per edge node</li>
+<li><strong>Service Isolation:</strong> Q-in-Q VLAN tagging for traffic segregation</li>
 </ul>
-<p><strong>Capabilities:</strong> With 8 memory channels and supporting up to 256GB of DDR4 memory,
-the Supermicro</p>
-<h3 id="memory-3"><a class="header" href="#memory-3">Memory</a></h3>
-<h3 id="storage-5"><a class="header" href="#storage-5">Storage</a></h3>
-<p><strong>Primary Storage:</strong> 4x <a href="https://www.samsung.com/us/computing/memory-storage/solid-state-drives/990-pro-pcie-4-0-nvme-ssd-4tb-mz-v9p4t0b-am/">SAMSUNG 990 PRO M.2 2280 4TB NVMe</a></p>
+<h3 id="redundancy-features"><a class="header" href="#redundancy-features">Redundancy Features</a></h3>
 <ul>
-<li><strong>Sequential Read/Write Speeds:</strong> Up to 7,450/6,900 MB/s</li>
-<li><strong>Random Read/Write Speeds (IOPS):</strong> Up to 1,600K/1,550K for 4TB</li>
-<li><strong>Interface:</strong> PCI-Express Gen 4.0 x4</li>
-<li><strong>Technology:</strong> NVMe 2.0 V-NAND</li>
-<li><strong>Form Factor:</strong> M.2 2280</li>
+<li><strong>Dual Uplinks:</strong> Each node has redundant connections to core routers</li>
+<li><strong>Active-Backup Bonds:</strong> Sub-second failover between interfaces</li>
+<li><strong>Path Diversity:</strong> Multiple routing paths for fault tolerance</li>
+<li><strong>VLAN Segmentation:</strong> Separate VLANs for management, storage, and service traffic</li>
 </ul>
-<p><strong>Capabilities:</strong> The</p>
-<h3 id="connectivity-2"><a class="header" href="#connectivity-2">Connectivity</a></h3>
+<h3 id="performance-optimization"><a class="header" href="#performance-optimization">Performance Optimization</a></h3>
 <ul>
-<li><strong>NIC Card:</strong> Dual 100Gb/s ports NIC card</li>
-<li><strong>LAN:</strong> Dual 10Gb/s BASE-T LAN ports (Broadcom® BCM57416)</li>
-<li><strong>Management Port:</strong> 1 x Dedicated management port</li>
+<li><strong>Hardware Offload:</strong> Intel E810-C NICs provide advanced packet processing</li>
+<li><strong>NUMA Awareness:</strong> Memory and network affinity for optimal performance</li>
+<li><strong>Jumbo Frames:</strong> MTU 9000 enabled on storage network</li>
+<li><strong>Flow Control:</strong> Configured for lossless Ethernet on storage paths</li>
 </ul>
-<h3 id="board-management-controller-bmc-2"><a class="header" href="#board-management-controller-bmc-2">Board Management Controller (BMC)</a></h3>
-<ul>
-<li><strong>BMC Model:</strong> Aspeed® AST2500</li>
-</ul>
-<h3 id="chassis-and-power-supply-unit-psu-2"><a class="header" href="#chassis-and-power-supply-unit-psu-2">Chassis and Power Supply Unit (PSU)</a></h3>
-<ul>
-<li><strong>Chassis:</strong> Ultra Short 2U rackmount Server Chassis S24306 with six 2.5 ssd bays support eatx dual processor board</li>
-<li><strong>PSU:</strong> Greatwall Dual PSU 2U 1+1 CRPS redundant 800W</li>
-</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk09"><a class="header" href="#bkk09">BKK09</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk11"><a class="header" href="#bkk11">BKK11</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk12"><a class="header" href="#bkk12">BKK12</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="bkk13"><a class="header" href="#bkk13">BKK13</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="software-infrastructure"><a class="header" href="#software-infrastructure">Software Infrastructure</a></h1>
 <p>Our infrastructure leverages several powerful
 technologies and platforms to provide a robust and efficient environment for
@@ -1028,6 +1081,240 @@ BKK00: SG-HGC-IPTx-backup-vlan2518 (Backup SG - PEH8001159)
 BKK20: SG-HGC-IPTx-vlan2520 (Primary SG - PEH8001158)  
 BKK20: HK-HGC-IPTx-backup-vlan2517 (Backup HK - PEH8001158)
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ibp-rank-6-network-infrastructure-documentation"><a class="header" href="#ibp-rank-6-network-infrastructure-documentation">IBP Rank 6 Network Infrastructure Documentation</a></h1>
+<h2 id="rotko-networks-oÜ-as142108"><a class="header" href="#rotko-networks-oÜ-as142108">ROTKO NETWORKS OÜ (AS142108)</a></h2>
+<h3 id="executive-summary"><a class="header" href="#executive-summary">Executive Summary</a></h3>
+<p>ROTKO NETWORKS operates a highly redundant, carrier-grade network infrastructure
+in Bangkok, Thailand, designed to meet and exceed IBP Rank 6 requirements. Our
+infrastructure features full redundancy at every layer - from multiple 10G/100G
+transit connections to redundant route reflectors, hypervisors, and storage
+systems.</p>
+<h2 id="network-architecture-overview-1"><a class="header" href="#network-architecture-overview-1">Network Architecture Overview</a></h2>
+<h3 id="core-routing-infrastructure"><a class="header" href="#core-routing-infrastructure">Core Routing Infrastructure</a></h3>
+<p>Our network utilizes a hierarchical BGP architecture with dedicated route
+reflectors providing redundancy and scalability:</p>
+<h4 id="route-reflectors-core-routers"><a class="header" href="#route-reflectors-core-routers">Route Reflectors (Core Routers)</a></h4>
+<ul>
+<li>
+<p><strong>BKK00</strong> (CCR2216-1G-12XS-2XQ) - Primary Route Reflector</p>
+<ul>
+<li>Router ID: 10.155.255.4</li>
+<li>100G connections to edge routers</li>
+<li>Multiple 10G transit/IX connections</li>
+</ul>
+</li>
+<li>
+<p><strong>BKK20</strong> (CCR2216-1G-12XS-2XQ) - Secondary Route Reflector</p>
+<ul>
+<li>Router ID: 10.155.255.2</li>
+<li>100G connections to edge routers</li>
+<li>Diverse 10G transit/IX connections</li>
+</ul>
+</li>
+</ul>
+<p>Both route reflectors run iBGP with full mesh connectivity and serve as
+aggregation points for external BGP sessions.</p>
+<h3 id="layer-2-switching-infrastructure"><a class="header" href="#layer-2-switching-infrastructure">Layer 2 Switching Infrastructure</a></h3>
+<h4 id="core-switches"><a class="header" href="#core-switches">Core Switches</a></h4>
+<ul>
+<li><strong>BKK30</strong> (CRS504-4XQ) - 4x100G QSFP28 switch</li>
+<li><strong>BKK40</strong> (CRS504-4XQ) - 4x100G QSFP28 switch</li>
+<li><strong>BKK10</strong> (CCR2216-1G-12XS-4XQ) - 4xSFP+ 25G 12x 1G (fallback for 100G)</li>
+<li><strong>BKK60</strong> (CRS354-48G-4S+2Q+) - 48x1G + 4xSFP+ + 2xQSFP+ switch (reserved)</li>
+<li><strong>BKK50</strong> (CCR2004-16G-2S+) - Management network</li>
+</ul>
+<p>These switches provide Q-in-Q VLAN tagging for service isolation and traffic segregation.</p>
+<h2 id="multi-layer-redundancy-architecture"><a class="header" href="#multi-layer-redundancy-architecture">Multi-Layer Redundancy Architecture</a></h2>
+<h3 id="1-physical-layer-redundancy"><a class="header" href="#1-physical-layer-redundancy">1. Physical Layer Redundancy</a></h3>
+<h4 id="diverse-fiber-paths"><a class="header" href="#diverse-fiber-paths">Diverse Fiber Paths</a></h4>
+<ul>
+<li><strong>3x Independent 10G fiber uplinks</strong> from different carriers</li>
+<li><strong>Physically diverse cable routes</strong> to prevent simultaneous cuts</li>
+<li><strong>Multiple cross-connects</strong> within the data center</li>
+<li><strong>Dual power feeds</strong> to all critical equipment</li>
+</ul>
+<h4 id="hardware-redundancy"><a class="header" href="#hardware-redundancy">Hardware Redundancy</a></h4>
+<ul>
+<li><strong>Dual PSU</strong> on all servers and network equipment</li>
+<li><strong>Hot-swappable components</strong> (fans, PSUs, drives)</li>
+<li><strong>N+1 cooling</strong> in server chassis</li>
+<li><strong>Spare equipment</strong> pre-racked for rapid replacement</li>
+</ul>
+<h3 id="2-network-layer-redundancy"><a class="header" href="#2-network-layer-redundancy">2. Network Layer Redundancy</a></h3>
+<h4 id="transit-diversity"><a class="header" href="#transit-diversity">Transit Diversity</a></h4>
+<p>Our multi-homed architecture eliminates single points of failure:</p>
+<p><strong>Primary Transit - HGC (AS9304)</strong></p>
+<pre><code>Hong Kong Path:
+├── Active: BKK00 → VLAN 2519 → 400M (burst 800M)
+└── Backup: BKK20 → VLAN 2517 → 800M standby
+
+Singapore Path:
+├── Active: BKK20 → VLAN 2520 → 400M (burst 800M)
+└── Backup: BKK00 → VLAN 2518 → 800M standby
+</code></pre>
+<p><strong>Internet Exchange Diversity</strong></p>
+<pre><code>Local (Thailand):
+├── BKNIX: 10G direct peering (200+ networks)
+└── AMS-IX Bangkok: 1G peering (100+ networks)
+
+Regional:
+├── AMS-IX Hong Kong: 200M connection
+└── HGC IPTx: Dual paths to HK/SG
+
+Global:
+└── AMS-IX Europe: 100M connection
+</code></pre>
+<h4 id="bgp-redundancy-features"><a class="header" href="#bgp-redundancy-features">BGP Redundancy Features</a></h4>
+<ul>
+<li><strong>Dual Route Reflectors</strong>: Automatic failover with iBGP</li>
+<li><strong>BFD Detection</strong>: 100ms failure detection</li>
+<li><strong>Graceful Restart</strong>: Maintains forwarding during control plane restart</li>
+<li><strong>Path Diversity</strong>: Multiple valid routes to every destination</li>
+<li><strong>ECMP Load Balancing</strong>: Traffic distributed across equal-cost paths</li>
+</ul>
+<h3 id="3-hypervisor-layer-redundancy"><a class="header" href="#3-hypervisor-layer-redundancy">3. Hypervisor Layer Redundancy</a></h3>
+<h4 id="proxmox-cluster-features"><a class="header" href="#proxmox-cluster-features">Proxmox Cluster Features</a></h4>
+<pre><code>High Availability Configuration:
+├── Live Migration: Zero-downtime VM movement
+├── HA Manager: Automatic VM restart on node failure
+├── Shared Storage: Distributed access to VM data
+└── Fencing: Ensures failed nodes are isolated
+</code></pre>
+<h4 id="per-hypervisor-network-redundancy"><a class="header" href="#per-hypervisor-network-redundancy">Per-Hypervisor Network Redundancy</a></h4>
+<p>Each hypervisor (BKK06, BKK07, BKK08) implements:</p>
+<pre><code>Dual Uplink Configuration:
+├── bond-bkk00 (Active Path)
+│   ├── Primary: vlan1X7 @ 100G
+│   └── Backup: vlan1X7 @ 100G (different switch)
+└── bond-bkk20 (Standby Path)
+    ├── Primary: vlan2X7 @ 100G
+    └── Backup: vlan2X7 @ 100G (different switch)
+
+Failover Time: &lt;100ms using active-backup bonding
+</code></pre>
+<h3 id="4-storage-layer-redundancy"><a class="header" href="#4-storage-layer-redundancy">4. Storage Layer Redundancy</a></h3>
+<h4 id="zfs-resilience-by-node"><a class="header" href="#zfs-resilience-by-node">ZFS Resilience by Node</a></h4>
+<p><strong>BKK06 - Maximum Redundancy (Mirror)</strong></p>
+<pre><code>Configuration: 6x mirror vdevs (2-way mirrors)
+Fault Tolerance: 
+- Can lose 1 disk per mirror (up to 6 disks total)
+- Instant read performance during rebuild
+- 50% storage efficiency for maximum protection
+Recovery: Hot spare activation &lt; 1 minute
+</code></pre>
+<p><strong>BKK07 - Balanced Redundancy (RAIDZ2)</strong></p>
+<pre><code>Configuration: 12-disk RAIDZ2
+Fault Tolerance:
+- Can lose any 2 disks simultaneously
+- Maintains full operation during rebuild
+- 83% storage efficiency
+Recovery: Distributed parity reconstruction
+</code></pre>
+<p><strong>BKK08 - Performance Redundancy (RAIDZ1)</strong></p>
+<pre><code>Configuration: 2x 4-disk RAIDZ1 vdevs
+Fault Tolerance:
+- Can lose 1 disk per vdev (2 disks total)
+- Parallel vdev operation for performance
+- 75% storage efficiency
+Recovery: Per-vdev independent rebuild
+</code></pre>
+<h3 id="5-service-layer-redundancy"><a class="header" href="#5-service-layer-redundancy">5. Service Layer Redundancy</a></h3>
+<h4 id="container-distribution-strategy"><a class="header" href="#container-distribution-strategy">Container Distribution Strategy</a></h4>
+<pre><code>Service Deployment:
+├── Primary Instance: BKK06
+├── Secondary Instance: BKK07
+├── Tertiary/Specialized: BKK08
+└── Load Balancing: HAProxy on each node
+
+Failover Mechanism:
+- Health checks every 2 seconds
+- Automatic traffic rerouting
+- Session persistence via cookies
+- &lt;5 second service failover
+</code></pre>
+<h4 id="anycast-services"><a class="header" href="#anycast-services">Anycast Services</a></h4>
+<pre><code>Global Anycast: 160.22.180.180/32
+├── Announced from all locations
+├── BGP-based geographic routing
+└── Automatic closest-node selection
+
+Local Anycast: 160.22.181.81/32
+├── Thailand-specific services
+├── Lower latency for regional users
+└── Fallback to global on failure
+</code></pre>
+<h3 id="6-failure-scenarios--recovery"><a class="header" href="#6-failure-scenarios--recovery">6. Failure Scenarios &amp; Recovery</a></h3>
+<h4 id="single-component-failures-no-impact"><a class="header" href="#single-component-failures-no-impact">Single Component Failures (No Impact)</a></h4>
+<ul>
+<li><strong>1 Transit Link Down</strong>: Traffic reroutes via alternate transit</li>
+<li><strong>1 Route Reflector Down</strong>: Secondary handles all traffic</li>
+<li><strong>1 Hypervisor Down</strong>: VMs migrate or run from replicas</li>
+<li><strong>1 Disk Failure</strong>: ZFS continues with degraded redundancy</li>
+<li><strong>1 PSU Failure</strong>: Secondary PSU maintains operation</li>
+</ul>
+<h4 id="multiple-component-failures-degraded-but-operational"><a class="header" href="#multiple-component-failures-degraded-but-operational">Multiple Component Failures (Degraded but Operational)</a></h4>
+<ul>
+<li><strong>Both HK Links Down</strong>: Singapore paths maintain connectivity</li>
+<li><strong>Entire Hypervisor Failure</strong>: Services run from remaining 2 nodes</li>
+<li><strong>Multiple Disk Failures</strong>: ZFS tolerates per design limits</li>
+<li><strong>Primary + Backup Network Path</strong>: Tertiary paths available</li>
+</ul>
+<h4 id="disaster-recovery"><a class="header" href="#disaster-recovery">Disaster Recovery</a></h4>
+<ul>
+<li><strong>Complete DC Failure</strong>:
+<ul>
+<li>Off-site backups available</li>
+<li>DNS failover to alternate regions</li>
+<li>Recovery Time Objective (RTO): 4 hours</li>
+<li>Recovery Point Objective (RPO): 1 hour</li>
+</ul>
+</li>
+</ul>
+<h2 id="redundancy-validation--testing"><a class="header" href="#redundancy-validation--testing">Redundancy Validation &amp; Testing</a></h2>
+<h3 id="automated-testing"><a class="header" href="#automated-testing">Automated Testing</a></h3>
+<ul>
+<li><strong>BGP Session Monitoring</strong>: Real-time alerting on session drops</li>
+<li><strong>Path Validation</strong>: Continuous reachability tests</li>
+<li><strong>Storage Health</strong>: ZFS scrubs weekly, SMART monitoring</li>
+<li><strong>Service Health</strong>: Prometheus + Grafana dashboards</li>
+</ul>
+<h3 id="manual-testing-schedule"><a class="header" href="#manual-testing-schedule">Manual Testing Schedule</a></h3>
+<ul>
+<li><strong>Monthly</strong>: Controlled failover testing</li>
+<li><strong>Quarterly</strong>: Full redundancy validation</li>
+<li><strong>Annually</strong>: Disaster recovery drill</li>
+</ul>
+<h2 id="compliance-with-ibp-rank-6-requirements"><a class="header" href="#compliance-with-ibp-rank-6-requirements">Compliance with IBP Rank 6 Requirements</a></h2>
+<h3 id="-no-single-point-of-failure"><a class="header" href="#-no-single-point-of-failure">✓ No Single Point of Failure</a></h3>
+<p>Every critical component has at least one backup:</p>
+<ul>
+<li>Dual route reflectors with automatic failover</li>
+<li>Multiple transit providers and exchange points</li>
+<li>Redundant power, cooling, and network paths</li>
+<li>Distributed storage with multi-disk fault tolerance</li>
+</ul>
+<h3 id="-sub-second-network-convergence"><a class="header" href="#-sub-second-network-convergence">✓ Sub-Second Network Convergence</a></h3>
+<ul>
+<li>BFD: 100ms detection + 200ms convergence = 300ms total</li>
+<li>Bond failover: &lt;100ms for layer 2 switchover</li>
+<li>BGP: Graceful restart maintains forwarding plane</li>
+</ul>
+<h3 id="-geographic--provider-diversity"><a class="header" href="#-geographic--provider-diversity">✓ Geographic &amp; Provider Diversity</a></h3>
+<ul>
+<li>Transit via Hong Kong and Singapore</li>
+<li>Peering in Bangkok, Hong Kong, and Amsterdam</li>
+<li>Multiple submarine cable systems</li>
+<li>Carrier-neutral facility</li>
+</ul>
+<h3 id="-automated-recovery"><a class="header" href="#-automated-recovery">✓ Automated Recovery</a></h3>
+<ul>
+<li>HA cluster manages VM availability</li>
+<li>BGP automatically selects best paths</li>
+<li>ZFS self-healing with checksum validation</li>
+<li>Container orchestration via systemd</li>
+</ul>
+<p>This comprehensive redundancy architecture ensures 99.95% uptime SLA compliance
+and exceeds all IBP Rank 6 requirements for infrastructure resilience.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="firmware-updates"><a class="header" href="#firmware-updates">Firmware Updates</a></h1>
 <h2 id="samsung-980pro-nvme"><a class="header" href="#samsung-980pro-nvme">Samsung 980Pro NVMe</a></h2>
 <pre><code class="language-bash">wget https://semiconductor.samsung.com/resources/software-resources/Samsung_SSD_980_PRO_5B2QGXA7.iso

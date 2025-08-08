@@ -175,72 +175,69 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="bkk06---bootnoderpc"><a class="header" href="#bkk06---bootnoderpc">BKK06 - Bootnode/RPC</a></h2>
+                        <h2 id="bkk06---high-performance-storagecompute-node"><a class="header" href="#bkk06---high-performance-storagecompute-node">BKK06 - High-Performance Storage/Compute Node</a></h2>
 <p><img src="./images/bkk06/bkk06.webp" alt="BKK06" /></p>
-<h1 id="bkk06---high-performance-bootnoderpc-server"><a class="header" href="#bkk06---high-performance-bootnoderpc-server">BKK06 - High-Performance Bootnode/RPC Server</a></h1>
-<p>The BKK06 server stands at the vanguard of our infrastructure, specifically
-tailored to function as a bootnode and RPC server. It's built around the
-AMD EPYC™ 7742 CPU and designed to deliver fine performance for RPC, bootnode
-and computational tasks.</p>
 <h3 id="cpu"><a class="header" href="#cpu">CPU</a></h3>
-<p><strong>Model:</strong> <a href="https://www.amd.com/en/products/cpu/amd-epyc-7742">AMD EPYC™ 7742</a></p>
+<p><strong>Model:</strong> <a href="https://www.amd.com/en/products/cpu/amd-epyc-7713">AMD EPYC™ 7713</a></p>
 <ul>
 <li><strong>Core Count:</strong> 64 cores</li>
 <li><strong>Threads:</strong> 128</li>
-<li><strong>Max. Boost Clock:</strong> Up to 3.4GHz</li>
-<li><strong>Base Clock:</strong> 2.25GHz</li>
+<li><strong>Max. Boost Clock:</strong> Up to 3.675GHz</li>
+<li><strong>Base Clock:</strong> 2.0GHz</li>
 <li><strong>L3 Cache:</strong> 256MB</li>
 <li><strong>TDP:</strong> 225W</li>
 </ul>
-<h4 id="cooler"><a class="header" href="#cooler">Cooler</a></h4>
-<p><strong>Model:</strong> COOLSERVER AMD SP5 S21 Server CPU Cooler 350W 6 Copper Tubes</p>
-<p><strong>Capabilities:</strong> Tailored to handle high-concurrency workloads, the EPYC™ 7742
-is perfect for bootnode operations and RPC handling, offering rapid data
-processing and low-latency networking.</p>
+<p><strong>Capabilities:</strong> Optimized for high-throughput storage operations and parallel processing workloads. The EPYC 7713 provides exceptional multi-threaded performance for distributed storage and compute tasks.</p>
 <h3 id="motherboard"><a class="header" href="#motherboard">Motherboard</a></h3>
 <p><strong>Model:</strong> <a href="https://www.supermicro.com/en/products/motherboard/H11SSL-i">Supermicro H11SSL-i</a></p>
 <ul>
 <li><strong>Chipset:</strong> System on Chip</li>
 <li><strong>Form Factor:</strong> E-ATX</li>
 <li><strong>Memory Slots:</strong> 8 x DIMM slots supporting DDR4</li>
+<li><strong>PCIe Slots:</strong> Multiple PCIe 3.0 slots</li>
 </ul>
-<p><strong>Capabilities:</strong> With 8 memory channels and support for up to 8 DDR4 ECC memory
-modules, the motherboard is currently populated with 8 x Micron 32GB ECC Registered
-DDR4 memory modules, providing a total of 256GB of memory.</p>
 <h3 id="memory"><a class="header" href="#memory">Memory</a></h3>
-<p><strong>Model:</strong> Micron 32GB ECC Registered DDR4 3200</p>
+<p><strong>Model:</strong> 8x Micron 32GB ECC Registered DDR4 3200</p>
 <ul>
-<li><strong>Capacity:</strong> 8 modules</li>
-<li><strong>Technology:</strong> ECC Registered for increased reliability</li>
+<li><strong>Total Capacity:</strong> 256GB</li>
+<li><strong>Technology:</strong> ECC Registered for data integrity</li>
 <li><strong>Speed:</strong> 3200MHz</li>
 </ul>
-<h3 id="storage"><a class="header" href="#storage">Storage</a></h3>
-<p><strong>Primary Storage:</strong></p>
+<h3 id="storage-configuration"><a class="header" href="#storage-configuration">Storage Configuration</a></h3>
+<pre><code>Pool: bkk06pool
+State: ONLINE (with errors requiring attention)
+Configuration: 6 mirror vdevs (12x Samsung 990 PRO 4TB NVMe)
+Status: 16 data errors detected during scrub
+Recent: Removal of vdev 5 completed, 93.6M memory used for mappings
+</code></pre>
+<h3 id="networking"><a class="header" href="#networking">Networking</a></h3>
+<p><strong>Primary Interfaces:</strong></p>
 <ul>
-<li>2x <a href="https://www.samsung.com/us/computing/memory-storage/solid-state-drives/980-pro-pcie-4-0-nvme-ssd-2tb-mz-v8p2t0b-am/">Samsung SSD 980 PRO 2TB NVMe</a> (Configured in RAID for boot/root)</li>
-<li>4x <a href="https://www.samsung.com/us/computing/memory-storage/solid-state-drives/990-pro-pcie-4-0-nvme-ssd-4tb-mz-v9p4t0b-am/">Samsung SSD 990 PRO 4TB NVMe</a> (For data)</li>
+<li>2x Intel E810-C 25G QSFP ports (100G capable)</li>
+<li>2x Broadcom BCM5720 1G management ports</li>
 </ul>
-<p><strong>Capabilities:</strong> The Samsung 980 PRO drives ensure reliable boot and root
-operations with RAID configuration, while the 990 PRO drives offer swift
-read/write speeds and robust endurance for intensive data demands of a bootnode
-and RPC server.</p>
-<h3 id="connectivity"><a class="header" href="#connectivity">Connectivity</a></h3>
-<p><strong>LAN:</strong></p>
+<p><strong>Anycast Configuration:</strong></p>
 <ul>
-<li>eno1: 10Gb/s BASE-T LAN port</li>
-<li>eno2: 10Gb/s BASE-T LAN port</li>
+<li>Participates in 100G anycast routing via BGP</li>
+<li>Route reflector client with dedicated ASN</li>
+<li>Q-in-Q VLAN tagging for service isolation</li>
+<li>Bond interfaces: bond-bkk00 and bond-bkk20 for redundancy</li>
 </ul>
-<p><strong>Management Port:</strong> 1 x Dedicated management port</p>
-<h3 id="board-management-controller-bmc"><a class="header" href="#board-management-controller-bmc">Board Management Controller (BMC)</a></h3>
-<p><strong>BMC Model:</strong> Aspeed® AST2500</p>
+<h3 id="active-services-28-containers"><a class="header" href="#active-services-28-containers">Active Services (28 containers)</a></h3>
+<p>Primary RPC nodes for:</p>
 <ul>
-<li><strong>Capabilities:</strong> Integrated BMC with Aspeed® AST2500 GPU offers comprehensive remote management capabilities, including KVM over IP, enabling administrators to manage the server efficiently and securely.</li>
+<li>Polkadot relay chain and system parachains</li>
+<li>Kusama relay chain and system parachains</li>
+<li>Multiple Polkadot parachains (Moonbeam, Acala, Hydration, Bifrost, etc.)</li>
+<li>Paseo testnet infrastructure</li>
+<li>Penumbra node</li>
+<li>HAProxy load balancer</li>
 </ul>
-<h3 id="chassis-and-power-supply-unit-psu"><a class="header" href="#chassis-and-power-supply-unit-psu">Chassis and Power Supply Unit (PSU)</a></h3>
-<p><strong>Chassis:</strong> Supermicro Main Server Chassis
-<strong>PSU:</strong> Greatwall Dual PSU 2U 1+1 CRPS redundant 800W</p>
-<p>This updated configuration should accurately reflect the setup and capabilities
-of your BKK06 - High-Performance Bootnode/RPC Server.</p>
+<h3 id="chassis-and-power"><a class="header" href="#chassis-and-power">Chassis and Power</a></h3>
+<ul>
+<li><strong>Chassis:</strong> 2U Supermicro server chassis</li>
+<li><strong>PSU:</strong> Greatwall Dual PSU 2U 1+1 CRPS redundant 800W</li>
+</ul>
 
                     </main>
 
